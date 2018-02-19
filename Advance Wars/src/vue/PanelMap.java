@@ -18,7 +18,6 @@ public class PanelMap extends JPanel {
   private Dimension dimensionEcran;
   private final double largeurEcran, hauteurEcran;
   private final double hautMax, largMax;
-  private boolean caseCliquee;
 
   public PanelMap (Plateau plat) {
     dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -44,7 +43,6 @@ public class PanelMap extends JPanel {
   public int getPosJ() { return posJ; }
   public int getTabI() { return tabI; }
   public int getTabJ() { return tabJ; }
-  public boolean caseCliquee() { return caseCliquee; }
 
   public Plateau getPlateau() { return p; }
 
@@ -61,9 +59,6 @@ public class PanelMap extends JPanel {
 
   // Setters
 
-  public void setCaseCliquee (boolean b) {
-    caseCliquee = b;
-  }
 
   public void addPosI (int pI) {
     posI += pI;
@@ -90,14 +85,27 @@ public class PanelMap extends JPanel {
     posI = 0;
   }
 
-  public void paint (Graphics g) {
+  public void repaint (int n) {
+    paint(this.getGraphics(), n);
+  }
+
+  public void paint(Graphics g, int n) {
     for (int i = 0; i < hautMax; i++)
-      for (int j = 0; j < largMax; j++)
-        createRect(g,
-        p.getTerrain()[i+tabI-1][j+tabJ-1].getType(),
-        j,
-        i,
-        p.getUnites()[i+tabI-1][j+tabJ-1]);
+      for (int j = 0; j < largMax; j++) {
+        Unite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
+        if (n == 0) {
+          int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
+          createRect(g, t, j, i, unite);
+        }
+        else if (n == 1 && unite != null && unite.getCliquee()) {
+          deplacementsPossibles(0, g, j, i, unite);
+          unite.setCliquee(false);
+        }
+      }
+  }
+
+  public void paint (Graphics g) {
+    paint(g, 0);
   }
 
   public void deplacementsPossibles (int indice, Graphics g, int x, int y, Unite unite) {
@@ -110,7 +118,7 @@ public class PanelMap extends JPanel {
           && (x+j+tabJ-1) >= 0 && (x+j+tabJ-1) < p.getTerrain()[0].length) {
             g.drawRect((x+j)*taillePixel - posJ - 100, (y+i)*taillePixel - posI - 100, taillePixel, taillePixel);
             deplacementsPossibles(indice+1, g, j+x, y+i, unite);
-          }
+    }
   }
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
@@ -125,9 +133,6 @@ public class PanelMap extends JPanel {
     if (unite != null) {
       Image uni = Variable.tImUni[unite.getType()-1];
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
-      if (caseCliquee)
-        deplacementsPossibles(0, g, x, y, unite);
-      unite = null;
     }
   }
 

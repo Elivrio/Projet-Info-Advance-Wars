@@ -37,6 +37,7 @@ public class Variable {
         tImTer[i] = ImageIO.read(tStrTerFile[i]);
       } catch (IOException e) {}
     }
+    
     // Remplissage du tableau avec les images des unités
     tStrUni = new String[tStrBaseUni.length];
     tStrUniFile = new File[tStrUni.length];

@@ -6,6 +6,7 @@ public class Unite {
   private int vision;
   private int distance;
   private String nom;
+  private boolean cliquee;
 
   Unite (int t) {
     type = t;
@@ -40,4 +41,8 @@ public class Unite {
   public String getNom() { return nom; }
   public int getType() { return type; }
   public int getPV() { return pv; }
+  public boolean getCliquee() { return cliquee; }
+
+  public void setCliquee(boolean b) { cliquee = b; }
+
 }

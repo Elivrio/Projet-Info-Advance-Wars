@@ -18,18 +18,17 @@ public class ControleurMouse extends Controleur implements MouseListener {
 
   // Fonction appelée lorsqu'on clique sur une case du plateau
   public void mouseClicked(MouseEvent me) {
-    map.setCaseCliquee(false);
-    map.repaint();
+    map.repaint(0);
     // Calcul de la case cliquée... Ne pas modifier
     int x = me.getX() + map.getTabJ()*100 + map.getPosJ();
-    int y = me.getY() + map.getTabI()*100 + map.getPosI() - 30;
+    int y = me.getY() + map.getTabI()*100 + map.getPosI();
     Unite unite = isUnite(x, y);
     Terrain terrain = isTerrain(x, y);
     // Si la case possède une unité, on affiche ses caractéristiques
     if (unite != null) {
       vue.informations(unite);
-      map.setCaseCliquee(true);
-      map.repaint();
+      unite.setCliquee(true);
+      map.repaint(1);
     }
     else vue.informations(terrain);
   }
