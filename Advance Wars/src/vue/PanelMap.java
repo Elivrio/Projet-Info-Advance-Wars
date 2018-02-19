@@ -114,8 +114,8 @@ public class PanelMap extends JPanel {
       for (int i = -1; i <= 1; i++)
         for (int j = -1; j <= 1; j++)
           if (i != j && i != -j
-          && (y+i+tabI-1) >= 0 && (y+i+tabI-1) < p.getTerrain().length
-          && (x+j+tabJ-1) >= 0 && (x+j+tabJ-1) < p.getTerrain()[0].length) {
+          && (y+i+tabI-2) >= 0 && (y+i+tabI) < p.getTerrain().length
+          && (x+j+tabJ-2) >= 0 && (x+j+tabJ) < p.getTerrain()[0].length) {
             g.drawRect((x+j)*taillePixel - posJ - 100, (y+i)*taillePixel - posI - 100, taillePixel, taillePixel);
             deplacementsPossibles(indice+1, g, j+x, y+i, unite);
     }
