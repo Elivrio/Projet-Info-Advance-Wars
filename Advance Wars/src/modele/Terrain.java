@@ -7,15 +7,13 @@ public class Terrain {
 
   Terrain (int t) {
     type = t;
-    if (type == 0)
-      nom = "Forêt";
-    else if (type == 1)
-      nom = "Plaine";
-    else if (type == 2)
-      nom = "Eau";
-    else if (type == 3)
-      nom = "Montagne";
-    else nom = "Trou noir";
+    switch (type) {
+      case 0 : nom = "Forêt"; break;
+      case 1 : nom = "Plaine"; break;
+      case 2 : nom = "Mer"; break;
+      case 3 : nom = "Montagne"; break;
+      case 4 : nom = "Trou Noir"; break;
+    }
   }
 
   public int getType() { return type; }

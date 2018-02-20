@@ -18,6 +18,7 @@ public class PanelMap extends JPanel {
   private Dimension dimensionEcran;
   private final double largeurEcran, hauteurEcran;
   private final double hautMax, largMax;
+  private Unite cliquee;
 
   public PanelMap (Plateau plat) {
     dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -34,7 +35,7 @@ public class PanelMap extends JPanel {
     haut = (int)hauteurEcran;
     setSize(larg, haut);
     largMax = (85*largeurEcran/100)/100;
-    hautMax = hauteurEcran/100 + 1;
+    hautMax = hauteurEcran/100 + 2;
   }
 
   // Getters
@@ -85,27 +86,28 @@ public class PanelMap extends JPanel {
     posI = 0;
   }
 
-  public void repaint (int n) {
-    paint(this.getGraphics(), n);
-  }
+  public void setCliquee(Unite u) { cliquee = u; }
 
-  public void paint(Graphics g, int n) {
+  public void paint(Graphics g) {
+    // On utilise b si on veut que l'unité cliquée ne soit pas gardée en mémoire à la sortie de l'écran.
+    //boolean b = true;
+    boolean c = false;
+    int x = 0, y = 0;
     for (int i = 0; i < hautMax; i++)
       for (int j = 0; j < largMax; j++) {
         Unite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
-        if (n == 0) {
-          int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
-          createRect(g, t, j, i, unite);
-        }
-        else if (n == 1 && unite != null && unite.getCliquee()) {
-          deplacementsPossibles(0, g, j, i, unite);
-          unite.setCliquee(false);
+        int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
+        createRect(g, t, j, i, unite);
+        if (cliquee != null && unite != null && unite == cliquee) {
+          c = true;
+          x = j; y = i;
+          //b = false;
         }
       }
-  }
-
-  public void paint (Graphics g) {
-    paint(g, 0);
+    if (c)
+      deplacementsPossibles(0, g, x, y, cliquee);
+    /*if (b)
+      cliquee = null; */
   }
 
   public void deplacementsPossibles (int indice, Graphics g, int x, int y, Unite unite) {
@@ -118,7 +120,7 @@ public class PanelMap extends JPanel {
           && (x+j+tabJ-2) >= 0 && (x+j+tabJ) < p.getTerrain()[0].length) {
             g.drawRect((x+j)*taillePixel - posJ - 100, (y+i)*taillePixel - posI - 100, taillePixel, taillePixel);
             deplacementsPossibles(indice+1, g, j+x, y+i, unite);
-    }
+          }
   }
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
@@ -126,6 +128,7 @@ public class PanelMap extends JPanel {
     BufferedImage img = Variable.tImTer[i];
     // On dessine le terrain
     g.drawImage(img, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+    g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
     g.setColor(Color.BLACK);
     // On l'encadre en noir (purement esthétique)
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);

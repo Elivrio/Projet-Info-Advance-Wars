@@ -24,7 +24,6 @@ public class Variable {
   public final static File[] tStrUniFile;
   public final static BufferedImage[] tImTer;
   public final static BufferedImage[] tImUni;
-
   static {
     // Remplissage du tableau avec les images des terrains
     tStrTer = new String[tStrBaseTer.length];
@@ -37,7 +36,7 @@ public class Variable {
         tImTer[i] = ImageIO.read(tStrTerFile[i]);
       } catch (IOException e) {}
     }
-    
+
     // Remplissage du tableau avec les images des unités
     tStrUni = new String[tStrBaseUni.length];
     tStrUniFile = new File[tStrUni.length];
@@ -50,5 +49,19 @@ public class Variable {
       } catch (IOException e) {}
     }
   }
+  
+  public final static BufferedImage noir = test(tImTer[tImTer.length-1], 0.99f);
+  public final static BufferedImage gris = test(tImTer[tImTer.length-1], 0.70f);
+
+  public static BufferedImage test(BufferedImage img, float opacite) {
+    BufferedImage newImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g = newImg.createGraphics();
+    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacite));
+    g.drawImage(img, 0, 0, 100, 100, null);
+    g.dispose();
+    return newImg;
+  }
+
+
 
 }
