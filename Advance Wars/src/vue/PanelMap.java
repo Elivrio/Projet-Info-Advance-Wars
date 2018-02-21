@@ -125,7 +125,7 @@ public class PanelMap extends JPanel {
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
   public void createRect (Graphics g, int i, int x, int y, Unite unite) {
-    BufferedImage img = Variable.tImTer[i];
+    BufferedImage img = chemin(i,y,x);
     // On dessine le terrain
     g.drawImage(img, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
     g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
@@ -137,6 +137,74 @@ public class PanelMap extends JPanel {
       Image uni = Variable.tImUni[unite.getType()-1];
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
     }
+  }
+
+  public BufferedImage chemin(int i, int x, int y) {
+    //BufferedImage img = Variable.tImTer[i];
+    Terrain[][] t = p.getTerrain();
+    int a = 1;
+    int b = 1;
+    int c = 1;
+    int d = 1;
+    // pour rester sur le terrain
+    if ( (x>=1 && y>=1) && (x + tabI < p.getHauteur()-1 &&  y + tabJ <p.getLargeur()-1) ){
+      a = t[x+tabI-1][y+tabJ-2].getType();
+      b = t[x+tabI-2][y+tabJ-1].getType();
+      c = t[x+tabI-1][y+tabJ].getType();
+      d = t[x+tabI][y+tabJ-1].getType();
+    }
+    if (i==1){
+      int[] tab = {a, b, c, d};
+      int j = chercherTerrain(tab);
+      String chemin = indice(j,a) +""+ indice(j,b) +""+ indice(j,c) +""+ indice(j,d); 
+      int place = stringBinaryToInt(chemin);
+      if (j==0)
+        return Variable.tImPlaineForet[place];
+      if (j==2)
+        return Variable.tImPlaineEau[place];
+    }
+
+    if (i==2){
+      String chemin = (a-1)+""+(b-1)+""+(c-1)+""+(d-1);
+      //System.out.println(chemin);
+      int place = stringBinaryToInt(chemin);
+      if (a+b+c+d == 8){
+        if (t[x+tabI][y+tabJ-2].getType()==1)
+          return Variable.tImEauPlageCoin[1];
+        if (t[x+tabI-2][y+tabJ-2].getType()==1)
+          return Variable.tImEauPlageCoin[2];
+        if (t[x+tabI-2][y+tabJ].getType()==1)
+          return Variable.tImEauPlageCoin[3];
+        if (t[x+tabI][y+tabJ].getType()==1)
+          return Variable.tImEauPlageCoin[4];
+      }
+      return Variable.tImEauPlage[place];
+
+    }
+    BufferedImage img = Variable.tImTer[i];
+    return img;
+  }
+
+  public int stringBinaryToInt(String s) {
+    int res = 0;
+    int bin = 1;
+    for (int i =0; i<s.length(); i++){
+      int b = s.codePointAt(s.length()-i-1)-48;
+      res += b*bin;
+      bin =bin*2; 
+    }
+    return res;
+  }
+
+  public int chercherTerrain(int[] tab){
+    for (int i=0; i<tab.length; i++)
+      if (tab[i] != 1)
+        return tab[i];
+    return 1;
+  }
+
+  public int indice(int i, int a){
+    return ((i==a)? 1 :0);
   }
 
 }

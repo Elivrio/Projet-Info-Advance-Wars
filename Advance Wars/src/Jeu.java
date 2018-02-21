@@ -30,7 +30,7 @@ public class Jeu {
   }
 
   public static void main(String[] args) {
-    CarteScanner test = new CarteScanner("src/variable/cartes/carteTest.txt");
+    CarteScanner test = new CarteScanner("src/variable/cartes/carteTest2.txt");
     Plateau p = test.plateau();
     Jeu jeu = new Jeu (p);
 	}
