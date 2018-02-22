@@ -19,8 +19,10 @@ public class PanelMap extends JPanel {
   private final double largeurEcran, hauteurEcran;
   private final double hautMax, largMax;
   private Unite cliquee;
+  private Joueur joueur;
 
   public PanelMap (Plateau plat) {
+    joueur = plat.getJoueur();
     dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     largeurEcran = dimensionEcran.getWidth();
     hauteurEcran = dimensionEcran.getHeight();
@@ -34,7 +36,7 @@ public class PanelMap extends JPanel {
     larg = (int)(85*largeurEcran/100);
     haut = (int)hauteurEcran;
     setSize(larg, haut);
-    largMax = (85*largeurEcran/100)/100 + 2;
+    largMax = (85*largeurEcran/100 + 3)/100;
     hautMax = hauteurEcran/100 + 2;
   }
 
@@ -46,6 +48,7 @@ public class PanelMap extends JPanel {
   public int getTabJ() { return tabJ; }
 
   public Plateau getPlateau() { return p; }
+  public Joueur getJoueur() { return joueur; }
 
   public int getLarg() { return larg; }
   public double getHautMax() { return hautMax; }
@@ -91,6 +94,7 @@ public class PanelMap extends JPanel {
   public void paint(Graphics g) {
     // On utilise b si on veut que l'unité cliquée ne soit pas gardée en mémoire à la sortie de l'écran.
     //boolean b = true;
+    joueur.vision();
     boolean c = false;
     int x = 0, y = 0;
     for (int i = 0; i < hautMax; i++)
@@ -130,7 +134,16 @@ public class PanelMap extends JPanel {
     BufferedImage img = chemin(i,y,x);
     // On dessine le terrain
     g.drawImage(img, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
-    g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+    switch (joueur.getVision()[y+tabI-1][x+tabJ-1]) {
+      case 0 :
+      g.drawImage(Variable.noir, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+      break;
+      case 1 :
+      g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+      break;
+      default :
+      break;
+    }
     g.setColor(Color.BLACK);
     // On l'encadre en noir (purement esthétique)
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);

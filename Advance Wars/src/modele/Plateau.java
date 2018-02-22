@@ -6,6 +6,7 @@ public class Plateau {
   private int largeur, hauteur;
   private Terrain[][] terrain;
   private Unite[][] unites;
+  private Joueur joueur;
 
   /*
     1 --> Plaine
@@ -28,6 +29,7 @@ public class Plateau {
     largeur = carte[1].length;
     hauteur = carte.length;
     terrain = new Terrain[hauteur][largeur];
+    joueur = new Joueur("Test", largeur, hauteur);
     for (int i=0; i<carte.length; i++)
       for (int j=0; j<carte[1].length; j++)
         terrain[i][j] = new Terrain(carte[i][j]);
@@ -42,7 +44,9 @@ public class Plateau {
       int i = rand.nextInt(hauteur-2);
       int j = rand.nextInt(largeur-2);
       if (unites[i+1][j+1] == null) {
-        unites[i+1][j+1] = new Unite(x);
+        Unite unite = new Unite(x, j+1, i+1);
+        joueur.add(unite);
+        unites[i+1][j+1] = unite;
         System.out.println(i + " " + j);
         x++;
       }
@@ -53,6 +57,7 @@ public class Plateau {
   public int getLargeur() { return largeur; }
   public Unite[][] getUnites() { return unites; }
   public Terrain[][] getTerrain() { return terrain; }
+  public Joueur getJoueur() { return joueur; }
 
   void initialiser() {
     Random rand = new Random();
@@ -65,7 +70,7 @@ public class Plateau {
     }
     int i = rand.nextInt(hauteur);
     int j = rand.nextInt(largeur);
-    unites[i][j] = new Unite(1);
+    unites[i][j] = new Unite(1, i, j);
     System.out.println(i + " " + j);
   }
 

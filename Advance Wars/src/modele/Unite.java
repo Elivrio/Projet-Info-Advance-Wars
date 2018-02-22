@@ -2,24 +2,28 @@ package src.modele;
 
 public class Unite {
   private int type;
+  private int x;
+  private int y;
   private int pv;
   private int vision;
   private int distance;
   private String nom;
 
-  Unite (int t) {
+  Unite (int t, int x, int y) {
     type = t;
+    this.x = x;
+    this.y = y;
     switch (type) {
       case 1 :
         nom = "Zombie";
         pv = 36;
         vision = 2;
-        distance = 3;
+        distance = 5;
         break;
       case 2 :
         nom = "Ninja";
         pv = 42;
-        vision = 4;
+        vision = 5;
         distance = 5;
         break;
       case 3 :
@@ -42,5 +46,11 @@ public class Unite {
   public String getNom() { return nom; }
   public int getType() { return type; }
   public int getPV() { return pv; }
-  
+  public int getX() { return x; }
+  public int getY() { return y; }
+
+  public void setCase (int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
 }

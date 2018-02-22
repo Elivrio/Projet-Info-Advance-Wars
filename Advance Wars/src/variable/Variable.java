@@ -17,7 +17,7 @@ public class Variable {
   public final static Color[] tCou = {foret, plaine, eau, montagne, limite};
   public final static String pathToImages = "src/variable/images/";
   public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/",""};
-  
+
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg"};
   public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png"};
 
@@ -43,7 +43,7 @@ public class Variable {
   public final static String[] tStrPlaineEau;
   public final static File[] tStrPlaineEauFile;
   public final static BufferedImage[] tImPlaineEau;
-  // plage 
+  // plage
   public final static String borderPlage = "eau-";
   public final static String borderPlageCoin = "eau-coin-";
   public final static String[] tStrEauPlage;
@@ -82,7 +82,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    //liaison eau (toutes les possibilites n'ont pas ete dessine, donc on complete les tableaux avec de la plaine classique)  
+    //liaison eau (toutes les possibilites n'ont pas ete dessine, donc on complete les tableaux avec de la plaine classique)
     tStrPlaineEau = new String[16];
     tStrPlaineEauFile = new File[tStrPlaineEau.length];
     tImPlaineEau = new BufferedImage[tStrPlaineEau.length];
@@ -97,7 +97,7 @@ public class Variable {
       try {
         tImPlaineEau[i] = ImageIO.read(tStrPlaineEauFile[i]);
       } catch (IOException e) {}
-    } 
+    }
 
     //liaison plage (pas encore tous les dessins)
     tStrEauPlage = new String[16];
@@ -108,7 +108,7 @@ public class Variable {
       if (i==3 || i==6 || i==7 || i==9 || i>10){
         String s = Integer.toBinaryString(i);
         s = taille(s);
-        tStrEauPlage[i]=tStrDossierTer[2]+ borderPlage + s + ".png"; 
+        tStrEauPlage[i]=tStrDossierTer[2]+ borderPlage + s + ".png";
       }
       tStrEauPlageFile[i] = new File(tStrEauPlage[i]);
       try {
@@ -138,8 +138,8 @@ public class Variable {
       } catch (IOException e) {}
     }
   }
-  
-  public final static BufferedImage noir = test(tImTer[tImTer.length-1], 0.99f);
+
+  public final static BufferedImage noir = test(tImTer[tImTer.length-1], 0.90f);
   public final static BufferedImage gris = test(tImTer[tImTer.length-1], 0.70f);
 
   public static BufferedImage test(BufferedImage img, float opacite) {
