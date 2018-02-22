@@ -30,13 +30,13 @@ public class Controleur {
     int tabJ = map.getTabJ(), tabI = map.getTabI();
     // Aller à droite
     if (c == 'd' && posJ >= 90) {
-      if (tabJ + map.getLargMax() >= map.getTerrain()[0].length)
+      if (tabJ + map.getLargMax() > map.getPlateau().getLargeur())
         return false;
       map.addTabJ(1);
     }
     // Aller en bas
     else if (c == 'b' && posI >= 90) {
-      if (tabI + map.getHautMax() >= map.getTerrain().length)
+      if (tabI + map.getHautMax() > map.getPlateau().getHauteur())
         return false;
       map.addTabI(1);
     }

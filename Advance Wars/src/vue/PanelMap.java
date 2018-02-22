@@ -34,7 +34,7 @@ public class PanelMap extends JPanel {
     larg = (int)(85*largeurEcran/100);
     haut = (int)hauteurEcran;
     setSize(larg, haut);
-    largMax = (85*largeurEcran/100)/100;
+    largMax = (85*largeurEcran/100)/100 + 2;
     hautMax = hauteurEcran/100 + 2;
   }
 
@@ -95,6 +95,8 @@ public class PanelMap extends JPanel {
     int x = 0, y = 0;
     for (int i = 0; i < hautMax; i++)
       for (int j = 0; j < largMax; j++) {
+        if (i + tabI - 1 >= p.getHauteur() || j + tabJ - 1 >= p.getLargeur())
+          continue;
         Unite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
         int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
         createRect(g, t, j, i, unite);
@@ -156,7 +158,7 @@ public class PanelMap extends JPanel {
     if (i==1){
       int[] tab = {a, b, c, d};
       int j = chercherTerrain(tab);
-      String chemin = indice(j,a) +""+ indice(j,b) +""+ indice(j,c) +""+ indice(j,d); 
+      String chemin = indice(j,a) +""+ indice(j,b) +""+ indice(j,c) +""+ indice(j,d);
       int place = stringBinaryToInt(chemin);
       if (j==0)
         return Variable.tImPlaineForet[place];
@@ -191,7 +193,7 @@ public class PanelMap extends JPanel {
     for (int i =0; i<s.length(); i++){
       int b = s.codePointAt(s.length()-i-1)-48;
       res += b*bin;
-      bin =bin*2; 
+      bin =bin*2;
     }
     return res;
   }
