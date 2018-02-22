@@ -50,7 +50,6 @@ public class Vue extends JFrame {
     getContentPane().add(split2, BorderLayout.CENTER);
 
     setVisible(true);
-
   }
 
   public PanelMap getMap() {

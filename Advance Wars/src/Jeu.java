@@ -1,5 +1,7 @@
 package src;
 
+import javax.swing.*;
+
 import src.controleur.Controleur;
 import src.controleur.ControleurKey;
 import src.controleur.ControleurMouseMotion;

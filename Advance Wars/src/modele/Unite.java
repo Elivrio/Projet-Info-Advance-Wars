@@ -8,11 +8,13 @@ public class Unite {
   private int vision;
   private int distance;
   private String nom;
+  private Joueur joueur;
 
-  Unite (int t, int x, int y) {
+  Unite (int t, int x, int y, Joueur j) {
     type = t;
     this.x = x;
     this.y = y;
+    joueur = j;
     switch (type) {
       case 1 :
         nom = "Zombie";

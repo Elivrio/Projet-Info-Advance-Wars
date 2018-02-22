@@ -18,13 +18,6 @@ public class Plateau {
     Route, Colline, Pont, etc.
   */
 
-  public Plateau (int l, int h) {
-    hauteur = h; largeur = l;
-    terrain = new Terrain[l][h];
-    unites = new Unite[l][h];
-    this.initialiser();
-  }
-
   public Plateau (int[][] carte) {
     largeur = carte[1].length;
     hauteur = carte.length;
@@ -44,7 +37,7 @@ public class Plateau {
       int i = rand.nextInt(hauteur-2);
       int j = rand.nextInt(largeur-2);
       if (unites[i+1][j+1] == null) {
-        Unite unite = new Unite(x, j+1, i+1);
+        Unite unite = new Unite(x, j+1, i+1, joueur);
         joueur.add(unite);
         unites[i+1][j+1] = unite;
         System.out.println(i + " " + j);
@@ -58,20 +51,5 @@ public class Plateau {
   public Unite[][] getUnites() { return unites; }
   public Terrain[][] getTerrain() { return terrain; }
   public Joueur getJoueur() { return joueur; }
-
-  void initialiser() {
-    Random rand = new Random();
-    int tmp = 0;
-    for (int i = 0; i < hauteur ; i ++) {
-      for (int j = 0; j < largeur; j++) {
-        tmp = rand.nextInt(4);
-        terrain[i][j] = new Terrain(tmp);
-      }
-    }
-    int i = rand.nextInt(hauteur);
-    int j = rand.nextInt(largeur);
-    unites[i][j] = new Unite(1, i, j);
-    System.out.println(i + " " + j);
-  }
 
 }
