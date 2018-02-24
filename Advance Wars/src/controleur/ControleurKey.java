@@ -28,6 +28,12 @@ public class ControleurKey extends Controleur implements KeyListener {
     // Clic sur la flèche haut ou sur la touche Z
     else if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == 'z') && move('h'))
       map.addPosI(-dep);
+    else if (e.getKeyChar() == 'j') {
+      map.setJoueur(1);
+      vue.informations(map.getJoueur());
+      map.repaint();
+    }
+
   }
 
   public void keyReleased(KeyEvent e) {}

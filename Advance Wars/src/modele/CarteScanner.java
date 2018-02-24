@@ -78,7 +78,7 @@ public class CarteScanner {
     return ligne;
   }
 
-  public Plateau plateau() {
+  public Plateau plateau (int nbJoueurs) {
     if (sameNbrColonnes()) {
       int[][] terrain = new int[nbrLignes()+2][nbrColonnes(/*0*/)+2];
       for (int i = 0; i < terrain.length; i++) {
@@ -86,7 +86,7 @@ public class CarteScanner {
         if (i > 0 && i < terrain.length-1)
           sc.nextLine();
       }
-      return new Plateau(terrain);
+      return new Plateau(terrain, nbJoueurs);
     }
     System.out.println("impossible de creer plateau");
     return null;

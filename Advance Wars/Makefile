@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := allRun
 NAME = 'Advance.jar'
-PATHMAIN = 'src/Menu.java'
-PATHMANIFEST = 'src.Menu'
+PATHMAIN = 'src/Jeu.java'
+PATHMANIFEST = 'src.Jeu'
 MANIFEST = 'MANIFEST.MF'
 BINFOLDER = 'bin/'
 

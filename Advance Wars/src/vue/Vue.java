@@ -33,6 +33,7 @@ public class Vue extends JFrame {
     textJoueur.setEditable(false);
     textJoueur.setBackground(new Color(0.3f, 0.3f, 0.3f));
     informations(map.getJoueur());
+
     textInfos = new JTextPane();
     textInfos.setEditable(false);
     textInfos.setBackground(new Color(0.3f, 0.3f, 0.3f));
@@ -87,9 +88,12 @@ public class Vue extends JFrame {
     afficher(textInfos, "Informations unité", str);
   }
 
-  public void informations (Terrain terrain) {
+  public void informations (Terrain terrain, int vision) {
     textInfos.setText("");
-    String str = "Terrain de type " + terrain.getNom();
+    String str = "Terrain de type ";
+    if (vision == 0)
+      str += "Mystère Absolu";
+    else str += terrain.getNom();
     afficher(textInfos, "Informations terrain", str);
   }
 
@@ -97,6 +101,8 @@ public class Vue extends JFrame {
     textJoueur.setText("");
     String str = "Joueur " + joueur.getNom();
     str += "\nPossède " + joueur.getNbUnites() + " unités";
+    for (int i=0; i<joueur.getNbUnites(); i++)
+      str += "\nUnité " + (i+1) + " : " + joueur.getUnites().get(i).getNom();
     afficher(textJoueur, "Informations joueur", str);
   }
 }

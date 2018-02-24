@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.*;
 import java.awt.event.*;
+import java.util.*;
 
 import src.modele.*;
 import src.variable.Variable;
@@ -19,10 +20,15 @@ public class PanelMap extends JPanel {
   private final double largeurEcran, hauteurEcran;
   private final double hautMax, largMax;
   private Unite cliquee;
+
+  private LinkedList<Joueur> joueurs;
+  private int indiceJoueur;
   private Joueur joueur;
 
   public PanelMap (Plateau plat) {
-    joueur = plat.getJoueur();
+    joueurs = plat.getJoueurs();
+    indiceJoueur = 0;
+    setJoueur(0);
     dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     largeurEcran = dimensionEcran.getWidth();
     hauteurEcran = dimensionEcran.getHeight();
@@ -48,6 +54,7 @@ public class PanelMap extends JPanel {
   public int getTabJ() { return tabJ; }
 
   public Plateau getPlateau() { return p; }
+  public LinkedList<Joueur> getJoueurs() { return joueurs; }
   public Joueur getJoueur() { return joueur; }
 
   public int getLarg() { return larg; }
@@ -63,6 +70,12 @@ public class PanelMap extends JPanel {
 
   // Setters
 
+  public void setJoueur (int i) {
+    if (indiceJoueur+i < joueurs.size())
+      indiceJoueur += i;
+    else indiceJoueur = 0;
+    joueur = joueurs.get(indiceJoueur);
+  }
 
   public void addPosI (int pI) {
     posI += pI;
@@ -104,7 +117,7 @@ public class PanelMap extends JPanel {
         Unite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
         int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
         createRect(g, t, j, i, unite);
-        if (cliquee != null && unite != null && unite == cliquee) {
+        if (cliquee != null && unite != null && unite == cliquee && joueur.possede(unite)) {
           c = true;
           x = j; y = i;
           //b = false;
@@ -137,19 +150,19 @@ public class PanelMap extends JPanel {
     g.drawImage(img, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
     switch (joueur.getVision()[y+tabI-1][x+tabJ-1]) {
       case 0 :
-      g.drawImage(Variable.noir, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
-      break;
+        g.drawImage(Variable.noir, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+        break;
       case 1 :
-      g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
-      break;
+        g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+        break;
       default :
-      break;
+        break;
     }
     g.setColor(Color.BLACK);
     // On l'encadre en noir (purement esthétique)
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
-    if (unite != null) {
+    if (unite != null && joueur.possede(unite)) {
       Image uni = Variable.tImUni[unite.getType()-1];
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
     }
