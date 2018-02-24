@@ -19,6 +19,7 @@ public class Vue extends JFrame {
   private JSplitPane split1, split2;
   private Dimension dimensionEcran;
   private int largeurEcran, hauteurEcran;
+  private JButton boutonJoueur = new JButton("Changer de joueur");
 
   public Vue (PanelMap map) {
     dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -28,6 +29,7 @@ public class Vue extends JFrame {
     setTitle("Advance Wars");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    boutonJoueur.setFocusable(false);
     panelPlateau = map;
     textJoueur = new JTextPane();
     textJoueur.setEditable(false);
@@ -56,6 +58,8 @@ public class Vue extends JFrame {
   public PanelMap getMap() {
     return panelPlateau;
   }
+
+  public JButton getBoutonJoueur() { return boutonJoueur; }
 
   public static void afficher(JTextPane textPane, String titre, String infos){
 
@@ -103,6 +107,8 @@ public class Vue extends JFrame {
     str += "\nPossède " + joueur.getNbUnites() + " unités";
     for (int i=0; i<joueur.getNbUnites(); i++)
       str += "\nUnité " + (i+1) + " : " + joueur.getUnites().get(i).getNom();
+    str += "\n\n";
     afficher(textJoueur, "Informations joueur", str);
+    textJoueur.insertComponent(boutonJoueur);
   }
 }

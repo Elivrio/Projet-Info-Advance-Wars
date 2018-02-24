@@ -6,6 +6,7 @@ import src.controleur.Controleur;
 import src.controleur.ControleurKey;
 import src.controleur.ControleurMouseMotion;
 import src.controleur.ControleurMouse;
+import src.controleur.ControleurActionListener;
 import src.modele.Plateau;
 import src.vue.Vue;
 import src.vue.PanelMap;
@@ -18,6 +19,7 @@ public class Jeu {
   private ControleurKey cK;
   private ControleurMouse cM;
   private ControleurMouseMotion cMM;
+  private ControleurActionListener cAL;
 
   public Jeu (Plateau plat) {
     p = plat;
@@ -26,9 +28,11 @@ public class Jeu {
     cK = new ControleurKey(v);
     cM = new ControleurMouse(v);
     cMM = new ControleurMouseMotion(v);
+    cAL = new ControleurActionListener(v);
     map.addKeyListener(cK);
     map.addMouseListener(cM);
     map.addMouseMotionListener(cMM);
+    v.getBoutonJoueur().addActionListener(cAL);
   }
 
   public static void main(String[] args) {
