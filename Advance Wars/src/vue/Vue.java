@@ -95,7 +95,7 @@ public class Vue extends JFrame {
   public void informations (Terrain terrain, int vision) {
     textInfos.setText("");
     String str = "Terrain de type ";
-    if (vision != 2)
+    if (vision == 0)
       str += "Mystère Absolu";
     else str += terrain.getNom();
     afficher(textInfos, "Informations terrain", str);

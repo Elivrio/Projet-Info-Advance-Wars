@@ -10,7 +10,7 @@ public class Joueur {
   2 --> Vision directe
   */
 
-  private String nom;
+  private final String nom;
   private LinkedList<Unite> unites;
   private int[][] vision;
 
@@ -28,8 +28,6 @@ public class Joueur {
   public boolean possede (Unite u) {
     return unites.contains(u);
   }
-
-  public void setNom (String n) { nom = n; }
 
   public void add (Unite u) {
     unites.add(u);

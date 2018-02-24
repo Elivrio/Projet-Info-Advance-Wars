@@ -19,7 +19,7 @@ public class Variable {
   public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/",""};
 
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg"};
-  public final static String[] tStrBaseUni = {"zombie.png", "nosaure.png", "ninja.png", "magicalGirl.png"};
+  public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png"};
 
 
   public final static String[] tStrUni;
