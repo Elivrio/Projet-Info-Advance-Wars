@@ -21,7 +21,7 @@ public class PanelMap extends JPanel {
   private final double hautMax, largMax;
   private Unite cliquee;
 
-  private LinkedList<Joueur> joueurs;
+  private Joueur[] joueurs;
   private int indiceJoueur;
   private Joueur joueur;
 
@@ -54,7 +54,7 @@ public class PanelMap extends JPanel {
   public int getTabJ() { return tabJ; }
 
   public Plateau getPlateau() { return p; }
-  public LinkedList<Joueur> getJoueurs() { return joueurs; }
+  public Joueur[] getJoueurs() { return joueurs; }
   public Joueur getJoueur() { return joueur; }
 
   public int getLarg() { return larg; }
@@ -71,10 +71,10 @@ public class PanelMap extends JPanel {
   // Setters
 
   public void setJoueur (int i) {
-    if (indiceJoueur+i < joueurs.size())
+    if (indiceJoueur+i < joueurs.length)
       indiceJoueur += i;
     else indiceJoueur = 0;
-    joueur = joueurs.get(indiceJoueur);
+    joueur = joueurs[indiceJoueur];
   }
 
   public void addPosI (int pI) {

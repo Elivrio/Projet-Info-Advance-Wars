@@ -7,7 +7,7 @@ public class Plateau {
   private int largeur, hauteur;
   private Terrain[][] terrain;
   private Unite[][] unites;
-  private LinkedList<Joueur> joueurs;
+  private Joueur[] joueurs;
 
   /*
     1 --> Plaine
@@ -25,7 +25,7 @@ public class Plateau {
     terrain = new Terrain[hauteur][largeur];
 
     unites = new Unite[hauteur][largeur];
-    joueurs = new LinkedList<Joueur>();
+    joueurs = new Joueur[nbJoueurs];
     initJoueurs(2);
 
     for (int i=0; i<carte.length; i++)
@@ -36,13 +36,12 @@ public class Plateau {
 
 
     public void initJoueurs (int nbJoueurs) {
+      String[] nomsJoueurs = {"Boulet", "Artiste"};
       for (int i = 0; i < nbJoueurs; i++) {
-        Joueur j = new Joueur("", largeur, hauteur);
-        joueurs.add(j);
+        Joueur j = new Joueur(nomsJoueurs[i], largeur, hauteur);
+        joueurs[i] = j;
         initUnite(j, i, 2);
       }
-      joueurs.get(0).setNom("Boulet");
-      joueurs.get(1).setNom("Artiste");
     }
 
   public void initUnite (Joueur joueur, int nJoueur, int nbUnites) {
@@ -68,6 +67,6 @@ public class Plateau {
   public int getLargeur() { return largeur; }
   public Unite[][] getUnites() { return unites; }
   public Terrain[][] getTerrain() { return terrain; }
-  public LinkedList<Joueur> getJoueurs() { return joueurs; }
+  public Joueur[] getJoueurs() { return joueurs; }
 
 }
