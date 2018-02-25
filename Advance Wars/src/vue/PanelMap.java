@@ -108,7 +108,7 @@ public class PanelMap extends JPanel {
     // On utilise b si on veut que l'unité cliquée ne soit pas gardée en mémoire à la sortie de l'écran.
     //boolean b = true;
     joueur.vision();
-    boolean c = false;
+    //boolean c = false;
     int x = 0, y = 0;
     for (int i = 0; i < hautMax; i++)
       for (int j = 0; j < largMax; j++) {
@@ -117,18 +117,18 @@ public class PanelMap extends JPanel {
         Unite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
         int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
         createRect(g, t, j, i, unite);
-        if (cliquee != null && unite != null && unite == cliquee && joueur.possede(unite)) {
+        /*if (cliquee != null && unite != null && unite == cliquee && joueur.possede(unite)) {
           c = true;
           x = j; y = i;
           //b = false;
-        }
+        }*/
       }
-    if (c)
-      deplacementsPossibles(0, g, x, y, cliquee);
+    //if (c)
+      //deplacementsPossibles(0, g, x, y, cliquee);
     /*if (b)
       cliquee = null; */
   }
-
+  /*
   public void deplacementsPossibles (int indice, Graphics g, int x, int y, Unite unite) {
     g.setColor(Color.GREEN);
     if (indice < unite.getDistance())
@@ -141,13 +141,15 @@ public class PanelMap extends JPanel {
             g.drawRect((x+j)*taillePixel - posJ - 100, (y+i)*taillePixel - posI - 100, taillePixel, taillePixel);
             deplacementsPossibles(indice+1, g, j+x, y+i, unite);
           }
-  }
+  }*/
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
   public void createRect (Graphics g, int i, int x, int y, Unite unite) {
     BufferedImage img = chemin(i,y,x);
     // On dessine le terrain
     g.drawImage(img, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+
+    // On met à jour le brouillard de guerre
     switch (joueur.getVision()[y+tabI-1][x+tabJ-1]) {
       case 0 :
         g.drawImage(Variable.noir, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
@@ -158,11 +160,19 @@ public class PanelMap extends JPanel {
       default :
         break;
     }
+
+    if ((cliquee != null)
+    && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= cliquee.getDistance())
+    && (y+tabI-2 >= 0)
+    && (y+tabI < p.getTerrain().length)
+    && (x+tabJ-2 >= 0)
+    && (x+tabJ < p.getTerrain()[0].length))
+      g.drawImage(Variable.vert, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
     g.setColor(Color.BLACK);
     // On l'encadre en noir (purement esthétique)
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
-    if (unite != null && joueur.possede(unite)) {
+    if (unite != null && joueur.getVision()[y+tabI-1][x+tabJ-1] == 2) {
       Image uni = Variable.tImUni[unite.getType()-1];
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
     }

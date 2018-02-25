@@ -16,9 +16,9 @@ public class Variable {
   public final static Color limite = new Color(0f,0f,0f);
   public final static Color[] tCou = {foret, plaine, eau, montagne, limite};
   public final static String pathToImages = "src/variable/images/";
-  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/",""};
+  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "", ""};
 
-  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg"};
+  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "vert.jpg"};
   public final static String[] tStrBaseUni = {"zombie.png", "nosaure.png", "ninja.png", "magicalGirl.png"};
 
 
@@ -139,8 +139,9 @@ public class Variable {
     }
   }
 
-  public final static BufferedImage noir = test(tImTer[tImTer.length-1], 0.99f);
-  public final static BufferedImage gris = test(tImTer[tImTer.length-1], 0.70f);
+  public final static BufferedImage noir = test(tImTer[tImTer.length-2], 0.99f);
+  public final static BufferedImage gris = test(tImTer[tImTer.length-2], 0.70f);
+  public final static BufferedImage vert = test(tImTer[tImTer.length-1], 0.60f);
 
   public static BufferedImage test(BufferedImage img, float opacite) {
     BufferedImage newImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);

@@ -1,4 +1,4 @@
-package src.modele;
+/*package src.modele.general;
 
 abstract class General extends Unite{
 
@@ -9,3 +9,4 @@ abstract class General extends Unite{
 
   abstract bonusPersonel();
 }
+*/

@@ -10,6 +10,7 @@
    }
 
    public void actionPerformed (ActionEvent e) {
+     map.setCliquee(null);
      map.setJoueur(1);
      vue.informations(map.getJoueur());
      map.repaint();

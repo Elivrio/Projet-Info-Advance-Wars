@@ -29,6 +29,7 @@ public class ControleurKey extends Controleur implements KeyListener {
     else if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == 'z') && move('h'))
       map.addPosI(-dep);
     else if (e.getKeyChar() == Event.ENTER || e.getKeyChar() == 'j') {
+      map.setCliquee(null);
       map.setJoueur(1);
       vue.informations(map.getJoueur());
       map.repaint();
