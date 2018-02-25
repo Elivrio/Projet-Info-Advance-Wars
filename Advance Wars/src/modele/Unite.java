@@ -22,13 +22,13 @@ public class Unite {
         vision = 2;
         distance = 5;
         break;
-      case 2 :
+      case 3 :
         nom = "Ninja";
         pv = 42;
         vision = 5;
         distance = 5;
         break;
-      case 3 :
+      case 2 :
         nom = "Nosaure";
         pv = 73;
         vision = 7;
