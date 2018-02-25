@@ -28,7 +28,7 @@ public class PanelMap extends JPanel {
   public PanelMap (Plateau plat) {
     joueurs = plat.getJoueurs();
     indiceJoueur = 0;
-    setJoueur(0);
+    joueur = joueurs[indiceJoueur];
     dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
     largeurEcran = dimensionEcran.getWidth();
     hauteurEcran = dimensionEcran.getHeight();
@@ -72,6 +72,7 @@ public class PanelMap extends JPanel {
   // Setters
 
   public void setJoueur (int i) {
+    joueur.resetDeplace();
     if (indiceJoueur+i < joueurs.length)
       indiceJoueur += i;
     else indiceJoueur = 0;

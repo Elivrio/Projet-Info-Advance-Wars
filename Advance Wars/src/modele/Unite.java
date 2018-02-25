@@ -9,6 +9,7 @@ public class Unite {
   private int distance;
   private String nom;
   private Joueur joueur;
+  private int deplace;
 
   Unite (int t, int x, int y, Joueur j) {
     type = t;
@@ -50,9 +51,18 @@ public class Unite {
   public int getPV() { return pv; }
   public int getX() { return x; }
   public int getY() { return y; }
+  public int getDeplace() { return deplace; }
 
   public void setCase (int x, int y) {
     this.x = x;
     this.y = y;
+  }
+
+  public void resetDeplace() {
+    deplace = 0;
+  }
+
+  public void setDeplace (int i) {
+    deplace += i;
   }
 }

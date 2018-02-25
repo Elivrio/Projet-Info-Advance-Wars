@@ -89,6 +89,7 @@ public class Vue extends JFrame {
     str += "\nPossède " + unite.getPV() + " points de vie";
     str += "\nPeut voir à une distance de " + unite.getVision() + " cases";
     str += "\nPeut avancer de " + unite.getDistance() + " cases";
+    str += "\nS'est déplacé ce tour-ci de " + unite.getDeplace() + " cases";
     afficher(textInfos, "Informations unité", str);
   }
 
