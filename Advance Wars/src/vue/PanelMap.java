@@ -164,7 +164,7 @@ public class PanelMap extends JPanel {
     }
 
     if ((cliquee != null) && joueur.possede(cliquee)
-    && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= cliquee.getDistance())
+    && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
     && (y+tabI-2 >= 0)
     && (y+tabI < p.getTerrain().length)
     && (x+tabJ-2 >= 0)
