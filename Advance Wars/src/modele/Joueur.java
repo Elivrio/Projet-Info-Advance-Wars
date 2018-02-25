@@ -34,6 +34,12 @@ public class Joueur {
   }
 
   public void vision() {
+    for (int i = 0; i < vision.length; i++) {
+      for (int j = 0; j < vision[0].length; j++)
+        if (vision[i][j] == 2 || vision[i][j] == 1)
+          vision[i][j] = 1;
+    }
+
     for (int i = 0; i < unites.size(); i++) {
       Unite unite = unites.get(i);
       vision(0, unite, unite.getX(), unite.getY());

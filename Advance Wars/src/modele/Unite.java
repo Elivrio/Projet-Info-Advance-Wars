@@ -22,19 +22,18 @@ public class Unite {
         vision = 2;
         distance = 5;
         break;
-      case 3 :
+      case 2 :
         nom = "Ninja";
         pv = 42;
         vision = 5;
         distance = 5;
         break;
-      case 2 :
+      case 3 :
         nom = "Nosaure";
         pv = 73;
         vision = 7;
         distance = 2;
         break;
-
       case 4 :
         nom = "Magical Girl";
         pv = 66;

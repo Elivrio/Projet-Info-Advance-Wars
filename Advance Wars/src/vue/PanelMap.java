@@ -67,6 +67,7 @@ public class PanelMap extends JPanel {
 
   public Unite[][] getUnites() { return p.getUnites(); }
   public Terrain[][] getTerrain() { return p.getTerrain(); }
+  public Unite getCliquee() { return cliquee; }
 
   // Setters
 
@@ -161,7 +162,7 @@ public class PanelMap extends JPanel {
         break;
     }
 
-    if ((cliquee != null)
+    if ((cliquee != null) && joueur.possede(cliquee)
     && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= cliquee.getDistance())
     && (y+tabI-2 >= 0)
     && (y+tabI < p.getTerrain().length)

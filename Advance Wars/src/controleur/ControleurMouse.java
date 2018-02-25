@@ -26,6 +26,19 @@ public class ControleurMouse extends Controleur implements MouseListener {
     int j = x/taillePixel;
     Unite unite = isUnite(i, j);
     Terrain terrain = isTerrain(i, j);
+
+    Unite cliquee = map.getCliquee();
+    if (cliquee != null && map.getJoueur().possede(cliquee) && unite == null
+    && (Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance())
+    && (i-2 >= 0)
+    && (i < map.getTerrain().length)
+    && (j-2 >= 0)
+    && (j < map.getTerrain()[0].length)) {
+      map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), j, i);
+      cliquee.setCase(j, i);
+      map.getJoueur().vision();
+    }
+
     // Si la case possède une unité, on affiche ses caractéristiques
     map.setCliquee(unite);
     if (unite != null && map.getJoueur().possede(unite))

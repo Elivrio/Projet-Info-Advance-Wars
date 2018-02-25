@@ -40,17 +40,15 @@ public class Plateau {
       for (int i = 0; i < nbJoueurs; i++) {
         Joueur j = new Joueur(nomsJoueurs[i], largeur, hauteur);
         joueurs[i] = j;
-        initUnite(j, i, 2);
+        int[] unitesDuJoueur = {i+1, i+3};
+        initUnite(j, unitesDuJoueur);
       }
     }
 
-  public void initUnite (Joueur joueur, int nJoueur, int nbUnites) {
+  public void initUnite (Joueur joueur, int[] unitesDuJoueur) {
     Random rand = new Random();
-    int x;
-    if (nJoueur == 0)
-      x = 1;
-    else x = 3;
-    while (x <= nbUnites + ((nJoueur == 0)? 0 : 2)) {
+    int x = unitesDuJoueur[0];
+    while (x <= unitesDuJoueur[1]) {
       int i = rand.nextInt(hauteur-2);
       int j = rand.nextInt(largeur-2);
       if (unites[i+1][j+1] == null) {
@@ -58,7 +56,7 @@ public class Plateau {
         joueur.add(unite);
         unites[i+1][j+1] = unite;
         System.out.println(i + " " + j);
-        x++;
+        x+=2;
       }
     }
   }
@@ -68,5 +66,11 @@ public class Plateau {
   public Unite[][] getUnites() { return unites; }
   public Terrain[][] getTerrain() { return terrain; }
   public Joueur[] getJoueurs() { return joueurs; }
+
+  public void setUnites (int ancienX, int ancienY, int x, int y) {
+    Unite u = unites[ancienY][ancienX];
+    unites[ancienY][ancienX] = null;
+    unites[y][x] = u;
+  }
 
 }
