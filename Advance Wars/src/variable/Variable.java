@@ -139,7 +139,7 @@ public class Variable {
     }
   }
 
-  public final static BufferedImage noir = test(tImTer[tImTer.length-2], 0.99f);
+  public final static BufferedImage noir = test(tImTer[tImTer.length-2], 1f);
   public final static BufferedImage gris = test(tImTer[tImTer.length-2], 0.70f);
   public final static BufferedImage vert = test(tImTer[tImTer.length-1], 0.60f);
 

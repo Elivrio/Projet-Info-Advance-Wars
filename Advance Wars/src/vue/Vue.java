@@ -83,6 +83,10 @@ public class Vue extends JFrame {
 		}
 	}
 
+  public void informations() {
+    textInfos.setText("");
+  }
+
   public void informations (Unite unite) {
     textInfos.setText("");
     String str = "Unité de type " + unite.getNom();

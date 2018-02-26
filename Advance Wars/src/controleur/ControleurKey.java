@@ -32,6 +32,7 @@ public class ControleurKey extends Controleur implements KeyListener {
       map.setCliquee(null);
       map.setJoueur(1);
       vue.informations(map.getJoueur());
+      vue.informations();
       map.repaint();
     }
 
