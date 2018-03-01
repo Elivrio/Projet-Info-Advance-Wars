@@ -11,6 +11,8 @@ import src.modele.Plateau;
 import src.vue.Vue;
 import src.vue.PanelMap;
 import src.modele.CarteScanner;
+import src.modele.AbstractUnite;
+import src.modele.Soldat;
 
 public class Jeu {
   private Vue v;
@@ -36,6 +38,7 @@ public class Jeu {
   }
 
   public static void main(String[] args) {
+    Soldat s = new Soldat();
     CarteScanner test = new CarteScanner("src/variable/cartes/carteTest2.txt");
     Plateau p = test.plateau(2);
     Jeu jeu = new Jeu (p);

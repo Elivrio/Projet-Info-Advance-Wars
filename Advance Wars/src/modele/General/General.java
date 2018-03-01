@@ -1,6 +1,6 @@
 /*package src.modele.general;
 
-abstract class General extends Unite{
+abstract class General extends AbstractUnite{
 
 
   public General(String s, int t, int x, int y) {
