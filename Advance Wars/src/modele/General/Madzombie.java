@@ -1,10 +1,17 @@
-/*package src.modele.general;
+package src.modele.general;
 
-JUSTE DES PROTOTYPES
+import src.modele.AbstractUnite;
+import src.modele.Joueur;
+import src.modele.interfaces.combat.CombatCouteau;
+import src.modele.interfaces.deplacement.DeplaceAPied;
+import src.modele.interfaces.typeunite.Terrestre;
+
 public class MadZombie extends General{
 
-  public MadZombie(Joueur j){
-    super(j)
+  public MadZombie(){
+    super("Soldat", 100, new CombatCouteau(), new DeplaceAPied(), 5, new Terrestre(), new Joueur("Nosaure", 10, 10));
+  }
+
+  public void bonusPersonel(){
   }
 }
-*/

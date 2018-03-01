@@ -12,7 +12,8 @@ import src.vue.Vue;
 import src.vue.PanelMap;
 import src.modele.CarteScanner;
 import src.modele.AbstractUnite;
-import src.modele.Soldat;
+import src.modele.chairacanon.Soldat;
+import src.modele.general.MadZombie;
 
 public class Jeu {
   private Vue v;
@@ -39,6 +40,8 @@ public class Jeu {
 
   public static void main(String[] args) {
     Soldat s = new Soldat();
+    MadZombie cindy = new MadZombie();
+    cindy.premiereArme();
     CarteScanner test = new CarteScanner("src/variable/cartes/carteTest2.txt");
     Plateau p = test.plateau(2);
     Jeu jeu = new Jeu (p);

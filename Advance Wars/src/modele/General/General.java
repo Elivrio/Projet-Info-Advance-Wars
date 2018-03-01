@@ -1,12 +1,16 @@
-/*package src.modele.general;
+package src.modele.general;
 
-abstract class General extends AbstractUnite{
+import src.modele.AbstractUnite;
+import src.modele.Joueur;
+import src.modele.interfaces.combat.Combat;
+import src.modele.interfaces.deplacement.Deplacement;
+import src.modele.interfaces.typeunite.TypeUnite;
 
+abstract class General extends AbstractUnite {
 
-  public General(String s, int t, int x, int y) {
-    super(s, t, x, y);
+  public General (String n, int pM, Combat c, Deplacement d, int dis, TypeUnite t, Joueur j) {
+    super(n, pM, c, d, dis, t, j);
   }
 
-  abstract bonusPersonel();
+  abstract void bonusPersonel();
 }
-*/
