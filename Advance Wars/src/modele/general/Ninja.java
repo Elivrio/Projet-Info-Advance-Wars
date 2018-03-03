@@ -8,8 +8,8 @@ import src.modele.interfaces.typeunite.Terrestre;
 
 public class Ninja extends General {
 
-  public Ninja (Joueur j) {
-    super("Ninja", 100, new CombatCouteau(), new DeplaceAPied(), 5, 5, 100, new Terrestre(), j);
+  public Ninja (Joueur j, int x, int y) {
+    super("Ninja", 100, new CombatCouteau(), new DeplaceAPied(), 5, 5, 100, new Terrestre(), j, x, y);
   }
 
   public void bonusPersonel() {}

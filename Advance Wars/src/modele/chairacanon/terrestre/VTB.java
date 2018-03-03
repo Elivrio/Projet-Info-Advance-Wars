@@ -8,7 +8,7 @@ import src.modele.interfaces.typeunite.Terrestre;
 
 public class VTB extends AbstractUnite {
 
-  public VTB (Joueur j) {
-    super("VTB", 99, null, new DeplaceAChenilles(), 6, 0, 1, 70, 5000, new Terrestre(), j);
+  public VTB (Joueur j, int x, int y) {
+    super("VTB", 99, null, new DeplaceAChenilles(), 6, 0, 1, 70, 5000, new Terrestre(), j, x, y);
   }
 }

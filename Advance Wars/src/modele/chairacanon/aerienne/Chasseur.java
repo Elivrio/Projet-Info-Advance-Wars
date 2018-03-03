@@ -8,7 +8,7 @@ import src.modele.interfaces.typeunite.Aerienne;
 
 public class Chasseur extends AbstractUnite {
 
-  public Chasseur (Joueur j) {
-    super("Chasseur", 99, new CombatCouteau(), null, 9, 1, 2, 99, 20000, new Aerienne(), j);
+  public Chasseur (Joueur j, int x, int y) {
+    super("Chasseur", 99, new CombatCouteau(), null, 9, 1, 2, 99, 20000, new Aerienne(), j, x, y);
   }
 }

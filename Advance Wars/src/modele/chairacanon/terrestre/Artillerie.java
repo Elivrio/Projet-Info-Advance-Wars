@@ -9,7 +9,7 @@ import src.modele.interfaces.typeunite.Terrestre;
 
 public class Artillerie extends AbstractUnite {
 
-  public Artillerie (Joueur j) {
-    super("Artillerie", 99, new CombatCouteau(), new DeplaceAChenilles(), 5, 3, 1, 50, 6000, new Terrestre(), j);
+  public Artillerie (Joueur j, int x, int y) {
+    super("Artillerie", 99, new CombatCouteau(), new DeplaceAChenilles(), 5, 3, 1, 50, 6000, new Terrestre(), j, x, y);
   }
 }

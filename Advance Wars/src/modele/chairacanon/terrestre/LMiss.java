@@ -9,7 +9,7 @@ import src.modele.interfaces.typeunite.Terrestre;
 
 public class LMiss extends AbstractUnite {
 
-  public LMiss (Joueur j) {
-    super("L-Miss", 99, new CombatCouteau(), new DeplaceARoues(), 5, 5, 0, 0, 15000, new Terrestre(), j);
+  public LMiss (Joueur j, int x, int y) {
+    super("L-Miss", 99, new CombatCouteau(), new DeplaceARoues(), 5, 5, 0, 0, 15000, new Terrestre(), j, x, y);
   }
 }

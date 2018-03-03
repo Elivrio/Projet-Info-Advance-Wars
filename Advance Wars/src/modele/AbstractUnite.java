@@ -12,8 +12,9 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected int deplace, distance, portee, vision, essence, cout;
   protected TypeUnite type;
   protected Joueur joueur;
+  protected int x, y;
 
-  public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int cout, TypeUnite t, Joueur j) {
+  public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int cout, TypeUnite t, Joueur j, int x, int y) {
     nom = n;
     pvMax = pM;
     pv = pM;
@@ -26,6 +27,8 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     essence = ess;
     type = t;
     joueur = j;
+    this.x = x;
+    this.y = y;
   }
 
   public void premiereArme(){
@@ -35,8 +38,5 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public void move(){
     deplacement.move();
   }
-
-
-
 
 }
