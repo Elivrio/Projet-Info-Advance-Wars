@@ -4,8 +4,8 @@ import src.modele.interfaces.deplacement.Deplacement;
 
 public class DeplaceARoues implements Deplacement {
 
-  public void move() {
-    System.out.println("Je me déplace avec des roues.");
+  public String deplacement() {
+    return "Se déplace avec des roues";
   }
 
 }

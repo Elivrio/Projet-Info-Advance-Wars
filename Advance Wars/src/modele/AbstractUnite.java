@@ -38,9 +38,14 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public String getNom() { return nom; }
   public int getIndice() { return indice; }
   public int getPV() { return pv; }
+  public int getPVMax() { return pvMax; }
   public int getX() { return x; }
   public int getY() { return y; }
   public int getDeplace() { return deplace; }
+  public int getPortee() { return portee; }
+  public TypeUnite getType() { return type; }
+  public Combat getCombat() { return typeCombat; }
+  public Deplacement getDeplacement() { return deplacement; }
 
   public void setCase (int x, int y) {
     this.x = x;
@@ -55,12 +60,16 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     deplace += i;
   }
 
-  public void premiereArme(){
-    typeCombat.premiereArme();
+  public String combat(){
+    return typeCombat.combat();
   }
 
-  public void move(){
-    deplacement.move();
+  public String deplacement() {
+    return deplacement.deplacement();
+  }
+
+  public String type() {
+    return type.type();
   }
 
 }

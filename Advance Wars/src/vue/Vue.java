@@ -11,6 +11,7 @@ import src.modele.Plateau;
 import src.modele.AbstractUnite;
 import src.modele.Terrain;
 import src.modele.Joueur;
+import src.modele.general.General;
 
 public class Vue extends JFrame {
 
@@ -89,11 +90,17 @@ public class Vue extends JFrame {
 
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
-    String str = "Unité de type " + unite.getNom();
-    str += "\nPossède " + unite.getPV() + " points de vie";
+    String str = ((unite instanceof General)? "Général " : "Unité de type ") + unite.getNom();
+    str += "\n" + unite.type();
+    if (unite.getCombat() != null)
+      str += "\n" + unite.combat();
+    if (unite.getDeplacement() != null)
+      str += "\n" + unite.deplacement();
+    str += "\nPossède " + unite.getPV() + " points de vie sur " + unite.getPVMax();
     str += "\nPeut voir à une distance de " + unite.getVision() + " cases";
     str += "\nPeut avancer de " + unite.getDistance() + " cases";
     str += "\nS'est déplacé ce tour-ci de " + unite.getDeplace() + " cases";
+    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases";
     afficher(textInfos, "Informations unité", str);
   }
 
@@ -109,9 +116,8 @@ public class Vue extends JFrame {
   public void informations (Joueur joueur) {
     textJoueur.setText("");
     String str = "Joueur " + joueur.getNom();
-    str += "\nPossède " + joueur.getNbUnites() + " unités";
-    for (int i=0; i<joueur.getNbUnites(); i++)
-      str += "\nUnité " + (i+1) + " : " + joueur.getUnites().get(i).getNom();
+    str += "\nPossède " + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
+    str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom();
     str += "\n\n";
     afficher(textJoueur, "Informations joueur", str);
     textJoueur.insertComponent(boutonJoueur);

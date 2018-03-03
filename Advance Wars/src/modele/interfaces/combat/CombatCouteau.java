@@ -4,8 +4,7 @@ import src.modele.interfaces.combat.Combat;
 
 public class CombatCouteau implements Combat {
 
-  public void premiereArme() {
-    System.out.println("Je me bats au couteau !");
+  public String combat() {
+    return "Se bat au couteau";
   }
-
 }

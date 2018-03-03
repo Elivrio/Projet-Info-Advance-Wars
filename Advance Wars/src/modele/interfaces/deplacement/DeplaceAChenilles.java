@@ -4,8 +4,8 @@ import src.modele.interfaces.deplacement.Deplacement;
 
 public class DeplaceAChenilles implements Deplacement {
 
-  public void move() {
-    System.out.println("Je me déplace avec des chenilles.");
+  public String deplacement() {
+    return "Se déplace à chenilles";
   }
 
 }
