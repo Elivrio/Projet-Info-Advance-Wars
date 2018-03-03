@@ -9,13 +9,11 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected int pvMax, pv;
   protected Combat typeCombat;
   protected Deplacement deplacement;
-  protected int deplace, distance;
+  protected int deplace, distance, portee, vision, essence, cout;
   protected TypeUnite type;
   protected Joueur joueur;
 
-
-
-  public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, TypeUnite t, Joueur j) {
+  public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int cout, TypeUnite t, Joueur j) {
     nom = n;
     pvMax = pM;
     pv = pM;
@@ -23,6 +21,9 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     deplacement = d;
     distance = dis;
     deplace = 0;
+    portee = por;
+    vision = vis;
+    essence = ess;
     type = t;
     joueur = j;
   }
