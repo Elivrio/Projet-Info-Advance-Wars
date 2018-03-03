@@ -10,6 +10,6 @@ import src.modele.interfaces.typeunite.Terrestre;
 public class DCA extends AbstractUnite {
 
   public DCA (Joueur j, int x, int y) {
-    super("DCA", 99, new CombatCouteau(), new DeplaceAChenilles(), 6, 1, 2, 60, 8000, new Terrestre(), j, x, y);
+    super("DCA", 99, new CombatCouteau(), new DeplaceAChenilles(), 6, 1, 2, 60, 8000, new Terrestre(), j, x, y, 0);
   }
 }

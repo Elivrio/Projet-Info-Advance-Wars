@@ -10,6 +10,6 @@ import src.modele.interfaces.typeunite.Terrestre;
 public class Bazooka extends AbstractUnite {
 
   public Bazooka (Joueur j, int x, int y) {
-    super("Bazooka", 99, new CombatMitrailleuse(), new DeplaceAPied(), 2, 1, 2, 99, 3000, new Terrestre(), j, x, y);
+    super("Bazooka", 99, new CombatMitrailleuse(), new DeplaceAPied(), 2, 1, 2, 99, 3000, new Terrestre(), j, x, y, 0);
   }
 }

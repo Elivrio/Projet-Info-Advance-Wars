@@ -11,6 +11,10 @@ import src.modele.Plateau;
 import src.vue.Vue;
 import src.vue.PanelMap;
 import src.modele.CarteScanner;
+import src.modele.Joueur;
+import src.modele.general.General;
+import src.modele.general.Nosaure;
+import src.modele.general.Ninja;
 
 public class Jeu {
   private Vue v;
@@ -37,7 +41,12 @@ public class Jeu {
 
   public static void main(String[] args) {
     CarteScanner test = new CarteScanner("src/variable/cartes/carteTest2.txt");
-    Plateau p = test.plateau(2);
+    int x = test.nbrColonnes()+2;
+    int y = test.nbrLignes()+2;
+    Joueur joueur1 = new Joueur("Boulet", x, y);
+    Joueur joueur2 = new Joueur("Artiste", x, y);
+    General[] generaux = {new Nosaure(joueur1, 0, 0), new Ninja(joueur2, 0, 0)};
+    Plateau p = test.plateau(2, generaux);
     Jeu jeu = new Jeu (p);
 	}
 }

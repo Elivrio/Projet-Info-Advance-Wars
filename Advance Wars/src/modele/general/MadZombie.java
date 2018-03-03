@@ -9,7 +9,7 @@ import src.modele.interfaces.typeunite.Terrestre;
 public class MadZombie extends General {
 
   public MadZombie (Joueur j, int x, int y) {
-    super("MadZombie", 100, new CombatCouteau(), new DeplaceAPied(), 5, 2, 100, new Terrestre(), j, x, y);
+    super("MadZombie", 100, new CombatCouteau(), new DeplaceAPied(), 5, 2, 100, new Terrestre(), j, x, y, 1);
   }
 
   public void bonusPersonel() {}

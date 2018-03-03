@@ -19,7 +19,7 @@ public class PanelMap extends JPanel {
   private Dimension dimensionEcran;
   private final double largeurEcran, hauteurEcran;
   private final double hautMax, largMax;
-  private Unite cliquee;
+  private AbstractUnite cliquee;
 
   private Joueur[] joueurs;
   private int indiceJoueur;
@@ -65,9 +65,9 @@ public class PanelMap extends JPanel {
 
   public int getTaillePixel() { return taillePixel; }
 
-  public Unite[][] getUnites() { return p.getUnites(); }
+  public AbstractUnite[][] getUnites() { return p.getUnites(); }
   public Terrain[][] getTerrain() { return p.getTerrain(); }
-  public Unite getCliquee() { return cliquee; }
+  public AbstractUnite getCliquee() { return cliquee; }
 
   // Setters
 
@@ -104,9 +104,9 @@ public class PanelMap extends JPanel {
     posI = 0;
   }
 
-  public void setCliquee(Unite u) { cliquee = u; }
+  public void setCliquee (AbstractUnite u) { cliquee = u; }
 
-  public void paint(Graphics g) {
+  public void paint (Graphics g) {
     // On utilise b si on veut que l'unité cliquée ne soit pas gardée en mémoire à la sortie de l'écran.
     //boolean b = true;
     joueur.vision();
@@ -116,7 +116,7 @@ public class PanelMap extends JPanel {
       for (int j = 0; j < largMax; j++) {
         if (i + tabI - 1 >= p.getHauteur() || j + tabJ - 1 >= p.getLargeur())
           continue;
-        Unite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
+        AbstractUnite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
         int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
         createRect(g, t, j, i, unite);
         /*if (cliquee != null && unite != null && unite == cliquee && joueur.possede(unite)) {
@@ -146,7 +146,7 @@ public class PanelMap extends JPanel {
   }*/
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
-  public void createRect (Graphics g, int i, int x, int y, Unite unite) {
+  public void createRect (Graphics g, int i, int x, int y, AbstractUnite unite) {
     BufferedImage img = chemin(i,y,x);
     // On dessine le terrain
     g.drawImage(img, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
@@ -175,7 +175,7 @@ public class PanelMap extends JPanel {
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
     if (unite != null && joueur.getVision()[y+tabI-1][x+tabJ-1] == 2) {
-      Image uni = Variable.tImUni[unite.getType()-1];
+      Image uni = Variable.tImUni[unite.getIndice()-1];
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
     }
   }

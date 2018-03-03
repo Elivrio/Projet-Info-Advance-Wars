@@ -2,11 +2,16 @@ package src.modele;
 
 import java.util.Random;
 import java.util.*;
+import src.modele.general.General;
+import src.modele.general.MadZombie;
+import src.modele.general.Nosaure;
+import src.modele.general.Ninja;
+import src.modele.general.MagicalGirl;
 
 public class Plateau {
   private int largeur, hauteur;
   private Terrain[][] terrain;
-  private Unite[][] unites;
+  private AbstractUnite[][] unites;
   private Joueur[] joueurs;
 
   /*
@@ -19,14 +24,14 @@ public class Plateau {
     Route, Colline, Pont, etc.
   */
 
-  public Plateau (int[][] carte, int nbJoueurs) {
+  public Plateau (int[][] carte, General[] generaux) {
     largeur = carte[1].length;
     hauteur = carte.length;
     terrain = new Terrain[hauteur][largeur];
 
-    unites = new Unite[hauteur][largeur];
-    joueurs = new Joueur[nbJoueurs];
-    initJoueurs(2);
+    unites = new AbstractUnite[hauteur][largeur];
+    joueurs = new Joueur[generaux.length];
+    initJoueurs(generaux);
 
     for (int i=0; i<carte.length; i++)
       for (int j=0; j<carte[1].length; j++)
@@ -34,41 +39,37 @@ public class Plateau {
 
   }
 
-
-    public void initJoueurs (int nbJoueurs) {
-      String[] nomsJoueurs = {"Boulet", "Artiste"};
-      for (int i = 0; i < nbJoueurs; i++) {
-        Joueur j = new Joueur(nomsJoueurs[i], largeur, hauteur);
-        joueurs[i] = j;
-        int[] unitesDuJoueur = {i+1, i+3};
-        initUnite(j, unitesDuJoueur);
-      }
+  public void initJoueurs (General[] generaux) {
+    for (int i = 0; i < generaux.length; i++) {
+      joueurs[i] = generaux[i].getJoueur();
+      initUnite(joueurs[i], generaux[i]);
     }
+  }
 
-  public void initUnite (Joueur joueur, int[] unitesDuJoueur) {
+  public void initUnite (Joueur joueur, General general) {
     Random rand = new Random();
-    int x = unitesDuJoueur[0];
-    while (x <= unitesDuJoueur[1]) {
+    int x = 0;
+    while (x < 1) {
       int i = rand.nextInt(hauteur-2);
       int j = rand.nextInt(largeur-2);
       if (unites[i+1][j+1] == null) {
-        Unite unite = new Unite(x, j+1, i+1, joueur);
-        joueur.add(unite);
-        unites[i+1][j+1] = unite;
+        general.setCase(j+1, i+1);
+        joueur.add(general);
+        unites[i+1][j+1] = general;
         System.out.println(i + " " + j);
-        x+=2;
+        x++;
       }
     }
   }
 
   public int getHauteur() { return hauteur; }
   public int getLargeur() { return largeur; }
-  public Unite[][] getUnites() { return unites; }
+  public AbstractUnite[][] getUnites() { return unites; }
   public Terrain[][] getTerrain() { return terrain; }
   public Joueur[] getJoueurs() { return joueurs; }
 
   public void setUnites (int ancienX, int ancienY, int x, int y) {
-    Unite u = unites[ancienY][ancienX];
+    AbstractUnite u = unites[ancienY][ancienX];
     unites[ancienY][ancienX] = null;
     unites[y][x] = u;
   }

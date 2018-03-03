@@ -1,7 +1,7 @@
 package src.modele;
 
 import java.util.*;
-import src.modele.Unite;
+import src.modele.AbstractUnite;
 
 public class Joueur {
   /*
@@ -11,25 +11,25 @@ public class Joueur {
   */
 
   private final String nom;
-  private LinkedList<Unite> unites;
+  private LinkedList<AbstractUnite> unites;
   private int[][] vision;
 
   public Joueur (String n, int x, int y) {
     nom = n;
-    unites = new LinkedList<Unite>();
+    unites = new LinkedList<AbstractUnite>();
     vision = new int[y][x];
   }
 
   public String getNom() { return nom; }
-  public LinkedList<Unite> getUnites() { return unites; }
+  public LinkedList<AbstractUnite> getUnites() { return unites; }
   public int getNbUnites() { return unites.size(); }
   public int[][] getVision() { return vision; }
 
-  public boolean possede (Unite u) {
+  public boolean possede (AbstractUnite u) {
     return unites.contains(u);
   }
 
-  public void add (Unite u) {
+  public void add (AbstractUnite u) {
     unites.add(u);
   }
 
@@ -46,12 +46,12 @@ public class Joueur {
     }
 
     for (int i = 0; i < unites.size(); i++) {
-      Unite unite = unites.get(i);
+      AbstractUnite unite = unites.get(i);
       vision(0, unite, unite.getX(), unite.getY());
     }
   }
 
-  public void vision (int indice, Unite unite, int x, int y) {
+  public void vision (int indice, AbstractUnite unite, int x, int y) {
     if (indice < unite.getVision())
       for (int i = -1; i <= 1; i++)
         for (int j = -1; j <= 1; j++)

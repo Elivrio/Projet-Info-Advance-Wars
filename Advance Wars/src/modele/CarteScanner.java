@@ -2,6 +2,7 @@ package src.modele;
 
 import java.util.Scanner;
 import java.io.*;
+import src.modele.general.General;
 
 public class CarteScanner {
   private Scanner sc;
@@ -78,7 +79,7 @@ public class CarteScanner {
     return ligne;
   }
 
-  public Plateau plateau (int nbJoueurs) {
+  public Plateau plateau (int nbJoueurs, General[] generaux) {
     if (sameNbrColonnes()) {
       int[][] terrain = new int[nbrLignes()+2][nbrColonnes(/*0*/)+2];
       for (int i = 0; i < terrain.length; i++) {
@@ -86,7 +87,7 @@ public class CarteScanner {
         if (i > 0 && i < terrain.length-1)
           sc.nextLine();
       }
-      return new Plateau(terrain, nbJoueurs);
+      return new Plateau(terrain, generaux);
     }
     System.out.println("impossible de creer plateau");
     return null;

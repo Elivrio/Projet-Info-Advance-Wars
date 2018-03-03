@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 import src.variable.Variable;
 import src.vue.Vue;
-import src.modele.Unite;
+import src.modele.AbstractUnite;
 import src.modele.Terrain;
 import src.vue.PanelMap;
 
@@ -24,10 +24,10 @@ public class ControleurMouse extends Controleur implements MouseListener {
     int taillePixel = map.getTaillePixel();
     int i = y/taillePixel;
     int j = x/taillePixel;
-    Unite unite = isUnite(i, j);
+    AbstractUnite unite = isUnite(i, j);
     Terrain terrain = isTerrain(i, j);
 
-    Unite cliquee = map.getCliquee();
+    AbstractUnite cliquee = map.getCliquee();
     if (cliquee != null && map.getJoueur().possede(cliquee) && unite == null
         && (cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance())
         && (i-1 >= 0)
@@ -49,7 +49,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
     map.repaint();
   }
 
-  public Unite isUnite (int i, int j) {
+  public AbstractUnite isUnite (int i, int j) {
     return map.getUnites()[i][j];
   }
 

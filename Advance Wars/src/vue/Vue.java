@@ -8,7 +8,7 @@ import java.awt.event.*;
 
 import src.vue.PanelMap;
 import src.modele.Plateau;
-import src.modele.Unite;
+import src.modele.AbstractUnite;
 import src.modele.Terrain;
 import src.modele.Joueur;
 
@@ -87,7 +87,7 @@ public class Vue extends JFrame {
     textInfos.setText("");
   }
 
-  public void informations (Unite unite) {
+  public void informations (AbstractUnite unite) {
     textInfos.setText("");
     String str = "Unité de type " + unite.getNom();
     str += "\nPossède " + unite.getPV() + " points de vie";
