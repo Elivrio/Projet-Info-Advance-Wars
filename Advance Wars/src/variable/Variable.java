@@ -16,21 +16,26 @@ public class Variable {
   public final static Color limite = new Color(0f,0f,0f);
   public final static Color[] tCou = {foret, plaine, eau, montagne, limite};
   public final static String pathToImages = "src/variable/images/";
-  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "", ""};
+  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", ""};
 
-  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "vert.jpg"};
+  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg"};
   public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png"};
+public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
 
 
   public final static String[] tStrUni;
+  public final static String[] tStrFond;
 
   public final static String[] tStrTer2; //images dans le dossier propre a chaque terrain
   public final static String[] tStrDossierTer; //chemin pour aller dans le dossier du terrain qu'on veut
 
   public final static File[] tStrTerFile;
   public final static File[] tStrUniFile;
+  public final static File[] tStrFondFile;
+
   public final static BufferedImage[] tImTer;
   public final static BufferedImage[] tImUni;
+  public final static BufferedImage[] tImFond;
 
   //liaison foret
   public final static String borderPlaineForet = "foret/plaine-foret-";
@@ -137,11 +142,23 @@ public class Variable {
         tImUni[i] = ImageIO.read(tStrUniFile[i]);
       } catch (IOException e) {}
     }
+
+    tStrFond = new String[tStrBaseFond.length];
+    tStrFondFile = new File[tStrFond.length];
+    tImFond = new BufferedImage[tStrFondFile.length];
+    for (int i = 0; i < tStrFond.length; i++) {
+      tStrFond[i] = pathToImages + tStrBaseFond[i];
+      tStrFondFile[i] = new File(tStrFond[i]);
+      try {
+        tImFond[i] = ImageIO.read(tStrFondFile[i]);
+      } catch (IOException e) {}
+    }
   }
 
-  public final static BufferedImage noir = test(tImTer[tImTer.length-2], 1f);
-  public final static BufferedImage gris = test(tImTer[tImTer.length-2], 0.70f);
-  public final static BufferedImage vert = test(tImTer[tImTer.length-1], 0.60f);
+  public final static BufferedImage noir = test(tImTer[tImTer.length - 1], 1f);
+  public final static BufferedImage gris = test(tImTer[tImTer.length - 1], 0.70f);
+  public final static BufferedImage vert = test(tImFond[0], 0.60f);
+  public final static BufferedImage rouge = test(tImFond[1], 0.60f);
 
   public static BufferedImage test(BufferedImage img, float opacite) {
     BufferedImage newImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);

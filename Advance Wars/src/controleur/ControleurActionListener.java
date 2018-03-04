@@ -10,10 +10,15 @@
    }
 
    public void actionPerformed (ActionEvent e) {
-     map.setCliquee(null);
-     map.setJoueur(1);
-     vue.informations(map.getJoueur());
-     vue.informations();
-     map.repaint();
+     Object source = e.getSource();
+     if (source == vue.getBoutonJoueur()) {
+       map.setCliquee(null);
+       map.setJoueur(1);
+       vue.informations(map.getJoueur());
+       vue.informations();
+    }
+    else if (source == vue.getBoutonAttaque())
+      map.setAttaque(true);
+    map.repaint();
    }
  }

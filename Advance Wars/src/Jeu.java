@@ -37,6 +37,7 @@ public class Jeu {
     map.addMouseListener(cM);
     map.addMouseMotionListener(cMM);
     v.getBoutonJoueur().addActionListener(cAL);
+    v.getBoutonAttaque().addActionListener(cAL);
   }
 
   public static void main(String[] args) {

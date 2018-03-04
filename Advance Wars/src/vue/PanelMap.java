@@ -20,6 +20,7 @@ public class PanelMap extends JPanel {
   private final double largeurEcran, hauteurEcran;
   private final double hautMax, largMax;
   private AbstractUnite cliquee;
+  private boolean attaque;
 
   private Joueur[] joueurs;
   private int indiceJoueur;
@@ -77,6 +78,10 @@ public class PanelMap extends JPanel {
       indiceJoueur += i;
     else indiceJoueur = 0;
     joueur = joueurs[indiceJoueur];
+  }
+
+  public void setAttaque (boolean b) {
+    attaque = b;
   }
 
   public void addPosI (int pI) {
@@ -164,12 +169,15 @@ public class PanelMap extends JPanel {
     }
 
     if ((cliquee != null) && joueur.possede(cliquee)
-        && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
         && (y+tabI-2 >= 0)
         && (y+tabI < p.getTerrain().length)
         && (x+tabJ-2 >= 0)
         && (x+tabJ < p.getTerrain()[0].length))
-      g.drawImage(Variable.vert, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+          if (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
+            g.drawImage(Variable.vert, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+          if (attaque && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= cliquee.getPortee()))
+            g.drawImage(Variable.rouge, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+
     g.setColor(Color.BLACK);
     // On l'encadre en noir (purement esthétique)
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);

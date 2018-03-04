@@ -19,6 +19,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
   // Fonction appelée lorsqu'on clique sur une case du plateau
   public void mouseClicked(MouseEvent me) {
     // Calcul de la case cliquée... Ne pas modifier
+    map.setAttaque(false);
     int x = me.getX() + map.getTabJ()*100 + map.getPosJ();
     int y = me.getY() + map.getTabI()*100 + map.getPosI();
     int taillePixel = map.getTaillePixel();

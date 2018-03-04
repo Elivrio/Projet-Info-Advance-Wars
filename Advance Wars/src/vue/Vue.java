@@ -21,6 +21,7 @@ public class Vue extends JFrame {
   private Dimension dimensionEcran;
   private int largeurEcran, hauteurEcran;
   private JButton boutonJoueur = new JButton("Changer de joueur");
+  private JButton boutonAttaque = new JButton("Attaquer");
 
   public Vue (PanelMap map) {
     dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -31,6 +32,7 @@ public class Vue extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     boutonJoueur.setFocusable(false);
+    boutonAttaque.setFocusable(false);
     panelPlateau = map;
     textJoueur = new JTextPane();
     textJoueur.setEditable(false);
@@ -61,6 +63,7 @@ public class Vue extends JFrame {
   }
 
   public JButton getBoutonJoueur() { return boutonJoueur; }
+  public JButton getBoutonAttaque() { return boutonAttaque; }
 
   public static void afficher(JTextPane textPane, String titre, String infos){
 
@@ -100,8 +103,10 @@ public class Vue extends JFrame {
     str += "\nPeut voir à une distance de " + unite.getVision() + " cases";
     str += "\nPeut avancer de " + unite.getDistance() + " cases";
     str += "\nS'est déplacé ce tour-ci de " + unite.getDeplace() + " cases";
-    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases";
+    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases\n\n";
     afficher(textInfos, "Informations unité", str);
+    if (unite.getCombat() != null)
+      textInfos.insertComponent(boutonAttaque);
   }
 
   public void informations (Terrain terrain, int vision) {
