@@ -38,8 +38,10 @@ public class ControleurKey extends Controleur implements KeyListener {
     }
     // Clic sur la touche A pour attaquer
     else if (e.getKeyChar() == 'a' && map.getCliquee() != null) {
+      // Si la portée est déjà affichée, on l'efface
       if (map.getAttaque())
         map.setAttaque(false);
+      // Sinon, on l'affiche
       else map.setAttaque(true);
       map.repaint();
     }

@@ -174,8 +174,10 @@ public class PanelMap extends JPanel {
         && (y+tabI < p.getTerrain().length)
         && (x+tabJ-2 >= 0)
         && (x+tabJ < p.getTerrain()[0].length)) {
+          // Affichage des déplacements possibles
           if (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
             g.drawImage(Variable.vert, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+          // Affichage de la portée
           if (attaque && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
     }
