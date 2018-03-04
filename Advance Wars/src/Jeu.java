@@ -15,6 +15,8 @@ import src.modele.Joueur;
 import src.modele.general.General;
 import src.modele.general.Nosaure;
 import src.modele.general.Ninja;
+import src.modele.general.MadZombie;
+import src.modele.general.MagicalGirl;
 
 public class Jeu {
   private Vue v;
@@ -46,8 +48,10 @@ public class Jeu {
     int y = test.nbrLignes()+2;
     Joueur joueur1 = new Joueur("Boulet", x, y);
     Joueur joueur2 = new Joueur("Artiste", x, y);
-    General[] generaux = {new Nosaure(joueur1, 0, 0), new Ninja(joueur2, 0, 0)};
-    Plateau p = test.plateau(2, generaux);
+    Joueur joueur3 = new Joueur("Gros Boulet", x, y);
+    Joueur joueur4 = new Joueur("Madame Paillettes", x, y);
+    General[] generaux = {new Nosaure(joueur1, 0, 0), new Ninja(joueur2, 0, 0), new MadZombie(joueur3, 0, 0), new MagicalGirl(joueur4, 0, 0)};
+    Plateau p = test.plateau(4, generaux);
     Jeu jeu = new Jeu (p);
 	}
 }

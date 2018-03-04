@@ -35,11 +35,12 @@ public class ControleurMouse extends Controleur implements MouseListener {
         && (i < map.getTerrain().length)
         && (j-1 >= 0)
         && (j < map.getTerrain()[0].length)) {
-          if (unite == null && cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
-            map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), j, i);
-            cliquee.setDeplace(Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()));
-            cliquee.setCase(j, i);
-            map.getJoueur().vision();
+          if (!map.getAttaque() && unite == null
+              && cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
+                map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), j, i);
+                cliquee.setDeplace(Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()));
+                cliquee.setCase(j, i);
+                map.getJoueur().vision();
           }
           if (unite != null && !map.getJoueur().possede(unite)
               && (Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getPortee())

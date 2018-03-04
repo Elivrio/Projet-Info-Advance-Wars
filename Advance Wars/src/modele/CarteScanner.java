@@ -73,9 +73,9 @@ public class CarteScanner {
         ligne[i] = 4;
       else
         ligne[i] = sc.nextInt();
-      System.out.print(ligne[i] + " ");
+      //System.out.print(ligne[i] + " ");
     }
-    System.out.println();
+    //System.out.println();
     return ligne;
   }
 
