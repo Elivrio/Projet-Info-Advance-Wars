@@ -20,7 +20,9 @@
     }
     // Si on clique sur le bouton pour attaquer
     else if (source == vue.getBoutonAttaque())
-      map.setAttaque(true);
+      if (map.getAttaque())
+        map.setAttaque(false);
+      else map.setAttaque(true);
     map.repaint();
    }
  }

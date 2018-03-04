@@ -109,6 +109,12 @@ public class Vue extends JFrame {
       textInfos.insertComponent(boutonAttaque);
   }
 
+  public void informations (AbstractUnite unite, AbstractUnite cible, int degats) {
+    informations(unite);
+    String str = cible.getNom() + " a perdu " + degats + " points de vie !";
+    afficher(textInfos, "", str);
+  }
+
   public void informations (Terrain terrain, int vision) {
     textInfos.setText("");
     String str = "Terrain de type ";

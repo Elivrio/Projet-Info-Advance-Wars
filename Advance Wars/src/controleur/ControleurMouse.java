@@ -42,6 +42,11 @@ public class ControleurMouse extends Controleur implements MouseListener {
       map.getJoueur().vision();
     }
 
+    if (cliquee != null && unite != null && map.getJoueur().possede(cliquee) && !map.getJoueur().possede(unite)) {
+      cliquee.attaquer(unite);
+      vue.informations(cliquee, unite, cliquee.getDegats());
+    }
+    else {
     map.setCliquee(unite);
     // Si la case possède une unité, on affiche ses caractéristiques
     if (unite != null && map.getJoueur().possede(unite))
@@ -49,6 +54,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
     // Sinon, on affiche les caractéristiques du terrain
     else
       vue.informations(terrain, map.getJoueur().getVision()[i][j]);
+    }
     map.repaint();
   }
 

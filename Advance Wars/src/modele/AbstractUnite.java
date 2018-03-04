@@ -32,6 +32,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     indice = i;
   }
 
+  public int getDegats() { return typeCombat.getDegats(); }
   public Joueur getJoueur() { return joueur; }
   public int getDistance() { return distance; }
   public int getVision() { return vision; }
@@ -52,6 +53,14 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.y = y;
   }
 
+  public void setPV (int n) {
+    if (pv+n <= pvMax && pv+n >= 0)
+      pv += n;
+    else if (pv+n > pvMax)
+      pv = pvMax;
+    else pv = 0;
+  }
+
   public void resetDeplace() {
     deplace = 0;
   }
@@ -70,6 +79,10 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
 
   public String type() {
     return type.type();
+  }
+
+  public void attaquer (AbstractUnite cible) {
+    cible.setPV(-getDegats());
   }
 
 }
