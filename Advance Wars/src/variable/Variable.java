@@ -143,6 +143,7 @@ public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
       } catch (IOException e) {}
     }
 
+    // Remplissage du tableau avec les fonds colorés (déplacement, portée)
     tStrFond = new String[tStrBaseFond.length];
     tStrFondFile = new File[tStrFond.length];
     tImFond = new BufferedImage[tStrFondFile.length];

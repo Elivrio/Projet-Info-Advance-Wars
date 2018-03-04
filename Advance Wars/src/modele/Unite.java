@@ -1,4 +1,4 @@
-package src.modele;
+/*package src.modele;
 
 public class Unite {
   private int type;
@@ -65,4 +65,4 @@ public class Unite {
   public void setDeplace (int i) {
     deplace += i;
   }
-}
+}*/

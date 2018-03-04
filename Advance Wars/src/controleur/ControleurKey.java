@@ -28,11 +28,19 @@ public class ControleurKey extends Controleur implements KeyListener {
     // Clic sur la flèche haut ou sur la touche Z
     else if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == 'z') && move('h'))
       map.addPosI(-dep);
+    // Clic sur la touche Entrée ou J pour changer de joueur
     else if (e.getKeyChar() == Event.ENTER || e.getKeyChar() == 'j') {
       map.setCliquee(null);
       map.setJoueur(1);
       vue.informations(map.getJoueur());
       vue.informations();
+      map.repaint();
+    }
+    // Clic sur la touche A pour attaquer
+    else if (e.getKeyChar() == 'a' && map.getCliquee() != null) {
+      if (map.getAttaque())
+        map.setAttaque(false);
+      else map.setAttaque(true);
       map.repaint();
     }
 

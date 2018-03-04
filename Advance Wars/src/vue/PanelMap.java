@@ -53,6 +53,7 @@ public class PanelMap extends JPanel {
   public int getPosJ() { return posJ; }
   public int getTabI() { return tabI; }
   public int getTabJ() { return tabJ; }
+  public boolean getAttaque() { return attaque; }
 
   public Plateau getPlateau() { return p; }
   public Joueur[] getJoueurs() { return joueurs; }
@@ -172,11 +173,12 @@ public class PanelMap extends JPanel {
         && (y+tabI-2 >= 0)
         && (y+tabI < p.getTerrain().length)
         && (x+tabJ-2 >= 0)
-        && (x+tabJ < p.getTerrain()[0].length))
+        && (x+tabJ < p.getTerrain()[0].length)) {
           if (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
             g.drawImage(Variable.vert, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
           if (attaque && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+    }
 
     g.setColor(Color.BLACK);
     // On l'encadre en noir (purement esthétique)
@@ -188,7 +190,7 @@ public class PanelMap extends JPanel {
     }
   }
 
-  public BufferedImage chemin(int i, int x, int y) {
+  public BufferedImage chemin (int i, int x, int y) {
     //BufferedImage img = Variable.tImTer[i];
     Terrain[][] t = p.getTerrain();
     int a = 1;
