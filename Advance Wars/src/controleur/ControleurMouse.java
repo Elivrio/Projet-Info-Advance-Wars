@@ -19,7 +19,6 @@ public class ControleurMouse extends Controleur implements MouseListener {
   // Fonction appelée lorsqu'on clique sur une case du plateau
   public void mouseClicked(MouseEvent me) {
     // Calcul de la case cliquée... Ne pas modifier
-    map.setAttaque(false);
     int x = me.getX() + map.getTabJ()*100 + map.getPosJ();
     int y = me.getY() + map.getTabI()*100 + map.getPosI();
     int taillePixel = map.getTaillePixel();
@@ -27,33 +26,38 @@ public class ControleurMouse extends Controleur implements MouseListener {
     int j = x/taillePixel;
     AbstractUnite unite = isUnite(i, j);
     Terrain terrain = isTerrain(i, j);
+    boolean attaque = false;
 
     AbstractUnite cliquee = map.getCliquee();
     // Si les déplacements sont affichés et qu'on clique sur une case cible possible, on y va
-    if (cliquee != null && map.getJoueur().possede(cliquee) && unite == null
-        && (cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance())
+    if (cliquee != null && map.getJoueur().possede(cliquee)
         && (i-1 >= 0)
         && (i < map.getTerrain().length)
         && (j-1 >= 0)
         && (j < map.getTerrain()[0].length)) {
-      map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), j, i);
-      cliquee.setDeplace(Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()));
-      cliquee.setCase(j, i);
-      map.getJoueur().vision();
+          if (unite == null && cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
+            map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), j, i);
+            cliquee.setDeplace(Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()));
+            cliquee.setCase(j, i);
+            map.getJoueur().vision();
+          }
+          if (unite != null && !map.getJoueur().possede(unite)
+              && (Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getPortee())
+              && map.getAttaque()) {
+                cliquee.attaquer(unite);
+                vue.informations(cliquee, unite, cliquee.getDegats());
+                attaque = true;
+          }
     }
-
-    if (cliquee != null && unite != null && map.getJoueur().possede(cliquee) && !map.getJoueur().possede(unite)) {
-      cliquee.attaquer(unite);
-      vue.informations(cliquee, unite, cliquee.getDegats());
-    }
-    else {
-    map.setCliquee(unite);
-    // Si la case possède une unité, on affiche ses caractéristiques
-    if (unite != null && map.getJoueur().possede(unite))
-      vue.informations(unite);
-    // Sinon, on affiche les caractéristiques du terrain
-    else
-      vue.informations(terrain, map.getJoueur().getVision()[i][j]);
+    if (!attaque) {
+      map.setAttaque(false);
+      map.setCliquee(unite);
+      // Si la case possède une unité, on affiche ses caractéristiques
+      if (unite != null && map.getJoueur().possede(unite))
+        vue.informations(unite);
+      // Sinon, on affiche les caractéristiques du terrain
+      else
+        vue.informations(terrain, map.getJoueur().getVision()[i][j]);
     }
     map.repaint();
   }
