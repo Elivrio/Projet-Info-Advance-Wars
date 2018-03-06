@@ -68,7 +68,7 @@ public class PanelMap extends JPanel {
   public int getTaillePixel() { return taillePixel; }
 
   public AbstractUnite[][] getUnites() { return p.getUnites(); }
-  public Terrain[][] getTerrain() { return p.getTerrain(); }
+  public AbstractTerrain[][] getTerrain() { return p.getTerrain(); }
   public AbstractUnite getCliquee() { return cliquee; }
 
   // Setters
@@ -198,7 +198,7 @@ public class PanelMap extends JPanel {
 
   public BufferedImage chemin (int i, int x, int y) {
     //BufferedImage img = Variable.tImTer[i];
-    Terrain[][] t = p.getTerrain();
+    AbstractTerrain[][] t = p.getTerrain();
     int a = 1;
     int b = 1;
     int c = 1;

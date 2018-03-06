@@ -9,7 +9,7 @@ import java.awt.event.*;
 import src.vue.PanelMap;
 import src.modele.Plateau;
 import src.modele.AbstractUnite;
-import src.modele.Terrain;
+import src.modele.AbstractTerrain;
 import src.modele.Joueur;
 import src.modele.general.General;
 
@@ -115,7 +115,7 @@ public class Vue extends JFrame {
     afficher(textInfos, "", str);
   }
 
-  public void informations (Terrain terrain, int vision) {
+  public void informations (AbstractTerrain terrain, int vision) {
     textInfos.setText("");
     String str = "Terrain de type ";
     if (vision == 0)

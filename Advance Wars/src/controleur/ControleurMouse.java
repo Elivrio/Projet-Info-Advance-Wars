@@ -7,7 +7,7 @@ import java.awt.event.*;
 import src.variable.Variable;
 import src.vue.Vue;
 import src.modele.AbstractUnite;
-import src.modele.Terrain;
+import src.modele.AbstractTerrain;
 import src.vue.PanelMap;
 
 public class ControleurMouse extends Controleur implements MouseListener {
@@ -25,7 +25,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
     int i = y/taillePixel;
     int j = x/taillePixel;
     AbstractUnite unite = isUnite(i, j);
-    Terrain terrain = isTerrain(i, j);
+    AbstractTerrain terrain = isTerrain(i, j);
     boolean attaque = false;
 
     AbstractUnite cliquee = map.getCliquee();
@@ -77,7 +77,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
     return map.getUnites()[i][j];
   }
 
-  public Terrain isTerrain (int i, int j) {
+  public AbstractTerrain isTerrain (int i, int j) {
     return map.getTerrain()[i][j];
   }
 
