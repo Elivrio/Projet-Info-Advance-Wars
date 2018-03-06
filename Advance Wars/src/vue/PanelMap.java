@@ -73,6 +73,10 @@ public class PanelMap extends JPanel {
 
   // Setters
 
+  public void rmvUnite (AbstractUnite u) {
+    p.rmvUnite(u);
+  }
+
   public void setJoueur (int i) {
     joueur.resetDeplace();
     if (indiceJoueur+i < joueurs.length)

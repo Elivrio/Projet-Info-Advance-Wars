@@ -12,12 +12,12 @@ import src.vue.PanelMap;
 
 public class ControleurMouse extends Controleur implements MouseListener {
 
-  public ControleurMouse(Vue v) {
+  public ControleurMouse (Vue v) {
     super(v);
   }
 
   // Fonction appelée lorsqu'on clique sur une case du plateau
-  public void mouseClicked(MouseEvent me) {
+  public void mouseClicked (MouseEvent me) {
     // Calcul de la case cliquée... Ne pas modifier
     int x = me.getX() + map.getTabJ()*100 + map.getPosJ();
     int y = me.getY() + map.getTabI()*100 + map.getPosI();
@@ -30,22 +30,27 @@ public class ControleurMouse extends Controleur implements MouseListener {
 
     AbstractUnite cliquee = map.getCliquee();
     // Si les déplacements sont affichés et qu'on clique sur une case cible possible, on y va
-    if (cliquee != null && map.getJoueur().possede(cliquee)
+    if (cliquee != null
+        && map.getJoueur().possede(cliquee)
         && (i-1 >= 0)
         && (i < map.getTerrain().length)
         && (j-1 >= 0)
         && (j < map.getTerrain()[0].length)) {
-          if (!map.getAttaque() && unite == null
+          if (!map.getAttaque()
+              && unite == null
               && cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
                 map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), j, i);
                 cliquee.setDeplace(Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()));
                 cliquee.setCase(j, i);
                 map.getJoueur().vision();
           }
-          if (unite != null && !map.getJoueur().possede(unite)
+          if (unite != null
+              && !map.getJoueur().possede(unite)
               && (Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getPortee())
               && map.getAttaque()) {
                 cliquee.attaquer(unite);
+                if (unite.getPV() <= 0)
+                  mort(unite);
                 vue.informations(cliquee, unite, cliquee.getDegats());
                 attaque = true;
           }
@@ -61,6 +66,11 @@ public class ControleurMouse extends Controleur implements MouseListener {
         vue.informations(terrain, map.getJoueur().getVision()[i][j]);
     }
     map.repaint();
+  }
+
+  public void mort (AbstractUnite u) {
+    u.getJoueur().remove(u);
+    map.rmvUnite(u);
   }
 
   public AbstractUnite isUnite (int i, int j) {

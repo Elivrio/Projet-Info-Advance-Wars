@@ -29,6 +29,10 @@ public class Joueur {
     return unites.contains(u);
   }
 
+  public void remove (AbstractUnite u) {
+    unites.remove(u);
+  }
+
   public void add (AbstractUnite u) {
     unites.add(u);
   }

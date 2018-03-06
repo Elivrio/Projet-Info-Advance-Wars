@@ -128,7 +128,9 @@ public class Vue extends JFrame {
     textJoueur.setText("");
     String str = "Joueur " + joueur.getNom();
     str += "\nPossède " + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
-    str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom();
+    if (joueur.getNbUnites() == 0)
+      str += "\nSon général est mort ! Perdant du jeu.";
+    else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom();
     str += "\n\n";
     afficher(textJoueur, "Informations joueur", str);
     textJoueur.insertComponent(boutonJoueur);

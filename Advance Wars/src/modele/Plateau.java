@@ -68,6 +68,10 @@ public class Plateau {
   public Terrain[][] getTerrain() { return terrain; }
   public Joueur[] getJoueurs() { return joueurs; }
 
+  public void rmvUnite (AbstractUnite u) {
+    unites[u.getY()][u.getX()] = null;
+  }
+
   public void setUnites (int ancienX, int ancienY, int x, int y) {
     AbstractUnite u = unites[ancienY][ancienX];
     unites[ancienY][ancienX] = null;
