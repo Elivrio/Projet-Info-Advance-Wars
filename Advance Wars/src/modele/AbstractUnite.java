@@ -13,6 +13,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected TypeUnite type;
   protected Joueur joueur;
   protected int x, y, indice;
+  protected int attaque;
 
   public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int cout, TypeUnite t, Joueur j, int x, int y, int i) {
     nom = n;
@@ -61,15 +62,20 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     else pv = 0;
   }
 
-  public void resetDeplace() {
+  public void reset() {
     deplace = 0;
+    attaque = 0;
   }
 
   public void setDeplace (int i) {
     deplace += i;
   }
 
-  public String combat(){
+  public int getAttaque() {
+    return attaque;
+  }
+
+  public String combat() {
     return typeCombat.combat();
   }
 
@@ -83,6 +89,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
 
   public void attaquer (AbstractUnite cible) {
     cible.setPV(-getDegats());
+    attaque++;
   }
 
 }

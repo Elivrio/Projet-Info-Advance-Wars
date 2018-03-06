@@ -37,9 +37,10 @@ public class Joueur {
     unites.add(u);
   }
 
-  public void resetDeplace() {
-    for (int i = 0; i < unites.size(); i++)
-      unites.get(i).resetDeplace();
+  public void reset() {
+    for (int i = 0; i < unites.size(); i++) {
+      unites.get(i).reset();
+    }
   }
 
   public void vision() {
