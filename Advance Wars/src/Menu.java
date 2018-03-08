@@ -8,7 +8,7 @@ import src.controleur.MenuActionListener;
 
 public class Menu extends JFrame {
 
-  private JPanel container = new JPanel();
+  private JPanel background = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
   private JLabel label = new JLabel("Combien de joueurs voulez-vous ?");
   JPanel midBottom = new JPanel();
@@ -18,31 +18,33 @@ public class Menu extends JFrame {
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
 
   public Menu() {
+
     setTitle("Menu");
-    setSize(1500, 500);
+    setSize(1600, 1200);
 
     mAL = new MenuActionListener(this);
-
-    container.setBackground(Color.gray);
-    container.setLayout(new BorderLayout());
 
     Integer[] nbJoueurs = {2, 3, 4};
     choixNbJoueurs = new JComboBox<Integer>(nbJoueurs);
     choixNbJoueurs.setPreferredSize(new Dimension(100, 20));
     choixNbJoueurs.addActionListener(mAL);
 
+    background.setLayout(new BorderLayout());
+
     JPanel top = new JPanel();
     top.add(new JLabel("Advance Wars"));
-    container.add(top, BorderLayout.NORTH);
+
+    background.add(top, BorderLayout.NORTH);
 
     JPanel mid = new JPanel();
     JPanel midTop = new JPanel();
     midTop.add(label);
     midTop.add(choixNbJoueurs);
+    afficherChoixNoms();
     mid.add(midTop);
     mid.add(midBottom);
 
-    container.add(mid, BorderLayout.CENTER);
+    background.add(mid, BorderLayout.CENTER);
 
     boutonGo.setFocusable(false);
     boutonGo.addActionListener(mAL);
@@ -50,9 +52,9 @@ public class Menu extends JFrame {
     JPanel bottom = new JPanel();
     bottom.add(boutonGo);
     bottom.setLocation(300, 385);
-    container.add(bottom, BorderLayout.SOUTH);
+    background.add(bottom, BorderLayout.SOUTH);
 
-    setContentPane(container);
+    setContentPane(background);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
@@ -61,11 +63,10 @@ public class Menu extends JFrame {
     String[] nbJoueurs = {"2", "3", "4"};
     JOptionPane menu = new JOptionPane();
     String nom = (String)menu.showInputDialog(null,
-      "Combien de joueurs y a-t-il ?",
-      "Menu",
-      JOptionPane.QUESTION_MESSAGE,
-      null, nbJoueurs, nbJoueurs[0]);
-      return nom;
+    "Combien de joueurs y a-t-il ?",
+    JOptionPane.QUESTION_MESSAGE,
+    null, nbJoueurs, nbJoueurs[0]);
+    return nom;
   }*/
 
   public JButton getBoutonGo() {
@@ -100,7 +101,7 @@ public class Menu extends JFrame {
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
     String[] noms = new String[nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++)
-      noms[i] = fieldNoms.get(i).getText();
+    noms[i] = fieldNoms.get(i).getText();
     return noms;
   }
 
@@ -108,7 +109,7 @@ public class Menu extends JFrame {
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
     String[] generaux = new String[nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++)
-      generaux[i] = (String)choixGeneral.get(i).getSelectedItem();
+    generaux[i] = (String)choixGeneral.get(i).getSelectedItem();
     return generaux;
   }
 
@@ -118,6 +119,6 @@ public class Menu extends JFrame {
 
   public static void main (String[] args) {
     Menu menu = new Menu();
-	}
+  }
 
 }

@@ -25,8 +25,10 @@ public class MenuActionListener implements ActionListener {
 
   public void actionPerformed (ActionEvent e) {
     Object source = e.getSource();
-    if (source == menu.getBoutonGo())
+    if (source == menu.getBoutonGo()) {
       lancerJeu(menu.recupererNoms(), menu.recupererGeneraux());
+      menu.dispose();
+    }
     else if (source == menu.getChoixNbJoueurs())
       menu.afficherChoixNoms();
   }

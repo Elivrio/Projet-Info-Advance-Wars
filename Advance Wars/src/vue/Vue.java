@@ -15,9 +15,9 @@ import src.modele.general.General;
 
 public class Vue extends JFrame {
 
-  private PanelMap panelPlateau;
+  private PanelMap panelPlateau, miniMap;
   private JTextPane textJoueur, textInfos;
-  private JSplitPane split1, split2;
+  private JSplitPane split1, split2, split3;
   private Dimension dimensionEcran;
   private int largeurEcran, hauteurEcran;
   private JButton boutonJoueur = new JButton("Changer de joueur");
@@ -46,14 +46,19 @@ public class Vue extends JFrame {
     split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, textJoueur, textInfos);
     split1.setDividerSize(2);
     split1.setEnabled(false);
-    split1.setDividerLocation(35*hauteurEcran/100);
-    getContentPane().add(split1, BorderLayout.CENTER);
+    split1.setDividerLocation(25*hauteurEcran/100);
 
-    split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelPlateau, split1);
+    miniMap = new PanelMap(map.getPlateau());
+    split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, split1, miniMap);
     split2.setDividerSize(0);
     split2.setEnabled(false);
-    split2.setDividerLocation(75*largeurEcran/100);
-    getContentPane().add(split2, BorderLayout.CENTER);
+    split2.setDividerLocation(65*hauteurEcran/100);
+
+    split3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelPlateau, split2);
+    split3.setDividerSize(0);
+    split3.setEnabled(false);
+    split3.setDividerLocation(75*largeurEcran/100);
+    getContentPane().add(split3, BorderLayout.CENTER);
 
     setVisible(true);
   }

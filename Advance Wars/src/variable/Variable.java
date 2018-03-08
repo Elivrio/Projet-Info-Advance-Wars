@@ -15,13 +15,13 @@ public class Variable {
   public final static Color montagne = new Color(0.60f,0.60f,0.60f);
   public final static Color limite = new Color(0f,0f,0f);
   public final static Color[] tCou = {foret, plaine, eau, montagne, limite};
-  public final static String pathToImages = "src/variable/images/";
-  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", ""};
+  public final static String pathToGeneraux = "src/variable/images/generaux/";
+  public final static String pathToTerrains = "src/variable/images/terrains/";
+  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/"};
 
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg"};
   public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png"};
-public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
-
+  public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
 
   public final static String[] tStrUni;
   public final static String[] tStrFond;
@@ -65,7 +65,7 @@ public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
     tStrTerFile = new File[tStrTer2.length];
     tImTer = new BufferedImage[tStrTerFile.length];
     for (int i = 0; i < tStrTer2.length ; i++) {
-      tStrDossierTer[i] = pathToImages + pathToImages2[i];
+      tStrDossierTer[i] = pathToTerrains + pathToImages2[i];
       tStrTer2[i] = tStrDossierTer[i]+ tStrBaseTer[i];
       tStrTerFile[i] = new File(tStrTer2[i]);
       try {
@@ -136,7 +136,7 @@ public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
     tStrUniFile = new File[tStrUni.length];
     tImUni = new BufferedImage[tStrUniFile.length];
     for (int i = 0; i < tStrUni.length; i++) {
-      tStrUni[i] = pathToImages + tStrBaseUni[i];
+      tStrUni[i] = pathToGeneraux + tStrBaseUni[i];
       tStrUniFile[i] = new File(tStrUni[i]);
       try {
         tImUni[i] = ImageIO.read(tStrUniFile[i]);
@@ -148,7 +148,7 @@ public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
     tStrFondFile = new File[tStrFond.length];
     tImFond = new BufferedImage[tStrFondFile.length];
     for (int i = 0; i < tStrFond.length; i++) {
-      tStrFond[i] = pathToImages + tStrBaseFond[i];
+      tStrFond[i] = pathToTerrains + pathToImages2[4] + tStrBaseFond[i];
       tStrFondFile[i] = new File(tStrFond[i]);
       try {
         tImFond[i] = ImageIO.read(tStrFondFile[i]);
@@ -156,12 +156,12 @@ public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
     }
   }
 
-  public final static BufferedImage noir = test(tImTer[tImTer.length - 1], 1f);
-  public final static BufferedImage gris = test(tImTer[tImTer.length - 1], 0.70f);
-  public final static BufferedImage vert = test(tImFond[0], 0.60f);
-  public final static BufferedImage rouge = test(tImFond[1], 0.60f);
+  public final static BufferedImage noir = opacifier(tImTer[tImTer.length - 1], 1f);
+  public final static BufferedImage gris = opacifier(tImTer[tImTer.length - 1], 0.70f);
+  public final static BufferedImage vert = opacifier(tImFond[0], 0.60f);
+  public final static BufferedImage rouge = opacifier(tImFond[1], 0.60f);
 
-  public static BufferedImage test(BufferedImage img, float opacite) {
+  public static BufferedImage opacifier(BufferedImage img, float opacite) {
     BufferedImage newImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
     Graphics2D g = newImg.createGraphics();
     g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacite));
