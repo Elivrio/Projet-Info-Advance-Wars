@@ -8,85 +8,46 @@ import java.util.*;
 
 import src.modele.*;
 import src.variable.Variable;
+import src.vue.Map;
 
-public class PanelMap extends JPanel {
+public class PanelMap extends Map {
 
-  private final int larg, haut;
-  private Plateau p;
-  private int posI, posJ;
-  private int tabI, tabJ;
-  private int taillePixel;
-  private Dimension dimensionEcran;
-  private final double largeurEcran, hauteurEcran;
-  private final double hautMax, largMax;
   private AbstractUnite cliquee;
   private boolean attaque;
-
-  private Joueur[] joueurs;
-  private int indiceJoueur;
-  private Joueur joueur;
+  private int taillePixel;
+  private int posI, posJ;
 
   public PanelMap (Plateau plat) {
-    joueurs = plat.getJoueurs();
-    indiceJoueur = 0;
-    joueur = joueurs[indiceJoueur];
-    dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-    largeurEcran = dimensionEcran.getWidth();
-    hauteurEcran = dimensionEcran.getHeight();
+    super(plat);
     setFocusable(true);
     requestFocusInWindow(true);
-    p = plat;
     taillePixel = 100;
     reset();
-    tabI = 1;
-    tabJ = 1;
     larg = (int)(85*largeurEcran/100);
     haut = (int)hauteurEcran;
     setSize(larg, haut);
-    largMax = (85*largeurEcran/100 + 3)/100;
-    hautMax = hauteurEcran/100 + 2;
   }
 
   // Getters
 
   public int getPosI() { return posI; }
   public int getPosJ() { return posJ; }
-  public int getTabI() { return tabI; }
-  public int getTabJ() { return tabJ; }
+  public int getTaillePixel() { return taillePixel; }
   public boolean getAttaque() { return attaque; }
-
-  public Plateau getPlateau() { return p; }
-  public Joueur[] getJoueurs() { return joueurs; }
-  public Joueur getJoueur() { return joueur; }
-
-  public int getLarg() { return larg; }
   public double getHautMax() { return hautMax; }
   public double getLargMax() { return largMax; }
-  public int getHauteur() { return p.getHauteur(); }
-  public int getLargeur() { return p.getLargeur(); }
-
-  public int getTaillePixel() { return taillePixel; }
-
-  public AbstractUnite[][] getUnites() { return p.getUnites(); }
-  public AbstractTerrain[][] getTerrain() { return p.getTerrain(); }
   public AbstractUnite getCliquee() { return cliquee; }
 
   // Setters
 
-  public void rmvUnite (AbstractUnite u) {
-    p.rmvUnite(u);
+  public void addTabI (int tI) {
+    tabI += tI;
+    posI = 0;
   }
 
-  public void setJoueur (int i) {
-    joueur.reset();
-    if (indiceJoueur+i < joueurs.length)
-      indiceJoueur += i;
-    else indiceJoueur = 0;
-    joueur = joueurs[indiceJoueur];
-  }
-
-  public void setAttaque (boolean b) {
-    attaque = b;
+  public void addTabJ (int tJ) {
+    tabJ += tJ;
+    posJ = 0;
   }
 
   public void addPosI (int pI) {
@@ -99,15 +60,14 @@ public class PanelMap extends JPanel {
     repaint();
   }
 
-  public void addTabI (int tI) {
-    tabI += tI;
-    posI = 0;
+  public void rmvUnite (AbstractUnite u) {
+    p.rmvUnite(u);
   }
 
-  public void addTabJ (int tJ) {
-    tabJ += tJ;
-    posJ = 0;
+  public void setAttaque (boolean b) {
+    attaque = b;
   }
+
 
   public void reset() {
     posJ = 0;
@@ -121,6 +81,7 @@ public class PanelMap extends JPanel {
     //boolean b = true;
     joueur.vision();
     //boolean c = false;
+
     int x = 0, y = 0;
     for (int i = 0; i < hautMax; i++)
       for (int j = 0; j < largMax; j++) {

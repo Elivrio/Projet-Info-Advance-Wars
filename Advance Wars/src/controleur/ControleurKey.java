@@ -17,17 +17,25 @@ public class ControleurKey extends Controleur implements KeyListener {
   // Fonction appelée lorsqu'une touche est pressée
   public void keyPressed(KeyEvent e) {
     // Clic sur la flèche droite ou sur la touche D
-    if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyChar() == 'd') && move('d'))
+    if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyChar() == 'd') && move('d')) {
       map.addPosJ(dep);
+      miniMap.addPosJ(-dep2);
+    }
     // Clic sur la flèche bas ou sur la touche S
-    else if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == 's') && move('b'))
+    else if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == 's') && move('b')) {
       map.addPosI(dep);
+      miniMap.addPosI(-dep2);
+    }
     // Clic sur la flèche gauche ou sur la touche Q
-    else if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyChar() == 'q') && move('g'))
+    else if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyChar() == 'q') && move('g')) {
       map.addPosJ(-dep);
+      miniMap.addPosJ(dep2);
+    }
     // Clic sur la flèche haut ou sur la touche Z
-    else if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == 'z') && move('h'))
+    else if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == 'z') && move('h')) {
       map.addPosI(-dep);
+      miniMap.addPosI(dep2);
+    }
     // Clic sur la touche Entrée ou J pour changer de joueur
     else if (e.getKeyChar() == Event.ENTER || e.getKeyChar() == 'j') {
       map.setCliquee(null);
@@ -35,6 +43,9 @@ public class ControleurKey extends Controleur implements KeyListener {
       vue.informations(map.getJoueur());
       vue.informations();
       map.repaint();
+
+      miniMap.setJoueur(1);
+      miniMap.repaint();
     }
     // Clic sur la touche A pour attaquer
     else if (e.getKeyChar() == 'a' && map.getCliquee() != null) {

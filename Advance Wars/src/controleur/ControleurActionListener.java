@@ -17,6 +17,9 @@
        map.setJoueur(1);
        vue.informations(map.getJoueur());
        vue.informations();
+       
+       miniMap.setJoueur(1);
+       miniMap.repaint();
     }
     // Si on clique sur le bouton pour attaquer
     else if (source == vue.getBoutonAttaque())

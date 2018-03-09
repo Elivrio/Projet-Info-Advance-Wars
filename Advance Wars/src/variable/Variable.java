@@ -21,7 +21,7 @@ public class Variable {
 
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg"};
   public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png"};
-  public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg"};
+  public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
 
   public final static String[] tStrUni;
   public final static String[] tStrFond;
@@ -160,6 +160,7 @@ public class Variable {
   public final static BufferedImage gris = opacifier(tImTer[tImTer.length - 1], 0.70f);
   public final static BufferedImage vert = opacifier(tImFond[0], 0.60f);
   public final static BufferedImage rouge = opacifier(tImFond[1], 0.60f);
+  public final static BufferedImage bleu = opacifier(tImFond[2], 0.60f);
 
   public static BufferedImage opacifier(BufferedImage img, float opacite) {
     BufferedImage newImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);

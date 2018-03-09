@@ -7,17 +7,21 @@ import java.awt.event.*;
 import src.variable.Variable;
 import src.vue.Vue;
 import src.vue.PanelMap;
-
+import src.vue.MiniMap;
 
 public class Controleur {
 
   protected final static int dep = 10;
+  protected double dep2;
   protected Vue vue;
   protected PanelMap map;
+  protected MiniMap miniMap;
 
   public Controleur(Vue v) {
     vue = v;
     map = vue.getMap();
+    miniMap = vue.getMiniMap();
+    dep2 = miniMap.getTaillePixel() / 10;
   }
 
   public Controleur(PanelMap m) {
@@ -33,24 +37,28 @@ public class Controleur {
       if (tabJ + map.getLargMax() > map.getPlateau().getLargeur())
         return false;
       map.addTabJ(1);
+      miniMap.addTabJ(1);
     }
     // Aller en bas
     else if (c == 'b' && posI >= 90) {
       if (tabI + map.getHautMax() > map.getPlateau().getHauteur())
         return false;
       map.addTabI(1);
+      miniMap.addTabI(1);
     }
     // Aller à gauche
     else if (c == 'g' && posJ <= -100) {
       if (tabJ - 1 < 1)
         return false;
       map.addTabJ(-1);
+      miniMap.addTabJ(-1);
     }
     // Aller en haut
     else if (c == 'h' && posI <= -100) {
       if (tabI - 1 < 1)
         return false;
       map.addTabI(-1);
+      miniMap.addTabI(-1);
     }
     else return true;
     return false;

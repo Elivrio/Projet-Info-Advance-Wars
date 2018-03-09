@@ -7,6 +7,7 @@ import java.awt.image.*;
 import java.awt.event.*;
 
 import src.vue.PanelMap;
+import src.vue.MiniMap;
 import src.modele.Plateau;
 import src.modele.AbstractUnite;
 import src.modele.AbstractTerrain;
@@ -15,7 +16,8 @@ import src.modele.general.General;
 
 public class Vue extends JFrame {
 
-  private PanelMap panelPlateau, miniMap;
+  private PanelMap panelPlateau;
+  private MiniMap miniMap;
   private JTextPane textJoueur, textInfos;
   private JSplitPane split1, split2, split3;
   private Dimension dimensionEcran;
@@ -46,9 +48,10 @@ public class Vue extends JFrame {
     split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, textJoueur, textInfos);
     split1.setDividerSize(2);
     split1.setEnabled(false);
-    split1.setDividerLocation(25*hauteurEcran/100);
+    split1.setDividerLocation(20*hauteurEcran/100);
 
-    miniMap = new PanelMap(map.getPlateau());
+    miniMap = new MiniMap(map.getPlateau(), 35*hauteurEcran/100, 25*largeurEcran/100);
+
     split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, split1, miniMap);
     split2.setDividerSize(0);
     split2.setEnabled(false);
@@ -65,6 +68,10 @@ public class Vue extends JFrame {
 
   public PanelMap getMap() {
     return panelPlateau;
+  }
+
+  public MiniMap getMiniMap() {
+    return miniMap;
   }
 
   public JButton getBoutonJoueur() { return boutonJoueur; }
@@ -98,8 +105,8 @@ public class Vue extends JFrame {
 
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
-    String str = ((unite instanceof General)? "Général " : "Unité de type ") + unite.getNom();
-    str += "\n" + unite.type();
+    //String str = ((unite instanceof General)? "Général " : "Unité de type ") + unite.getNom();
+    String str = unite.type();
     if (unite.getCombat() != null)
       str += "\n" + unite.combat();
     if (unite.getDeplacement() != null)
@@ -108,8 +115,8 @@ public class Vue extends JFrame {
     str += "\nPeut voir à une distance de " + unite.getVision() + " cases";
     str += "\nPeut avancer de " + unite.getDistance() + " cases";
     str += "\nS'est déplacé ce tour-ci de " + unite.getDeplace() + " cases";
-    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases\n\n";
-    afficher(textInfos, "Informations unité", str);
+    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases\n";
+    afficher(textInfos, unite.getNom(), str);
     if (unite.getCombat() != null)
       textInfos.insertComponent(boutonAttaque);
   }
@@ -122,22 +129,22 @@ public class Vue extends JFrame {
 
   public void informations (AbstractTerrain terrain, int vision) {
     textInfos.setText("");
-    String str = "Terrain de type ";
+    String str = "";
+    /*String str = "Terrain de type ";
     if (vision == 0)
       str += "Mystère Absolu";
-    else str += terrain.getNom();
-    afficher(textInfos, "Informations terrain", str);
+    else str += terrain.getNom();*/
+    afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str);
   }
 
   public void informations (Joueur joueur) {
     textJoueur.setText("");
-    String str = "Joueur " + joueur.getNom();
-    str += "\nPossède " + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
+    //String str = "Joueur " + joueur.getNom();
+    String str = "Possède " + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
     if (joueur.getNbUnites() == 0)
-      str += "\nSon général est mort ! Perdant du jeu.";
-    else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom();
-    str += "\n\n";
-    afficher(textJoueur, "Informations joueur", str);
+      str += "\nSon général est mort ! Perdant du jeu.\n";
+    else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom() + "\n";
+    afficher(textJoueur, joueur.getNom(), str);
     textJoueur.insertComponent(boutonJoueur);
   }
 }

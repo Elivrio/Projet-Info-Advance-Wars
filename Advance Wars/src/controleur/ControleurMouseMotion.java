@@ -21,14 +21,22 @@ public class ControleurMouseMotion extends Controleur implements MouseMotionList
     int sizeY = map.getHeight();
     int sizeX = map.getWidth();
     // Si on place le curseur à 5% du bord de la fenêtre, la caméra se déplace dans ce sens
-    if (me.getX() >= (95*sizeX/100) && move('d'))
+    if (me.getX() >= (95*sizeX/100) && move('d')) {
       map.addPosJ(dep);
-    if (me.getY() >= (95*sizeY/100) && move('b'))
+      miniMap.addPosJ(-dep2);
+    }
+    if (me.getY() >= (95*sizeY/100) && move('b')) {
       map.addPosI(dep);
-    if (me.getX() <= (5*sizeX/100) && move('g'))
+      miniMap.addPosI(-dep2);
+    }
+    if (me.getX() <= (5*sizeX/100) && move('g')) {
       map.addPosJ(-dep);
-    if (me.getY() <= (15*sizeY/100) && move('h'))
+      miniMap.addPosJ(dep2);
+    }
+    if (me.getY() <= (15*sizeY/100) && move('h')) {
       map.addPosI(-dep);
+      miniMap.addPosI(dep2);
+    }
   }
 
   public void mouseDragged(MouseEvent me) {}

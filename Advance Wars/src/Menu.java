@@ -1,9 +1,22 @@
 package src;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 import java.util.LinkedList;
-import src.modele.*;
+
+import src.Jeu;
+import src.vue.Vue;
+import src.vue.PanelMap;
+import src.modele.Joueur;
+import src.modele.Plateau;
+import src.modele.CarteScanner;
+import src.modele.general.Ninja;
+import src.modele.general.General;
+import src.modele.general.Nosaure;
+import src.modele.general.MadZombie;
+import src.modele.general.MagicalGirl;
+import src.controleur.MenuKeyListener;
+import src.controleur.MenuMouseListener;
 import src.controleur.MenuActionListener;
 
 public class Menu extends JFrame {
@@ -11,9 +24,11 @@ public class Menu extends JFrame {
   private JPanel background = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
   private JLabel label = new JLabel("Combien de joueurs voulez-vous ?");
-  JPanel midBottom = new JPanel();
+  private JPanel midBottom = new JPanel();
   private JButton boutonGo = new JButton("C'est parti !");
   private MenuActionListener mAL;
+  private MenuMouseListener mML;
+  private MenuKeyListener mKL;
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
 
@@ -23,6 +38,9 @@ public class Menu extends JFrame {
     setSize(1600, 1200);
 
     mAL = new MenuActionListener(this);
+    mML = new MenuMouseListener(this);
+    mKL = new MenuKeyListener(this);
+    addKeyListener(mKL);
 
     Integer[] nbJoueurs = {2, 3, 4};
     choixNbJoueurs = new JComboBox<Integer>(nbJoueurs);
@@ -85,6 +103,7 @@ public class Menu extends JFrame {
       JLabel pres = new JLabel("Joueur " + (i+1));
       fieldNoms.add(new JTextField("Nom du joueur"));
       fieldNoms.get(i).setPreferredSize(new Dimension(150, 30));
+      fieldNoms.get(i).addMouseListener(mML);
       String[] generaux = {"Nosaure", "Ninja", "MadZombie", "MagicalGirl"};
       choixGeneral.add(new JComboBox<String>(generaux));
       choixGeneral.get(i).addActionListener(mAL);
@@ -115,6 +134,35 @@ public class Menu extends JFrame {
 
   public LinkedList<JComboBox<String>> getChoixGeneral() {
     return choixGeneral;
+  }
+
+  public Joueur[] creationJoueurs (String[] noms, int x, int y) {
+    Joueur[] joueurs = new Joueur[noms.length];
+    for (int i = 0; i < noms.length; i++)
+      joueurs[i] = new Joueur(noms[i], x, y);
+    return joueurs;
+  }
+
+  public General[] creationGeneraux (String[] noms, Joueur[] joueurs) {
+    General[] generaux = new General[noms.length];
+    for (int i = 0; i < noms.length; i++)
+      switch (noms[i]) {
+        case "Nosaure" : generaux[i] = new Nosaure(joueurs[i], 0, 0); break;
+        case "Ninja" : generaux[i] = new Ninja(joueurs[i], 0, 0); break;
+        case "MadZombie" : generaux[i] = new MadZombie(joueurs[i], 0, 0); break;
+        case "MagicalGirl" : generaux[i] = new MagicalGirl(joueurs[i], 0, 0); break;
+      }
+    return generaux;
+  }
+
+  public void lancerJeu (String[] noms, String[] nomsGeneraux) {
+    CarteScanner test = new CarteScanner("src/variable/cartes/carteTest2.txt");
+    int x = test.nbrColonnes()+2;
+    int y = test.nbrLignes()+2;
+    Joueur[] joueurs = creationJoueurs(noms, x, y);
+    General[] generaux = creationGeneraux(nomsGeneraux, joueurs);
+    Plateau p = test.plateau(generaux.length, generaux);
+    Jeu jeu = new Jeu(p);
   }
 
   public static void main (String[] args) {
