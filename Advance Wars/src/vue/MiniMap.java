@@ -16,12 +16,15 @@ public class MiniMap extends Map {
 
   private double taillePixel;
   private double posI, posJ;
+  private int noirHaut, noirGauche;
 
   public MiniMap (Plateau plat, int h, int l) {
     super(plat);
     haut = h;
     larg = l;
     taillePixel = larg/(p.getLargeur()+3);
+    noirHaut = (int)(haut - taillePixel*(plat.getHauteur() + 2)) / 2;
+    noirGauche = (int)(larg - taillePixel*(plat.getLargeur() + 6)) / 2;
   }
 
   public double getTaillePixel() {
@@ -49,6 +52,8 @@ public class MiniMap extends Map {
   }
 
   public void paint (Graphics g) {
+    super.paintComponent(g);
+
     joueur.vision();
 
     Graphics2D g2 = (Graphics2D) g;
@@ -58,31 +63,31 @@ public class MiniMap extends Map {
         // On dessine le terrain
         int t = p.getTerrain()[i][j].getType();
         BufferedImage img = Variable.tImTer[t];
-        g.drawImage(img, (int)((j-1)*taillePixel), (int)((i-1)*taillePixel), this);
+        g.drawImage(img, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
 
         // On met à jour le brouillard de guerre et les unités
         switch (joueur.getVision()[i][j]) {
           case 0 :
-            g.drawImage(Variable.noir, (int)((j-1)*taillePixel), (int)((i-1)*taillePixel), this);
+            g.drawImage(Variable.noir, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
             break;
           case 1 :
-            g.drawImage(Variable.gris, (int)((j-1)*taillePixel), (int)((i-1)*taillePixel), this);
+            g.drawImage(Variable.gris, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
             break;
           default :
             AbstractUnite unite = p.getUnites()[i][j];
             g.setColor(Color.BLUE);
             if (unite != null)
               if (joueur.possede(unite))
-                g.drawImage(Variable.bleu, (int)((j-1)*taillePixel), (int)((i-1)*taillePixel), this);
+                g.drawImage(Variable.bleu, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
               else
-                g.drawImage(Variable.rouge, (int)((j-1)*taillePixel), (int)((i-1)*taillePixel), this);
+                g.drawImage(Variable.rouge, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
             break;
         }
 
       }
     // On met à jour la vue actuelle
     g.setColor(Color.RED);
-    Rectangle2D rect = new Rectangle2D.Double((tabJ-1)*taillePixel - posJ, (tabI-1)*taillePixel - posI, (largMax-2)*taillePixel, (hautMax-2)*taillePixel);
+    Rectangle2D rect = new Rectangle2D.Double((tabJ-1)*taillePixel - posJ + noirGauche, (tabI-1)*taillePixel - posI + noirHaut, (largMax-2)*taillePixel, (hautMax-2)*taillePixel);
     g2.draw(rect);
   }
 

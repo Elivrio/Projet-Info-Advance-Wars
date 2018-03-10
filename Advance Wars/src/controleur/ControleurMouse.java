@@ -67,6 +67,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
         vue.informations(terrain, map.getJoueur().getVision()[i][j]);
     }
     map.repaint();
+    miniMap.repaint();
   }
 
   public void mort (AbstractUnite u) {

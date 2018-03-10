@@ -37,6 +37,7 @@ public class Map extends JPanel {
     hauteurEcran = dimensionEcran.getHeight();
     largMax = (85*largeurEcran/100 + 3)/100;
     hautMax = hauteurEcran/100 + 2;
+    setBackground(Color.BLACK);
   }
 
   public int getLarg() { return larg; }
