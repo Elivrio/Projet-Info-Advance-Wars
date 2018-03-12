@@ -1,12 +1,12 @@
 package src.controleur;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Event;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import src.variable.Variable;
 import src.vue.Vue;
 import src.vue.PanelMap;
+import src.variable.Variable;
 
 public class ControleurKey extends Controleur implements KeyListener {
 

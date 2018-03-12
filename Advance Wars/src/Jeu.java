@@ -1,6 +1,5 @@
 package src;
 
-import javax.swing.*;
 import java.util.LinkedList;
 
 import src.vue.Vue;

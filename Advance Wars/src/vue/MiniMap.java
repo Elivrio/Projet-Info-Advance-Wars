@@ -1,11 +1,10 @@
 package src.vue;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 import src.Jeu;
 import src.vue.Map;

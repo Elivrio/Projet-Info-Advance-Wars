@@ -1,9 +1,8 @@
 package src.modele.chairacanon.aerienne;
 
-import src.modele.AbstractUnite;
 import src.modele.Joueur;
+import src.modele.AbstractUnite;
 import src.modele.interfaces.typeunite.Aerienne;
-
 
 public class HelicoptereTransport extends AbstractUnite {
 

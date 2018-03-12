@@ -1,10 +1,9 @@
 package src.modele.chairacanon.aerienne;
 
-import src.modele.AbstractUnite;
 import src.modele.Joueur;
-import src.modele.interfaces.combat.CombatCouteau;
+import src.modele.AbstractUnite;
 import src.modele.interfaces.typeunite.Aerienne;
-
+import src.modele.interfaces.combat.CombatCouteau;
 
 public class Chasseur extends AbstractUnite {
 

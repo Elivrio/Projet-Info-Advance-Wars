@@ -1,16 +1,16 @@
 package src.variable;
 
-import java.io.*;
-import java.awt.*;
-import java.lang.*;
-import javax.swing.*;
-import javax.imageio.*;
-import java.awt.image.*;
-import java.awt.event.*;
+import java.io.File;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.AlphaComposite;
+import java.awt.image.BufferedImage;
 
 import src.modele.AbstractUnite;
-import src.modele.chairacanon.maritime.*;
 import src.modele.chairacanon.aerienne.*;
+import src.modele.chairacanon.maritime.*;
 import src.modele.chairacanon.terrestre.*;
 
 public class Variable {
@@ -35,6 +35,7 @@ public class Variable {
                                                    new Chasseur(null, 0, 0),
                                                    new Helico(null, 0, 0),
                                                    new HelicoptereTransport(null, 0, 0) }};
+
 
   public final static Color foret = new Color(0f,0.50f,0.25f);
   public final static Color plaine = new Color(0f,0.75f,0.50f);

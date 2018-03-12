@@ -1,7 +1,10 @@
 package src.controleur;
 
-import java.awt.event.*;
-import src.vue.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import src.vue.Vue;
+import src.controleur.Controleur;
 
 public class ControleurActionListener extends Controleur implements ActionListener {
 

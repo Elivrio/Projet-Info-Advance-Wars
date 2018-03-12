@@ -1,23 +1,30 @@
 package src.vue;
 
-import javax.swing.*;
-import javax.swing.text.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.*;
+import java.awt.Color;
+import javax.swing.JFrame;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JTextPane;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import javax.swing.JSplitPane;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.BadLocationException;
 
-import src.vue.PanelMap;
 import src.vue.MiniMap;
-import src.modele.Plateau;
-import src.modele.AbstractUnite;
-import src.modele.AbstractTerrain;
+import src.vue.PanelMap;
 import src.modele.Joueur;
-import src.modele.general.General;
-import src.modele.terrain.AbstractVille;
-import src.modele.terrain.Usine;
-import src.modele.terrain.Port;
-import src.modele.terrain.Aeroport;
+import src.modele.Plateau;
 import src.variable.Variable;
+import src.modele.terrain.Port;
+import src.modele.terrain.Usine;
+import src.modele.AbstractUnite;
+import src.modele.general.General;
+import src.modele.AbstractTerrain;
+import src.modele.terrain.Aeroport;
+import src.modele.terrain.AbstractVille;
 
 public class Vue extends JFrame {
 

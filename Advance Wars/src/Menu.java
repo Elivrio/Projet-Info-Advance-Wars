@@ -1,8 +1,14 @@
 package src;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
 import java.util.LinkedList;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import javax.swing.JTextField;
 
 import src.Jeu;
 import src.vue.Vue;
@@ -15,14 +21,12 @@ import src.modele.general.General;
 import src.modele.general.Nosaure;
 import src.modele.general.MadZombie;
 import src.modele.general.MagicalGirl;
-import src.controleur.MenuKeyListener;
 import src.controleur.MenuMouseListener;
 import src.controleur.MenuActionListener;
 
 public class Menu extends JFrame {
 
   private Jeu jeu;
-  private MenuKeyListener mKL;
   private MenuMouseListener mML;
   private MenuActionListener mAL;
   private JPanel midBottom = new JPanel();
@@ -38,8 +42,6 @@ public class Menu extends JFrame {
     setTitle("Menu");
     setSize(1600, 1200);
 
-    addKeyListener(mKL);
-    mKL = new MenuKeyListener(this);
     mML = new MenuMouseListener(this);
     mAL = new MenuActionListener(this);
 

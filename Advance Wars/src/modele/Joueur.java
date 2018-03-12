@@ -1,6 +1,6 @@
 package src.modele;
 
-import java.util.*;
+import java.util.LinkedList;
 import src.modele.AbstractUnite;
 
 public class Joueur {

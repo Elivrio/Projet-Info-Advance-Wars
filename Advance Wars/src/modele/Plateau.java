@@ -1,20 +1,21 @@
 package src.modele;
 
 import java.util.Random;
-import java.util.*;
-import src.modele.general.General;
-import src.modele.general.MadZombie;
-import src.modele.general.Nosaure;
-import src.modele.general.Ninja;
-import src.modele.general.MagicalGirl;
+import java.util.LinkedList;
+
 import src.modele.terrain.Eau;
-import src.modele.terrain.Foret;
-import src.modele.terrain.Montagne;
-import src.modele.terrain.Plaine;
-import src.modele.terrain.TrouNoir;
-import src.modele.terrain.Usine;
 import src.modele.terrain.Port;
+import src.modele.terrain.Foret;
+import src.modele.general.Ninja;
+import src.modele.terrain.Usine;
+import src.modele.terrain.Plaine;
+import src.modele.general.General;
+import src.modele.general.Nosaure;
 import src.modele.terrain.Aeroport;
+import src.modele.terrain.Montagne;
+import src.modele.terrain.TrouNoir;
+import src.modele.general.MadZombie;
+import src.modele.general.MagicalGirl;
 import src.modele.terrain.AbstractVille;
 
 

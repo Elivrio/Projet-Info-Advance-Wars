@@ -1,9 +1,8 @@
 package src.modele.chairacanon.maritime;
 
-import src.modele.AbstractUnite;
 import src.modele.Joueur;
+import src.modele.AbstractUnite;
 import src.modele.interfaces.typeunite.Maritime;
-
 
 public class Barge extends AbstractUnite {
 

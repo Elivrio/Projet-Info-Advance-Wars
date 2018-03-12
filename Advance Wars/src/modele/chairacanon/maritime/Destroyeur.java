@@ -1,10 +1,9 @@
 package src.modele.chairacanon.maritime;
 
-import src.modele.AbstractUnite;
 import src.modele.Joueur;
-import src.modele.interfaces.combat.CombatCouteau;
+import src.modele.AbstractUnite;
 import src.modele.interfaces.typeunite.Maritime;
-
+import src.modele.interfaces.combat.CombatCouteau;
 
 public class Destroyeur extends AbstractUnite {
 

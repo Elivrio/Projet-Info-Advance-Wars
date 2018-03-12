@@ -1,10 +1,9 @@
 package src.modele.chairacanon.terrestre;
 
-import src.modele.AbstractUnite;
 import src.modele.Joueur;
-import src.modele.interfaces.combat.CombatCouteau;
+import src.modele.AbstractUnite;
 import src.modele.interfaces.typeunite.Terrestre;
-
+import src.modele.interfaces.combat.CombatCouteau;
 
 public class AAir extends AbstractUnite {
 
