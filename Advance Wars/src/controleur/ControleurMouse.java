@@ -50,8 +50,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
               && map.getAttaque()
               && cliquee.getAttaque() < 1) {
                 cliquee.attaquer(unite);
-                if (unite.getPV() <= 0)
-                  mort(unite);
+                jeu.mort(unite);
                 vue.informations(cliquee, unite, cliquee.getDegats());
                 attaque = true;
           }
@@ -64,15 +63,10 @@ public class ControleurMouse extends Controleur implements MouseListener {
         vue.informations(unite);
       // Sinon, on affiche les caractéristiques du terrain
       else
-        vue.informations(terrain, map.getJoueur().getVision()[i][j]);
+        vue.informations(terrain, map.getJoueur(), map.getJoueur().getVision()[i][j]);
     }
     map.repaint();
     miniMap.repaint();
-  }
-
-  public void mort (AbstractUnite u) {
-    u.getJoueur().remove(u);
-    map.rmvUnite(u);
   }
 
   public AbstractUnite isUnite (int i, int j) {

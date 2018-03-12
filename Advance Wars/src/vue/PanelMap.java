@@ -6,9 +6,10 @@ import java.awt.image.*;
 import java.awt.event.*;
 import java.util.*;
 
+import src.Jeu;
+import src.vue.Map;
 import src.modele.*;
 import src.variable.Variable;
-import src.vue.Map;
 
 public class PanelMap extends Map {
 
@@ -17,8 +18,8 @@ public class PanelMap extends Map {
   private int taillePixel;
   private int posI, posJ;
 
-  public PanelMap (Plateau plat) {
-    super(plat);
+  public PanelMap (Plateau plat, Jeu j) {
+    super(plat, j);
     setFocusable(true);
     requestFocusInWindow(true);
     taillePixel = 100;

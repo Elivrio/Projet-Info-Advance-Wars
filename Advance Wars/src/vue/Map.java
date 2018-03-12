@@ -6,10 +6,12 @@ import java.awt.image.*;
 import java.awt.event.*;
 import java.util.*;
 
+import src.Jeu;
 import src.modele.Joueur;
 import src.modele.Plateau;
 import src.modele.AbstractUnite;
 import src.modele.AbstractTerrain;
+import src.modele.terrain.AbstractVille;
 
 public class Map extends JPanel {
 
@@ -24,9 +26,11 @@ public class Map extends JPanel {
   protected Joueur[] joueurs;
   protected Joueur joueur;
   protected int indiceJoueur;
+  protected Jeu jeu;
 
-  public Map (Plateau plat) {
+  public Map (Plateau plat, Jeu j) {
     p = plat;
+    jeu = j;
     joueurs = plat.getJoueurs();
     indiceJoueur = 0;
     joueur = joueurs[indiceJoueur];
@@ -40,6 +44,7 @@ public class Map extends JPanel {
     setBackground(Color.BLACK);
   }
 
+  public Jeu getJeu() { return jeu; }
   public int getLarg() { return larg; }
   public int getTabI() { return tabI; }
   public int getTabJ() { return tabJ; }
@@ -50,6 +55,7 @@ public class Map extends JPanel {
   public Plateau getPlateau() { return p; }
   public Joueur getJoueur() { return joueur; }
   public Joueur[] getJoueurs() { return joueurs; }
+  public LinkedList<AbstractVille> getVilles() { return p.getVilles(); }
 
   public AbstractUnite[][] getUnites() { return p.getUnites(); }
   public AbstractTerrain[][] getTerrain() { return p.getTerrain(); }

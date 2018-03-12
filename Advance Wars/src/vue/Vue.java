@@ -13,6 +13,11 @@ import src.modele.AbstractUnite;
 import src.modele.AbstractTerrain;
 import src.modele.Joueur;
 import src.modele.general.General;
+import src.modele.terrain.AbstractVille;
+import src.modele.terrain.Usine;
+import src.modele.terrain.Port;
+import src.modele.terrain.Aeroport;
+import src.variable.Variable;
 
 public class Vue extends JFrame {
 
@@ -22,6 +27,11 @@ public class Vue extends JFrame {
   private JSplitPane split1, split2, split3;
   private Dimension dimensionEcran;
   private int largeurEcran, hauteurEcran;
+  private JButton boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
+  private JButton boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
+  private JButton boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
+
+  private JComboBox<String> choixCreationUnite;
   private JButton boutonJoueur = new JButton("Changer de joueur");
   private JButton boutonAttaque = new JButton("Attaquer");
 
@@ -35,6 +45,9 @@ public class Vue extends JFrame {
 
     boutonJoueur.setFocusable(false);
     boutonAttaque.setFocusable(false);
+    boutonCreationUniteAerienne.setFocusable(false);
+    boutonCreationUniteMaritime.setFocusable(false);
+    boutonCreationUniteTerrestre.setFocusable(false);
     panelPlateau = map;
     textJoueur = new JTextPane();
     textJoueur.setEditable(false);
@@ -50,7 +63,7 @@ public class Vue extends JFrame {
     split1.setEnabled(false);
     split1.setDividerLocation(20*hauteurEcran/100);
 
-    miniMap = new MiniMap(map.getPlateau(), 35*hauteurEcran/100, 25*largeurEcran/100);
+    miniMap = new MiniMap(map.getPlateau(), map.getJeu(), 35*hauteurEcran/100, 25*largeurEcran/100);
 
     split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, split1, miniMap);
     split2.setDividerSize(0);
@@ -74,6 +87,10 @@ public class Vue extends JFrame {
     return miniMap;
   }
 
+  public JButton getBoutonCreationUniteAerienne() { return boutonCreationUniteAerienne; }
+  public JButton getBoutonCreationUniteMaritime() { return boutonCreationUniteMaritime; }
+  public JButton getBoutonCreationUniteTerrestre() { return boutonCreationUniteTerrestre; }
+  public JComboBox<String> getChoixCreationUnite() { return choixCreationUnite; }
   public JButton getBoutonJoueur() { return boutonJoueur; }
   public JButton getBoutonAttaque() { return boutonAttaque; }
 
@@ -105,7 +122,6 @@ public class Vue extends JFrame {
 
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
-    //String str = ((unite instanceof General)? "Général " : "Unité de type ") + unite.getNom();
     String str = unite.type();
     if (unite.getCombat() != null)
       str += "\n" + unite.combat();
@@ -127,20 +143,52 @@ public class Vue extends JFrame {
     afficher(textInfos, "", str);
   }
 
-  public void informations (AbstractTerrain terrain, int vision) {
+  public void informations (AbstractTerrain terrain, Joueur joueur, int vision) {
     textInfos.setText("");
     String str = "";
-    /*String str = "Terrain de type ";
-    if (vision == 0)
-      str += "Mystère Absolu";
-    else str += terrain.getNom();*/
-    afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str);
+    if (terrain instanceof AbstractVille) {
+      AbstractVille ville = (AbstractVille)terrain;
+      Joueur j = ville.getJoueur();
+      if (j != null) {
+        if (j == joueur)
+          str += "Cette ville vous appartient !\n";
+        else
+          str += "Cette ville appartient au joueur " + ville.getJoueur().getNom() + ".";
+      }
+      else
+        str += "Cette ville n'appartient pour le moment à aucun joueur.";
+      afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str);
+      if (j == joueur) {
+        if (ville instanceof Usine)
+          textInfos.insertComponent(boutonCreationUniteTerrestre);
+        else if (ville instanceof Port)
+          textInfos.insertComponent(boutonCreationUniteMaritime);
+        else if (ville instanceof Aeroport)
+          textInfos.insertComponent(boutonCreationUniteAerienne);
+
+        afficher(textInfos, "", "");
+      }
+    }
+    else afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str);
+  }
+
+  public void afficherChoixUnites (Joueur joueur, int n) {
+    int prixMax = joueur.getArgent();
+    AbstractUnite[] unites = Variable.listeUnites[n];
+    choixCreationUnite = new JComboBox<String>();
+    choixCreationUnite.setFocusable(false);
+
+    for (int i = 0; i < unites.length; i++)
+      if (unites[i].getCout() <= prixMax)
+        choixCreationUnite.addItem(unites[i].getNom() + " (" + unites[i].getCout() + ")");
+
+    textInfos.insertComponent(choixCreationUnite);
   }
 
   public void informations (Joueur joueur) {
     textJoueur.setText("");
-    //String str = "Joueur " + joueur.getNom();
     String str = "Possède " + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
+    str += "\nPossège " + joueur.getArgent() + " euros";
     if (joueur.getNbUnites() == 0)
       str += "\nSon général est mort ! Perdant du jeu.\n";
     else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom() + "\n";

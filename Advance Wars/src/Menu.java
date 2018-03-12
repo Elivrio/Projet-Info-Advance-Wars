@@ -21,14 +21,15 @@ import src.controleur.MenuActionListener;
 
 public class Menu extends JFrame {
 
+  private Jeu jeu;
+  private MenuKeyListener mKL;
+  private MenuMouseListener mML;
+  private MenuActionListener mAL;
+  private JPanel midBottom = new JPanel();
   private JPanel background = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
-  private JLabel label = new JLabel("Combien de joueurs voulez-vous ?");
-  private JPanel midBottom = new JPanel();
   private JButton boutonGo = new JButton("C'est parti !");
-  private MenuActionListener mAL;
-  private MenuMouseListener mML;
-  private MenuKeyListener mKL;
+  private JLabel label = new JLabel("Combien de joueurs voulez-vous ?");
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
 
@@ -37,10 +38,10 @@ public class Menu extends JFrame {
     setTitle("Menu");
     setSize(1600, 1200);
 
-    mAL = new MenuActionListener(this);
-    mML = new MenuMouseListener(this);
-    mKL = new MenuKeyListener(this);
     addKeyListener(mKL);
+    mKL = new MenuKeyListener(this);
+    mML = new MenuMouseListener(this);
+    mAL = new MenuActionListener(this);
 
     Integer[] nbJoueurs = {2, 3, 4};
     choixNbJoueurs = new JComboBox<Integer>(nbJoueurs);
@@ -104,7 +105,7 @@ public class Menu extends JFrame {
       fieldNoms.add(new JTextField("Nom du joueur"));
       fieldNoms.get(i).setPreferredSize(new Dimension(150, 30));
       fieldNoms.get(i).addMouseListener(mML);
-      String[] generaux = {"Nosaure", "Ninja", "MadZombie", "MagicalGirl"};
+      String[] generaux = {"Ninja", "Nosaure", "MadZombie", "MagicalGirl"};
       choixGeneral.add(new JComboBox<String>(generaux));
       choixGeneral.get(i).addActionListener(mAL);
       JPanel pan = new JPanel();
@@ -156,13 +157,13 @@ public class Menu extends JFrame {
   }
 
   public void lancerJeu (String[] noms, String[] nomsGeneraux) {
-    CarteScanner test = new CarteScanner("src/variable/cartes/carteTest2.txt");
+    CarteScanner test = new CarteScanner("src/variable/cartes/carteTest3.txt");
     int x = test.nbrColonnes()+2;
     int y = test.nbrLignes()+2;
     Joueur[] joueurs = creationJoueurs(noms, x, y);
     General[] generaux = creationGeneraux(nomsGeneraux, joueurs);
     Plateau p = test.plateau(generaux.length, generaux);
-    Jeu jeu = new Jeu(p);
+    jeu = new Jeu(p);
   }
 
   public static void main (String[] args) {

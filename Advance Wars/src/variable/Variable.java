@@ -8,7 +8,34 @@ import javax.imageio.*;
 import java.awt.image.*;
 import java.awt.event.*;
 
+import src.modele.AbstractUnite;
+import src.modele.chairacanon.maritime.*;
+import src.modele.chairacanon.aerienne.*;
+import src.modele.chairacanon.terrestre.*;
+
 public class Variable {
+
+  public static AbstractUnite[][] listeUnites = {{ new AAir(null, 0, 0),
+                                                   new Artillerie(null, 0, 0),
+                                                   new Bazooka(null, 0, 0),
+                                                   new DCA(null, 0, 0),
+                                                   new Fantassin(null, 0, 0),
+                                                   new LMiss(null, 0, 0),
+                                                   new Recon(null, 0, 0),
+                                                   new Tank(null, 0, 0),
+                                                   new TankM(null, 0, 0),
+                                                   new VTB(null, 0, 0) },
+
+                                                 { new Barge(null, 0, 0),
+                                                   new Cuirasse(null, 0, 0),
+                                                   new Destroyeur(null, 0, 0),
+                                                   new SousMarin(null, 0, 0) },
+
+                                                 { new Bombardier(null, 0, 0),
+                                                   new Chasseur(null, 0, 0),
+                                                   new Helico(null, 0, 0),
+                                                   new HelicoptereTransport(null, 0, 0) }};
+
   public final static Color foret = new Color(0f,0.50f,0.25f);
   public final static Color plaine = new Color(0f,0.75f,0.50f);
   public final static Color eau = new Color(0f,0.60f,1f);
@@ -17,9 +44,9 @@ public class Variable {
   public final static Color[] tCou = {foret, plaine, eau, montagne, limite};
   public final static String pathToGeneraux = "src/variable/images/generaux/";
   public final static String pathToTerrains = "src/variable/images/terrains/";
-  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/"};
+  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", ""};
 
-  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg"};
+  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png"};
   public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png"};
   public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
 
@@ -156,8 +183,8 @@ public class Variable {
     }
   }
 
-  public final static BufferedImage noir = opacifier(tImTer[tImTer.length - 1], 1f);
-  public final static BufferedImage gris = opacifier(tImTer[tImTer.length - 1], 0.70f);
+  public final static BufferedImage noir = opacifier(tImTer[4], 1f);
+  public final static BufferedImage gris = opacifier(tImTer[4], 0.70f);
   public final static BufferedImage vert = opacifier(tImFond[0], 0.60f);
   public final static BufferedImage rouge = opacifier(tImFond[1], 0.60f);
   public final static BufferedImage bleu = opacifier(tImFond[2], 0.60f);

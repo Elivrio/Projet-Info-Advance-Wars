@@ -12,17 +12,22 @@ import src.modele.terrain.Foret;
 import src.modele.terrain.Montagne;
 import src.modele.terrain.Plaine;
 import src.modele.terrain.TrouNoir;
-import src.modele.terrain.Ville;
+import src.modele.terrain.Usine;
+import src.modele.terrain.Port;
+import src.modele.terrain.Aeroport;
+import src.modele.terrain.AbstractVille;
+
 
 public class Plateau {
-  private int largeur, hauteur;
-  private AbstractTerrain[][] terrain;
-  private AbstractUnite[][] unites;
   private Joueur[] joueurs;
+  private int largeur, hauteur;
+  private AbstractUnite[][] unites;
+  private AbstractTerrain[][] terrain;
+  private LinkedList<AbstractVille> villes;
 
   /*
     1 --> Plaine
-    3 --> Montagne
+    3 --> MontagneUsine
     2 --> Eau
     0 --> Foret
 
@@ -35,6 +40,7 @@ public class Plateau {
     hauteur = carte.length;
     terrain = new AbstractTerrain[hauteur][largeur];
 
+    villes = new LinkedList<AbstractVille>();
     unites = new AbstractUnite[hauteur][largeur];
     joueurs = new Joueur[generaux.length];
     initJoueurs(generaux);
@@ -48,7 +54,21 @@ public class Plateau {
           case 2 : terrain[i][j] = new Eau(); break;
           case 3 : terrain[i][j] = new Montagne(); break;
           case 4 : terrain[i][j] = new TrouNoir(); break;
-          case 5 : terrain[i][j] = new Ville(); break;
+          case 5 :
+            Usine usine = new Usine(j, i);
+            terrain[i][j] = usine;
+            villes.add(usine);
+            break;
+          case 6 :
+            Port port = new Port(j, i);
+            terrain[i][j] = port;
+            villes.add(port);
+            break;
+          case 7 :
+            Aeroport aeroport = new Aeroport(j, i);
+            terrain[i][j] = aeroport;
+            villes.add(aeroport);
+            break;
         }
 
   }
@@ -81,6 +101,7 @@ public class Plateau {
   public AbstractUnite[][] getUnites() { return unites; }
   public AbstractTerrain[][] getTerrain() { return terrain; }
   public Joueur[] getJoueurs() { return joueurs; }
+  public LinkedList<AbstractVille> getVilles() { return villes; }
 
   public void rmvUnite (AbstractUnite u) {
     unites[u.getY()][u.getX()] = null;

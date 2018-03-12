@@ -4,27 +4,30 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-import src.variable.Variable;
+import src.Jeu;
 import src.vue.Vue;
-import src.vue.PanelMap;
 import src.vue.MiniMap;
+import src.vue.PanelMap;
+import src.variable.Variable;
 
 public class Controleur {
 
-  protected final static int dep = 10;
-  protected double dep2;
   protected Vue vue;
+  protected Jeu jeu;
+  protected double dep2;
   protected PanelMap map;
   protected MiniMap miniMap;
+  protected final static int dep = 10;
 
-  public Controleur(Vue v) {
+  public Controleur (Vue v) {
     vue = v;
     map = vue.getMap();
+    jeu = map.getJeu();
     miniMap = vue.getMiniMap();
     dep2 = miniMap.getTaillePixel() / 10;
   }
 
-  public Controleur(PanelMap m) {
+  public Controleur (PanelMap m) {
     map = m;
   }
 

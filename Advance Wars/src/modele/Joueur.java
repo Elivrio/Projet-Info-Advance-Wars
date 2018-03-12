@@ -13,20 +13,27 @@ public class Joueur {
   private final String nom;
   private LinkedList<AbstractUnite> unites;
   private int[][] vision;
+  private int argent;
 
   public Joueur (String n, int x, int y) {
     nom = n;
     unites = new LinkedList<AbstractUnite>();
     vision = new int[y][x];
+    argent = 10000;
   }
 
   public String getNom() { return nom; }
   public LinkedList<AbstractUnite> getUnites() { return unites; }
   public int getNbUnites() { return unites.size(); }
   public int[][] getVision() { return vision; }
+  public int getArgent() { return argent; }
 
   public boolean possede (AbstractUnite u) {
     return unites.contains(u);
+  }
+
+  public void setArgent (int n) {
+    argent += n;
   }
 
   public void remove (AbstractUnite u) {

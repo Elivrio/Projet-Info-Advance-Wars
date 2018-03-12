@@ -15,7 +15,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected int x, y, indice;
   protected int attaque;
 
-  public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int cout, TypeUnite t, Joueur j, int x, int y, int i) {
+  public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int prix, TypeUnite t, Joueur j, int x, int y, int i) {
     nom = n;
     pvMax = pM;
     pv = pM;
@@ -31,6 +31,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.x = x;
     this.y = y;
     indice = i;
+    cout = prix;
   }
 
   public int getDegats() { return typeCombat.getDegats(); }
@@ -48,6 +49,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public TypeUnite getType() { return type; }
   public Combat getCombat() { return typeCombat; }
   public Deplacement getDeplacement() { return deplacement; }
+  public int getCout() { return cout; }
 
   public void setCase (int x, int y) {
     this.x = x;

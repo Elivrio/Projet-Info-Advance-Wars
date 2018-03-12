@@ -7,9 +7,10 @@ import java.awt.event.*;
 import java.util.*;
 import java.awt.geom.Rectangle2D;
 
+import src.Jeu;
+import src.vue.Map;
 import src.modele.Plateau;
 import src.variable.Variable;
-import src.vue.Map;
 import src.modele.AbstractUnite;
 
 public class MiniMap extends Map {
@@ -18,8 +19,8 @@ public class MiniMap extends Map {
   private double posI, posJ;
   private int noirHaut, noirGauche;
 
-  public MiniMap (Plateau plat, int h, int l) {
-    super(plat);
+  public MiniMap (Plateau plat, Jeu j,  int h, int l) {
+    super(plat, j);
     haut = h;
     larg = l;
     taillePixel = larg/(p.getLargeur()+3);
