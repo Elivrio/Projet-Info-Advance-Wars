@@ -59,6 +59,7 @@ public class Map extends JPanel {
 
   public void setJoueur (int i) {
     joueur.reset();
+    p.reset();
     if (indiceJoueur+i < joueurs.length)
       indiceJoueur += i;
     else indiceJoueur = 0;

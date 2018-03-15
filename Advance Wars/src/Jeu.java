@@ -19,7 +19,6 @@ import src.modele.general.MagicalGirl;
 import src.controleur.ControleurMouse;
 import src.modele.terrain.AbstractVille;
 import src.controleur.ControleurMouseMotion;
-import src.controleur.ControleurActionListener;
 
 public class Jeu {
 
@@ -29,7 +28,6 @@ public class Jeu {
   private ControleurKey cK;
   private ControleurMouse cM;
   private ControleurMouseMotion cMM;
-  private ControleurActionListener cAL;
 
   public Jeu (Plateau plat) {
     p = plat;
@@ -38,15 +36,9 @@ public class Jeu {
     cK = new ControleurKey(v);
     cM = new ControleurMouse(v);
     cMM = new ControleurMouseMotion(v);
-    cAL = new ControleurActionListener(v);
     map.addKeyListener(cK);
     map.addMouseListener(cM);
     map.addMouseMotionListener(cMM);
-    v.getBoutonJoueur().addActionListener(cAL);
-    v.getBoutonAttaque().addActionListener(cAL);
-    v.getBoutonCreationUniteAerienne().addActionListener(cAL);
-    v.getBoutonCreationUniteMaritime().addActionListener(cAL);
-    v.getBoutonCreationUniteTerrestre().addActionListener(cAL);
   }
 
   public void mort (AbstractUnite unite) {

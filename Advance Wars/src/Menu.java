@@ -47,6 +47,7 @@ public class Menu extends JFrame {
 
     Integer[] nbJoueurs = {2, 3, 4};
     choixNbJoueurs = new JComboBox<Integer>(nbJoueurs);
+    choixNbJoueurs.setSelectedItem(4);
     choixNbJoueurs.setPreferredSize(new Dimension(100, 20));
     choixNbJoueurs.addActionListener(mAL);
 

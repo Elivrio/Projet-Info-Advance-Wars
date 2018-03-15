@@ -1,5 +1,6 @@
 package src.controleur;
 
+import java.util.LinkedList;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -8,6 +9,7 @@ import src.vue.PanelMap;
 import src.variable.Variable;
 import src.modele.AbstractUnite;
 import src.modele.AbstractTerrain;
+import src.modele.terrain.AbstractVille;
 
 public class ControleurMouse extends Controleur implements MouseListener {
 
@@ -25,6 +27,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
     int j = x/taillePixel;
     AbstractUnite unite = isUnite(i, j);
     AbstractTerrain terrain = isTerrain(i, j);
+    AbstractVille ville = isVille(terrain, i, j);
     boolean attaque = false;
 
     AbstractUnite cliquee = map.getCliquee();
@@ -61,11 +64,23 @@ public class ControleurMouse extends Controleur implements MouseListener {
       if (unite != null && map.getJoueur().possede(unite))
         vue.informations(unite);
       // Sinon, on affiche les caractéristiques du terrain
+      else if (ville != null)
+        vue.informations(ville, map.getJoueur(), map.getJoueur().getVision()[i][j]);
       else
-        vue.informations(terrain, map.getJoueur(), map.getJoueur().getVision()[i][j]);
+        vue.informations(terrain, map.getJoueur().getVision()[i][j]);
     }
     map.repaint();
     miniMap.repaint();
+  }
+
+  public AbstractVille isVille (AbstractTerrain terrain, int i, int j) {
+    if (terrain instanceof AbstractVille) {
+      LinkedList<AbstractVille> villes = map.getVilles();
+      for (AbstractVille v : villes)
+        if (v.getX() == j && v.getY() == i)
+          return v;
+    }
+    return null;
   }
 
   public AbstractUnite isUnite (int i, int j) {

@@ -23,12 +23,6 @@ public class ControleurActionListener extends Controleur implements ActionListen
       map.setAttaque(false);
       else map.setAttaque(true);
     }
-    else if (source == vue.getBoutonCreationUniteTerrestre())
-      vue.afficherChoixUnites(map.getJoueur(), 0);
-    else if (source == vue.getBoutonCreationUniteMaritime())
-      vue.afficherChoixUnites(map.getJoueur(), 1);
-    else if (source == vue.getBoutonCreationUniteAerienne())
-      vue.afficherChoixUnites(map.getJoueur(), 2);
 
     map.repaint();
   }

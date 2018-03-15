@@ -8,6 +8,6 @@ import src.modele.interfaces.combat.CombatMitrailleuse;
 public class Helico extends AbstractUnite {
 
   public Helico (Joueur j, int x, int y) {
-    super("Hélico", 99, new CombatMitrailleuse(), null, 6, 1, 3, 99, 9000, new Aerienne(), j, x, y, 0);
+    super("Hélico", 99, new CombatMitrailleuse(), null, 6, 1, 3, 99, 9000, new Aerienne(), j, x, y, 5);
   }
 }
