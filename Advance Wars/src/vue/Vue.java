@@ -43,11 +43,10 @@ public class Vue extends JFrame {
   private JSplitPane split1, split2, split3;
   private Dimension dimensionEcran;
   private int largeurEcran, hauteurEcran;
-  private JButton boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
-  private JButton boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
-  private JButton boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
+  private JButton boutonCreationUniteTerrestre = new JButton();
+  private JButton boutonCreationUniteMaritime = new JButton();
+  private JButton boutonCreationUniteAerienne = new JButton();
   private MouseIcone mI;
-  private ActionVille aL;
   private ControleurActionListener cAL;
   private int typeUnites;
 
@@ -192,18 +191,23 @@ public class Vue extends JFrame {
     }
     else
       str += "Cette ville n'appartient pour le moment à aucun joueur.";
+
     afficher(textInfos, (vision == 0)? "Mystère absolu" : ville.getNom(), str);
-    aL = new ActionVille(this, ville);
+
+    ActionVille aL = new ActionVille(this, ville);
     if (j == joueur && !ville.getAchete()) {
       if (ville instanceof Usine) {
+        boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
         textInfos.insertComponent(boutonCreationUniteTerrestre);
         boutonCreationUniteTerrestre.addActionListener(aL);
       }
       else if (ville instanceof Port) {
+        boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
         textInfos.insertComponent(boutonCreationUniteMaritime);
         boutonCreationUniteMaritime.addActionListener(aL);
       }
       else if (ville instanceof Aeroport) {
+        boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
         textInfos.insertComponent(boutonCreationUniteAerienne);
         boutonCreationUniteAerienne.addActionListener(aL);
       }
@@ -224,9 +228,9 @@ public class Vue extends JFrame {
     mI = new MouseIcone(this, ville);
     for (int i = 0; i < unites.length; i++) {
       if (unites[i].getCout() <= prixMax)
-        icone = new JLabel(new ImageIcon(Variable.tImIcone[0]));
+        icone = new JLabel(new ImageIcon(Variable.tImIcone[unites[i].getIndice()-5]));
       else
-        icone = new JLabel(new ImageIcon(Variable.tImIconeTropCher[0]));
+        icone = new JLabel(new ImageIcon(Variable.tImIconeTropCher[unites[i].getIndice()-5]));
       icone.addMouseListener(mI);
       listeIcones.add(icone);
       panelChoixUnites.add(icone);

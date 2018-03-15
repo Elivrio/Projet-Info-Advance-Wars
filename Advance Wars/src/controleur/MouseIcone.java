@@ -70,6 +70,7 @@ public class MouseIcone extends Controleur implements MouseListener {
           vue.informations(j);
           vue.informations(ville, j, j.getVision()[y][x]);
           map.repaint();
+          miniMap.repaint();
         }
       }
   }
