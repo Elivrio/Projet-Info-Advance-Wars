@@ -36,7 +36,7 @@ public class Menu extends JFrame {
   private MenuMouseListener mML;
   private MenuActionListener mAL;
   private JPanel midCenter = new JPanel();
-  private JPanel background = new JPanel();
+  private PanelMenu background;
   private JPanel bot = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
   private JButton boutonGo = new JButton("C'est parti !");
@@ -54,7 +54,8 @@ public class Menu extends JFrame {
     int hauteurEcran = (int)dimensionEcran.getHeight();
 
     setTitle("Menu");
-    setSize(largeurEcran, hauteurEcran);
+    setSize(600, 500);
+    setLocationRelativeTo(null);
 
     mML = new MenuMouseListener(this);
     mAL = new MenuActionListener(this);

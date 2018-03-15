@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 public class PanelMenu extends JPanel {
   Image fondMenu;
-  int i = 0;
 
   public PanelMenu() {
     fondMenu = Toolkit.getDefaultToolkit().createImage("src/variable/images/fondMenu.png");
@@ -17,7 +16,7 @@ public class PanelMenu extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return (fondMenu == null)? new Dimension(0, 0) : new Dimension(fondMenu.getWidth(this), fondMenu.getHeight(this));
+    return ((fondMenu == null)? new Dimension(0, 0) : new Dimension(fondMenu.getWidth(this), fondMenu.getHeight(this)));
   }
 
   @Override
