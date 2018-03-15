@@ -1,11 +1,11 @@
 package src;
 
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.Graphics;
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import java.awt.Insets;
-import java.awt.Image;
-import java.awt.Graphics;
 
 public class PanelMenu extends JPanel {
   Image fondMenu;
@@ -17,7 +17,7 @@ public class PanelMenu extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return fondMenu == null ? new Dimension(0, 0) : new Dimension(fondMenu.getWidth(this), fondMenu.getHeight(this));
+    return (fondMenu == null)? new Dimension(0, 0) : new Dimension(fondMenu.getWidth(this), fondMenu.getHeight(this));
   }
 
   @Override

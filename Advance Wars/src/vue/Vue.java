@@ -198,16 +198,19 @@ public class Vue extends JFrame {
     if (j == joueur && !ville.getAchete()) {
       if (ville instanceof Usine) {
         boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
+        boutonCreationUniteTerrestre.setFocusable(false);
         textInfos.insertComponent(boutonCreationUniteTerrestre);
         boutonCreationUniteTerrestre.addActionListener(aL);
       }
       else if (ville instanceof Port) {
         boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
+        boutonCreationUniteMaritime.setFocusable(false);
         textInfos.insertComponent(boutonCreationUniteMaritime);
         boutonCreationUniteMaritime.addActionListener(aL);
       }
       else if (ville instanceof Aeroport) {
         boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
+        boutonCreationUniteAerienne.setFocusable(false);
         textInfos.insertComponent(boutonCreationUniteAerienne);
         boutonCreationUniteAerienne.addActionListener(aL);
       }

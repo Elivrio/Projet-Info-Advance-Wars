@@ -35,9 +35,7 @@ public class Menu extends JFrame {
   private Jeu jeu;
   private MenuMouseListener mML;
   private MenuActionListener mAL;
-  private JPanel midLeft = new JPanel();
   private JPanel midCenter = new JPanel();
-  private JPanel midRight = new JPanel();
   private JPanel background = new JPanel();
   private JPanel bot = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
@@ -79,23 +77,13 @@ public class Menu extends JFrame {
     midCenter.setPreferredSize(new Dimension(largeurEcran*50/100,hauteurEcran*50/100));
 
     midLab.setFont(label.getFont().deriveFont(Font.BOLD, 24));
-    midLab.setForeground(Color.YELLOW);
     afficherChoixNoms();
 
     background.add(midCenter, BorderLayout.CENTER);
 
-    midLeft.setBackground(transparent);
-    midLeft.setPreferredSize(new Dimension(largeurEcran*25/100,hauteurEcran*50/100));
-    background.add(midLeft, BorderLayout.WEST);
-
-    midRight.setBackground(transparent);
-    midRight.setPreferredSize(new Dimension(largeurEcran*25/100,hauteurEcran*50/100));
-    background.add(midRight, BorderLayout.EAST);
-
     boutonGo.setFocusable(false);
-    boutonGo.setBackground(transparent);
+    boutonGo.setPreferredSize(new Dimension(200, 40));
     boutonGo.addActionListener(mAL);
-    boutonGo.setBackground(transparent);
     bot.setBackground(transparent);
     bot.add(boutonGo);
     background.add(bot, BorderLayout.SOUTH);
