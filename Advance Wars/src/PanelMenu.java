@@ -1,10 +1,11 @@
 package src;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.image.*;
-import java.awt.event.*;
-import src.modele.*;
+import java.awt.Toolkit;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+import java.awt.Insets;
+import java.awt.Image;
+import java.awt.Graphics;
 
 public class PanelMenu extends JPanel {
   Image fondMenu;

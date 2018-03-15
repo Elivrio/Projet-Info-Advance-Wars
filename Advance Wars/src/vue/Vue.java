@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 import java.awt.BorderLayout;
 import javax.swing.JSplitPane;
 import javax.swing.text.StyleConstants;
@@ -57,7 +58,7 @@ public class Vue extends JFrame {
 
   public Vue (PanelMap map) {
 
-    dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    dimensionEcran = Toolkit.getDefaultToolkit().getScreenSize();
     largeurEcran = (int)dimensionEcran.getWidth();
     hauteurEcran = (int)dimensionEcran.getHeight();
     setSize(largeurEcran, hauteurEcran);
@@ -91,7 +92,7 @@ public class Vue extends JFrame {
 
     split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, split1, miniMap);
     split2.setDividerSize(0);
-    split2.setEnabled(false); 
+    split2.setEnabled(false);
     split2.setDividerLocation(65*hauteurEcran/100);
 
     split3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelPlateau, split2);

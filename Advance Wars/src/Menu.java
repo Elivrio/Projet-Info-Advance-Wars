@@ -8,7 +8,12 @@ import javax.swing.JButton;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JTextField;
+
 
 import src.Jeu;
 import src.vue.Vue;
@@ -42,6 +47,8 @@ public class Menu extends JFrame {
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
 
+  private final static Color transparent = new Color(0, 0, 0, 0);
+
   public Menu() {
 
     Dimension dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
@@ -62,7 +69,6 @@ public class Menu extends JFrame {
 
     background = new PanelMenu();
 
-
     background.setLayout(new BorderLayout());
 
     JLabel top = new JLabel("Advance Wars");
@@ -70,7 +76,7 @@ public class Menu extends JFrame {
     top.setHorizontalAlignment(JLabel.CENTER);
     background.add(top, BorderLayout.NORTH);
 
-    midCenter.setPreferredSize(new Dimension(largeurEcran*65/100,hauteurEcran*50/100));
+    midCenter.setPreferredSize(new Dimension(largeurEcran*50/100,hauteurEcran*50/100));
 
     midLab.setFont(label.getFont().deriveFont(Font.BOLD, 24));
     midLab.setForeground(Color.YELLOW);
@@ -78,18 +84,19 @@ public class Menu extends JFrame {
 
     background.add(midCenter, BorderLayout.CENTER);
 
-    midLeft.setBackground(new Color(100, 100, 100, 0));
+    midLeft.setBackground(transparent);
     midLeft.setPreferredSize(new Dimension(largeurEcran*25/100,hauteurEcran*50/100));
     background.add(midLeft, BorderLayout.WEST);
 
-    midRight.setBackground(new Color(100, 100, 100, 0));
+    midRight.setBackground(transparent);
     midRight.setPreferredSize(new Dimension(largeurEcran*25/100,hauteurEcran*50/100));
     background.add(midRight, BorderLayout.EAST);
 
     boutonGo.setFocusable(false);
-    boutonGo.setBackground(new Color(0, 0, 0, 0));
+    boutonGo.setBackground(transparent);
     boutonGo.addActionListener(mAL);
-    bot.setBackground(new Color(0, 0, 0, 0));
+    boutonGo.setBackground(transparent);
+    bot.setBackground(transparent);
     bot.add(boutonGo);
     background.add(bot, BorderLayout.SOUTH);
 
@@ -109,35 +116,44 @@ public class Menu extends JFrame {
   }
 
   public void afficherChoixNoms() {
+    background.repaint();
+    midCenter.removeAll();
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
     midCenter = new JPanel();
-    midCenter.setLayout(new GridLayout(nbJoueurs + 1, 1));
-    midCenter.setBackground(new Color(0, 0, 0, 0));
-    JPanel tmp = new JPanel();
-    tmp.setBackground(new Color(0, 0, 0, 0));
-    tmp.setLayout(new FlowLayout());
-    tmp.add(midLab);
-    tmp.add(choixNbJoueurs);
-    midCenter.add(tmp);
+    midCenter.setLayout(new GridLayout(nbJoueurs + 2, 1));
+    midCenter.setBackground(transparent);
+    JPanel tmp1 = new JPanel();
+    tmp1.setBackground(transparent);
+    tmp1.add(midCenter);
+    JPanel tmp2 = new JPanel();
+    tmp2.setBackground(transparent);
+    tmp2.setLayout(new FlowLayout());
+    tmp2.add(midLab);
+    tmp2.add(choixNbJoueurs);
+    midCenter.add(tmp2);
     for (int i = 0; i < nbJoueurs; i++) {
       JPanel pan = new JPanel();
       JLabel pres = new JLabel("Joueur " + (i+1));
+
       fieldNoms.add(new JTextField("Nom du joueur"));
       fieldNoms.get(i).setPreferredSize(new Dimension(150, 30));
       fieldNoms.get(i).addMouseListener(mML);
+
       String[] generaux = {"Ninja", "Nosaure", "MadZombie", "MagicalGirl"};
       choixGeneral.add(new JComboBox<String>(generaux));
       choixGeneral.get(i).addActionListener(mAL);
 
-      pan.setBackground(new Color(0, 0, 0, 0));
+      pan.setBackground(transparent);
       pan.add(pres);
       pan.add(fieldNoms.get(i));
       pan.add(choixGeneral.get(i));
       midCenter.add(pan);
     }
-    midCenter.setBackground(new Color(0, 0, 0, 0));
+    midCenter.setBackground(new Color(100, 100, 100, 0));
     background.add(midCenter, BorderLayout.CENTER);
     background.revalidate();
+    background.repaint();
+
   }
 
   public String[] recupererNoms() {

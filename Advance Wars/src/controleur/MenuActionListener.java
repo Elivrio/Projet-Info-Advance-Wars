@@ -14,6 +14,7 @@ public class MenuActionListener implements ActionListener {
   }
 
   public void actionPerformed (ActionEvent e) {
+    menu.repaint();
     Object source = e.getSource();
     if (source == menu.getBoutonGo()) {
       menu.lancerJeu(menu.recupererNoms(), menu.recupererGeneraux());
