@@ -19,24 +19,33 @@ import src.controleur.MenuKeyListener;
 import src.controleur.MenuMouseListener;
 import src.controleur.MenuActionListener;
 
+
 public class Menu extends JFrame {
 
   private Jeu jeu;
   private MenuKeyListener mKL;
   private MenuMouseListener mML;
   private MenuActionListener mAL;
-  private JPanel midBottom = new JPanel();
+  private JPanel midLeft = new JPanel();
+  private JPanel midCenter = new JPanel();
+  private JPanel midRight = new JPanel();
   private JPanel background = new JPanel();
+  private JPanel bot = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
   private JButton boutonGo = new JButton("C'est parti !");
   private JLabel label = new JLabel("Combien de joueurs voulez-vous ?");
+  private JLabel midLab = new JLabel("Combien de joueurs voulez-vous ?");
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
 
   public Menu() {
 
+    Dimension dimensionEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    int largeurEcran = (int)dimensionEcran.getWidth();
+    int hauteurEcran = (int)dimensionEcran.getHeight();
+
     setTitle("Menu");
-    setSize(1600, 1200);
+    setSize(largeurEcran, hauteurEcran);
 
     addKeyListener(mKL);
     mKL = new MenuKeyListener(this);
@@ -48,45 +57,45 @@ public class Menu extends JFrame {
     choixNbJoueurs.setPreferredSize(new Dimension(100, 20));
     choixNbJoueurs.addActionListener(mAL);
 
+    background = new PanelMenu();
+
+
     background.setLayout(new BorderLayout());
 
-    JPanel top = new JPanel();
-    top.add(new JLabel("Advance Wars"));
-
+    JLabel top = new JLabel("Advance Wars");
+    top.setFont(label.getFont().deriveFont(Font.BOLD, 48));
+    top.setHorizontalAlignment(JLabel.CENTER);
     background.add(top, BorderLayout.NORTH);
 
-    JPanel mid = new JPanel();
-    JPanel midTop = new JPanel();
-    midTop.add(label);
-    midTop.add(choixNbJoueurs);
-    afficherChoixNoms();
-    mid.add(midTop);
-    mid.add(midBottom);
+    midCenter.setPreferredSize(new Dimension(largeurEcran*65/100,hauteurEcran*50/100));
 
-    background.add(mid, BorderLayout.CENTER);
+    midLab.setFont(label.getFont().deriveFont(Font.BOLD, 24));
+    midLab.setForeground(Color.YELLOW);
+    afficherChoixNoms();
+
+    background.add(midCenter, BorderLayout.CENTER);
+
+    midLeft.setBackground(new Color(100, 100, 100, 0));
+    midLeft.setPreferredSize(new Dimension(largeurEcran*25/100,hauteurEcran*50/100));
+    background.add(midLeft, BorderLayout.WEST);
+
+    midRight.setBackground(new Color(100, 100, 100, 0));
+    midRight.setPreferredSize(new Dimension(largeurEcran*25/100,hauteurEcran*50/100));
+    background.add(midRight, BorderLayout.EAST);
 
     boutonGo.setFocusable(false);
+    boutonGo.setBackground(new Color(0, 0, 0, 0));
     boutonGo.addActionListener(mAL);
+    bot.setBackground(new Color(0, 0, 0, 0));
+    bot.add(boutonGo);
+    background.add(bot, BorderLayout.SOUTH);
 
-    JPanel bottom = new JPanel();
-    bottom.add(boutonGo);
-    bottom.setLocation(300, 385);
-    background.add(bottom, BorderLayout.SOUTH);
+    //add(background);
 
     setContentPane(background);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
-
-  /*public static String menu() {
-    String[] nbJoueurs = {"2", "3", "4"};
-    JOptionPane menu = new JOptionPane();
-    String nom = (String)menu.showInputDialog(null,
-    "Combien de joueurs y a-t-il ?",
-    JOptionPane.QUESTION_MESSAGE,
-    null, nbJoueurs, nbJoueurs[0]);
-    return nom;
-  }*/
 
   public JButton getBoutonGo() {
     return boutonGo;
@@ -97,10 +106,18 @@ public class Menu extends JFrame {
   }
 
   public void afficherChoixNoms() {
-    midBottom.removeAll();
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
-
+    midCenter = new JPanel();
+    midCenter.setLayout(new GridLayout(nbJoueurs + 1, 1));
+    midCenter.setBackground(new Color(0, 0, 0, 0));
+    JPanel tmp = new JPanel();
+    tmp.setBackground(new Color(0, 0, 0, 0));
+    tmp.setLayout(new FlowLayout());
+    tmp.add(midLab);
+    tmp.add(choixNbJoueurs);
+    midCenter.add(tmp);
     for (int i = 0; i < nbJoueurs; i++) {
+      JPanel pan = new JPanel();
       JLabel pres = new JLabel("Joueur " + (i+1));
       fieldNoms.add(new JTextField("Nom du joueur"));
       fieldNoms.get(i).setPreferredSize(new Dimension(150, 30));
@@ -108,20 +125,23 @@ public class Menu extends JFrame {
       String[] generaux = {"Ninja", "Nosaure", "MadZombie", "MagicalGirl"};
       choixGeneral.add(new JComboBox<String>(generaux));
       choixGeneral.get(i).addActionListener(mAL);
-      JPanel pan = new JPanel();
+
+      pan.setBackground(new Color(0, 0, 0, 0));
       pan.add(pres);
       pan.add(fieldNoms.get(i));
       pan.add(choixGeneral.get(i));
-      midBottom.add(pan);
+      midCenter.add(pan);
     }
-    midBottom.revalidate();
+    midCenter.setBackground(new Color(0, 0, 0, 0));
+    background.add(midCenter, BorderLayout.CENTER);
+    background.revalidate();
   }
 
   public String[] recupererNoms() {
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
     String[] noms = new String[nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++)
-    noms[i] = fieldNoms.get(i).getText();
+      noms[i] = fieldNoms.get(i).getText();
     return noms;
   }
 
@@ -129,7 +149,7 @@ public class Menu extends JFrame {
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
     String[] generaux = new String[nbJoueurs];
     for (int i = 0; i < nbJoueurs; i++)
-    generaux[i] = (String)choixGeneral.get(i).getSelectedItem();
+      generaux[i] = (String)choixGeneral.get(i).getSelectedItem();
     return generaux;
   }
 

@@ -67,7 +67,7 @@ public class Vue extends JFrame {
 
     split2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, split1, miniMap);
     split2.setDividerSize(0);
-    split2.setEnabled(false);
+    split2.setEnabled(false); 
     split2.setDividerLocation(65*hauteurEcran/100);
 
     split3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelPlateau, split2);
