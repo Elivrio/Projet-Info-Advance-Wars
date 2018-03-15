@@ -50,9 +50,9 @@ public class Variable {
   public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", ""};
 
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png"};
-  public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png", "tank.png"};
-  public final static String[] tStrBaseIcone = {"tankPrix.png"};
-  public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png"};
+  public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png", "tank.png", "fantassin.png"};
+  public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png"};
+  public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png"};
   public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
 
   public final static String[] tStrUni;
