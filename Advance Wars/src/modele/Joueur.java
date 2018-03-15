@@ -1,6 +1,6 @@
 package src.modele;
 
-import java.util.*;
+import java.util.LinkedList;
 import src.modele.AbstractUnite;
 
 public class Joueur {
@@ -40,7 +40,9 @@ public class Joueur {
     unites.remove(u);
   }
 
-  public void add (AbstractUnite u) {
+  public void add (AbstractUnite u, boolean b) {
+    if (b)
+      argent -= u.getCout();
     unites.add(u);
   }
 
@@ -64,6 +66,7 @@ public class Joueur {
   }
 
   public void vision (int indice, AbstractUnite unite, int x, int y) {
+    vision[y][x] = 2;
     if (indice < unite.getVision())
       for (int i = -1; i <= 1; i++)
         for (int j = -1; j <= 1; j++)

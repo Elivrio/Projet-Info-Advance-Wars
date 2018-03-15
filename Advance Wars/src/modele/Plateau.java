@@ -1,20 +1,21 @@
 package src.modele;
 
 import java.util.Random;
-import java.util.*;
-import src.modele.general.General;
-import src.modele.general.MadZombie;
-import src.modele.general.Nosaure;
-import src.modele.general.Ninja;
-import src.modele.general.MagicalGirl;
+import java.util.LinkedList;
+
 import src.modele.terrain.Eau;
-import src.modele.terrain.Foret;
-import src.modele.terrain.Montagne;
-import src.modele.terrain.Plaine;
-import src.modele.terrain.TrouNoir;
-import src.modele.terrain.Usine;
 import src.modele.terrain.Port;
+import src.modele.terrain.Foret;
+import src.modele.general.Ninja;
+import src.modele.terrain.Usine;
+import src.modele.terrain.Plaine;
+import src.modele.general.General;
+import src.modele.general.Nosaure;
 import src.modele.terrain.Aeroport;
+import src.modele.terrain.Montagne;
+import src.modele.terrain.TrouNoir;
+import src.modele.general.MadZombie;
+import src.modele.general.MagicalGirl;
 import src.modele.terrain.AbstractVille;
 
 
@@ -73,6 +74,11 @@ public class Plateau {
 
   }
 
+  public void reset() {
+    for (AbstractVille v : villes)
+      v.setAchete(false);
+  }
+
   public void initJoueurs (General[] generaux) {
     for (int i = 0; i < generaux.length; i++) {
       joueurs[i] = generaux[i].getJoueur();
@@ -88,12 +94,18 @@ public class Plateau {
       int j = rand.nextInt(largeur-2);
       if (unites[i+1][j+1] == null) {
         general.setCase(j+1, i+1);
-        joueur.add(general);
-        unites[i+1][j+1] = general;
+        addUnite(general, joueur, false);
         System.out.println(i + " " + j);
         x++;
       }
     }
+  }
+
+  public void addUnite (AbstractUnite unite, Joueur joueur, boolean b) {
+    joueur.add(unite, b);
+    int i = unite.getY();
+    int j = unite.getX();
+    unites[i][j] = unite;
   }
 
   public int getHauteur() { return hauteur; }

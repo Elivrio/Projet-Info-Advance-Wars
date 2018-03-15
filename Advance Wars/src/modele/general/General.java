@@ -1,10 +1,10 @@
 package src.modele.general;
 
-import src.modele.AbstractUnite;
 import src.modele.Joueur;
+import src.modele.AbstractUnite;
 import src.modele.interfaces.combat.Combat;
-import src.modele.interfaces.deplacement.Deplacement;
 import src.modele.interfaces.typeunite.TypeUnite;
+import src.modele.interfaces.deplacement.Deplacement;
 
 public abstract class General extends AbstractUnite {
 

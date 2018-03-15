@@ -1,7 +1,10 @@
 package src.controleur;
 
-import java.awt.event.*;
-import src.vue.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import src.vue.Vue;
+import src.controleur.Controleur;
 
 public class ControleurActionListener extends Controleur implements ActionListener {
 
@@ -20,12 +23,6 @@ public class ControleurActionListener extends Controleur implements ActionListen
       map.setAttaque(false);
       else map.setAttaque(true);
     }
-    else if (source == vue.getBoutonCreationUniteTerrestre())
-      vue.afficherChoixUnites(map.getJoueur(), 0);
-    else if (source == vue.getBoutonCreationUniteMaritime())
-      vue.afficherChoixUnites(map.getJoueur(), 1);
-    else if (source == vue.getBoutonCreationUniteAerienne())
-      vue.afficherChoixUnites(map.getJoueur(), 2);
 
     map.repaint();
   }

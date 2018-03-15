@@ -1,10 +1,9 @@
 package src.vue;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+import java.util.LinkedList;
 
 import src.Jeu;
 import src.modele.Joueur;
@@ -16,10 +15,8 @@ import src.modele.terrain.AbstractVille;
 public class Map extends JPanel {
 
   protected Plateau p;
-  //protected double posI, posJ;
   protected int haut, larg;
   protected int tabI, tabJ;
-  //protected int taillePixel;
   protected Dimension dimensionEcran;
   protected final double largeurEcran, hauteurEcran;
   protected double hautMax, largMax;
@@ -62,6 +59,7 @@ public class Map extends JPanel {
 
   public void setJoueur (int i) {
     joueur.reset();
+    p.reset();
     if (indiceJoueur+i < joueurs.length)
       indiceJoueur += i;
     else indiceJoueur = 0;

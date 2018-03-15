@@ -1,15 +1,17 @@
 package src.vue;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 
 import src.Jeu;
 import src.vue.Map;
-import src.modele.*;
+import src.modele.Plateau;
 import src.variable.Variable;
+import src.modele.AbstractUnite;
+import src.modele.AbstractTerrain;
 
 public class PanelMap extends Map {
 
@@ -78,10 +80,7 @@ public class PanelMap extends Map {
   public void setCliquee (AbstractUnite u) { cliquee = u; }
 
   public void paint (Graphics g) {
-    // On utilise b si on veut que l'unité cliquée ne soit pas gardée en mémoire à la sortie de l'écran.
-    //boolean b = true;
     joueur.vision();
-    //boolean c = false;
 
     int x = 0, y = 0;
     for (int i = 0; i < hautMax; i++)
@@ -91,31 +90,8 @@ public class PanelMap extends Map {
         AbstractUnite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
         int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
         createRect(g, t, j, i, unite);
-        /*if (cliquee != null && unite != null && unite == cliquee && joueur.possede(unite)) {
-          c = true;
-          x = j; y = i;
-          //b = false;
-        }*/
       }
-    //if (c)
-      //deplacementsPossibles(0, g, x, y, cliquee);
-    /*if (b)
-      cliquee = null; */
   }
-  /*
-  public void deplacementsPossibles (int indice, Graphics g, int x, int y, Unite unite) {
-    g.setColor(Color.GREEN);
-    if (indice < unite.getDistance())
-      for (int i = -1; i <= 1; i++)
-        for (int j = -1; j <= 1; j++)
-          if (i != j && i != -j
-          && (y+i+tabI-2) >= 0 && (y+i+tabI) < p.getTerrain().length
-          && (x+j+tabJ-2) >= 0 && (x+j+tabJ) < p.getTerrain()[0].length) {
-            //rien du tout.
-            g.drawRect((x+j)*taillePixel - posJ - 100, (y+i)*taillePixel - posI - 100, taillePixel, taillePixel);
-            deplacementsPossibles(indice+1, g, j+x, y+i, unite);
-          }
-  }*/
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
   public void createRect (Graphics g, int i, int x, int y, AbstractUnite unite) {

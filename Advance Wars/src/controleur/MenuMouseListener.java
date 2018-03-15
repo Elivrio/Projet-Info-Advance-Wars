@@ -1,8 +1,9 @@
 package src.controleur;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.JTextField;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import src.Menu;
 
 public class MenuMouseListener implements MouseListener {

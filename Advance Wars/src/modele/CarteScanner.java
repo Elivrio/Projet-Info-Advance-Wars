@@ -1,7 +1,8 @@
 package src.modele;
 
+import java.io.File;
 import java.util.Scanner;
-import java.io.*;
+
 import src.modele.general.General;
 
 public class CarteScanner {

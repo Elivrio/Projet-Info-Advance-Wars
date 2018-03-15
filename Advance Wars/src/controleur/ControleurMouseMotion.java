@@ -1,12 +1,11 @@
 package src.controleur;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-import src.variable.Variable;
 import src.vue.Vue;
 import src.vue.PanelMap;
+import src.variable.Variable;
 
 public class ControleurMouseMotion extends Controleur implements MouseMotionListener {
 

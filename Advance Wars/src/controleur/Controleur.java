@@ -1,9 +1,5 @@
 package src.controleur;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 import src.Jeu;
 import src.vue.Vue;
 import src.vue.MiniMap;

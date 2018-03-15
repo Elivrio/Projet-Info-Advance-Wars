@@ -1,16 +1,16 @@
 package src.variable;
 
-import java.io.*;
-import java.awt.*;
-import java.lang.*;
-import javax.swing.*;
-import javax.imageio.*;
-import java.awt.image.*;
-import java.awt.event.*;
+import java.io.File;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.AlphaComposite;
+import java.awt.image.BufferedImage;
 
 import src.modele.AbstractUnite;
-import src.modele.chairacanon.maritime.*;
 import src.modele.chairacanon.aerienne.*;
+import src.modele.chairacanon.maritime.*;
 import src.modele.chairacanon.terrestre.*;
 
 public class Variable {
@@ -36,6 +36,7 @@ public class Variable {
                                                    new Helico(null, 0, 0),
                                                    new HelicoptereTransport(null, 0, 0) }};
 
+
   public final static Color foret = new Color(0f,0.50f,0.25f);
   public final static Color plaine = new Color(0f,0.75f,0.50f);
   public final static Color eau = new Color(0f,0.60f,1f);
@@ -43,15 +44,21 @@ public class Variable {
   public final static Color limite = new Color(0f,0f,0f);
   public final static Color[] tCou = {foret, plaine, eau, montagne, limite};
   public final static String pathToGeneraux = "src/variable/images/generaux/";
+  public final static String pathToUnites = "src/variable/images/unites/";
   public final static String pathToTerrains = "src/variable/images/terrains/";
+  public final static String pathToIcones = "src/variable/images/unites/unitesPrix/";
   public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", ""};
 
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png"};
-  public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png"};
+  public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png", "tank.png"};
+  public final static String[] tStrBaseIcone = {"tankPrix.png"};
+  public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png"};
   public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
 
   public final static String[] tStrUni;
   public final static String[] tStrFond;
+  public final static String[] tStrIcone;
+  public final static String[] tStrIconeTropCher;
 
   public final static String[] tStrTer2; //images dans le dossier propre a chaque terrain
   public final static String[] tStrDossierTer; //chemin pour aller dans le dossier du terrain qu'on veut
@@ -59,10 +66,14 @@ public class Variable {
   public final static File[] tStrTerFile;
   public final static File[] tStrUniFile;
   public final static File[] tStrFondFile;
+  public final static File[] tStrIconeFile;
+  public final static File[] tStrIconeTropCherFile;
 
   public final static BufferedImage[] tImTer;
   public final static BufferedImage[] tImUni;
   public final static BufferedImage[] tImFond;
+  public final static BufferedImage[] tImIcone;
+  public final static BufferedImage[] tImIconeTropCher;
 
   //liaison foret
   public final static String borderPlaineForet = "foret/plaine-foret-";
@@ -163,10 +174,37 @@ public class Variable {
     tStrUniFile = new File[tStrUni.length];
     tImUni = new BufferedImage[tStrUniFile.length];
     for (int i = 0; i < tStrUni.length; i++) {
-      tStrUni[i] = pathToGeneraux + tStrBaseUni[i];
+      if (i < 4)
+        tStrUni[i] = pathToGeneraux + tStrBaseUni[i];
+      else
+        tStrUni[i] = pathToUnites + tStrBaseUni[i];
       tStrUniFile[i] = new File(tStrUni[i]);
       try {
         tImUni[i] = ImageIO.read(tStrUniFile[i]);
+      } catch (IOException e) {}
+    }
+
+    // Remplissage du tableau avec les icones des unités
+    tStrIcone = new String[tStrBaseIcone.length];
+    tStrIconeFile = new File[tStrIcone.length];
+    tImIcone = new BufferedImage[tStrIconeFile.length];
+    for (int i = 0; i < tStrIcone.length; i++) {
+      tStrIcone[i] = pathToIcones + tStrBaseIcone[i];
+      tStrIconeFile[i] = new File(tStrIcone[i]);
+      try {
+        tImIcone[i] = ImageIO.read(tStrIconeFile[i]);
+      } catch (IOException e) {}
+    }
+
+    // Remplissage du tableau avec les icones des unités trop chères
+    tStrIconeTropCher = new String[tStrBaseIconeTropCher.length];
+    tStrIconeTropCherFile = new File[tStrIconeTropCher.length];
+    tImIconeTropCher = new BufferedImage[tStrIconeTropCherFile.length];
+    for (int i = 0; i < tStrIconeTropCher.length; i++) {
+      tStrIconeTropCher[i] = pathToIcones + tStrBaseIconeTropCher[i];
+      tStrIconeTropCherFile[i] = new File(tStrIconeTropCher[i]);
+      try {
+        tImIconeTropCher[i] = ImageIO.read(tStrIconeTropCherFile[i]);
       } catch (IOException e) {}
     }
 
