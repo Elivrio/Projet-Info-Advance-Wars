@@ -1,19 +1,18 @@
 package src;
 
+import java.awt.Font;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.LinkedList;
 import javax.swing.JComboBox;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.JTextField;
-
 
 import src.Jeu;
 import src.vue.Vue;
@@ -28,7 +27,6 @@ import src.modele.general.MadZombie;
 import src.modele.general.MagicalGirl;
 import src.controleur.MenuMouseListener;
 import src.controleur.MenuActionListener;
-
 
 public class Menu extends JFrame {
 

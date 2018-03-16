@@ -41,10 +41,14 @@ public class Jeu {
     map.addMouseMotionListener(cMM);
   }
 
-  public void mort (AbstractUnite unite) {
-    if (unite.getPV() <= 0) {
-      unite.getJoueur().remove(unite);
-      map.rmvUnite(unite);
+  public void mort (AbstractUnite unite, AbstractUnite cible) {
+    if (cible.getPV() <= 0) {
+      cible.getJoueur().remove(cible);
+      map.rmvUnite(cible);
+        if (cible instanceof General)
+          unite.getJoueur().setArgent(10000);
+        else
+          unite.getJoueur().setArgent(1000);
     }
   }
 

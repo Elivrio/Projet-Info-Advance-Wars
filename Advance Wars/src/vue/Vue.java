@@ -221,6 +221,7 @@ public class Vue extends JFrame {
 
   public void afficherChoixUnites (Joueur joueur, int n, AbstractVille ville) {
     int prixMax = joueur.getArgent();
+    panelChoixUnites.setFocusable(false);
     panelChoixUnites.removeAll();
     panelChoixUnites.setPreferredSize(new Dimension(200, 200));
     panelChoixUnites.setBackground(new Color(0.3f, 0.3f, 0.3f));
