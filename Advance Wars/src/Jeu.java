@@ -45,10 +45,11 @@ public class Jeu {
     if (cible.getPV() <= 0) {
       cible.getJoueur().remove(cible);
       map.rmvUnite(cible);
-        if (cible instanceof General)
-          unite.getJoueur().setArgent(10000);
-        else
-          unite.getJoueur().setArgent(1000);
+      if (cible instanceof General)
+        unite.getJoueur().setArgent(10000);
+      else
+        unite.getJoueur().setArgent(1000);
+      v.informations(unite.getJoueur());
     }
   }
 

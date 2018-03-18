@@ -246,7 +246,7 @@ public class Vue extends JFrame {
   public void informations (Joueur joueur) {
     textJoueur.setText("");
     String str = "Possède " + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
-    str += "\nPossège " + joueur.getArgent() + " euros";
+    str += "\nPossède " + joueur.getArgent() + " euros";
     if (joueur.getNbUnites() == 0)
       str += "\nSon général est mort ! Perdant du jeu.\n";
     else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom() + "\n";
