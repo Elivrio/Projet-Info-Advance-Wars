@@ -1,4 +1,4 @@
-package src;
+package src.vue;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -14,13 +14,16 @@ import javax.swing.JComboBox;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 
-import src.Jeu;
+import src.vue.Jeu;
 import src.vue.Vue;
+import src.vue.MyColor;
 import src.vue.PanelMap;
+import src.vue.PanelMenu;
 import src.modele.Joueur;
 import src.modele.Plateau;
 import src.modele.CarteScanner;
 import src.modele.general.Ninja;
+import src.vue.ComboColorChooser;
 import src.modele.general.General;
 import src.modele.general.Nosaure;
 import src.modele.general.MadZombie;
@@ -43,7 +46,7 @@ public class Menu extends JFrame {
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
 
-  private final static Color transparent = new Color(0, 0, 0, 0);
+  private final static Color transparent = new Color(157, 144, 199, 0);
 
   public Menu() {
 
@@ -109,15 +112,12 @@ public class Menu extends JFrame {
     midCenter = new JPanel();
     midCenter.setLayout(new GridLayout(nbJoueurs + 2, 1));
     midCenter.setBackground(transparent);
-    JPanel tmp1 = new JPanel();
-    tmp1.setBackground(transparent);
-    tmp1.add(midCenter);
-    JPanel tmp2 = new JPanel();
-    tmp2.setBackground(transparent);
-    tmp2.setLayout(new FlowLayout());
-    tmp2.add(midLab);
-    tmp2.add(choixNbJoueurs);
-    midCenter.add(tmp2);
+    JPanel chJou = new JPanel();
+    chJou.setBackground(transparent);
+    chJou.setLayout(new FlowLayout());
+    chJou.add(midLab);
+    chJou.add(choixNbJoueurs);
+    midCenter.add(chJou);
     for (int i = 0; i < nbJoueurs; i++) {
       JPanel pan = new JPanel();
       JLabel pres = new JLabel("Joueur " + (i+1));
@@ -130,10 +130,13 @@ public class Menu extends JFrame {
       choixGeneral.add(new JComboBox<String>(generaux));
       choixGeneral.get(i).addActionListener(mAL);
 
+      ComboColorChooser chCou = new ComboColorChooser();
+
       pan.setBackground(transparent);
       pan.add(pres);
       pan.add(fieldNoms.get(i));
       pan.add(choixGeneral.get(i));
+      pan.add(chCou);
       midCenter.add(pan);
     }
     midCenter.setBackground(new Color(100, 100, 100, 0));

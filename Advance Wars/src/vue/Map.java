@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.util.LinkedList;
 
-import src.Jeu;
+import src.vue.Jeu;
 import src.modele.Joueur;
 import src.modele.Plateau;
 import src.modele.AbstractUnite;

@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
-import src.Jeu;
+import src.vue.Jeu;
 import src.vue.Map;
 import src.modele.Plateau;
 import src.variable.Variable;

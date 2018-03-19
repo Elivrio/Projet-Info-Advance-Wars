@@ -1,6 +1,6 @@
 package src.controleur;
 
-import src.Jeu;
+import src.vue.Jeu;
 import src.vue.Vue;
 import src.vue.MiniMap;
 import src.vue.PanelMap;

@@ -1,4 +1,4 @@
-package src;
+package src.vue;
 
 import java.awt.Image;
 import java.awt.Insets;
@@ -8,7 +8,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 public class PanelMenu extends JPanel {
-  Image fondMenu;
+  private Image fondMenu;
 
   public PanelMenu() {
     fondMenu = Toolkit.getDefaultToolkit().createImage("src/variable/images/fondMenu.png");

@@ -4,7 +4,7 @@ import javax.swing.JTextField;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import src.Menu;
+import src.vue.Menu;
 
 public class MenuMouseListener implements MouseListener {
 

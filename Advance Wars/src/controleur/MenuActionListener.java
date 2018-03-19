@@ -3,7 +3,7 @@ package src.controleur;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import src.Menu;
+import src.vue.Menu;
 
 public class MenuActionListener implements ActionListener {
 

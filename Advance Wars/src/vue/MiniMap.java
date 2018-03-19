@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import src.Jeu;
+import src.vue.Jeu;
 import src.vue.Map;
 import src.modele.Plateau;
 import src.variable.Variable;
