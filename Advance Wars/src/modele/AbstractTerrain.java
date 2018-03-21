@@ -17,4 +17,8 @@ public abstract class AbstractTerrain {
   public int getType() {
     return type;
   }
+
+  public String toString() {
+    return ("" + type);
+  }
 }

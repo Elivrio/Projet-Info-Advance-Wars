@@ -193,11 +193,11 @@ public class Menu extends JFrame {
 
   public void lancerJeu (String[] noms, String[] nomsGeneraux) {
     CarteScanner test = new CarteScanner("src/variable/cartes/carteTest3.txt");
-    int x = test.nbrColonnes()+2;
-    int y = test.nbrLignes()+2;
+    int y = test.getLignes() + 2;
+    int x = test.getColonnes() + 2;
     Joueur[] joueurs = creationJoueurs(noms, x, y);
     General[] generaux = creationGeneraux(nomsGeneraux, joueurs);
-    Plateau p = test.plateau(generaux.length, generaux);
+    Plateau p = test.plateau(joueurs, generaux, y-2, x-2);
     jeu = new Jeu(p);
   }
 
