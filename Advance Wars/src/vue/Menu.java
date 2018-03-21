@@ -41,12 +41,18 @@ public class Menu extends JFrame {
   private JPanel bot = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
   private JButton boutonGo = new JButton("C'est parti !");
-  private JLabel label = new JLabel("Combien de joueurs voulez-vous ?");
   private JLabel midLab = new JLabel("Combien de joueurs voulez-vous ?");
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
 
   private final static Color transparent = new Color(157, 144, 199, 0);
+  private final static MyColor[] basicTab = new MyColor[3];
+
+  static {
+    basicTab[0] = new MyColor(Color.RED.getRGB(), "Rouge");
+    basicTab[1] = new MyColor(Color.BLUE.getRGB(), "Bleu");
+    basicTab[2] = new MyColor(156, 58, 97, "Horrible");
+  }
 
   public Menu() {
 
@@ -72,13 +78,13 @@ public class Menu extends JFrame {
     background.setLayout(new BorderLayout());
 
     JLabel top = new JLabel("Advance Wars");
-    top.setFont(label.getFont().deriveFont(Font.BOLD, 48));
+    top.setFont(top.getFont().deriveFont(Font.BOLD, 48));
     top.setHorizontalAlignment(JLabel.CENTER);
     background.add(top, BorderLayout.NORTH);
 
     midCenter.setPreferredSize(new Dimension(largeurEcran*50/100,hauteurEcran*50/100));
 
-    midLab.setFont(label.getFont().deriveFont(Font.BOLD, 24));
+    midLab.setFont(midLab.getFont().deriveFont(Font.BOLD, 24));
     afficherChoixNoms();
 
     background.add(midCenter, BorderLayout.CENTER);

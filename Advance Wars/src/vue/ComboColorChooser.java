@@ -23,7 +23,6 @@ public class ComboColorChooser extends JComboBox {
   private MyColor[] colors;
 
   public ComboColorChooser() {
-
     initializeCombo();
   }
 
@@ -32,10 +31,10 @@ public class ComboColorChooser extends JComboBox {
     colors[0] = new MyColor(Color.RED.getRGB(), "Rouge");
     colors[1] = new MyColor(Color.BLUE.getRGB(), "Bleu");
     colors[2] = new MyColor(156, 58, 97, "Horrible");
-    DefaultComboBoxModel model = new DefaultComboBoxModel(colors);
+    DefaultComboBoxModel<MyColor> model = new DefaultComboBoxModel<MyColor>(colors);
     setModel(model);
-    setRenderer(new ListCellRenderer() {
-      public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    setRenderer(new ListCellRenderer<MyColor>() {
+      public Component getListCellRendererComponent(JList<? extends MyColor> list, MyColor value, int index, boolean isSelected, boolean cellHasFocus) {
         MyColor myColor = (MyColor) value;
         int w = 20;
         int h = 20;
