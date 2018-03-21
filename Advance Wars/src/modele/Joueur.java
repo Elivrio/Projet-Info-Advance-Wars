@@ -78,4 +78,14 @@ public class Joueur {
           }
   }
 
+  public void debug() {
+    System.out.println(nom);
+    for (AbstractUnite u : unites)
+      System.out.println(unites);
+    for (int i = 0; i < vision.length; i++){
+      for (int j = 0; j < vision[0].length; j++)
+        System.out.print(vision[i][j]);
+      System.out.println("");
+    }
+  }
 }

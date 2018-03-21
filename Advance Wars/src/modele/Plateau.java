@@ -27,17 +27,17 @@ public class Plateau {
   private LinkedList<AbstractVille> villes;
 
   /*
-    1 --> Plaine
-    3 --> MontagneUsine
-    2 --> Eau
-    0 --> Foret
+  1 --> Plaine
+  3 --> MontagneUsine
+  2 --> Eau
+  0 --> Foret
 
 
-    Route, Colline, Pont, etc.
+  Route, Colline, Pont, etc.
   */
 
-  public Plateau (int[][] carte, General[] generaux) {
-    largeur = carte[1].length;
+  /*public Plateau (int[][] carte, General[] generaux) {
+    largeur = carte[0].length;
     hauteur = carte.length;
     terrain = new AbstractTerrain[hauteur][largeur];
 
@@ -47,9 +47,43 @@ public class Plateau {
     initJoueurs(generaux);
 
     for (int i=0; i<carte.length; i++)
-      for (int j=0; j<carte[1].length; j++)
-        //terrain[i][j] = new Terrain(carte[i][j]);
-        switch (carte[i][j]) {
+    for (int j=0; j<carte[1].length; j++)
+    //terrain[i][j] = new Terrain(carte[i][j]);
+    switch (carte[i][j]) {
+      case 0 : terrain[i][j] = new Foret(); break;
+      case 1 : terrain[i][j] = new Plaine(); break;
+      case 2 : terrain[i][j] = new Eau(); break;
+      case 3 : terrain[i][j] = new Montagne(); break;
+      case 4 : terrain[i][j] = new TrouNoir(); break;
+      case 5 :
+      Usine usine = new Usine(j, i);
+      terrain[i][j] = usine;
+      villes.add(usine);
+      break;
+      case 6 :
+      Port port = new Port(j, i);
+      terrain[i][j] = port;
+      villes.add(port);
+      break;
+      case 7 :
+      Aeroport aeroport = new Aeroport(j, i);
+      terrain[i][j] = aeroport;
+      villes.add(aeroport);
+      break;
+    }
+  }*/ // constructeur obsolete
+
+  public Plateau(int[][][] carte, int[][][] armees, General[] generaux, Joueur[] jou){
+    hauteur = carte.length;
+    largeur = carte[0].length;
+    terrain = new AbstractTerrain[hauteur][largeur];
+    villes = new LinkedList<AbstractVille>();
+    unites = new AbstractUnite[hauteur][largeur];
+    joueurs = jou;
+    initJoueurs(generaux);
+    for (int i = 0; i < hauteur; i++) {
+      for (int j = 0; j < largeur; j++) {
+        switch (carte[i][j][0]) { // creation des terrains
           case 0 : terrain[i][j] = new Foret(); break;
           case 1 : terrain[i][j] = new Plaine(); break;
           case 2 : terrain[i][j] = new Eau(); break;
@@ -71,12 +105,14 @@ public class Plateau {
             villes.add(aeroport);
             break;
         }
-
+        // futur emplacement pour le placement initial des armees
+      }
+    }
   }
 
   public void reset() {
     for (AbstractVille v : villes)
-      v.setAchete(false);
+    v.setAchete(false);
   }
 
   public void initJoueurs (General[] generaux) {
@@ -123,6 +159,19 @@ public class Plateau {
     AbstractUnite u = unites[ancienY][ancienX];
     unites[ancienY][ancienX] = null;
     unites[y][x] = u;
+  }
+
+  public void debug(){
+    for (int i = 0; i < hauteur; i++) {
+      for (int j = 0; j < largeur; j++)
+        System.out.print(terrain[i][j]);
+      System.out.println("");
+    }
+    for (int i = 0; i < hauteur; i++) {
+      for (int j = 0; j < largeur; j++)
+        System.out.print(unites[i][j]);
+      System.out.println("");
+    }
   }
 
 }
