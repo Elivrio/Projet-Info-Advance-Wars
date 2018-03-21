@@ -23,7 +23,6 @@ public class ComboColorChooser extends JComboBox {
   private MyColor[] colors;
 
   public ComboColorChooser() {
-
     initializeCombo();
   }
 
