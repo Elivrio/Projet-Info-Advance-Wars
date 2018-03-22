@@ -43,6 +43,10 @@ public class PanelMap extends Map {
 
   // Setters
 
+  public void rmvUnite (AbstractUnite u) { p.rmvUnite(u); }
+  public void setAttaque (boolean b) { attaque = b; }
+  public void setCliquee (AbstractUnite u) { cliquee = u; }
+
   public void addTabI (int tI) {
     tabI += tI;
     posI = 0;
@@ -63,22 +67,13 @@ public class PanelMap extends Map {
     repaint();
   }
 
-  public void rmvUnite (AbstractUnite u) {
-    p.rmvUnite(u);
-  }
-
-  public void setAttaque (boolean b) {
-    attaque = b;
-  }
-
-
   public void reset() {
     posJ = 0;
     posI = 0;
   }
 
-  public void setCliquee (AbstractUnite u) { cliquee = u; }
 
+  @Override
   public void paint (Graphics g) {
     joueur.vision();
 
@@ -137,44 +132,45 @@ public class PanelMap extends Map {
   public BufferedImage chemin (int i, int x, int y) {
     //BufferedImage img = Variable.tImTer[i];
     AbstractTerrain[][] t = p.getTerrain();
+    String chemin;
     int a = 1;
     int b = 1;
     int c = 1;
     int d = 1;
+    int place;
+    int j;
     // pour rester sur le terrain
-    if ( (x>=1 && y>=1) && (x + tabI < p.getHauteur()-1 &&  y + tabJ <p.getLargeur()-1) ){
+    if ( x>=1 && y>=1 && x + tabI < p.getHauteur()-1 &&  y + tabJ <p.getLargeur()-1 ){
       a = t[x+tabI-1][y+tabJ-2].getType();
       b = t[x+tabI-2][y+tabJ-1].getType();
       c = t[x+tabI-1][y+tabJ].getType();
       d = t[x+tabI][y+tabJ-1].getType();
     }
-    if (i==1){
-      int[] tab = {a, b, c, d};
-      int j = chercherTerrain(tab);
-      String chemin = indice(j,a) +""+ indice(j,b) +""+ indice(j,c) +""+ indice(j,d);
-      int place = stringBinaryToInt(chemin);
-      if (j==0)
-        return Variable.tImPlaineForet[place];
-      if (j==2)
-        return Variable.tImPlaineEau[place];
-    }
-
-    if (i==2){
-      String chemin = (a-1)+""+(b-1)+""+(c-1)+""+(d-1);
-      //System.out.println(chemin);
-      int place = stringBinaryToInt(chemin);
-      if (a+b+c+d == 8){
-        if (t[x+tabI][y+tabJ-2].getType()==1)
-          return Variable.tImEauPlageCoin[1];
-        if (t[x+tabI-2][y+tabJ-2].getType()==1)
-          return Variable.tImEauPlageCoin[2];
-        if (t[x+tabI-2][y+tabJ].getType()==1)
-          return Variable.tImEauPlageCoin[3];
-        if (t[x+tabI][y+tabJ].getType()==1)
-          return Variable.tImEauPlageCoin[4];
-      }
-      return Variable.tImEauPlage[place];
-
+    int[] tab = {a, b, c, d};
+    switch (i) {
+      case 1 :
+        j = chercherTerrain(tab);
+        chemin = indice(j,a) +""+ indice(j,b) +""+ indice(j,c) +""+ indice(j,d);
+        place = stringBinaryToInt(chemin);
+        if (j==0)
+          return Variable.tImPlaineForet[place];
+        if (j==2)
+          return Variable.tImPlaineEau[place];
+        break;
+      case 2 :
+        chemin = (a-1)+""+(b-1)+""+(c-1)+""+(d-1);
+        place = stringBinaryToInt(chemin);
+        if (a+b+c+d == 8) {
+          if (t[x+tabI][y+tabJ-2].getType()==1)
+            return Variable.tImEauPlageCoin[1];
+          if (t[x+tabI-2][y+tabJ-2].getType()==1)
+            return Variable.tImEauPlageCoin[2];
+          if (t[x+tabI-2][y+tabJ].getType()==1)
+            return Variable.tImEauPlageCoin[3];
+          if (t[x+tabI][y+tabJ].getType()==1)
+            return Variable.tImEauPlageCoin[4];
+        }
+        return Variable.tImEauPlage[place];
     }
     BufferedImage img = Variable.tImTer[i];
     return img;

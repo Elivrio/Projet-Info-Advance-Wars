@@ -96,8 +96,8 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     attaque++;
   }
 
+  @Override
   public String toString(){
     return "" + nom;
   }
-
 }

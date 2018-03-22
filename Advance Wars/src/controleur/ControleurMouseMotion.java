@@ -14,6 +14,7 @@ public class ControleurMouseMotion extends Controleur implements MouseMotionList
   }
 
   // Fonction appelée lorsqu'on déplace le curseur sur la fenêtre
+  @Override
   public void mouseMoved(MouseEvent me) {
     // On récupère la taille actuelle de la fenêtre pour utiliser la position du curseur en pourcentage
     // La position en pourcentage est utile dans le cas où on a modifié la taille de la fenêtre
@@ -38,6 +39,7 @@ public class ControleurMouseMotion extends Controleur implements MouseMotionList
     }
   }
 
+  @Override
   public void mouseDragged(MouseEvent me) {}
 
 }

@@ -13,12 +13,19 @@ public class MenuActionListener implements ActionListener {
     menu = m;
   }
 
+  @Override
   public void actionPerformed (ActionEvent e) {
     menu.repaint();
     Object source = e.getSource();
     if (source == menu.getBoutonGo()) {
-      menu.lancerJeu(menu.recupererNoms(), menu.recupererGeneraux());
-      menu.dispose();
+      try {
+        menu.lancerJeu(menu.recupererNoms(), menu.recupererGeneraux());
+        menu.dispose();
+      } catch (Exception evt){
+        evt.printStackTrace();
+        System.out.println(evt);
+        System.exit(1);
+      }
     }
     else if (source == menu.getChoixNbJoueurs())
       menu.afficherChoixNoms();
