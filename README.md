@@ -2,6 +2,7 @@
 Jeu Advance Wars codé en java dans le cadre du projet Paris Diderot VII en deuxième année Maths-Info.
 
 À faire :
+- Fin de jeu.
 - Déplacement continu.
 - Ajout des couleurs des joueurs.
 - Ajout de commentaires dans le code.
