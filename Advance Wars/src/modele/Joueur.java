@@ -3,6 +3,7 @@ package src.modele;
 import java.awt.Color;
 import java.util.LinkedList;
 
+import src.variable.MyColor;
 import src.modele.AbstractUnite;
 
 public class Joueur {
@@ -16,9 +17,9 @@ public class Joueur {
   private LinkedList<AbstractUnite> unites;
   private int[][] vision;
   private int argent;
-  private Color couleur;
+  private MyColor couleur;
 
-  public Joueur (String n, int x, int y, Color c) {
+  public Joueur (String n, int x, int y, MyColor c) {
     nom = n;
     unites = new LinkedList<AbstractUnite>();
     vision = new int[y][x];
@@ -31,6 +32,7 @@ public class Joueur {
   public int getNbUnites() { return unites.size(); }
   public int[][] getVision() { return vision; }
   public int getArgent() { return argent; }
+  public Color getColor() { return couleur; }
 
   public boolean possede (AbstractUnite u) {
     return unites.contains(u);

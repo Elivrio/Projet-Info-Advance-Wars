@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import java.awt.AlphaComposite;
 import java.awt.image.BufferedImage;
 
-import src.vue.MyColor;
 import src.modele.AbstractUnite;
 import src.modele.chairacanon.aerienne.*;
 import src.modele.chairacanon.maritime.*;

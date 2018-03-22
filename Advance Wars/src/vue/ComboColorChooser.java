@@ -13,7 +13,7 @@ import javax.swing.ListCellRenderer;
 import java.awt.image.BufferedImage;
 import javax.swing.DefaultComboBoxModel;
 
-import src.vue.MyColor;
+import src.variable.MyColor;
 
 public class ComboColorChooser extends JComboBox {
   private MyColor[] colors;

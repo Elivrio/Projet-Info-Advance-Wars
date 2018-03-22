@@ -16,11 +16,11 @@ import javax.swing.JTextField;
 
 import src.vue.Jeu;
 import src.vue.Vue;
-import src.vue.MyColor;
 import src.vue.PanelMap;
 import src.vue.PanelMenu;
 import src.modele.Joueur;
 import src.modele.Plateau;
+import src.variable.MyColor;
 import src.modele.CarteScanner;
 import src.modele.general.Ninja;
 import src.variable.SNHException;
@@ -51,19 +51,34 @@ public class Menu extends JFrame {
   private final static MyColor[] basicTab = new MyColor[13];
 
   static {
-    basicTab[0] = new MyColor(156, 58, 97, "Vomitif");
-    basicTab[1] = new MyColor(Color.BLUE.getRGB(), "Bleu");
-    basicTab[2] = new MyColor(Color.CYAN.getRGB(), "Cyan");
-    basicTab[3] = new MyColor(Color.GRAY.getRGB(), "Gris");
-    basicTab[4] = new MyColor(Color.PINK.getRGB(), "Rose");
-    basicTab[5] = new MyColor(Color.BLACK.getRGB(), "Noir");
-    basicTab[6] = new MyColor(Color.GREEN.getRGB(), "Vert");
-    basicTab[7] = new MyColor(Color.WHITE.getRGB(), "Blanc");
-    basicTab[8] = new MyColor(Color.YELLOW.getRGB(), "Jaune");
-    basicTab[9] = new MyColor(Color.ORANGE.getRGB(), "Orange");
-    basicTab[10] = new MyColor(Color.MAGENTA.getRGB(), "Magenta");
-    basicTab[11] = new MyColor(Color.DARK_GRAY.getRGB(), "Gris foncé");
-    basicTab[12] = new MyColor(Color.LIGHT_GRAY.getRGB(), "Gris clair");
+    /*
+    RED       : java.awt.Color[r=255, g=0,   b=0]
+    GREEN     : java.awt.Color[r=0,   g=255, b=0]
+    BLUE      : java.awt.Color[r=0,   g=0,   b=255]
+    YELLOW    : java.awt.Color[r=255, g=255, b=0]
+    MAGENTA   : java.awt.Color[r=255, g=0,   b=255]
+    CYAN      : java.awt.Color[r=0,   g=255, b=255]
+    WHITE     : java.awt.Color[r=255, g=255, b=255]
+    BLACK     : java.awt.Color[r=0,   g=0,   b=0]
+    GRAY      : java.awt.Color[r=128, g=128, b=128]
+    LIGHT_GRAY: java.awt.Color[r=192, g=192, b=192]
+    DARK_GRAY : java.awt.Color[r=64,  g=64,  b=64]
+    PINK      : java.awt.Color[r=255, g=175, b=175]
+    ORANGE    : java.awt.Color[r=255, g=200, b=0]
+    */
+    basicTab[0] = new MyColor(Color.GREEN.getRGB(), 50, "Vert");
+    basicTab[1] = new MyColor(Color.BLUE.getRGB(), 50, "Bleu");
+    basicTab[2] = new MyColor(Color.YELLOW.getRGB(), 50, "Jaune");
+    basicTab[3] = new MyColor(Color.MAGENTA.getRGB(), 50, "Magenta");
+    basicTab[4] = new MyColor(Color.CYAN.getRGB(), 50, "Cyan");
+    basicTab[5] = new MyColor(Color.WHITE.getRGB(), 50, "Blanc");
+    basicTab[6] = new MyColor(Color.BLACK.getRGB(), 50, "Noir");
+    basicTab[7] = new MyColor(Color.GRAY.getRGB(), 50, "Gris");
+    basicTab[8] = new MyColor(Color.DARK_GRAY.getRGB(), 50, "Gris foncé");
+    basicTab[9] = new MyColor(Color.LIGHT_GRAY.getRGB(), 50, "Gris clair");
+    basicTab[10] = new MyColor(Color.PINK.getRGB(), 50, "Rose");
+    basicTab[11] = new MyColor(Color.ORANGE.getRGB(), 50, "Orange");
+    basicTab[12] = new MyColor(156, 58, 97, 50, "Vomitif");
   }
 
   public Menu() {
@@ -196,8 +211,7 @@ public class Menu extends JFrame {
   public Joueur[] creationJoueurs (String[] noms, int x, int y, MyColor[] couleurs) {
     Joueur[] joueurs = new Joueur[noms.length];
     for (int i = 0; i < noms.length; i++){
-      Color c = (Color)couleurs[i];
-      joueurs[i] = new Joueur(noms[i], x, y, c);
+      joueurs[i] = new Joueur(noms[i], x, y, couleurs[i]);
     }
     return joueurs;
   }
