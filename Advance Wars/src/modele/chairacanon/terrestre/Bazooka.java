@@ -9,6 +9,6 @@ import src.modele.interfaces.combat.CombatMitrailleuse;
 public class Bazooka extends AbstractUnite {
 
   public Bazooka (Joueur j, int x, int y) {
-    super("Bazooka", 99, new CombatMitrailleuse(), new DeplaceAPied(), 2, 1, 2, 99, 3000, new Terrestre(), j, x, y, 5);
+    super("Bazooka", 99, new CombatMitrailleuse(), new DeplaceAPied(), 2, 1, 2, 99, 3000, new Terrestre(), j, x, y, 8);
   }
 }

@@ -1,6 +1,7 @@
 package src.vue;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -10,7 +11,6 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
-import java.awt.Toolkit;
 import java.awt.BorderLayout;
 import javax.swing.JSplitPane;
 import javax.swing.text.StyleConstants;
