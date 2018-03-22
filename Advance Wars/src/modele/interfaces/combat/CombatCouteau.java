@@ -13,4 +13,5 @@ public class CombatCouteau implements Combat {
   public int getDegats() {
     return degats;
   }
+  
 }
