@@ -61,7 +61,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
       map.setAttaque(false);
       map.setCliquee(unite);
       // Si la case possède une unité, on affiche ses caractéristiques
-      if (unite != null && map.getJoueur().possede(unite))
+      if (unite != null)
         vue.informations(unite);
       // Sinon, on affiche les caractéristiques du terrain
       else if (ville != null)
