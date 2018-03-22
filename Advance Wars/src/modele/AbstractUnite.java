@@ -13,7 +13,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected TypeUnite type;
   protected Joueur joueur;
   protected int x, y, indice;
-  protected int attaque;
+  protected int attaque, gainMort;
 
   public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int prix, TypeUnite t, Joueur j, int x, int y, int i) {
     nom = n;
@@ -32,8 +32,10 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.y = y;
     indice = i;
     cout = prix;
+    gainMort = cout/2;
   }
 
+  public int getGainMort() { return gainMort; }
   public int getDegats() { return typeCombat.getDegats(); }
   public Joueur getJoueur() { return joueur; }
   public int getDistance() { return distance; }
@@ -94,8 +96,8 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     attaque++;
   }
 
+  @Override
   public String toString(){
     return "" + nom;
   }
-
 }

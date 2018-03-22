@@ -14,11 +14,13 @@ public class MenuMouseListener implements MouseListener {
     menu = m;
   }
 
+  @Override
   public void mousePressed (MouseEvent e) {
     JTextField source = (JTextField) e.getSource();
     source.setText("");
   }
 
+  @Override
   public void mouseExited (MouseEvent e) {}
   public void mouseEntered (MouseEvent e) {}
   public void mouseClicked (MouseEvent e) {}

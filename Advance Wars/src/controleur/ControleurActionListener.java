@@ -12,6 +12,7 @@ public class ControleurActionListener extends Controleur implements ActionListen
     super(v);
   }
 
+  @Override
   public void actionPerformed (ActionEvent e) {
     Object source = e.getSource();
     // Si on clique sur le bouton pour changer de joueur
@@ -23,7 +24,6 @@ public class ControleurActionListener extends Controleur implements ActionListen
       map.setAttaque(false);
       else map.setAttaque(true);
     }
-
     map.repaint();
   }
 }

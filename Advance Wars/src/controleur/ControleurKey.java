@@ -15,6 +15,7 @@ public class ControleurKey extends Controleur implements KeyListener {
   }
 
   // Fonction appelée lorsqu'une touche est pressée
+  @Override
   public void keyPressed(KeyEvent e) {
     // Clic sur la flèche droite ou sur la touche D
     if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyChar() == 'd') && move('d')) {
@@ -49,9 +50,14 @@ public class ControleurKey extends Controleur implements KeyListener {
       else map.setAttaque(true);
       map.repaint();
     }
-
+    // Clic sur Echap pour effacer le déplacement et la portée
+    else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+      map.setCliquee(null);
+      map.repaint();
+    }
   }
 
+  @Override
   public void keyReleased(KeyEvent e) {}
   public void keyTyped(KeyEvent evt) {}
 }

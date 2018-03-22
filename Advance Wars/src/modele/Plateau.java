@@ -6,16 +6,13 @@ import java.util.LinkedList;
 import src.modele.terrain.Eau;
 import src.modele.terrain.Port;
 import src.modele.terrain.Foret;
-import src.modele.general.Ninja;
 import src.modele.terrain.Usine;
+import src.variable.SNHException;
 import src.modele.terrain.Plaine;
 import src.modele.general.General;
-import src.modele.general.Nosaure;
 import src.modele.terrain.Aeroport;
 import src.modele.terrain.Montagne;
 import src.modele.terrain.TrouNoir;
-import src.modele.general.MadZombie;
-import src.modele.general.MagicalGirl;
 import src.modele.terrain.AbstractVille;
 
 
@@ -25,9 +22,9 @@ public class Plateau {
   private AbstractUnite[][] unites;
   private AbstractTerrain[][] terrain;
   private LinkedList<AbstractVille> villes;
-  
 
-  public Plateau(int[][][] carte, int[][][] armees, General[] generaux, Joueur[] jou){
+
+  public Plateau(int[][][] carte, int[][][] armees, General[] generaux, Joueur[] jou) throws Exception {
     hauteur = carte.length;
     largeur = carte[0].length;
     terrain = new AbstractTerrain[hauteur][largeur];
@@ -58,6 +55,7 @@ public class Plateau {
             terrain[i][j] = aeroport;
             villes.add(aeroport);
             break;
+          default : throw new SNHException();
         }
         // futur emplacement pour le placement initial des armees
       }
@@ -66,7 +64,7 @@ public class Plateau {
 
   public void reset() {
     for (AbstractVille v : villes)
-    v.setAchete(false);
+      v.setAchete(false);
   }
 
   public void initJoueurs (General[] generaux) {
@@ -114,18 +112,4 @@ public class Plateau {
     unites[ancienY][ancienX] = null;
     unites[y][x] = u;
   }
-
-  public void debug(){
-    for (int i = 0; i < hauteur; i++) {
-      for (int j = 0; j < largeur; j++)
-        System.out.print(terrain[i][j]);
-      System.out.println("");
-    }
-    for (int i = 0; i < hauteur; i++) {
-      for (int j = 0; j < largeur; j++)
-        System.out.print(unites[i][j]);
-      System.out.println("");
-    }
-  }
-
 }

@@ -51,6 +51,7 @@ public class MiniMap extends Map {
     repaint();
   }
 
+  @Override
   public void paint (Graphics g) {
     super.paintComponent(g);
 

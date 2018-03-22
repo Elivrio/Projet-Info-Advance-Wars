@@ -9,6 +9,6 @@ import src.modele.interfaces.deplacement.DeplaceAChenilles;
 public class TankM extends AbstractUnite {
 
   public TankM (Joueur j, int x, int y) {
-    super("Tank M", 99, new CombatMitrailleuse(), new DeplaceAChenilles(), 5, 1, 1, 50, 16000, new Terrestre(), j, x, y, 5);
+    super("Tank M", 99, new CombatMitrailleuse(), new DeplaceAChenilles(), 5, 1, 1, 50, 16000, new Terrestre(), j, x, y, 9);
   }
 }

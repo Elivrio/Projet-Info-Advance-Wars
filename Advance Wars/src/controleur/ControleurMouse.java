@@ -18,6 +18,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
   }
 
   // Fonction appelée lorsqu'on clique sur une case du plateau
+  @Override
   public void mouseClicked (MouseEvent me) {
     // Calcul de la case cliquée... Ne pas modifier
     int x = me.getX() + map.getTabJ()*100 + map.getPosJ();
@@ -61,7 +62,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
       map.setAttaque(false);
       map.setCliquee(unite);
       // Si la case possède une unité, on affiche ses caractéristiques
-      if (unite != null && map.getJoueur().possede(unite))
+      if (unite != null)
         vue.informations(unite);
       // Sinon, on affiche les caractéristiques du terrain
       else if (ville != null)
@@ -91,6 +92,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
     return map.getTerrain()[i][j];
   }
 
+  @Override
   public void mouseExited(MouseEvent me) {}
   public void mouseEntered(MouseEvent me) {}
   public void mouseReleased(MouseEvent me) {}
