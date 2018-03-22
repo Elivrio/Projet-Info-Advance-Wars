@@ -38,7 +38,7 @@ public class CarteScanner {
     }
     return 0;
   }
-  
+
   public int getJoueurs() { return sc.nextInt(); }
 
   private int[][] ligne(int l, int[][][] t, boolean b) { // lit une ligne de la carte terrain ou armee
@@ -75,9 +75,9 @@ public class CarteScanner {
     //if (joueurs.length > joueur)
     // throw Exception à venir.
     sc.nextLine();
-    int[][][] terrain = Tableau(lignes + 1, colonnes + 1, true);
+    int[][][] terrain = Tableau(lignes + 2, colonnes + 2, true);
     sc.nextLine();
-    int[][][] unites = Tableau(lignes + 1, colonnes + 1, false);
+    int[][][] unites = Tableau(lignes + 2, colonnes + 2, false);
     try {
       return new Plateau(terrain, unites, generaux, joueurs);
     } catch (Exception evt) {

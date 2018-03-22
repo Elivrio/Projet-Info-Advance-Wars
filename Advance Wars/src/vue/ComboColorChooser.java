@@ -18,15 +18,12 @@ import src.vue.MyColor;
 public class ComboColorChooser extends JComboBox {
   private MyColor[] colors;
 
-  public ComboColorChooser() {
+  public ComboColorChooser(MyColor[] c) {
+    colors = c;
     initializeCombo();
   }
 
   private void initializeCombo() {
-    colors = new MyColor[3];
-    colors[0] = new MyColor(Color.RED.getRGB(), "Rouge");
-    colors[1] = new MyColor(Color.BLUE.getRGB(), "Bleu");
-    colors[2] = new MyColor(156, 58, 97, "Horrible");
     DefaultComboBoxModel<MyColor> model = new DefaultComboBoxModel<MyColor>(colors);
     setModel(model);
     setRenderer(new ListCellRenderer<MyColor>() {

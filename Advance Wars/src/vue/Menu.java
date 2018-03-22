@@ -45,14 +45,25 @@ public class Menu extends JFrame {
   private JLabel midLab = new JLabel("Combien de joueurs voulez-vous ?");
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
+  private LinkedList<ComboColorChooser> choixCouleur = new LinkedList<ComboColorChooser>();
 
   private final static Color transparent = new Color(157, 144, 199, 0);
-  private final static MyColor[] basicTab = new MyColor[3];
+  private final static MyColor[] basicTab = new MyColor[13];
 
   static {
-    basicTab[0] = new MyColor(Color.RED.getRGB(), "Rouge");
+    basicTab[0] = new MyColor(156, 58, 97, "Vomitif");
     basicTab[1] = new MyColor(Color.BLUE.getRGB(), "Bleu");
-    basicTab[2] = new MyColor(156, 58, 97, "Horrible");
+    basicTab[2] = new MyColor(Color.CYAN.getRGB(), "Cyan");
+    basicTab[3] = new MyColor(Color.GRAY.getRGB(), "Gris");
+    basicTab[4] = new MyColor(Color.PINK.getRGB(), "Rose");
+    basicTab[5] = new MyColor(Color.BLACK.getRGB(), "Noir");
+    basicTab[6] = new MyColor(Color.GREEN.getRGB(), "Vert");
+    basicTab[7] = new MyColor(Color.WHITE.getRGB(), "Blanc");
+    basicTab[8] = new MyColor(Color.YELLOW.getRGB(), "Jaune");
+    basicTab[9] = new MyColor(Color.ORANGE.getRGB(), "Orange");
+    basicTab[10] = new MyColor(Color.MAGENTA.getRGB(), "Magenta");
+    basicTab[11] = new MyColor(Color.DARK_GRAY.getRGB(), "Gris foncé");
+    basicTab[12] = new MyColor(Color.LIGHT_GRAY.getRGB(), "Gris clair");
   }
 
   public Menu() {
@@ -116,6 +127,7 @@ public class Menu extends JFrame {
     background.repaint();
     midCenter.removeAll();
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
+    String[] generaux = {"Ninja", "Nosaure", "MadZombie", "MagicalGirl"};
     midCenter = new JPanel();
     midCenter.setLayout(new GridLayout(nbJoueurs + 2, 1));
     midCenter.setBackground(transparent);
@@ -133,17 +145,17 @@ public class Menu extends JFrame {
       fieldNoms.get(i).setPreferredSize(new Dimension(150, 30));
       fieldNoms.get(i).addMouseListener(mML);
 
-      String[] generaux = {"Ninja", "Nosaure", "MadZombie", "MagicalGirl"};
       choixGeneral.add(new JComboBox<String>(generaux));
       choixGeneral.get(i).addActionListener(mAL);
 
-      ComboColorChooser chCou = new ComboColorChooser();
+      choixCouleur.add(new ComboColorChooser(basicTab));
+      choixCouleur.get(i).addActionListener(mAL);
 
       pan.setBackground(transparent);
       pan.add(pres);
       pan.add(fieldNoms.get(i));
       pan.add(choixGeneral.get(i));
-      pan.add(chCou);
+      pan.add(choixCouleur.get(i));
       midCenter.add(pan);
     }
     midCenter.setBackground(new Color(100, 100, 100, 0));
@@ -169,14 +181,24 @@ public class Menu extends JFrame {
     return generaux;
   }
 
+  public MyColor[] recupererCouleur() {
+    int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
+    MyColor[] color = new MyColor[nbJoueurs];
+    for (int i = 0; i < nbJoueurs; i++)
+      color[i] = (MyColor)choixCouleur.get(i).getSelectedItem();
+    return color;
+    }
+
   public LinkedList<JComboBox<String>> getChoixGeneral() {
     return choixGeneral;
   }
 
-  public Joueur[] creationJoueurs (String[] noms, int x, int y) {
+  public Joueur[] creationJoueurs (String[] noms, int x, int y, MyColor[] couleurs) {
     Joueur[] joueurs = new Joueur[noms.length];
-    for (int i = 0; i < noms.length; i++)
-      joueurs[i] = new Joueur(noms[i], x, y);
+    for (int i = 0; i < noms.length; i++){
+      Color c = (Color)couleurs[i];
+      joueurs[i] = new Joueur(noms[i], x, y, c);
+    }
     return joueurs;
   }
 
@@ -196,7 +218,8 @@ public class Menu extends JFrame {
     CarteScanner test = new CarteScanner("src/variable/cartes/carteTest3.txt");
     int y = test.getLignes() + 2;
     int x = test.getColonnes() + 2;
-    Joueur[] joueurs = creationJoueurs(noms, x, y);
+    MyColor[] couleurs = recupererCouleur();
+    Joueur[] joueurs = creationJoueurs(noms, x, y, couleurs);
     General[] generaux = new General[nomsGeneraux.length];
     try {
       generaux = creationGeneraux(generaux, nomsGeneraux, joueurs);

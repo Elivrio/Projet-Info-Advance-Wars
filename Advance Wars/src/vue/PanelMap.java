@@ -179,22 +179,22 @@ public class PanelMap extends Map {
   public int stringBinaryToInt(String s) {
     int res = 0;
     int bin = 1;
-    for (int i =0; i<s.length(); i++){
-      int b = s.codePointAt(s.length()-i-1)-48;
-      res += b*bin;
-      bin =bin*2;
+    for (int i =0; i<s.length(); i++) {
+      int b = s.codePointAt(s.length() - i - 1) - 48;
+      res += b * bin;
+      bin = bin * 2;
     }
     return res;
   }
 
-  public int chercherTerrain(int[] tab){
+  public int chercherTerrain(int[] tab) {
     for (int i=0; i<tab.length; i++)
       if (tab[i] != 1)
         return tab[i];
     return 1;
   }
 
-  public int indice(int i, int a){
+  public int indice(int i, int a) {
     return ((i==a)? 1 :0);
   }
 

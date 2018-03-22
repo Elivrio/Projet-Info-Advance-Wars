@@ -112,4 +112,18 @@ public class Plateau {
     unites[ancienY][ancienX] = null;
     unites[y][x] = u;
   }
+
+  public void debug() {
+    for (int i = 0; i < terrain.length; i++ ){
+      for (int j = 0; j < terrain[0].length; j++)
+        System.out.print(terrain[i][j]);
+      System.out.println("");
+    }
+
+    for (int i = 0; i < terrain.length; i++ ){
+      for (int j = 0; j < terrain[0].length; j++)
+        System.out.print(terrain[i][j]);
+      System.out.println("");
+    }
+  }
 }

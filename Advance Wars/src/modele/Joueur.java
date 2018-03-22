@@ -1,5 +1,6 @@
 package src.modele;
 
+import java.awt.Color;
 import java.util.LinkedList;
 
 import src.modele.AbstractUnite;
@@ -15,11 +16,13 @@ public class Joueur {
   private LinkedList<AbstractUnite> unites;
   private int[][] vision;
   private int argent;
+  private Color couleur;
 
-  public Joueur (String n, int x, int y) {
+  public Joueur (String n, int x, int y, Color c) {
     nom = n;
     unites = new LinkedList<AbstractUnite>();
     vision = new int[y][x];
+    couleur = c;
     argent = 10000;
   }
 
