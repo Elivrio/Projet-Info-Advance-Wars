@@ -45,7 +45,7 @@ public class Jeu {
     if (cible.getPV() <= 0) {
       cible.getJoueur().remove(cible);
       map.rmvUnite(cible);
-        unite.getJoueur().setArgent(unite.getGainMort());
+        unite.getJoueur().setArgent(cible.getGainMort());
     }
   }
 
