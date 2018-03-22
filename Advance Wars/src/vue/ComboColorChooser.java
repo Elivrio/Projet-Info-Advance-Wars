@@ -5,16 +5,12 @@ import javax.swing.JList;
 import java.awt.Graphics;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import java.awt.BorderLayout;
 import javax.swing.ListCellRenderer;
 import java.awt.image.BufferedImage;
-import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 
 import src.vue.MyColor;

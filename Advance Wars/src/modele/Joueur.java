@@ -1,6 +1,7 @@
 package src.modele;
 
 import java.util.LinkedList;
+
 import src.modele.AbstractUnite;
 
 public class Joueur {
@@ -47,17 +48,15 @@ public class Joueur {
   }
 
   public void reset() {
-    for (int i = 0; i < unites.size(); i++) {
+    for (int i = 0; i < unites.size(); i++)
       unites.get(i).reset();
-    }
   }
 
   public void vision() {
-    for (int i = 0; i < vision.length; i++) {
+    for (int i = 0; i < vision.length; i++)
       for (int j = 0; j < vision[0].length; j++)
         if (vision[i][j] == 2 || vision[i][j] == 1)
           vision[i][j] = 1;
-    }
 
     for (int i = 0; i < unites.size(); i++) {
       AbstractUnite unite = unites.get(i);
@@ -76,16 +75,5 @@ public class Joueur {
             vision[y+i][x+j] = 2;
             vision(indice+1, unite, x+j, y+i);
           }
-  }
-
-  public void debug() {
-    System.out.println(nom);
-    for (AbstractUnite u : unites)
-      System.out.println(unites);
-    for (int i = 0; i < vision.length; i++){
-      for (int j = 0; j < vision[0].length; j++)
-        System.out.print(vision[i][j]);
-      System.out.println("");
-    }
   }
 }

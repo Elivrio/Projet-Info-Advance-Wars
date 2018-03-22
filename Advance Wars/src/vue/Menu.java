@@ -23,6 +23,7 @@ import src.modele.Joueur;
 import src.modele.Plateau;
 import src.modele.CarteScanner;
 import src.modele.general.Ninja;
+import src.variable.SNHException;
 import src.vue.ComboColorChooser;
 import src.modele.general.General;
 import src.modele.general.Nosaure;
@@ -179,24 +180,31 @@ public class Menu extends JFrame {
     return joueurs;
   }
 
-  public General[] creationGeneraux (String[] noms, Joueur[] joueurs) {
-    General[] generaux = new General[noms.length];
+  public General[] creationGeneraux (General[] generaux, String[] noms, Joueur[] joueurs) throws Exception {
     for (int i = 0; i < noms.length; i++)
       switch (noms[i]) {
         case "Nosaure" : generaux[i] = new Nosaure(joueurs[i], 0, 0); break;
         case "Ninja" : generaux[i] = new Ninja(joueurs[i], 0, 0); break;
         case "MadZombie" : generaux[i] = new MadZombie(joueurs[i], 0, 0); break;
         case "MagicalGirl" : generaux[i] = new MagicalGirl(joueurs[i], 0, 0); break;
+        default : throw new SNHException();
       }
     return generaux;
   }
 
-  public void lancerJeu (String[] noms, String[] nomsGeneraux) {
+  public void lancerJeu (String[] noms, String[] nomsGeneraux) throws Exception {
     CarteScanner test = new CarteScanner("src/variable/cartes/carteTest3.txt");
     int y = test.getLignes() + 2;
     int x = test.getColonnes() + 2;
     Joueur[] joueurs = creationJoueurs(noms, x, y);
-    General[] generaux = creationGeneraux(nomsGeneraux, joueurs);
+    General[] generaux = new General[nomsGeneraux.length];
+    try {
+      generaux = creationGeneraux(generaux, nomsGeneraux, joueurs);
+    } catch (Exception evt) {
+      evt.printStackTrace();
+      System.out.println(evt);
+      System.exit(1);
+    }
     Plateau p = test.plateau(joueurs, generaux, y-2, x-2);
     jeu = new Jeu(p);
   }

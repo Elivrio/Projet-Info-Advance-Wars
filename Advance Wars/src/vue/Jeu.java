@@ -54,7 +54,6 @@ public class Jeu {
 
   public void finTour (PanelMap map, Vue vue, MiniMap miniMap) {
     villesPrises(map);
-
     map.setJoueur(1);
     map.setCliquee(null);
     miniMap.setJoueur(1);
@@ -67,7 +66,6 @@ public class Jeu {
   public void villesPrises (PanelMap map) {
     AbstractUnite[][] unites = map.getUnites();
     LinkedList<AbstractVille> villes = map.getVilles();
-
     for (int i = 0; i < villes.size(); i++) {
       AbstractVille ville = villes.get(i);
       AbstractUnite unite = unites[ville.getY()][ville.getX()];
