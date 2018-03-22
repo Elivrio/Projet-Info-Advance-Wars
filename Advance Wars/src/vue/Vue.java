@@ -1,6 +1,7 @@
 package src.vue;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -10,7 +11,6 @@ import java.awt.GridLayout;
 import java.util.LinkedList;
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
-import java.awt.Toolkit;
 import java.awt.BorderLayout;
 import javax.swing.JSplitPane;
 import javax.swing.text.StyleConstants;
@@ -152,18 +152,23 @@ public class Vue extends JFrame {
 
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
+    String nom = unite.getNom();
     String str = unite.type();
     if (unite.getCombat() != null)
       str += "\n" + unite.combat();
     if (unite.getDeplacement() != null)
       str += "\n" + unite.deplacement();
     str += "\nPossède " + unite.getPV() + " points de vie sur " + unite.getPVMax();
-    str += "\nPeut voir à une distance de " + unite.getVision() + " cases";
+    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases";
     str += "\nPeut avancer de " + unite.getDistance() + " cases";
-    str += "\nS'est déplacé ce tour-ci de " + unite.getDeplace() + " cases";
-    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases\n";
-    afficher(textInfos, unite.getNom(), str);
-    if (unite.getCombat() != null)
+    if (panelPlateau.getJoueur().possede(unite)) {
+      str += "\nS'est déplacé ce tour-ci de " + unite.getDeplace() + " cases";
+      str += "\nPeut voir à une distance de " + unite.getVision() + " cases";
+    }
+    else
+      nom += " - " + unite.getJoueur().getNom();
+    afficher(textInfos, nom, str);
+    if (panelPlateau.getJoueur().possede(unite) && unite.getCombat() != null)
       textInfos.insertComponent(boutonAttaque);
   }
 

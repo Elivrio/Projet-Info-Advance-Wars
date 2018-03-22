@@ -50,7 +50,11 @@ public class ControleurKey extends Controleur implements KeyListener {
       else map.setAttaque(true);
       map.repaint();
     }
-
+    // Clic sur Echap pour effacer le déplacement et la portée
+    else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+      map.setCliquee(null);
+      map.repaint();
+    }
   }
 
   @Override
