@@ -37,8 +37,6 @@ public class PanelMap extends Map {
   public int getPosJ() { return posJ; }
   public int getTaillePixel() { return taillePixel; }
   public boolean getAttaque() { return attaque; }
-  public double getHautMax() { return hautMax; }
-  public double getLargMax() { return largMax; }
   public AbstractUnite getCliquee() { return cliquee; }
 
   // Setters
@@ -47,6 +45,7 @@ public class PanelMap extends Map {
   public void setAttaque (boolean b) { attaque = b; }
   public void setCliquee (AbstractUnite u) { cliquee = u; }
 
+
   public void addTabI (int tI) {
     tabI += tI;
     posI = 0;
@@ -54,6 +53,16 @@ public class PanelMap extends Map {
 
   public void addTabJ (int tJ) {
     tabJ += tJ;
+    posJ = 0;
+  }
+
+  public void setTabI (int tI) {
+    tabI = tI;
+    posI = 0;
+  }
+
+  public void setTabJ (int tJ) {
+    tabJ = tJ;
     posJ = 0;
   }
 

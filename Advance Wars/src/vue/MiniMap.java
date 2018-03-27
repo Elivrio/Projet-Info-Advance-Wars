@@ -31,6 +31,11 @@ public class MiniMap extends Map {
     return taillePixel;
   }
 
+  public double getPosI() { return posI; }
+  public double getPosJ() { return posJ; }
+  public int getNoirHaut() { return noirHaut; }
+  public int getNoirGauche() { return noirGauche; }
+
   public void addTabI (int tI) {
     tabI += tI;
     posI = 0;
@@ -38,6 +43,16 @@ public class MiniMap extends Map {
 
   public void addTabJ (int tJ) {
     tabJ += tJ;
+    posJ = 0;
+  }
+
+  public void setTabI (int tI) {
+    tabI = tI;
+    posI = 0;
+  }
+
+  public void setTabJ (int tJ) {
+    tabJ = tJ;
     posJ = 0;
   }
 

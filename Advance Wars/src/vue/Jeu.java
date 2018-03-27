@@ -13,6 +13,7 @@ import src.modele.AbstractUnite;
 import src.controleur.Controleur;
 import src.modele.general.Nosaure;
 import src.modele.general.General;
+import src.controleur.MiniMapMouse;
 import src.modele.general.MadZombie;
 import src.controleur.ControleurKey;
 import src.modele.general.MagicalGirl;
@@ -26,6 +27,7 @@ public class Jeu {
   private Plateau p;
   private PanelMap map;
   private ControleurKey cK;
+  private MiniMapMouse mMM;
   private ControleurMouse cM;
   private ControleurMouseMotion cMM;
 
@@ -33,11 +35,14 @@ public class Jeu {
     p = plat;
     map = new PanelMap(p, this);
     v = new Vue(map);
+    MiniMap miniMap = v.getMiniMap();
     cK = new ControleurKey(v);
+    mMM = new MiniMapMouse(v);
     cM = new ControleurMouse(v);
     cMM = new ControleurMouseMotion(v);
     map.addKeyListener(cK);
     map.addMouseListener(cM);
+    miniMap.addMouseListener(mMM);
     map.addMouseMotionListener(cMM);
   }
 

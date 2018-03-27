@@ -3,7 +3,44 @@ package src.controleur;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MiniMapMouse implements MouseListener {
+import src.vue.Vue;
 
+public class MiniMapMouse extends Controleur implements MouseListener {
+
+  public MiniMapMouse (Vue v) {
+    super(v);
+  }
+
+  @Override
+  public void mouseClicked (MouseEvent me) {
+    int taillePixel = (int)(miniMap.getTaillePixel());
+    int x = me.getX() - miniMap.getNoirGauche();
+    int y = me.getY() - miniMap.getNoirHaut();
+    int i = (int)(y/taillePixel);
+    int j = (int)(x/taillePixel);
+
+    int iMin = (int)map.getHautMax() / 2;
+    int jMin = (int)map.getLargMax() / 2;
+
+    int iMax = map.getPlateau().getHauteur() - iMin;
+    int jMax = map.getPlateau().getLargeur() - jMin;
+
+    if (i >= iMin && i < iMax && j >= jMin && j < jMax) {
+      map.setTabI(i - iMin);
+      map.setTabJ(j - jMin);
+      miniMap.setTabI(i - (int)miniMap.getHautMax() / 2);
+      miniMap.setTabJ(j - (int)miniMap.getLargMax() / 2);
+
+      map.revalidate();
+      map.repaint();
+      miniMap.repaint();
+    }
+  }
+
+  @Override
+  public void mouseExited(MouseEvent me) {}
+  public void mouseEntered(MouseEvent me) {}
+  public void mouseReleased(MouseEvent me) {}
+  public void mousePressed(MouseEvent me) {}
 
 }

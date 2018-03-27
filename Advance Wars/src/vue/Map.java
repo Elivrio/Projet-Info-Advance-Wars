@@ -45,6 +45,8 @@ public class Map extends JPanel {
   public int getLarg() { return larg; }
   public int getTabI() { return tabI; }
   public int getTabJ() { return tabJ; }
+  public double getHautMax() { return hautMax; }
+  public double getLargMax() { return largMax; }
   public int getHauteur() { return p.getHauteur(); }
   public int getLargeur() { return p.getLargeur(); }
   //public int getTaillePixel() { return taillePixel; }
