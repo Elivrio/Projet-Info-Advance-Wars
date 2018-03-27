@@ -70,7 +70,7 @@ public class MiniMap extends Map {
   public void paint (Graphics g) {
     super.paintComponent(g);
 
-    joueur.vision();
+    joueur.vision(p.getTerrain());
 
     Graphics2D g2 = (Graphics2D) g;
     for (int i = 1; i < p.getHauteur(); i++)

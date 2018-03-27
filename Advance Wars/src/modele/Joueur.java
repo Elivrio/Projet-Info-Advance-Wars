@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import src.variable.MyColor;
 import src.modele.AbstractUnite;
+import src.modele.terrain.Foret;
+import src.modele.terrain.Montagne;
 
 public class Joueur {
   /*
@@ -57,7 +59,7 @@ public class Joueur {
       unites.get(i).reset();
   }
 
-  public void vision() {
+  public void vision (AbstractTerrain[][] terrain) {
     for (int i = 0; i < vision.length; i++)
       for (int j = 0; j < vision[0].length; j++)
         if (vision[i][j] == 2 || vision[i][j] == 1)
@@ -65,20 +67,26 @@ public class Joueur {
 
     for (int i = 0; i < unites.size(); i++) {
       AbstractUnite unite = unites.get(i);
-      vision(0, unite, unite.getX(), unite.getY());
+      vision(0, unite, unite.getX(), unite.getY(), terrain, unite.getVision());
     }
   }
 
-  public void vision (int indice, AbstractUnite unite, int x, int y) {
+  public void vision (int indice, AbstractUnite unite, int x, int y, AbstractTerrain[][] terrain, int n) {
     vision[y][x] = 2;
-    if (indice < unite.getVision())
+    if (terrain[y][x] instanceof Montagne)
+      n += 2;
+    if (indice < n)
       for (int i = -1; i <= 1; i++)
         for (int j = -1; j <= 1; j++)
           if (i != j && i != -j
-          && y+i >= 0 && y+i < vision.length
-          && x+j >= 0 && x+j < vision[0].length) {
+          && y+i >= 1 && y+i < vision.length - 1
+          && x+j >= 1 && x+j < vision[0].length - 1) {
             vision[y+i][x+j] = 2;
-            vision(indice+1, unite, x+j, y+i);
+            if ((!(terrain[y+i][x+j] instanceof Foret) ||
+                terrain[y][x] instanceof Foret) &&
+                (!(terrain[y+i][x+j] instanceof Montagne) ||
+                terrain[y][x] instanceof Montagne))
+                vision(indice+1, unite, x+j, y+i, terrain, n);
           }
   }
 }

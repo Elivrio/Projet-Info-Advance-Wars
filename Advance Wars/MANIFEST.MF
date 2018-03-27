@@ -1,1 +1,0 @@
-Main-class: src.vue.Menu

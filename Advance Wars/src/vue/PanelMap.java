@@ -88,7 +88,7 @@ public class PanelMap extends Map {
 
   @Override
   public void paint (Graphics g) {
-    joueur.vision();
+    joueur.vision(p.getTerrain());
 
     int x = 0, y = 0;
     for (int i = 0; i < hautMax; i++)
