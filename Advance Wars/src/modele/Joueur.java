@@ -73,7 +73,7 @@ public class Joueur {
 
   public void vision (int indice, AbstractUnite unite, int x, int y, AbstractTerrain[][] terrain, int n) {
     vision[y][x] = 2;
-    if (terrain[y][x] instanceof Montagne)
+    if (terrain[y][x] instanceof Montagne && indice == 0)
       n += 2;
     if (indice < n)
       for (int i = -1; i <= 1; i++)
