@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.image.ColorModel;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -207,10 +208,9 @@ public class PanelMap extends Map {
     WritableRaster raster = uni.copyData(null);
     BufferedImage tmp = new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     Graphics2D g = tmp.createGraphics();
-    g.setColor(new Color(0,0,0,0));
-    g.fillRect(0,0, uni.getWidth(), uni.getHeight());
+    g.setStroke(new BasicStroke(3));
     g.setColor(unite.getJoueur().getColor());
-    g.fillRect(0, 0, uni.getWidth(), uni.getHeight());
+    g.drawRect(0, 0, uni.getWidth()-1, uni.getHeight()-1);
     g.dispose();
     return tmp;
 

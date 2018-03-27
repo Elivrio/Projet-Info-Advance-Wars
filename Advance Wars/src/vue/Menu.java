@@ -66,19 +66,19 @@ public class Menu extends JFrame {
     PINK      : java.awt.Color[r=255, g=175, b=175]
     ORANGE    : java.awt.Color[r=255, g=200, b=0]
     */
-    basicTab[0] = new MyColor(Color.GREEN.getRGB(), 50, "Vert");
-    basicTab[1] = new MyColor(Color.BLUE.getRGB(), 50, "Bleu");
-    basicTab[2] = new MyColor(Color.YELLOW.getRGB(), 50, "Jaune");
-    basicTab[3] = new MyColor(Color.MAGENTA.getRGB(), 50, "Magenta");
-    basicTab[4] = new MyColor(Color.CYAN.getRGB(), 50, "Cyan");
-    basicTab[5] = new MyColor(Color.WHITE.getRGB(), 50, "Blanc");
-    basicTab[6] = new MyColor(Color.BLACK.getRGB(), 50, "Noir");
-    basicTab[7] = new MyColor(Color.GRAY.getRGB(), 50, "Gris");
-    basicTab[8] = new MyColor(Color.DARK_GRAY.getRGB(), 50, "Gris foncé");
-    basicTab[9] = new MyColor(Color.LIGHT_GRAY.getRGB(), 50, "Gris clair");
-    basicTab[10] = new MyColor(Color.PINK.getRGB(), 50, "Rose");
-    basicTab[11] = new MyColor(Color.ORANGE.getRGB(), 50, "Orange");
-    basicTab[12] = new MyColor(156, 58, 97, 50, "Vomitif");
+    basicTab[0] = new MyColor(Color.GREEN.getRGB()/*, 50*/, "Vert");
+    basicTab[1] = new MyColor(Color.BLUE.getRGB()/*, 50*/, "Bleu");
+    basicTab[2] = new MyColor(Color.YELLOW.getRGB()/*, 50*/, "Jaune");
+    basicTab[3] = new MyColor(Color.MAGENTA.getRGB()/*, 50*/, "Magenta");
+    basicTab[4] = new MyColor(Color.CYAN.getRGB()/*, 50*/, "Cyan");
+    basicTab[5] = new MyColor(Color.WHITE.getRGB()/*, 50*/, "Blanc");
+    basicTab[6] = new MyColor(Color.BLACK.getRGB()/*, 50*/, "Noir");
+    basicTab[7] = new MyColor(Color.GRAY.getRGB()/*, 50*/, "Gris");
+    basicTab[8] = new MyColor(Color.DARK_GRAY.getRGB()/*, 50*/, "Gris foncé");
+    basicTab[9] = new MyColor(Color.LIGHT_GRAY.getRGB()/*, 50*/, "Gris clair");
+    basicTab[10] = new MyColor(Color.PINK.getRGB()/*, 50*/, "Rose");
+    basicTab[11] = new MyColor(Color.ORANGE.getRGB()/*, 50*/, "Orange");
+    basicTab[12] = new MyColor(156, 58, 97/*, 50*/, "Vomitif");
   }
 
   public Menu() {
