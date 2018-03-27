@@ -26,10 +26,10 @@ public class MiniMapMouse extends Controleur implements MouseListener {
     int jMax = map.getPlateau().getLargeur() - jMin;
 
     if (i >= iMin && i < iMax && j >= jMin && j < jMax) {
-      map.setTabI(i - iMin);
-      map.setTabJ(j - jMin);
-      miniMap.setTabI(i - (int)miniMap.getHautMax() / 2);
-      miniMap.setTabJ(j - (int)miniMap.getLargMax() / 2);
+      map.setTabI(i - iMin + 1);
+      map.setTabJ(j - jMin + 1);
+      miniMap.setTabI(i - (int)miniMap.getHautMax() / 2 + 1);
+      miniMap.setTabJ(j - (int)miniMap.getLargMax() / 2 + 1);
 
       map.revalidate();
       map.repaint();
