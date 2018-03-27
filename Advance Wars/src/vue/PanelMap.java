@@ -4,7 +4,11 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
+import java.awt.image.ColorModel;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 
 import src.vue.Jeu;
 import src.vue.Map;
@@ -111,8 +115,7 @@ public class PanelMap extends Map {
       case 1 :
         g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
         break;
-      default :
-        break;
+      default : break;
     }
 
     if ((cliquee != null) && joueur.possede(cliquee)
@@ -133,7 +136,7 @@ public class PanelMap extends Map {
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
     if (unite != null && joueur.getVision()[y+tabI-1][x+tabJ-1] == 2) {
-      Image uni = Variable.tImUni[unite.getIndice()-1];
+      BufferedImage uni = dessinerUnite(unite);
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
     }
   }
@@ -188,23 +191,37 @@ public class PanelMap extends Map {
   public int stringBinaryToInt(String s) {
     int res = 0;
     int bin = 1;
-    for (int i =0; i<s.length(); i++){
-      int b = s.codePointAt(s.length()-i-1)-48;
-      res += b*bin;
-      bin =bin*2;
+    for (int i =0; i<s.length(); i++) {
+      int b = s.codePointAt(s.length() - i - 1) - 48;
+      res += b * bin;
+      bin = bin * 2;
     }
     return res;
   }
 
-  public int chercherTerrain(int[] tab){
+  public int chercherTerrain(int[] tab) {
     for (int i=0; i<tab.length; i++)
       if (tab[i] != 1)
         return tab[i];
     return 1;
   }
 
-  public int indice(int i, int a){
+  public int indice(int i, int a) {
     return ((i==a)? 1 :0);
   }
 
+  public BufferedImage dessinerUnite(AbstractUnite unite){
+    BufferedImage uni = Variable.tImUni[unite.getIndice()-1];
+    ColorModel cm = uni.getColorModel();
+    boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+    WritableRaster raster = uni.copyData(null);
+    BufferedImage tmp = new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+    Graphics2D g = tmp.createGraphics();
+    g.setStroke(new BasicStroke(3));
+    g.setColor(unite.getJoueur().getColor());
+    g.drawRect(0, 0, uni.getWidth()-1, uni.getHeight()-1);
+    g.dispose();
+    return tmp;
+
+  }
 }
