@@ -56,6 +56,7 @@ public class ControleurMouse extends Controleur implements MouseListener {
                 jeu.mort(cliquee, unite);
                 vue.informations(cliquee, unite, cliquee.getDegats());
                 attaque = true;
+                map.setCliquee(null);
           }
     }
     if (!attaque) {

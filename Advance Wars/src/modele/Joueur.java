@@ -35,7 +35,7 @@ public class Joueur {
   public int[][] getVision() { return vision; }
   public int getArgent() { return argent; }
   public Color getColor() { return couleur; }
-
+  
   public boolean possede (AbstractUnite u) {
     return unites.contains(u);
   }

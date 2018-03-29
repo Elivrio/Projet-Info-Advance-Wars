@@ -40,6 +40,19 @@ public class MyColor extends Color {
     this.colorName = colorName;
   }
 
+  public MyColor(MyColor original, int alpha) {
+    this(original.getRGB(), alpha, original.getColorName());
+  }
+
+  public MyColor(Color original, int alpha, String s) {
+    this(original.getRGB(), alpha, s);
+  }
+
+  public MyColor(Color original, int alpha) {
+    this(original.getRGB(), alpha, "");
+  }
+
+
   public String getColorName() {
     return colorName;
   }

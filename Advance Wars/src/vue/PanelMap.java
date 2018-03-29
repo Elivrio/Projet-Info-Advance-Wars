@@ -14,6 +14,7 @@ import java.awt.image.WritableRaster;
 import src.vue.Jeu;
 import src.vue.Map;
 import src.modele.Plateau;
+import src.variable.MyColor;
 import src.variable.Variable;
 import src.modele.AbstractUnite;
 import src.modele.general.General;
@@ -26,6 +27,13 @@ public class PanelMap extends Map {
   private boolean attaque;
   private int taillePixel;
   private int posI, posJ;
+
+  public final static String oval = "oval";
+  public final static String rect = "rect";
+  public final static String doval = "doval";
+  public final static String foval = "foval";
+  public final static String drect = "drect";
+  public final static String frect = "frect";
 
   public PanelMap (Plateau plat, Jeu j) {
     super(plat, j);
@@ -98,8 +106,8 @@ public class PanelMap extends Map {
       for (int j = 0; j < largMax; j++) {
         if (i + tabI - 1 >= p.getHauteur() || j + tabJ - 1 >= p.getLargeur())
           continue;
-        AbstractUnite unite = p.getUnites()[i+tabI-1][j+tabJ-1];
-        int t = p.getTerrain()[i+tabI-1][j+tabJ-1].getType();
+        AbstractUnite unite = p.getUnites()[i + tabI - 1][j + tabJ - 1];
+        int t = p.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
         createRect(g, t, j, i, unite);
       }
   }
@@ -110,46 +118,85 @@ public class PanelMap extends Map {
     chemin(i, y, x, g);
 
     // On met à jour le brouillard de guerre
-    switch (joueur.getVision()[y+tabI-1][x+tabJ-1]) {
+    switch (joueur.getVision()[y + tabI - 1][x + tabJ - 1]) {
       case 0 :
-        g.drawImage(Variable.noir, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+        g.drawImage(Variable.noir, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
       case 1 :
-        g.drawImage(Variable.gris, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+        g.drawImage(Variable.gris, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
       default : break;
     }
 
     if ((cliquee != null) && joueur.possede(cliquee)
-        && (y+tabI-2 >= 0)
-        && (y+tabI < p.getTerrain().length)
-        && (x+tabJ-2 >= 0)
-        && (x+tabJ < p.getTerrain()[0].length)) {
+        && (y + tabI-2 >= 0)
+        && (y + tabI < p.getTerrain().length)
+        && (x + tabJ-2 >= 0)
+        && (x + tabJ < p.getTerrain()[0].length)) {
           // Affichage des déplacements possibles
-          if ((cliquee.getAttaque() >= 1 || !attaque) && Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
-            g.drawImage(Variable.vert, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+          if ((cliquee.getAttaque() >= 1 || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
+            g.drawImage(Variable.vert, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
           // Affichage de la portée
-          if (cliquee.getAttaque() < 1 && attaque && (Math.abs((x+tabJ-1) - cliquee.getX()) + Math.abs((y+tabI-1) - cliquee.getY()) <= cliquee.getPortee()))
-            g.drawImage(Variable.rouge, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+          if (cliquee.getAttaque() < 1 && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
+            g.drawImage(Variable.rouge, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
     }
 
     g.setColor(Color.BLACK);
     // On l'encadre en noir (purement esthétique)
-    g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
+    g.drawRect((x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
-    if (unite != null && joueur.getVision()[y+tabI-1][x+tabJ-1] == 2) {
+    if (unite != null && joueur.getVision()[y + tabI - 1][x + tabJ - 1] == 2) {
       BufferedImage uni = Variable.tImUni[unite.getIndice()-1];
-      if (unite instanceof General)
-        g.drawImage(uni, (x*taillePixel) - posJ - 80, (y*taillePixel) - posI - 80, this);
-      else
-        g.drawImage(uni, (x*taillePixel) - posJ - 70, (y*taillePixel) - posI - 70, this);
-      Graphics2D g2 = (Graphics2D) g;
-      g2.setStroke(new BasicStroke(2));
-      g2.setColor(unite.getJoueur().getColor());
-      g2.drawRect((x*taillePixel) - posJ - 85, (y*taillePixel) - posI - 85, 70, 70);
-      g2.setStroke(new BasicStroke(1));
+      g.drawRect((x * taillePixel) - posJ - 90, (y * taillePixel) - posI - 90, 80, 5);
+      g.setColor(Color.GREEN.darker());
+      g.fillRect((x * taillePixel) - posJ - 90, (y * taillePixel) - posI - 90, 80 * unite.getPV() / unite.getPVMax(), 5);
+      if (joueur.possede(unite)) {
+        Color cA = Color.GREEN;
+        if (unite.getAttaque() >= 1)
+          cA = Color.RED;
+        makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, cA);
+        for (int dis = 0; dis < unite.getDistance(); dis++) {
+          Color cD = Color.GREEN;
+          if (dis < unite.getDeplace())
+            cD = Color.RED;
+          makeForm(g, oval, x, y, posJ + 10, posI + 10 + (dis*6), 5, 5, cD);
+        }
+      }
+      Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
+      if (unite instanceof General) {
+        makeForm(g, oval, x, y, posJ + 80, posI + 35, 60, 20, color);
+        g.drawImage(uni, (x * taillePixel) - posJ - 80, (y * taillePixel) - posI - 80, this);
+      }
+      else {
+        makeForm(g, oval, x, y, posJ + 80, posI + 45, 60, 20, color);
+        g.drawImage(uni, (x * taillePixel) - posJ - 70, (y * taillePixel) - posI - 70, this);
+      }
     }
   }
+
+  public void makeForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
+    switch (form) {
+      case rect :
+        drawForm(g, drect, x, y, modX, modY, width, height, Color.BLACK);
+        drawForm(g, frect, x, y, modX, modY, width, height, color);
+        break;
+      case oval :
+        drawForm(g, doval, x, y, modX, modY, width, height, Color.BLACK);
+        drawForm(g, foval, x, y, modX, modY, width, height, color);
+        break;
+    }
+  }
+
+  public void drawForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
+    g.setColor(color);
+    switch (form) {
+      case doval : g.drawOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+      case foval : g.fillOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+      case drect : g.drawRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+      case frect : g.drawRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+    }
+  }
+
 
   public void chemin (int i, int x, int y, Graphics g) {
     //BufferedImage img = Variable.tImTer[i];
@@ -163,18 +210,20 @@ public class PanelMap extends Map {
     int place;
     int j;
     // pour rester sur le terrain
-    if (x + tabI > 1
-      && y + tabJ > 1
-      && x + tabI < p.getHauteur() - 1
-      &&  y + tabJ < p.getLargeur() - 1 ) {
-      a = t[x + tabI - 1][y + tabJ - 2].getType();
-      b = t[x + tabI - 2][y + tabJ - 1].getType();
-      c = t[x + tabI - 1][y + tabJ].getType();
-      d = t[x + tabI][y + tabJ - 1].getType();
+    if (x + tabI >= 0
+        && y + tabJ >= 0
+        && x + tabI <= p.getHauteur() - 1
+        &&  y + tabJ <= p.getLargeur() - 1) {
+
+      a = check((y + tabJ > 1), x, y, -1, -2, t);
+      b = check((x + tabI > 1), x, y, -2, -1, t);
+      c = check((y + tabJ < p.getLargeur() - 1), x, y, -1, 0, t);
+      d = check((x + tabI < p.getHauteur() - 1), x, y, 0, -1, t);
+
     }
-    int[] tab = {a, b, c, d};
     switch (i) {
       case 1 :
+        int[] tab = {a, b, c, d};
         j = chercherTerrain(tab);
         chemin = indice(j, a) + "" + indice(j, b) + "" + indice(j, c) + "" + indice(j, d);
         place = stringBinaryToInt(chemin);
@@ -210,6 +259,7 @@ public class PanelMap extends Map {
       AbstractVille ville = ((AbstractVille)t[x + tabI - 1][y + tabJ - 1]);
       if (ville.getJoueur() != null) {
         Color color = ville.getJoueur().getColor();
+        g.drawRect((y * taillePixel) - posJ - 15, (x * taillePixel) - posI - 15, 10, 10);
         g.setColor(color);
         g.fillRect((y * taillePixel) - posJ - 15, (x * taillePixel) - posI - 15, 10, 10);
       }
@@ -229,13 +279,20 @@ public class PanelMap extends Map {
   }
 
   public int chercherTerrain(int[] tab) {
-    for (int i = 0; i < tab.length; i++)
-      if (tab[i] != 1)
-        return tab[i];
+    for (int n : tab)
+      if (n != 1 && n != 4)
+        return n;
     return 1;
   }
 
   public int indice(int i, int a) {
-    return ((i==a)? 1 :0);
+    return ((i == a)? 1 :0);
+  }
+
+  public int check(boolean a, int x, int y, int modI, int modJ, AbstractTerrain[][] t) {
+    if (a)
+      return t[x + tabI + modI][y + tabJ + modJ].getType();
+    else
+      return 1;
   }
 }
