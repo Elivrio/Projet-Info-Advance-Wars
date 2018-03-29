@@ -164,6 +164,7 @@ public class Menu extends JFrame {
       choixGeneral.get(i).addActionListener(mAL);
 
       choixCouleur.add(new ComboColorChooser(basicTab));
+      choixCouleur.get(i).setSelectedItem(basicTab[i]);
       choixCouleur.get(i).addActionListener(mAL);
 
       pan.setBackground(transparent);

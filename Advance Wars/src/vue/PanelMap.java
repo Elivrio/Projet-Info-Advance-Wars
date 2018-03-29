@@ -2,11 +2,9 @@ package src.vue;
 
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.Stroke;
 import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.BasicStroke;
 import java.awt.image.ColorModel;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -114,10 +112,10 @@ public class PanelMap extends Map {
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
   public void createRect (Graphics g, int i, int x, int y, AbstractUnite unite) {
-    // On dessine le terrain
+    // On dessine le terrain correspondant à la case donnée.
     chemin(i, y, x, g);
 
-    // On met à jour le brouillard de guerre
+    // On met à jour le brouillard de guerre sur cette case.
     switch (joueur.getVision()[y + tabI - 1][x + tabJ - 1]) {
       case 0 :
         g.drawImage(Variable.noir, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
@@ -133,42 +131,62 @@ public class PanelMap extends Map {
         && (y + tabI < p.getTerrain().length)
         && (x + tabJ-2 >= 0)
         && (x + tabJ < p.getTerrain()[0].length)) {
-          // Affichage des déplacements possibles
+          // Affichage des déplacements possibles.
           if ((cliquee.getAttaque() >= 1 || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
             g.drawImage(Variable.vert, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
-          // Affichage de la portée
+          // Affichage de la portée.
           if (cliquee.getAttaque() < 1 && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
     }
 
+    // On encadre le terrain en noir (purement esthétique).
     g.setColor(Color.BLACK);
-    // On l'encadre en noir (purement esthétique)
     g.drawRect((x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, taillePixel, taillePixel);
-    // On dessine l'unité si elle est présente
+
+
+    // On dessine l'unité si elle est présente.
     if (unite != null && joueur.getVision()[y + tabI - 1][x + tabJ - 1] == 2) {
+      // On commence par récupérer l'unité concernée.
       BufferedImage uni = Variable.tImUni[unite.getIndice()-1];
-      g.drawRect((x * taillePixel) - posJ - 90, (y * taillePixel) - posI - 90, 80, 5);
-      g.setColor(Color.GREEN.darker());
-      g.fillRect((x * taillePixel) - posJ - 90, (y * taillePixel) - posI - 90, 80 * unite.getPV() / unite.getPVMax(), 5);
+      // Cette variable sert pour faire varier la couleur dans tout le reste de la fonction.
+      Color color = Color.GREEN.darker();
+
+      // On dessine sa barre de vie.
+      makeForm(g, rect, x, y, posJ + 90, posI + 90, 80, 80 * unite.getPV() / unite.getPVMax(), 5, color);
+
+      // Si le joueur actuel possède l'unité, il faut afficher des informations en plus.
       if (joueur.possede(unite)) {
-        Color cA = Color.GREEN;
+
+        // On affiche un rond pour préciser si l'unité sélectionnée peut attaquer ou non.
+        color = Color.GREEN;
         if (unite.getAttaque() >= 1)
-          cA = Color.RED;
-        makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, cA);
+          color = Color.RED;
+        makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, color);
+
+        // On affiche plusieurs ronds pour montrer la distance que peut encore parcourir l'unité.
         for (int dis = 0; dis < unite.getDistance(); dis++) {
-          Color cD = Color.GREEN;
+          color = Color.GREEN;
           if (dis < unite.getDeplace())
-            cD = Color.RED;
-          makeForm(g, oval, x, y, posJ + 10, posI + 10 + (dis*6), 5, 5, cD);
+            color = Color.RED;
+          makeForm(g, oval, x, y, posJ + 10, posI + 10 + (dis*6), 5, 5, color);
         }
       }
-      Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
+
+      // On récupére la couleur du joueur qui possède l'unité.
+      // L'utilisation de MyColor a pour but d'ajouter de la transparence à la couleur.
+      color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
+
+      // Il y a distinction entre un général et une unité normale, les généraux sont plus grands.
       if (unite instanceof General) {
+        // Le socle d'un général.
         makeForm(g, oval, x, y, posJ + 80, posI + 35, 60, 20, color);
+        // Un général.
         g.drawImage(uni, (x * taillePixel) - posJ - 80, (y * taillePixel) - posI - 80, this);
       }
       else {
+        // Le socle d'une unité.
         makeForm(g, oval, x, y, posJ + 80, posI + 45, 60, 20, color);
+        // Une unité.
         g.drawImage(uni, (x * taillePixel) - posJ - 70, (y * taillePixel) - posI - 70, this);
       }
     }
@@ -187,13 +205,26 @@ public class PanelMap extends Map {
     }
   }
 
+  public void makeForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int secondWidth, int height, Color color) {
+    switch (form) {
+      case rect :
+        drawForm(g, drect, x, y, modX, modY, width, height, Color.BLACK);
+        drawForm(g, frect, x, y, modX, modY, secondWidth, height, color);
+        break;
+      case oval :
+        drawForm(g, doval, x, y, modX, modY, width, height, Color.BLACK);
+        drawForm(g, foval, x, y, modX, modY, secondWidth, height, color);
+        break;
+    }
+  }
+
   public void drawForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
     g.setColor(color);
     switch (form) {
       case doval : g.drawOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
       case foval : g.fillOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
       case drect : g.drawRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
-      case frect : g.drawRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+      case frect : g.fillRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
     }
   }
 
