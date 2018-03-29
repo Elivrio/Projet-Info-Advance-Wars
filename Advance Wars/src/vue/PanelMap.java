@@ -2,6 +2,7 @@ package src.vue;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Stroke;
 import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -15,7 +16,9 @@ import src.vue.Map;
 import src.modele.Plateau;
 import src.variable.Variable;
 import src.modele.AbstractUnite;
+import src.modele.general.General;
 import src.modele.AbstractTerrain;
+import src.modele.terrain.AbstractVille;
 
 public class PanelMap extends Map {
 
@@ -103,9 +106,8 @@ public class PanelMap extends Map {
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
   public void createRect (Graphics g, int i, int x, int y, AbstractUnite unite) {
-    BufferedImage img = chemin(i,y,x);
     // On dessine le terrain
-    g.drawImage(img, (x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, this);
+    chemin(i, y, x, g);
 
     // On met à jour le brouillard de guerre
     switch (joueur.getVision()[y+tabI-1][x+tabJ-1]) {
@@ -136,14 +138,23 @@ public class PanelMap extends Map {
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
     if (unite != null && joueur.getVision()[y+tabI-1][x+tabJ-1] == 2) {
-      BufferedImage uni = dessinerUnite(unite);
-      g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
+      BufferedImage uni = Variable.tImUni[unite.getIndice()-1];
+      if (unite instanceof General)
+        g.drawImage(uni, (x*taillePixel) - posJ - 80, (y*taillePixel) - posI - 80, this);
+      else
+        g.drawImage(uni, (x*taillePixel) - posJ - 70, (y*taillePixel) - posI - 70, this);
+      Graphics2D g2 = (Graphics2D) g;
+      g2.setStroke(new BasicStroke(2));
+      g2.setColor(unite.getJoueur().getColor());
+      g2.drawRect((x*taillePixel) - posJ - 85, (y*taillePixel) - posI - 85, 70, 70);
+      g2.setStroke(new BasicStroke(1));
     }
   }
 
-  public BufferedImage chemin (int i, int x, int y) {
+  public void chemin (int i, int x, int y, Graphics g) {
     //BufferedImage img = Variable.tImTer[i];
     AbstractTerrain[][] t = p.getTerrain();
+    BufferedImage img = null;
     String chemin;
     int a = 1;
     int b = 1;
@@ -152,46 +163,64 @@ public class PanelMap extends Map {
     int place;
     int j;
     // pour rester sur le terrain
-    if ( x>=1 && y>=1 && x + tabI < p.getHauteur()-1 &&  y + tabJ <p.getLargeur()-1 ){
-      a = t[x+tabI-1][y+tabJ-2].getType();
-      b = t[x+tabI-2][y+tabJ-1].getType();
-      c = t[x+tabI-1][y+tabJ].getType();
-      d = t[x+tabI][y+tabJ-1].getType();
+    if (x + tabI > 1
+      && y + tabJ > 1
+      && x + tabI < p.getHauteur() - 1
+      &&  y + tabJ < p.getLargeur() - 1 ) {
+      a = t[x + tabI - 1][y + tabJ - 2].getType();
+      b = t[x + tabI - 2][y + tabJ - 1].getType();
+      c = t[x + tabI - 1][y + tabJ].getType();
+      d = t[x + tabI][y + tabJ - 1].getType();
     }
     int[] tab = {a, b, c, d};
     switch (i) {
       case 1 :
         j = chercherTerrain(tab);
-        chemin = indice(j,a) +""+ indice(j,b) +""+ indice(j,c) +""+ indice(j,d);
+        chemin = indice(j, a) + "" + indice(j, b) + "" + indice(j, c) + "" + indice(j, d);
         place = stringBinaryToInt(chemin);
-        if (j==0)
-          return Variable.tImPlaineForet[place];
-        if (j==2)
-          return Variable.tImPlaineEau[place];
+        if (j == 0)
+          img =Variable.tImPlaineForet[place];
+        if (j == 2)
+          img = Variable.tImPlaineEau[place];
         break;
       case 2 :
-        chemin = (a-1)+""+(b-1)+""+(c-1)+""+(d-1);
+        chemin = (a - 1) + "" + (b - 1) + "" + (c - 1) + "" + ( d - 1);
         place = stringBinaryToInt(chemin);
-        if (a+b+c+d == 8) {
-          if (t[x+tabI][y+tabJ-2].getType()==1)
-            return Variable.tImEauPlageCoin[1];
-          if (t[x+tabI-2][y+tabJ-2].getType()==1)
-            return Variable.tImEauPlageCoin[2];
-          if (t[x+tabI-2][y+tabJ].getType()==1)
-            return Variable.tImEauPlageCoin[3];
-          if (t[x+tabI][y+tabJ].getType()==1)
-            return Variable.tImEauPlageCoin[4];
+        if (a + b + c + d == 8) {
+          if (t[x + tabI][y + tabJ - 2].getType() == 1)
+            img = Variable.tImEauPlageCoin[1];
+          else if (t[x + tabI - 2][y + tabJ - 2].getType() == 1)
+            img = Variable.tImEauPlageCoin[2];
+          else if (t[x + tabI - 2][y + tabJ].getType() == 1)
+            img = Variable.tImEauPlageCoin[3];
+          else if (t[x + tabI][y + tabJ].getType() == 1)
+            img = Variable.tImEauPlageCoin[4];
+          break;
         }
-        return Variable.tImEauPlage[place];
+        img = Variable.tImEauPlage[place];
     }
-    BufferedImage img = Variable.tImTer[i];
-    return img;
+    if (img == null)
+      img = Variable.tImTer[i];
+    g.drawImage(img, (y * taillePixel) - posJ - 100, (x * taillePixel) - posI - 100, this);
+    if (x + tabI > 1
+        && y + tabJ > 1
+        && x + tabI < p.getHauteur() - 1
+        &&  y + tabJ < p.getLargeur() - 1
+        && t[x + tabI - 1][y + tabJ - 1] instanceof AbstractVille) {
+      AbstractVille ville = ((AbstractVille)t[x + tabI - 1][y + tabJ - 1]);
+      if (ville.getJoueur() != null) {
+        Color color = ville.getJoueur().getColor();
+        g.setColor(color);
+        g.fillRect((y * taillePixel) - posJ - 15, (x * taillePixel) - posI - 15, 10, 10);
+      }
+    }
+
   }
 
   public int stringBinaryToInt(String s) {
     int res = 0;
     int bin = 1;
-    for (int i =0; i<s.length(); i++) {
+    for (int i = 0; i < s.length(); i++) {
       int b = s.codePointAt(s.length() - i - 1) - 48;
       res += b * bin;
       bin = bin * 2;
@@ -200,7 +229,7 @@ public class PanelMap extends Map {
   }
 
   public int chercherTerrain(int[] tab) {
-    for (int i=0; i<tab.length; i++)
+    for (int i = 0; i < tab.length; i++)
       if (tab[i] != 1)
         return tab[i];
     return 1;
@@ -208,20 +237,5 @@ public class PanelMap extends Map {
 
   public int indice(int i, int a) {
     return ((i==a)? 1 :0);
-  }
-
-  public BufferedImage dessinerUnite(AbstractUnite unite){
-    BufferedImage uni = Variable.tImUni[unite.getIndice()-1];
-    ColorModel cm = uni.getColorModel();
-    boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-    WritableRaster raster = uni.copyData(null);
-    BufferedImage tmp = new BufferedImage(cm, raster, isAlphaPremultiplied, null);
-    Graphics2D g = tmp.createGraphics();
-    g.setStroke(new BasicStroke(3));
-    g.setColor(unite.getJoueur().getColor());
-    g.drawRect(0, 0, uni.getWidth()-1, uni.getHeight()-1);
-    g.dispose();
-    return tmp;
-
   }
 }

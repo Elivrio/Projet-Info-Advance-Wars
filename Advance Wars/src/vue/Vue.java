@@ -124,7 +124,7 @@ public class Vue extends JFrame {
   public JButton getBoutonJoueur() { return boutonJoueur; }
   public JButton getBoutonAttaque() { return boutonAttaque; }
 
-  public static void afficher(JTextPane textPane, String titre, String infos){
+  public static void afficher(JTextPane textPane, String titre, String infos, Color couleurTitre) {
 
 		SimpleAttributeSet style_normal = new SimpleAttributeSet();
 		StyleConstants.setForeground(style_normal, Color.WHITE);
@@ -133,6 +133,7 @@ public class Vue extends JFrame {
 
 		SimpleAttributeSet style_titre = new SimpleAttributeSet();
 		style_titre.addAttributes(style_normal);
+    StyleConstants.setForeground(style_titre, couleurTitre);
 		StyleConstants.setFontSize(style_titre, 22);
 		StyleConstants.setBold(style_titre, true);
 
@@ -154,6 +155,7 @@ public class Vue extends JFrame {
     textInfos.setText("");
     String nom = unite.getNom();
     String str = unite.type();
+    Color couleur = unite.getJoueur().getColor();
     if (unite.getCombat() != null)
       str += "\n" + unite.combat();
     if (unite.getDeplacement() != null)
@@ -167,7 +169,7 @@ public class Vue extends JFrame {
     }
     else
       nom += " - " + unite.getJoueur().getNom();
-    afficher(textInfos, nom, str);
+    afficher(textInfos, nom, str, couleur);
     if (panelPlateau.getJoueur().possede(unite) && unite.getCombat() != null)
       textInfos.insertComponent(boutonAttaque);
   }
@@ -175,20 +177,22 @@ public class Vue extends JFrame {
   public void informations (AbstractUnite unite, AbstractUnite cible, int degats) {
     informations(unite);
     String str = cible.getNom() + " a perdu " + degats + " points de vie !";
-    afficher(textInfos, "", str);
+    afficher(textInfos, "", str, Color.WHITE);
   }
 
   public void informations (AbstractTerrain terrain, int vision) {
     textInfos.setText("");
     String str = "";
-    afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str);
+    afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str, Color.WHITE);
   }
 
   public void informations (AbstractVille ville, Joueur joueur, int vision) {
     textInfos.setText("");
     String str = "";
     Joueur j = ville.getJoueur();
+    Color couleur = Color.WHITE;
     if (j != null) {
+      couleur = j.getColor();
       if (j == joueur)
         str += "Cette ville vous appartient !\n";
       else
@@ -197,7 +201,7 @@ public class Vue extends JFrame {
     else
       str += "Cette ville n'appartient pour le moment à aucun joueur.";
 
-    afficher(textInfos, (vision == 0)? "Mystère absolu" : ville.getNom(), str);
+    afficher(textInfos, (vision == 0)? "Mystère absolu" : ville.getNom(), str, couleur);
 
     ActionVille aL = new ActionVille(this, ville);
     if (j == joueur && !ville.getAchete()) {
@@ -220,7 +224,7 @@ public class Vue extends JFrame {
         boutonCreationUniteAerienne.addActionListener(aL);
       }
 
-      afficher(textInfos, "", "");
+      afficher(textInfos, "", "", Color.WHITE);
     }
   }
 
@@ -255,7 +259,7 @@ public class Vue extends JFrame {
     if (joueur.getNbUnites() == 0)
       str += "\nSon général est mort ! Perdant du jeu.\n";
     else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom() + "\n";
-    afficher(textJoueur, joueur.getNom(), str);
+    afficher(textJoueur, joueur.getNom(), str, joueur.getColor());
     textJoueur.insertComponent(boutonJoueur);
   }
 }
