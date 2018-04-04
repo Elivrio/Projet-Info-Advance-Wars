@@ -44,6 +44,7 @@ public class Jeu {
     map.addMouseListener(cM);
     miniMap.addMouseListener(mMM);
     map.addMouseMotionListener(cMM);
+    map.addMouseMotionListener(cM);
   }
 
   public void mort (AbstractUnite unite, AbstractUnite cible) {

@@ -64,10 +64,11 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
         && (j < map.getTerrain()[0].length)) {
           if (!map.getAttaque() && unite == null){
               if (cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
-                //System.out.println("chemin" +chemin.length);
+                System.out.println("chemin " +chemin.length);
                 for(int k=0; k<chemin.length; k++){
                     int x = chemin[k][0];
-                    int y = chemin[k][1];  
+                    int y = chemin[k][1];
+                    System.out.println("i : "+ x + "/ j : "+y);  
                     if (x!=0 && y!=0){
                       map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), y, x);
                       cliquee.setDeplace(Math.abs((y) - cliquee.getX()) + Math.abs((x) - cliquee.getY()));
