@@ -12,6 +12,7 @@ import src.modele.AbstractUnite;
 import src.modele.AbstractTerrain;
 import src.modele.terrain.AbstractVille;
 
+@SuppressWarnings("serial")
 public class Map extends JPanel {
 
   protected Plateau p;

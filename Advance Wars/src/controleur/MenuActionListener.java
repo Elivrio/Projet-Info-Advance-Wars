@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import src.vue.Menu;
+import src.variable.MyColor;
+import src.vue.ComboColorChooser;
 
 public class MenuActionListener implements ActionListener {
 
@@ -29,6 +31,9 @@ public class MenuActionListener implements ActionListener {
     }
     else if (source == menu.getChoixNbJoueurs())
       menu.afficherChoixNoms();
+    for (ComboColorChooser<MyColor> m : menu.getChoixCouleurs())
+      if (source == m) {
+        menu.estCouleurPossible(m.getSelectedItem());
+      }
   }
-
 }

@@ -1,5 +1,6 @@
 package src.modele;
 
+import src.modele.Joueur;
 public abstract class AbstractTerrain {
 
   protected final String nom;
@@ -21,5 +22,9 @@ public abstract class AbstractTerrain {
   @Override
   public String toString() {
     return ("" + type);
+  }
+
+  public Joueur getJoueur() {
+    return null;
   }
 }

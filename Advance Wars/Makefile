@@ -18,6 +18,6 @@ fclean : clean
 	@rm -rf $(NAME)
 
 run :
-	@java -jar $(NAME)
+	@java -jar  $(NAME)
 
 allRun : all run

@@ -19,13 +19,24 @@ import src.modele.general.General;
 import src.modele.AbstractTerrain;
 import src.modele.terrain.AbstractVille;
 
+@SuppressWarnings("serial")
 public class PanelMap extends Map {
 
+  // Contient l'unité cliquée en ce moment.
   private AbstractUnite cliquee;
+  // Précise si l'on doit afficher le déplacement de l'unité cliquée
+  // ou la distance d'attaque de l'unité.
   private boolean attaque;
+  // Contient la taille des cases qui s'afficheront sur le plateau (pour l'instant toujours vrai).
   private int taillePixel;
+
+  // Permet de stocker en mémoire la position sur l'écran afin de faire du déplacement en continue.
+  // Ces valeurs sont compri
   private int posI, posJ;
 
+
+  // Des variables qui permettent d'automatiser la création des formes simples
+  // telles que les rectangles et les cercles.
   public final static String oval = "oval";
   public final static String rect = "rect";
   public final static String doval = "doval";
@@ -96,30 +107,37 @@ public class PanelMap extends Map {
 
 
   @Override
+  // Permet de mettre à jour le contenu du terrain.
   public void paint (Graphics g) {
+    // On commence par mettre à jour la vision du joueur.
     joueur.vision(p.getTerrain());
-
-    int x = 0, y = 0;
+    // On dessine sur tout le terrain.
     for (int i = 0; i < hautMax; i++)
       for (int j = 0; j < largMax; j++) {
+        // Si on sort des limites du terrain, on saute ce tour de boucle.
         if (i + tabI - 1 >= p.getHauteur() || j + tabJ - 1 >= p.getLargeur())
           continue;
+        // L'unité qui se trouve sur la case.
         AbstractUnite unite = p.getUnites()[i + tabI - 1][j + tabJ - 1];
+        // Le type du terrain.
         int t = p.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
-        createRect(g, t, j, i, unite);
+        // La fonction qui permet d'afficher la case et tous ses composents.
+        dessineCase(g, t, j, i, unite);
       }
   }
 
   // Fonction dessinant le plateau et les unités sur la fenêtre
-  public void createRect (Graphics g, int i, int x, int y, AbstractUnite unite) {
+  public void dessineCase (Graphics g, int i, int x, int y, AbstractUnite unite) {
     // On dessine le terrain correspondant à la case donnée.
     chemin(i, y, x, g);
 
     // On met à jour le brouillard de guerre sur cette case.
     switch (joueur.getVision()[y + tabI - 1][x + tabJ - 1]) {
+      // Si la case n'a jamais été visitée.
       case 0 :
         g.drawImage(Variable.noir, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
+      // Si la case a été visité mais se trouve dans le brouillard de guerre.
       case 1 :
         g.drawImage(Variable.gris, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
@@ -185,13 +203,15 @@ public class PanelMap extends Map {
       }
       else {
         // Le socle d'une unité.
-        makeForm(g, oval, x, y, posJ + 80, posI + 45, 60, 20, color);
+        makeForm(g, oval, x, y, posJ + 75, posI + 45, 50, 20, color);
         // Une unité.
         g.drawImage(uni, (x * taillePixel) - posJ - 70, (y * taillePixel) - posI - 70, this);
       }
     }
   }
 
+  // Fonction utilitaire pour créer des rectangles ou des ovales de couleur "color" entourés de bordure noirs.
+  // La String form permet de définir si la forme choisie est un rectangle ou un oval.
   public void makeForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
     switch (form) {
       case rect :
@@ -205,6 +225,19 @@ public class PanelMap extends Map {
     }
   }
 
+  // Permet de dessiner une forme de base sur le Graphics donné.
+  public void drawForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
+    g.setColor(color);
+    switch (form) {
+      case doval : g.drawOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+      case foval : g.fillOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+      case drect : g.drawRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+      case frect : g.fillRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
+    }
+  }
+
+  // Utile pour la barre de point, la première forme noir représente les contours alors que la deuxième
+  // Peut varier sur la largeur.
   public void makeForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int secondWidth, int height, Color color) {
     switch (form) {
       case rect :
@@ -218,29 +251,24 @@ public class PanelMap extends Map {
     }
   }
 
-  public void drawForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
-    g.setColor(color);
-    switch (form) {
-      case doval : g.drawOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
-      case foval : g.fillOval((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
-      case drect : g.drawRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
-      case frect : g.fillRect((x * taillePixel) - modX, (y * taillePixel) - modY, width, height); break;
-    }
-  }
-
-
+  // Permet d'obtenir l'image adaptée en fonction du terrain et des cases adjcentes.
   public void chemin (int i, int x, int y, Graphics g) {
-    //BufferedImage img = Variable.tImTer[i];
+    // les différentes variables de la fonction.
+    // Le terrain est nécessaire afin de calculer les terrains adjacents à la case observée.
     AbstractTerrain[][] t = p.getTerrain();
-    BufferedImage img = null;
+    // Contiendra l'image renvoyée par la fonction.
+    BufferedImage img = Variable.tImTer[i];
+    // Le chemin spécifique menant à l'image dans l'arborescence de fichier.
     String chemin;
+    // Les 4 entiers suivants représentent une chaîne binaire.
+    // Celle-ci permet de déterminer le nombre de côté en contact avec un terrain d'un autre type.
     int a = 1;
     int b = 1;
     int c = 1;
     int d = 1;
     int place;
     int j;
-    // pour rester sur le terrain
+    // Pour rester sur le terrain
     if (x + tabI >= 0
         && y + tabJ >= 0
         && x + tabI <= p.getHauteur() - 1
@@ -252,17 +280,24 @@ public class PanelMap extends Map {
       d = check((x + tabI < p.getHauteur() - 1), x, y, 0, -1, t);
 
     }
+    // En fonction du type de terrain sur lequel on se trouve, on ne charge pas les mêmes éléments.
     switch (i) {
+      // Liaisons plaines-terrainDeTypeJ.
       case 1 :
         int[] tab = {a, b, c, d};
+        // On calcule le type du terrain adjacent.
         j = chercherTerrain(tab);
+        // On calcule la chaîne binaire qui sera en préfixe de l'image.
         chemin = indice(j, a) + "" + indice(j, b) + "" + indice(j, c) + "" + indice(j, d);
+        // A partir de la chaîne binaire, on calcule la position cible dans le tableau d'image.
         place = stringBinaryToInt(chemin);
-        if (j == 0)
-          img =Variable.tImPlaineForet[place];
-        if (j == 2)
-          img = Variable.tImPlaineEau[place];
+        // En fonction du terrain, on a chercher l'image adéquate.
+        switch (j) {
+          case 0 : img = Variable.tImPlaineForet[place]; break;
+          case 2 : img = Variable.tImPlaineEau[place]; break;
+        }
         break;
+      // Liaisons eau-plage, la plage étant également de l'eau mais qui doit être gérée séparément.
       case 2 :
         chemin = (a - 1) + "" + (b - 1) + "" + (c - 1) + "" + ( d - 1);
         place = stringBinaryToInt(chemin);
@@ -279,25 +314,25 @@ public class PanelMap extends Map {
         }
         img = Variable.tImEauPlage[place];
     }
-    if (img == null)
-      img = Variable.tImTer[i];
+    // On dessine l'imagine.
     g.drawImage(img, (y * taillePixel) - posJ - 100, (x * taillePixel) - posI - 100, this);
+    // Dans le cas d'une ville, il faut vérifier que celle-ci appartient à un joueur et afficher sa couleur si nécessaire.
     if (x + tabI > 1
         && y + tabJ > 1
         && x + tabI < p.getHauteur() - 1
         &&  y + tabJ < p.getLargeur() - 1
         && t[x + tabI - 1][y + tabJ - 1] instanceof AbstractVille) {
+      // On est certain que le terrain considéré est de type Ville.
       AbstractVille ville = ((AbstractVille)t[x + tabI - 1][y + tabJ - 1]);
+      // Si cette ville appartient à un joueur, on dessine un carré de la couleur du joueur en bas à droite.
       if (ville.getJoueur() != null) {
         Color color = ville.getJoueur().getColor();
-        g.drawRect((y * taillePixel) - posJ - 15, (x * taillePixel) - posI - 15, 10, 10);
-        g.setColor(color);
-        g.fillRect((y * taillePixel) - posJ - 15, (x * taillePixel) - posI - 15, 10, 10);
+        makeForm(g, rect, y, x, posJ + 95, posI + 15, 10, 10, color);
       }
     }
-
   }
 
+  // transforme une chaîne binaire en sa valeur entière.
   public int stringBinaryToInt(String s) {
     int res = 0;
     int bin = 1;
@@ -309,6 +344,7 @@ public class PanelMap extends Map {
     return res;
   }
 
+  // permet de vérifier le type du terrain adjacent à la plaine.
   public int chercherTerrain(int[] tab) {
     for (int n : tab)
       if (n != 1 && n != 4)
@@ -316,14 +352,16 @@ public class PanelMap extends Map {
     return 1;
   }
 
+  // Si i == a, renvoie 1. sinon, renvoie 0.
   public int indice(int i, int a) {
     return ((i == a)? 1 :0);
   }
 
+  // Fonction pour réduire de code.
+  // Permet de récupérer le type d'un terrain adjacent à la case.
   public int check(boolean a, int x, int y, int modI, int modJ, AbstractTerrain[][] t) {
     if (a)
       return t[x + tabI + modI][y + tabJ + modJ].getType();
-    else
-      return 1;
+    return 1;
   }
 }

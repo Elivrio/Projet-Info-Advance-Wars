@@ -34,6 +34,7 @@ import src.modele.terrain.Aeroport;
 import src.modele.terrain.AbstractVille;
 import src.controleur.ControleurActionListener;
 
+@SuppressWarnings("serial")
 public class Vue extends JFrame {
 
   private PanelMap panelPlateau;
@@ -160,12 +161,10 @@ public class Vue extends JFrame {
       str += "\n" + unite.combat();
     if (unite.getDeplacement() != null)
       str += "\n" + unite.deplacement();
-    str += "\nPossède " + unite.getPV() + " points de vie sur " + unite.getPVMax();
-    str += "\nPeut attaquer à une portée de " + unite.getPortee() + " cases";
-    str += "\nPeut avancer de " + unite.getDistance() + " cases";
+    str += "\nPoints de vie : " + unite.getPV() + "/" + unite.getPVMax();
+    str += "\nPortée : " + unite.getPortee() + ((unite.getPortee() > 1)?" cases." : "case.");
     if (panelPlateau.getJoueur().possede(unite)) {
-      str += "\nS'est déplacé ce tour-ci de " + unite.getDeplace() + " cases";
-      str += "\nPeut voir à une distance de " + unite.getVision() + " cases";
+      str += "\nChamps de vision : " + unite.getVision() + ((unite.getVision() > 1)? " cases." : " case.");
     }
     else
       nom += " - " + unite.getJoueur().getNom();
@@ -190,17 +189,8 @@ public class Vue extends JFrame {
     textInfos.setText("");
     String str = "";
     Joueur j = ville.getJoueur();
-    Color couleur = Color.WHITE;
-    if (j != null) {
-      couleur = j.getColor();
-      if (j == joueur)
-        str += "Cette ville vous appartient !\n";
-      else
-        str += "Cette ville appartient au joueur " + ville.getJoueur().getNom() + ".";
-    }
-    else
-      str += "Cette ville n'appartient pour le moment à aucun joueur.";
-
+    Color couleur = ((j==null)?Color.WHITE:j.getColor());
+    str += "Ville possédée par : " + ((j == null)?"personne." :(j.getNom() + "."));
     afficher(textInfos, (vision == 0)? "Mystère absolu" : ville.getNom(), str, couleur);
 
     ActionVille aL = new ActionVille(this, ville);
