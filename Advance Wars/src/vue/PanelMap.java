@@ -23,6 +23,7 @@ public class PanelMap extends Map {
   private boolean attaque;
   private int taillePixel;
   private int posI, posJ;
+  private boolean animation; // pour savoir si on est à l'image 1 ou 2 de l'animation
 
   public PanelMap (Plateau plat, Jeu j) {
     super(plat, j);
@@ -33,6 +34,7 @@ public class PanelMap extends Map {
     larg = (int)(85*largeurEcran/100);
     haut = (int)hauteurEcran;
     setSize(larg, haut);
+    animation = true;
   }
 
   // Getters
@@ -42,12 +44,15 @@ public class PanelMap extends Map {
   public int getTaillePixel() { return taillePixel; }
   public boolean getAttaque() { return attaque; }
   public AbstractUnite getCliquee() { return cliquee; }
+  public boolean getAnimation() { return animation; }
 
   // Setters
 
   public void rmvUnite (AbstractUnite u) { p.rmvUnite(u); }
   public void setAttaque (boolean b) { attaque = b; }
   public void setCliquee (AbstractUnite u) { cliquee = u; }
+
+  public void setAnimation (boolean b) { animation = b; }
 
 
   public void addTabI (int tI) {
@@ -136,8 +141,13 @@ public class PanelMap extends Map {
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
     if (unite != null && joueur.getVision()[y+tabI-1][x+tabJ-1] == 2) {
-      BufferedImage uni = dessinerUnite(unite);
+      BufferedImage uni = dessinerDegats(unite.getAnimDegats()[0]);
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
+      if (unite.getAnimDegats()[1] != 0) { // on dessine les dégats reçus si il y a eu une attaque
+        System.out.println("aaahhhh");
+        BufferedImage deg = dessinerDegats(unite.getAnimDegats()[0]);
+        g.drawImage(deg, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
+      }
     }
   }
 
@@ -211,7 +221,13 @@ public class PanelMap extends Map {
   }
 
   public BufferedImage dessinerUnite(AbstractUnite unite){
-    BufferedImage uni = Variable.tImUni[unite.getIndice()-1];
+    BufferedImage uni;
+    if (animation) {
+      uni = Variable.tImUni1[unite.getIndice()-1];
+    }
+    else {
+      uni = Variable.tImUni2[unite.getIndice()-1];
+    }
     ColorModel cm = uni.getColorModel();
     boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
     WritableRaster raster = uni.copyData(null);
@@ -222,6 +238,13 @@ public class PanelMap extends Map {
     g.drawRect(0, 0, uni.getWidth()-1, uni.getHeight()-1);
     g.dispose();
     return tmp;
-
   }
+
+  public BufferedImage dessinerDegats(int deg){
+    System.out.println("dessin");
+    BufferedImage degats;
+    degats = Variable.tImDegats[0];
+    return degats;
+  }
+
 }

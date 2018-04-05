@@ -48,32 +48,41 @@ public class Variable {
   public final static String pathToTerrains = "src/variable/images/terrains/";
   public final static String pathToIcones = "src/variable/images/unites/unitesPrix/";
   public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", ""};
+  public final static String pathToDegats = "src/variable/images/degats/";
 
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png"};
-  public final static String[] tStrBaseUni = {"zombie.png", "ninja.png", "nosaure.png", "magicalGirl.png", "tank.png", "fantassin.png", "recon.png", "bazooka.png", "tankM.png", "artillerie.png", "vtb.png"};
+  public final static String[] tStrBaseUni1 = {"zombie1.png", "ninja1.png", "nosaure1.png", "magicalGirl1.png", "tank.png", "fantassin.png", "recon.png", "bazooka.png", "tankM.png", "artillerie.png", "vtb.png"};
+  public final static String[] tStrBaseUni2 = {"zombie2.png", "ninja2.png", "nosaure2.png", "magicalGirl2.png", "tank.png", "fantassin.png", "recon.png", "bazooka.png", "tankM.png", "artillerie.png", "vtb.png"};
   public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png"};
   public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png"};
   public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
+  public final static String[] tStrBaseDegats = {"5.png"};
 
-  public final static String[] tStrUni;
+  public final static String[] tStrUni1;
+  public final static String[] tStrUni2;
   public final static String[] tStrFond;
   public final static String[] tStrIcone;
   public final static String[] tStrIconeTropCher;
+  public final static String[] tStrDegats;
 
   public final static String[] tStrTer2; //images dans le dossier propre a chaque terrain
   public final static String[] tStrDossierTer; //chemin pour aller dans le dossier du terrain qu'on veut
 
   public final static File[] tStrTerFile;
-  public final static File[] tStrUniFile;
+  public final static File[] tStrUniFile1;
+  public final static File[] tStrUniFile2;
   public final static File[] tStrFondFile;
   public final static File[] tStrIconeFile;
   public final static File[] tStrIconeTropCherFile;
+  public final static File[] tStrDegatsFile;
 
   public final static BufferedImage[] tImTer;
-  public final static BufferedImage[] tImUni;
+  public final static BufferedImage[] tImUni1;
+  public final static BufferedImage[] tImUni2;
   public final static BufferedImage[] tImFond;
   public final static BufferedImage[] tImIcone;
   public final static BufferedImage[] tImIconeTropCher;
+  public final static BufferedImage[] tImDegats;
 
   //liaison foret
   public final static String borderPlaineForet = "foret/plaine-foret-";
@@ -169,18 +178,33 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les images des unités
-    tStrUni = new String[tStrBaseUni.length];
-    tStrUniFile = new File[tStrUni.length];
-    tImUni = new BufferedImage[tStrUniFile.length];
-    for (int i = 0; i < tStrUni.length; i++) {
+    // Remplissage du tableau avec les images des unités v1
+    tStrUni1 = new String[tStrBaseUni1.length];
+    tStrUniFile1 = new File[tStrUni1.length];
+    tImUni1 = new BufferedImage[tStrUniFile1.length];
+    for (int i = 0; i < tStrUni1.length; i++) {
       if (i < 4)
-        tStrUni[i] = pathToGeneraux + tStrBaseUni[i];
+        tStrUni1[i] = pathToGeneraux + tStrBaseUni1[i];
       else
-        tStrUni[i] = pathToUnites + tStrBaseUni[i];
-      tStrUniFile[i] = new File(tStrUni[i]);
+        tStrUni1[i] = pathToUnites + tStrBaseUni1[i];
+      tStrUniFile1[i] = new File(tStrUni1[i]);
       try {
-        tImUni[i] = ImageIO.read(tStrUniFile[i]);
+        tImUni1[i] = ImageIO.read(tStrUniFile1[i]);
+      } catch (IOException e) {}
+    }
+
+    // Remplissage du tableau avec les images des unités v2
+    tStrUni2 = new String[tStrBaseUni2.length];
+    tStrUniFile2 = new File[tStrUni2.length];
+    tImUni2 = new BufferedImage[tStrUniFile2.length];
+    for (int i = 0; i < tStrUni2.length; i++) {
+      if (i < 4)
+        tStrUni2[i] = pathToGeneraux + tStrBaseUni2[i];
+      else
+        tStrUni2[i] = pathToUnites + tStrBaseUni2[i];
+      tStrUniFile2[i] = new File(tStrUni2[i]);
+      try {
+        tImUni2[i] = ImageIO.read(tStrUniFile2[i]);
       } catch (IOException e) {}
     }
 
@@ -217,6 +241,18 @@ public class Variable {
       tStrFondFile[i] = new File(tStrFond[i]);
       try {
         tImFond[i] = ImageIO.read(tStrFondFile[i]);
+      } catch (IOException e) {}
+    }
+
+    // Remplissage du tableau avec les images des dégats reçus
+    tStrDegats = new String[tStrBaseDegats.length];
+    tStrDegatsFile = new File[tStrDegats.length];
+    tImDegats = new BufferedImage[tStrDegatsFile.length];
+    for (int i = 0; i < tStrDegats.length; i++) {
+      tStrDegats[i] = pathToIcones + tStrBaseDegats[i];
+      tStrDegatsFile[i] = new File(tStrDegats[i]);
+      try {
+        tImDegats[i] = ImageIO.read(tStrDegatsFile[i]);
       } catch (IOException e) {}
     }
   }
