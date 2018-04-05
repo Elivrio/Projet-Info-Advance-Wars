@@ -37,28 +37,39 @@ import src.controleur.ControleurActionListener;
 @SuppressWarnings("serial")
 public class Vue extends JFrame {
 
-  private PanelMap panelPlateau;
-  private JPanel panelChoixUnites;
-  private MiniMap miniMap;
-  private JTextPane textJoueur, textInfos;
-  private JSplitPane split1, split2, split3;
-  private Dimension dimensionEcran;
-  private int largeurEcran, hauteurEcran;
-  private JButton boutonCreationUniteTerrestre = new JButton();
-  private JButton boutonCreationUniteMaritime = new JButton();
-  private JButton boutonCreationUniteAerienne = new JButton();
-  private MouseIcone mI;
+  // Permet
   private ControleurActionListener cAL;
+
   private int typeUnites;
+  private int largeurEcran, hauteurEcran;
+
+  private JButton boutonAttaque = new JButton("Attaquer");
+  private JButton boutonJoueur = new JButton("Changer de joueur");
+  private JButton boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
+  private JButton boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
+  private JButton boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
+
+  private JPanel panelChoixUnites;
+
+  private JSplitPane split1, split2, split3;
+
+  private JTextPane textJoueur, textInfos;
 
   private LinkedList<JLabel> listeIcones = new LinkedList<JLabel>();
 
-  private JButton boutonJoueur = new JButton("Changer de joueur");
-  private JButton boutonAttaque = new JButton("Attaquer");
+  private MouseIcone mI;
+  private MiniMap miniMap;
+
+  private PanelMap panelPlateau;
+
+
+
+
+  private final static Color couleurBackground = new Color(0.3f, 0.3f, 0.3f);
 
   public Vue (PanelMap map) {
 
-    dimensionEcran = Toolkit.getDefaultToolkit().getScreenSize();
+    Dimension dimensionEcran = Toolkit.getDefaultToolkit().getScreenSize();
     largeurEcran = (int)dimensionEcran.getWidth();
     hauteurEcran = (int)dimensionEcran.getHeight();
     setSize(largeurEcran, hauteurEcran);
@@ -76,12 +87,12 @@ public class Vue extends JFrame {
     panelPlateau = map;
     textJoueur = new JTextPane();
     textJoueur.setEditable(false);
-    textJoueur.setBackground(new Color(0.3f, 0.3f, 0.3f));
+    textJoueur.setBackground(couleurBackground);
     informations(map.getJoueur());
 
     textInfos = new JTextPane();
     textInfos.setEditable(false);
-    textInfos.setBackground(new Color(0.3f, 0.3f, 0.3f));
+    textInfos.setBackground(couleurBackground);
 
     split1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, textJoueur, textInfos);
     split1.setDividerSize(2);
@@ -157,6 +168,7 @@ public class Vue extends JFrame {
     String nom = unite.getNom();
     String str = unite.type();
     Color couleur = unite.getJoueur().getColor();
+    nom += " - " + unite.getJoueur().getNom();
     if (unite.getCombat() != null)
       str += "\n" + unite.combat();
     if (unite.getDeplacement() != null)
@@ -166,8 +178,6 @@ public class Vue extends JFrame {
     if (panelPlateau.getJoueur().possede(unite)) {
       str += "\nChamps de vision : " + unite.getVision() + ((unite.getVision() > 1)? " cases." : " case.");
     }
-    else
-      nom += " - " + unite.getJoueur().getNom();
     afficher(textInfos, nom, str, couleur);
     if (panelPlateau.getJoueur().possede(unite) && unite.getCombat() != null)
       textInfos.insertComponent(boutonAttaque);
@@ -190,46 +200,38 @@ public class Vue extends JFrame {
     String str = "";
     Joueur j = ville.getJoueur();
     Color couleur = ((j==null)?Color.WHITE:j.getColor());
+    JButton button = null;
     str += "Ville possédée par : " + ((j == null)?"personne." :(j.getNom() + "."));
     afficher(textInfos, (vision == 0)? "Mystère absolu" : ville.getNom(), str, couleur);
 
     ActionVille aL = new ActionVille(this, ville);
     if (j == joueur && !ville.getAchete()) {
-      if (ville instanceof Usine) {
-        boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
-        boutonCreationUniteTerrestre.setFocusable(false);
-        textInfos.insertComponent(boutonCreationUniteTerrestre);
-        boutonCreationUniteTerrestre.addActionListener(aL);
-      }
-      else if (ville instanceof Port) {
-        boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
-        boutonCreationUniteMaritime.setFocusable(false);
-        textInfos.insertComponent(boutonCreationUniteMaritime);
-        boutonCreationUniteMaritime.addActionListener(aL);
-      }
-      else if (ville instanceof Aeroport) {
-        boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
-        boutonCreationUniteAerienne.setFocusable(false);
-        textInfos.insertComponent(boutonCreationUniteAerienne);
-        boutonCreationUniteAerienne.addActionListener(aL);
-      }
-
-      afficher(textInfos, "", "", Color.WHITE);
+      if (ville instanceof Usine)
+        button = boutonCreationUniteTerrestre;
+      if (ville instanceof Aeroport)
+        button = boutonCreationUniteAerienne;
+      if (ville instanceof Port)
+        button = boutonCreationUniteMaritime;
+      button.setFocusable(false);
+      button.addActionListener(aL);
+      textInfos.insertComponent(button);
     }
+
+    afficher(textInfos, "", "", Color.WHITE);
   }
 
   public void afficherChoixUnites (Joueur joueur, int n, AbstractVille ville) {
     int prixMax = joueur.getArgent();
-    panelChoixUnites.setFocusable(false);
     panelChoixUnites.removeAll();
+    panelChoixUnites.setFocusable(false);
     panelChoixUnites.setPreferredSize(new Dimension(200, 200));
-    panelChoixUnites.setBackground(new Color(0.3f, 0.3f, 0.3f));
+    panelChoixUnites.setBackground(couleurBackground);
     typeUnites = n;
     AbstractUnite[] unites = Variable.listeUnites[n];
-    JLabel icone;
     listeIcones.clear();
     mI = new MouseIcone(this, ville);
     for (int i = 0; i < unites.length; i++) {
+      JLabel icone;
       if (unites[i].getCout() <= prixMax)
         icone = new JLabel(new ImageIcon(Variable.tImIcone[unites[i].getIndice()-5]));
       else
@@ -244,8 +246,8 @@ public class Vue extends JFrame {
 
   public void informations (Joueur joueur) {
     textJoueur.setText("");
-    String str = "Possède " + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
-    str += "\nPossède " + joueur.getArgent() + " euros";
+    String str = "" + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
+    str += "\n" + joueur.getArgent() + " €";
     if (joueur.getNbUnites() == 0)
       str += "\nSon général est mort ! Perdant du jeu.\n";
     else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom() + "\n";
