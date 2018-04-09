@@ -141,7 +141,7 @@ public class PanelMap extends Map {
     g.drawRect((x*taillePixel) - posJ - 100, (y*taillePixel) - posI - 100, taillePixel, taillePixel);
     // On dessine l'unité si elle est présente
     if (unite != null && joueur.getVision()[y+tabI-1][x+tabJ-1] == 2) {
-      BufferedImage uni = dessinerDegats(unite.getAnimDegats()[0]);
+      BufferedImage uni = dessinerUnite(unite);
       g.drawImage(uni, (x*taillePixel) - posJ - 75, (y*taillePixel) - posI - 75, this);
       if (unite.getAnimDegats()[1] != 0) { // on dessine les dégats reçus si il y a eu une attaque
         System.out.println("aaahhhh");
