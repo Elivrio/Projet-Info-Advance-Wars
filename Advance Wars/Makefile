@@ -7,7 +7,7 @@ BINFOLDER = 'bin/'
 
 all :
 	@mkdir -p $(BINFOLDER)
-	@javac -d $(BINFOLDER) $(PATHMAIN)
+	@javac -Xlint -d  $(BINFOLDER) $(PATHMAIN)
 	@echo 'Main-class: '$(PATHMANIFEST) > $(MANIFEST)
 	@jar -cvmf $(MANIFEST) $(NAME) -C $(BINFOLDER) ./ >/dev/null
 
@@ -18,6 +18,6 @@ fclean : clean
 	@rm -rf $(NAME)
 
 run :
-	@java -jar $(NAME)
+	@java -jar  $(NAME)
 
 allRun : all run

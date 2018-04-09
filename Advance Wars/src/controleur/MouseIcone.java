@@ -1,5 +1,6 @@
 package src.controleur;
 
+import javax.swing.JLabel;
 import java.util.LinkedList;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -27,7 +28,7 @@ public class MouseIcone extends Controleur implements MouseListener {
   @Override
   public void mouseClicked (MouseEvent me) {
     Object source = me.getSource();
-    LinkedList icones = vue.getListeIcones();
+    LinkedList<JLabel> icones = vue.getListeIcones();
     AbstractUnite[] unites = Variable.listeUnites[vue.getTypeUnites()];
     int x = ville.getX();
     int y = ville.getY();

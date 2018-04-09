@@ -16,8 +16,8 @@ public class MiniMapMouse extends Controleur implements MouseListener {
     int taillePixel = (int)(miniMap.getTaillePixel());
     int x = me.getX() - miniMap.getNoirGauche();
     int y = me.getY() - miniMap.getNoirHaut();
-    int i = (int)(y/taillePixel);
-    int j = (int)(x/taillePixel);
+    int i = y/taillePixel;
+    int j = x/taillePixel;
 
     int iMin = (int)map.getHautMax() / 2;
     int jMin = (int)map.getLargMax() / 2;

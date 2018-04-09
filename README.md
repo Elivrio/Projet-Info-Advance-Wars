@@ -8,8 +8,6 @@ Jeu Advance Wars codé en java dans le cadre du projet Paris Diderot VII en deux
 - Ajout de commentaires dans le code.
 - Ajout d'animations lors des combats.
 - Ajout d'exceptions pour sécuriser le code.
-- Ajout de barres de vie au dessus des unités.
-- Mise à jour de la vision en fonction des terrains.
 - Déplacement de la caméra lors d'un clic sur la mini-map.
 - Déplacement de la caméra lors d'un changement de joueur sur son général.
 - Création d'un premier menu avec choix de la carte, options et affichage des règles.

@@ -12,6 +12,7 @@ import src.modele.Plateau;
 import src.variable.Variable;
 import src.modele.AbstractUnite;
 
+@SuppressWarnings("serial")
 public class MiniMap extends Map {
 
   private double taillePixel;

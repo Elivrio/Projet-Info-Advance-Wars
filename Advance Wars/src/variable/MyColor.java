@@ -2,6 +2,7 @@ package src.variable;
 
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class MyColor extends Color {
   private String colorName;
 
@@ -40,6 +41,19 @@ public class MyColor extends Color {
     this.colorName = colorName;
   }
 
+  public MyColor(MyColor original, int alpha) {
+    this(original.getRGB(), alpha, original.getColorName());
+  }
+
+  public MyColor(Color original, int alpha, String s) {
+    this(original.getRGB(), alpha, s);
+  }
+
+  public MyColor(Color original, int alpha) {
+    this(original.getRGB(), alpha, "");
+  }
+
+
   public String getColorName() {
     return colorName;
   }
@@ -54,5 +68,9 @@ public class MyColor extends Color {
 
   public static int getBlue(int rgb) {
     return (rgb) & 0x000000FF;
+  }
+
+  public boolean equals(MyColor m) {
+    return (this.getRGB() == m.getRGB());
   }
 }

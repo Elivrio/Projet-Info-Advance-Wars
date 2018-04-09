@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class PanelMenu extends JPanel {
   private Image fondMenu;
 

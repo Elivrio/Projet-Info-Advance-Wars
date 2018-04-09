@@ -2,6 +2,7 @@ package src.vue;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.lang.Object;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,23 +33,24 @@ import src.modele.general.MagicalGirl;
 import src.controleur.MenuMouseListener;
 import src.controleur.MenuActionListener;
 
+@SuppressWarnings("serial")
 public class Menu extends JFrame {
 
   private Jeu jeu;
+  private PanelMenu background;
   private MenuMouseListener mML;
   private MenuActionListener mAL;
-  private JPanel midCenter = new JPanel();
-  private PanelMenu background;
   private JPanel bot = new JPanel();
+  private JPanel midCenter = new JPanel();
   private JComboBox<Integer> choixNbJoueurs;
   private JButton boutonGo = new JButton("C'est parti !");
   private JLabel midLab = new JLabel("Combien de joueurs voulez-vous ?");
   private LinkedList<JTextField> fieldNoms = new LinkedList<JTextField>();
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
-  private LinkedList<ComboColorChooser> choixCouleur = new LinkedList<ComboColorChooser>();
+  private LinkedList<ComboColorChooser<MyColor>> choixCouleur = new LinkedList<ComboColorChooser<MyColor>>();
 
   private final static Color transparent = new Color(157, 144, 199, 0);
-  private final static MyColor[] basicTab = new MyColor[13];
+  private final static LinkedList<MyColor> basicTab = new LinkedList<MyColor>();
 
   static {
     /*
@@ -66,19 +68,20 @@ public class Menu extends JFrame {
     PINK      : java.awt.Color[r=255, g=175, b=175]
     ORANGE    : java.awt.Color[r=255, g=200, b=0]
     */
-    basicTab[0] = new MyColor(Color.GREEN.getRGB()/*, 50*/, "Vert");
-    basicTab[1] = new MyColor(Color.BLUE.getRGB()/*, 50*/, "Bleu");
-    basicTab[2] = new MyColor(Color.YELLOW.getRGB()/*, 50*/, "Jaune");
-    basicTab[3] = new MyColor(Color.MAGENTA.getRGB()/*, 50*/, "Magenta");
-    basicTab[4] = new MyColor(Color.CYAN.getRGB()/*, 50*/, "Cyan");
-    basicTab[5] = new MyColor(Color.WHITE.getRGB()/*, 50*/, "Blanc");
-    basicTab[6] = new MyColor(Color.BLACK.getRGB()/*, 50*/, "Noir");
-    basicTab[7] = new MyColor(Color.GRAY.getRGB()/*, 50*/, "Gris");
-    basicTab[8] = new MyColor(Color.DARK_GRAY.getRGB()/*, 50*/, "Gris foncé");
-    basicTab[9] = new MyColor(Color.LIGHT_GRAY.getRGB()/*, 50*/, "Gris clair");
-    basicTab[10] = new MyColor(Color.PINK.getRGB()/*, 50*/, "Rose");
-    basicTab[11] = new MyColor(Color.ORANGE.getRGB()/*, 50*/, "Orange");
-    basicTab[12] = new MyColor(156, 58, 97/*, 50*/, "Vomitif");
+
+    basicTab.add(new MyColor(Color.RED.getRGB()/*, 50*/, "Rouge"));
+    basicTab.add(new MyColor(Color.GREEN.getRGB()/*, 50*/, "Vert"));
+    basicTab.add(new MyColor(Color.BLUE.getRGB()/*, 50*/, "Bleu"));
+    basicTab.add(new MyColor(Color.YELLOW.getRGB()/*, 50*/, "Jaune"));
+    basicTab.add(new MyColor(Color.MAGENTA.getRGB()/*, 50*/, "Magenta"));
+    basicTab.add(new MyColor(Color.CYAN.getRGB()/*, 50*/, "Cyan"));
+    basicTab.add(new MyColor(Color.WHITE.getRGB()/*, 50*/, "Blanc"));
+    basicTab.add(new MyColor(Color.BLACK.getRGB()/*, 50*/, "Noir"));
+    basicTab.add(new MyColor(Color.GRAY.getRGB()/*, 50*/, "Gris"));
+    basicTab.add(new MyColor(Color.PINK.getRGB()/*, 50*/, "Rose"));
+    basicTab.add(new MyColor(Color.ORANGE.getRGB()/*, 50*/, "Orange"));
+    basicTab.add(new MyColor(148, 33, 146/*, 50*/, "Violet"));
+    basicTab.add(new MyColor(170, 121, 66/*, 50*/, "Brun"));
   }
 
   public Menu() {
@@ -130,9 +133,11 @@ public class Menu extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
-  public JButton getBoutonGo() {
-    return boutonGo;
-  }
+  public JButton getBoutonGo() { return boutonGo; }
+
+  public LinkedList<JComboBox<String>> getChoixGeneral() { return choixGeneral; }
+
+  public LinkedList<ComboColorChooser<MyColor>> getChoixCouleurs() { return choixCouleur; }
 
   public JComboBox<Integer> getChoixNbJoueurs() {
     return choixNbJoueurs;
@@ -156,14 +161,15 @@ public class Menu extends JFrame {
       JPanel pan = new JPanel();
       JLabel pres = new JLabel("Joueur " + (i+1));
 
-      fieldNoms.add(new JTextField("Nom du joueur"));
+      fieldNoms.add(new JTextField("Ordi " + (i+1) ));
       fieldNoms.get(i).setPreferredSize(new Dimension(150, 30));
       fieldNoms.get(i).addMouseListener(mML);
 
       choixGeneral.add(new JComboBox<String>(generaux));
       choixGeneral.get(i).addActionListener(mAL);
 
-      choixCouleur.add(new ComboColorChooser(basicTab));
+      choixCouleur.add(new ComboColorChooser<MyColor>(basicTab));
+      choixCouleur.get(i).setSelectedItem(basicTab.get(i));
       choixCouleur.get(i).addActionListener(mAL);
 
       pan.setBackground(transparent);
@@ -173,7 +179,7 @@ public class Menu extends JFrame {
       pan.add(choixCouleur.get(i));
       midCenter.add(pan);
     }
-    midCenter.setBackground(new Color(100, 100, 100, 0));
+    midCenter.setBackground(transparent);
     background.add(midCenter, BorderLayout.CENTER);
     background.revalidate();
     background.repaint();
@@ -196,6 +202,11 @@ public class Menu extends JFrame {
     return generaux;
   }
 
+
+  public void estCouleurPossible(Object value) {
+      MyColor color = (MyColor)value;
+  }
+
   public MyColor[] recupererCouleur() {
     int nbJoueurs = (int)choixNbJoueurs.getSelectedItem();
     MyColor[] color = new MyColor[nbJoueurs];
@@ -204,11 +215,7 @@ public class Menu extends JFrame {
     return color;
     }
 
-  public LinkedList<JComboBox<String>> getChoixGeneral() {
-    return choixGeneral;
-  }
-
-  public Joueur[] creationJoueurs (String[] noms, int x, int y, MyColor[] couleurs) {
+    public Joueur[] creationJoueurs (String[] noms, int x, int y, MyColor[] couleurs) {
     Joueur[] joueurs = new Joueur[noms.length];
     for (int i = 0; i < noms.length; i++){
       joueurs[i] = new Joueur(noms[i], x, y, couleurs[i]);
@@ -249,5 +256,4 @@ public class Menu extends JFrame {
   public static void main (String[] args) {
     Menu menu = new Menu();
   }
-
 }
