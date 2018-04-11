@@ -35,6 +35,9 @@ public class PanelMap extends Map {
   // Ces valeurs sont comprises entre -taillePixel et taillePixel
   protected int posI, posJ;
 
+  // Pour savoir si on est à l'image 1 ou 2 de l'animation
+  protected boolean animation;
+
   // *************** Constructeur ***************
 
   public PanelMap (Plateau plat, Jeu j) {
@@ -45,6 +48,7 @@ public class PanelMap extends Map {
     larg = (int)(85*largeurEcran/100);
     haut = (int)hauteurEcran;
     setSize(larg, haut);
+    animation = true;
   }
 
   // *************** Getters ***************
@@ -54,11 +58,15 @@ public class PanelMap extends Map {
   public int getTaillePixel() { return taillePixel; }
   public boolean getAttaque() { return attaque; }
   public AbstractUnite getCliquee() { return cliquee; }
+  public boolean getAnimation() { return animation; }
 
   // *************** Setters ***************
 
   public void setAttaque (boolean b) { attaque = b; }
   public void setCliquee (AbstractUnite u) { cliquee = u; }
+
+  // Permet de changer le boolean de l'animation.
+  public void setAnimation (boolean b) { animation = b; }
 
   // Permet de déplacer la position relative le long de l'axe des ordonnées et repaint la carte.
   public void addPosI (int pI) {
@@ -143,7 +151,14 @@ public class PanelMap extends Map {
     // On dessine l'unité si elle est présente.
     if (unite != null && joueur.getVision()[y + tabI - 1][x + tabJ - 1] == 2) {
       // On commence par récupérer l'unité concernée.
-      BufferedImage uni = Variable.tImUni[unite.getIndice()-1];
+      BufferedImage uni;
+      // choix de l'image de l'unité suivant le moment de l'animation
+      if (animation) {
+        uni = Variable.tImUni1[unite.getIndice()-1];
+      }
+      else {
+        uni = Variable.tImUni2[unite.getIndice()-1];
+      }
       // Cette variable sert pour faire varier la couleur dans tout le reste de la fonction.
       Color color = Color.GREEN.darker();
 
@@ -342,4 +357,5 @@ public class PanelMap extends Map {
       return t[x + tabI + modI][y + tabJ + modJ].getType();
     return 1;
   }
+
 }

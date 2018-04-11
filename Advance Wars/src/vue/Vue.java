@@ -17,6 +17,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.BadLocationException;
+import javax.swing.Timer;
 
 import src.vue.MiniMap;
 import src.vue.PanelMap;
@@ -33,6 +34,7 @@ import src.controleur.ActionVille;
 import src.modele.terrain.Aeroport;
 import src.modele.terrain.AbstractVille;
 import src.controleur.ControleurActionListener;
+import src.controleur.AnimationActionListener;
 
 @SuppressWarnings("serial")
 public class Vue extends JFrame {
@@ -61,6 +63,9 @@ public class Vue extends JFrame {
   private MiniMap miniMap;
 
   private PanelMap panelPlateau;
+
+  private AnimationActionListener aAL;
+  private Timer timer;
 
 
 
@@ -118,6 +123,9 @@ public class Vue extends JFrame {
 
     boutonJoueur.addActionListener(cAL);
     boutonAttaque.addActionListener(cAL);
+    aAL = new AnimationActionListener(this);
+    timer = new Timer(500, aAL);
+    timer.start();
   }
 
   public PanelMap getMap() {
@@ -135,6 +143,10 @@ public class Vue extends JFrame {
   public JButton getBoutonCreationUniteTerrestre() { return boutonCreationUniteTerrestre; }
   public JButton getBoutonJoueur() { return boutonJoueur; }
   public JButton getBoutonAttaque() { return boutonAttaque; }
+  public Timer getTimer() { return timer; }
+  public boolean getAnimationStatus() { return panelPlateau.getAnimation(); }
+
+  public void animationStatus(boolean b) { panelPlateau.setAnimation(b); }
 
   public static void afficher(JTextPane textPane, String titre, String infos, Color couleurTitre) {
 

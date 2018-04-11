@@ -14,6 +14,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected Joueur joueur;
   protected int x, y, indice;
   protected int attaque, gainMort;
+  protected int[] animDegats;
 
   public AbstractUnite (String n, int pM, Combat c, Deplacement d, int dis, int por, int vis, int ess, int prix, TypeUnite t, Joueur j, int x, int y, int i) {
     nom = n;
@@ -33,6 +34,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     indice = i;
     cout = prix;
     gainMort = cout/2;
+    animDegats = new int[2];
   }
 
   public int getGainMort() { return gainMort; }
@@ -52,6 +54,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public Combat getCombat() { return typeCombat; }
   public Deplacement getDeplacement() { return deplacement; }
   public int getCout() { return cout; }
+  public int[] getAnimDegats() { return animDegats; }
 
   public void setCase (int x, int y) {
     this.x = x;
@@ -92,8 +95,15 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   public void attaquer (AbstractUnite cible) {
+    System.out.println("attaque");
     cible.setPV(-getDegats());
+    cible.setAnimDegats(getDegats(),1);
     attaque++;
+  }
+
+  public void setAnimDegats (int deg, int status) {
+    animDegats[0] = deg;
+    animDegats[1] = status;
   }
 
   @Override
