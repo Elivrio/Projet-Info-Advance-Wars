@@ -49,7 +49,7 @@ public class Menu extends JFrame {
   private LinkedList<JComboBox<String>> choixGeneral = new LinkedList<JComboBox<String>>();
   private LinkedList<ComboColorChooser<MyColor>> choixCouleur = new LinkedList<ComboColorChooser<MyColor>>();
 
-  private final static Color transparent = new Color(157, 144, 199, 0);
+  private final static Color transparent = new Color(128, 128, 128, 0);
   private final static LinkedList<MyColor> basicTab = new LinkedList<MyColor>();
 
   static {

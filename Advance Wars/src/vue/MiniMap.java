@@ -12,60 +12,59 @@ import src.modele.Plateau;
 import src.variable.Variable;
 import src.modele.AbstractUnite;
 
+// Dessine la carte en version réduite dans le carré en bas à droite de la vue.
+
 @SuppressWarnings("serial")
 public class MiniMap extends Map {
 
-  private double taillePixel;
-  private double posI, posJ;
+  // *************** Variable d'instance ***************
+
+
+  // Ces entiers permettent de placer la miniMap au centre du carré de l'affichage qui lui est réservé.
   private int noirHaut, noirGauche;
+
+  // Permet de stocker en mémoire la position sur l'écran afin de faire du déplacement en continue.
+  // Ces valeurs sont comprises entre -taillePixel et taillePixel.
+  // Ce sont des double dans MiniMap afin de gagner en précision lors du déplacement.
+  private double posI, posJ;
+
+  // *************** Constructeur ***************
 
   public MiniMap (Plateau plat, Jeu j,  int h, int l) {
     super(plat, j);
     haut = h;
     larg = l;
     taillePixel = larg/(p.getLargeur()+3);
-    noirHaut = (int)(haut - taillePixel*(plat.getHauteur() + 2)) / 2;
-    noirGauche = (int)(larg - taillePixel*(plat.getLargeur() + 6)) / 2;
+    noirHaut = (haut - taillePixel * (plat.getHauteur() + 2)) / 2;
+    noirGauche = (larg - taillePixel * (plat.getLargeur() + 6)) / 2;
   }
 
-  public double getTaillePixel() {
-    return taillePixel;
-  }
+  // *************** Getters ***************
 
   public double getPosI() { return posI; }
   public double getPosJ() { return posJ; }
   public int getNoirHaut() { return noirHaut; }
   public int getNoirGauche() { return noirGauche; }
 
-  public void addTabI (int tI) {
-    tabI += tI;
-    posI = 0;
-  }
+  // *************** Setters ***************
 
-  public void addTabJ (int tJ) {
-    tabJ += tJ;
-    posJ = 0;
-  }
-
-  public void setTabI (int tI) {
-    tabI = tI;
-    posI = 0;
-  }
-
-  public void setTabJ (int tJ) {
-    tabJ = tJ;
-    posJ = 0;
-  }
-
+  // Permet de déplacer la position relative le long de l'axe des ordonnées et repaint la carte.
   public void addPosI (double pI) {
     posI += pI;
     repaint();
   }
 
+  // Permet de déplacer la position relative le long de l'axe des abscisses et repaint la carte.
   public void addPosJ (double pJ) {
     posJ += pJ;
     repaint();
   }
+
+  public void resetPosI() { posI = 0.0; }
+  public void resetPosJ() { posJ = 0.0; }
+  public void reset() { posI = 0.0; posJ = 0.0; }
+
+  // *************** Fonctions de classe ***************
 
   @Override
   public void paint (Graphics g) {
@@ -73,39 +72,35 @@ public class MiniMap extends Map {
 
     joueur.vision(p.getTerrain());
 
-    Graphics2D g2 = (Graphics2D) g;
     for (int i = 1; i < p.getHauteur(); i++)
       for (int j = 1; j < p.getLargeur(); j++) {
 
         // On dessine le terrain
         int t = p.getTerrain()[i][j].getType();
         BufferedImage img = Variable.tImTer[t];
-        g.drawImage(img, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
+        g.drawImage(img, (j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, this);
 
         // On met à jour le brouillard de guerre et les unités
         switch (joueur.getVision()[i][j]) {
           case 0 :
-            g.drawImage(Variable.noir, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
+            g.drawImage(Variable.noir, (j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, this);
             break;
           case 1 :
-            g.drawImage(Variable.gris, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
+            g.drawImage(Variable.gris, (j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, this);
             break;
           default :
             AbstractUnite unite = p.getUnites()[i][j];
-            g.setColor(Color.BLUE);
-            if (unite != null)
-              if (joueur.possede(unite))
-                g.drawImage(Variable.bleu, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
-              else
-                g.drawImage(Variable.rouge, (int)((j-1)*taillePixel) + noirGauche, (int)((i-1)*taillePixel) + noirHaut, this);
+            if (unite != null) {
+              g.setColor(unite.getJoueur().getColor());
+              g.fillRect((j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, taillePixel, taillePixel);
+            }
             break;
         }
 
       }
     // On met à jour la vue actuelle
     g.setColor(Color.RED);
-    Rectangle2D rect = new Rectangle2D.Double((tabJ-1)*taillePixel - posJ + noirGauche, (tabI-1)*taillePixel - posI + noirHaut, (largMax-2)*taillePixel, (hautMax-2)*taillePixel);
-    g2.draw(rect);
+    g.drawRect((tabJ - 1) * taillePixel - (int)(posJ) + noirGauche, (tabI - 1) * taillePixel - (int)(posI) + noirHaut, ((int)largMax - 2) * taillePixel, ((int)hautMax - 2) * taillePixel);
   }
 
 }

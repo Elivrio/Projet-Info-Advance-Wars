@@ -13,7 +13,7 @@ public class MiniMapMouse extends Controleur implements MouseListener {
 
   @Override
   public void mouseClicked (MouseEvent me) {
-    int taillePixel = (int)(miniMap.getTaillePixel());
+    int taillePixel = miniMap.getTaillePixel();
     int x = me.getX() - miniMap.getNoirGauche();
     int y = me.getY() - miniMap.getNoirHaut();
     int i = y/taillePixel;

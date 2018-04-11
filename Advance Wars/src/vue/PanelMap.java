@@ -22,40 +22,32 @@ import src.modele.terrain.AbstractVille;
 @SuppressWarnings("serial")
 public class PanelMap extends Map {
 
+  // *************** Variable d'instance ***************
+
   // Contient l'unité cliquée en ce moment.
   private AbstractUnite cliquee;
+
   // Précise si l'on doit afficher le déplacement de l'unité cliquée
   // ou la distance d'attaque de l'unité.
   private boolean attaque;
-  // Contient la taille des cases qui s'afficheront sur le plateau (pour l'instant toujours vrai).
-  private int taillePixel;
 
   // Permet de stocker en mémoire la position sur l'écran afin de faire du déplacement en continue.
-  // Ces valeurs sont compri
-  private int posI, posJ;
+  // Ces valeurs sont comprises entre -taillePixel et taillePixel
+  protected int posI, posJ;
 
-
-  // Des variables qui permettent d'automatiser la création des formes simples
-  // telles que les rectangles et les cercles.
-  public final static String oval = "oval";
-  public final static String rect = "rect";
-  public final static String doval = "doval";
-  public final static String foval = "foval";
-  public final static String drect = "drect";
-  public final static String frect = "frect";
+  // *************** Constructeur ***************
 
   public PanelMap (Plateau plat, Jeu j) {
     super(plat, j);
     setFocusable(true);
     requestFocusInWindow(true);
     taillePixel = 100;
-    reset();
     larg = (int)(85*largeurEcran/100);
     haut = (int)hauteurEcran;
     setSize(larg, haut);
   }
 
-  // Getters
+  // *************** Getters ***************
 
   public int getPosI() { return posI; }
   public int getPosJ() { return posJ; }
@@ -63,48 +55,34 @@ public class PanelMap extends Map {
   public boolean getAttaque() { return attaque; }
   public AbstractUnite getCliquee() { return cliquee; }
 
-  // Setters
+  // *************** Setters ***************
 
-  public void rmvUnite (AbstractUnite u) { p.rmvUnite(u); }
   public void setAttaque (boolean b) { attaque = b; }
   public void setCliquee (AbstractUnite u) { cliquee = u; }
 
-
-  public void addTabI (int tI) {
-    tabI += tI;
-    posI = 0;
-  }
-
-  public void addTabJ (int tJ) {
-    tabJ += tJ;
-    posJ = 0;
-  }
-
-  public void setTabI (int tI) {
-    tabI = tI;
-    posI = 0;
-  }
-
-  public void setTabJ (int tJ) {
-    tabJ = tJ;
-    posJ = 0;
-  }
-
+  // Permet de déplacer la position relative le long de l'axe des ordonnées et repaint la carte.
   public void addPosI (int pI) {
     posI += pI;
     repaint();
   }
 
+  // Permet de déplacer la position relative le long de l'axe des abscisses et repaint la carte.
   public void addPosJ (int pJ) {
     posJ += pJ;
     repaint();
   }
 
-  public void reset() {
-    posJ = 0;
-    posI = 0;
-  }
+  // Permet de remettre la position relative à zéro.
+  public void resetPosI() { posI = 0; }
+  // Permet de remettre la position relative à zéro.
+  public void resetPosJ() { posJ = 0; }
+  // Permet de remettre la position relative à zéro.
+  public void reset() { posJ = 0; posI = 0; }
 
+  // retire une unité du plateau d'unité.
+  public void rmvUnite (AbstractUnite u) { p.rmvUnite(u); }
+
+  // *************** Fonctions de classe ***************
 
   @Override
   // Permet de mettre à jour le contenu du terrain.

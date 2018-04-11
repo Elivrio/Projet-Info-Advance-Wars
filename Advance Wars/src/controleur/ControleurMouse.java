@@ -16,7 +16,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
 
   protected boolean deplacement;
   protected int [][] chemin;
-  protected int distance; 
+  protected int distance;
 
   public ControleurMouse (Vue v) {
     super(v);
@@ -25,7 +25,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     chemin = null;
   }
 
-  //calcul de la case cliquée 
+  //calcul de la case cliquée
   public int getI (MouseEvent me, int taillePixel) {
     int y = me.getY() + map.getTabI()*100 + map.getPosI();
     return y/taillePixel;
@@ -50,17 +50,17 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     AbstractVille ville = isVille(terrain, i, j);
     boolean attaque = false;
 
-    AbstractUnite cliquee = map.getCliquee();    
+    AbstractUnite cliquee = map.getCliquee();
 
     chemin(unite);
     deplacement = true;
-    
+
     // Si les déplacements sont affichés et qu'on clique sur une case cible possible, on y va
     if (cliquee != null
         && map.getJoueur().possede(cliquee)
-        && (i-1 >= 0)
+        && (i - 1 >= 0)
         && (i < map.getTerrain().length)
-        && (j-1 >= 0)
+        && (j - 1 >= 0)
         && (j < map.getTerrain()[0].length)) {
           if (!map.getAttaque() && unite == null){
               if (cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
@@ -68,7 +68,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
                     int x = chemin[k][0];
                     int y = chemin[k][1];
                     if ( k>=1 && map.getPlateau().getUnites()[x][y] != null)
-                      break; 
+                      break;
                     if (x!=0 && y!=0) {
                       map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), y, x);
                       cliquee.setDeplace(Math.abs((y) - cliquee.getX()) + Math.abs((x) - cliquee.getY()));
@@ -108,9 +108,9 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     miniMap.repaint();
   }
 
-  // creation de la taille possible du chemin 
-  public void chemin(AbstractUnite cliquee){
-    if (cliquee != null ){
+  // creation de la taille possible du chemin
+  public void chemin(AbstractUnite cliquee) {
+    if (cliquee != null) {
       int tailleChemin = cliquee.getDistance();
       chemin = new int[tailleChemin+1][2];
     }
@@ -121,7 +121,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     }
     //System.out.println("taille chemin possible "+chemin.length);
   }
-  
+
 
   public AbstractVille isVille (AbstractTerrain terrain, int i, int j) {
     if (terrain instanceof AbstractVille) {
@@ -158,36 +158,35 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
       int j = getJ(me, taillePixel);
 
       // si on a pas encore commencer le deplacement
-      if (chemin[0][0] == 0 && chemin[0][1]== 0){
+      if (chemin[0][0] == 0 && chemin[0][1] == 0) {
         chemin[0][0] = i;
         chemin[0][1] = j;
       }
 
-      // si on veut reculer 
-      if (distance >= 1){
-          boolean b3 = chemin[distance-1][0]==i;
-          boolean b4 = chemin[distance-1][1]==j;
+      // si on veut reculer
+      if (distance >= 1) {
+          boolean b3 = chemin[distance - 1][0] == i;
+          boolean b4 = chemin[distance - 1][1] == j;
           if (b3 && b4) {
-            chemin[distance][0]=-1;
-            chemin[distance][1]=-1;
-            distance -=1;
+            chemin[distance][0] =- 1;
+            chemin[distance][1] =- 1;
+            distance -= 1;
           }
         }
-      // si on veut avancer   
-      if (distance <= chemin.length-2 && distance >= 0){
-        boolean b1 = chemin[distance][0]!=i;
-        boolean b2 = chemin[distance][1]!=j;
-        if (b1|| b2) {
-          distance +=1;
+      // si on veut avancer
+      if (distance <= chemin.length - 2 && distance >= 0){
+        boolean b1 = chemin[distance][0] != i;
+        boolean b2 = chemin[distance][1] != j;
+        if (b1 || b2) {
+          distance += 1;
           chemin[distance][0] = i;
           chemin[distance][1] = j;
-          
         }
       }
       //System.out.println("distance "+ distance );
     }
-    
   }
+
   @Override
   public void mouseDragged(MouseEvent me) {}
 }

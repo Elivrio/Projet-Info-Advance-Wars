@@ -20,7 +20,7 @@ public class Controleur {
     map = vue.getMap();
     jeu = map.getJeu();
     miniMap = vue.getMiniMap();
-    dep2 = miniMap.getTaillePixel() / 10;
+    dep2 = miniMap.getTaillePixel() / 10.0;
   }
 
   public Controleur (PanelMap m) {
