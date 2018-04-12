@@ -85,7 +85,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
               && !map.getJoueur().possede(unite)
               && (Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getPortee())
               && map.getAttaque()
-              && cliquee.getAttaque() < 1) {
+              && cliquee.getAttaque()) {
                 cliquee.attaquer(unite);
                 jeu.mort(cliquee, unite);
                 vue.informations(cliquee, unite, cliquee.getDegats());

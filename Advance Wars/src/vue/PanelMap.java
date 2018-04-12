@@ -147,10 +147,10 @@ public class PanelMap extends Map {
         && (x + tabJ-2 >= 0)
         && (x + tabJ < p.getTerrain()[0].length)) {
           // Affichage des déplacements possibles.
-          if ((cliquee.getAttaque() >= 1 || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
+          if ((!(cliquee.getAttaque()) || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
             g.drawImage(Variable.vert, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
           // Affichage de la portée.
-          if (cliquee.getAttaque() < 1 && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
+          if (cliquee.getAttaque() && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
     }
 
@@ -180,7 +180,7 @@ public class PanelMap extends Map {
       if (joueur.possede(unite)) {
 
         // On affiche un rond pour préciser si l'unité sélectionnée peut attaquer ou non.
-        color = (unite.getAttaque() >=1)?Color.RED:Color.GREEN;
+        color = (unite.getAttaque()) ? Color.GREEN : Color.RED;
         makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, color);
 
         // On affiche plusieurs ronds pour montrer la distance que peut encore parcourir l'unité.
