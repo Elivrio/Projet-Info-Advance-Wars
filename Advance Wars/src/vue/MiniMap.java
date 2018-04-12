@@ -33,6 +33,12 @@ public class MiniMap extends Map {
   // *************** Constructeur ***************
   // ********************************************
 
+  /**
+   * @param plateau Le plateau de jeu de la map.
+   * @param jeu     Le jeu.
+   * @param h       La hauteur que va avoir la minimap dans la vue.
+   * @param l       La largeur que va avoir la minimap dans la vue.
+   */
   public MiniMap (Plateau plateau, Jeu jeu,  int h, int l) {
     super(plateau, jeu);
     hauteur = h;
@@ -56,18 +62,27 @@ public class MiniMap extends Map {
   // *************** Setters ***************
   // ***************************************
 
-  // Permet de déplacer la position relative le long de l'axe des ordonnées et repaint la carte.
+  /**
+   * Permet de déplacer la position relative le long de l'axe des ordonnées et repaint la carte.
+   * @param pI Ce que l'on ajoute à la position relative.
+   */
   public void addPosI (double pI) {
     posI += pI;
     repaint();
   }
 
-  // Permet de déplacer la position relative le long de l'axe des abscisses et repaint la carte.
+  /**
+   * Permet de déplacer la position relative le long de l'axe des abscisses et repaint la carte.
+   * @param pJ Ce que l'on ajoute à la position relative.
+   */
   public void addPosJ (double pJ) {
     posJ += pJ;
     repaint();
   }
 
+  /**
+   * Permet de remettre la position relative à zéro.
+   */
   public void resetPosI() { posI = 0.0; }
   public void resetPosJ() { posJ = 0.0; }
   public void reset() { posI = 0.0; posJ = 0.0; }
@@ -76,6 +91,11 @@ public class MiniMap extends Map {
   // *************** Fonctions ***************
   // *****************************************
 
+  /**
+   * La fonction qui va dessiner la minimap dans le JPanel.
+   * La fonction est appelée toute seule lors de l'exécution et à chaque appel de la fonction repaint().
+   * @param g Le Graphics d'un JPanel fourni par Java.
+   */
   @Override
   public void paint (Graphics g) {
     super.paintComponent(g);

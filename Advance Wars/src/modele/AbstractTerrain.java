@@ -14,6 +14,10 @@ public abstract class AbstractTerrain {
   // *************** Constructeur ***************
   // ********************************************
 
+  /**
+   * @param s Le nom du terrain.
+   * @param t Le type du terrain.
+   */
   public AbstractTerrain (String s, int t) {
     nom = s;
     type = t;

@@ -22,6 +22,9 @@ public class PanelMenu extends JPanel {
   // *************** Constructeur ***************
   // ********************************************
 
+  /**
+   * Constructeur
+   */
   public PanelMenu() {
     fondMenu = Toolkit.getDefaultToolkit().createImage("src/variable/images/fondMenu.png");
   }
@@ -30,6 +33,10 @@ public class PanelMenu extends JPanel {
   // *************** Fonctions ***************
   // *****************************************
 
+  /**
+   * Dessine le fond d'écran sur le JPanel.
+   * @param g L'environnement Graphics fourni par java.
+   */
   @Override
   protected void paintComponent(Graphics g) {
 
