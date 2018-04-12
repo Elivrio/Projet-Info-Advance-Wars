@@ -56,7 +56,7 @@ public class Variable {
   public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png"};
   public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png"};
   public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
-  public final static String[] tStrBaseDegats = {"5.png"};
+  public final static String[] tStrBaseDegats = {"0.png", "0.png", "0.png", "0.png", "0.png", "5-1.png", "5-2.png", "5-3.png", "5-4.png", "0.png", "10-1.png", "10-2.png", "10-3.png", "10-4.png", "O.png"};
 
   public final static String[] tStrUni1;
   public final static String[] tStrUni2;
@@ -249,12 +249,13 @@ public class Variable {
     tStrDegatsFile = new File[tStrDegats.length];
     tImDegats = new BufferedImage[tStrDegatsFile.length];
     for (int i = 0; i < tStrDegats.length; i++) {
-      tStrDegats[i] = pathToIcones + tStrBaseDegats[i];
+      tStrDegats[i] = pathToDegats + tStrBaseDegats[i];
       tStrDegatsFile[i] = new File(tStrDegats[i]);
       try {
         tImDegats[i] = ImageIO.read(tStrDegatsFile[i]);
       } catch (IOException e) {}
     }
+
   }
 
   public final static BufferedImage noir = opacifier(tImTer[4], 1f);

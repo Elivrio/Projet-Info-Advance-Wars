@@ -205,6 +205,16 @@ public class PanelMap extends Map {
         // Une unité.
         g.drawImage(uni, (x * taillePixel) - posJ - 70, (y * taillePixel) - posI - 70, this);
       }
+        // on dessine les dégats si il y en a eu
+      if (unite.getAnimDegats() != 0) { // on dessine les dégats reçus si il y a eu une attaque
+        BufferedImage deg;
+        deg = Variable.tImDegats[unite.getAnimDegats()];
+        if (unite.getAnimDegats()%5 < 3) // pour faire défiler les 4 images de l'animation dégats
+          unite.setAnimDegats(unite.getAnimDegats() + 1);
+        else
+          unite.setAnimDegats(0); // retour à pas d'animation
+        g.drawImage(deg, (x*taillePixel) - posJ - 90, (y*taillePixel) - posI - 80, this);
+      }
     }
   }
 
@@ -357,6 +367,7 @@ public class PanelMap extends Map {
   public int indice(int i, int a) {
     return ((i == a)? 1 :0);
   }
+
 
   // Fonction pour réduire de code.
   // Permet de récupérer le type d'un terrain adjacent à la case.

@@ -121,7 +121,7 @@ public class Vue extends JFrame {
     boutonJoueur.addActionListener(cAL);
     boutonAttaque.addActionListener(cAL);
     aAL = new AnimationActionListener(this);
-    timer = new Timer(500, aAL);
+    timer = new Timer(250, aAL);
     timer.start();
   }
 
