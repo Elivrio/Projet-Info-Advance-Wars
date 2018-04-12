@@ -36,14 +36,17 @@ import src.modele.terrain.AbstractVille;
 import src.controleur.ControleurActionListener;
 import src.controleur.AnimationActionListener;
 
+
+// La vue du jeu. Elle contient toute la partie de l'affichage du jeu/
 @SuppressWarnings("serial")
 public class Vue extends JFrame {
 
-  // Permet
-  private ControleurActionListener cAL;
-
   private int typeUnites;
   private int largeurEcran, hauteurEcran;
+
+  private AnimationActionListener aAL;
+
+  private ControleurActionListener cAL;
 
   private JButton boutonAttaque = new JButton("Attaquer");
   private JButton boutonJoueur = new JButton("Changer de joueur");
@@ -62,9 +65,8 @@ public class Vue extends JFrame {
   private MouseIcone mI;
   private MiniMap miniMap;
 
-  private PanelMap panelPlateau;
+  private PanelMap map;
 
-  private AnimationActionListener aAL;
   private Timer timer;
 
   private final static Color couleurBackground = new Color(0.3f, 0.3f, 0.3f);
@@ -86,7 +88,7 @@ public class Vue extends JFrame {
     boutonCreationUniteAerienne.setFocusable(false);
     boutonCreationUniteMaritime.setFocusable(false);
     boutonCreationUniteTerrestre.setFocusable(false);
-    panelPlateau = map;
+    this.map = map;
     textJoueur = new JTextPane();
     textJoueur.setEditable(false);
     textJoueur.setBackground(couleurBackground);
@@ -108,7 +110,7 @@ public class Vue extends JFrame {
     split2.setEnabled(false);
     split2.setDividerLocation(65*hauteurEcran/100);
 
-    split3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelPlateau, split2);
+    split3 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, map, split2);
     split3.setDividerSize(0);
     split3.setEnabled(false);
     split3.setDividerLocation(75*largeurEcran/100);
@@ -125,7 +127,7 @@ public class Vue extends JFrame {
     timer.start();
   }
 
-  public PanelMap getMap() { return panelPlateau; }
+  public PanelMap getMap() { return map; }
   public MiniMap getMiniMap() { return miniMap; }
   public int getTypeUnites() { return typeUnites; }
   public LinkedList<JLabel> getListeIcones() { return listeIcones; }
@@ -135,9 +137,9 @@ public class Vue extends JFrame {
   public JButton getBoutonJoueur() { return boutonJoueur; }
   public JButton getBoutonAttaque() { return boutonAttaque; }
   public Timer getTimer() { return timer; }
-  public boolean getAnimationStatus() { return panelPlateau.getAnimation(); }
+  public boolean getAnimationStatus() { return map.getAnimation(); }
 
-  public void animationStatus(boolean b) { panelPlateau.setAnimation(b); }
+  public void animationStatus(boolean b) { map.setAnimation(b); }
 
   public static void afficher(JTextPane textPane, String titre, String infos, Color couleurTitre) {
 
@@ -178,11 +180,11 @@ public class Vue extends JFrame {
       str += "\n" + unite.deplacement();
     str += "\nPoints de vie : " + unite.getPV() + "/" + unite.getPVMax();
     str += "\nPortée : " + unite.getPortee() + ((unite.getPortee() > 1)?" cases." : "case.");
-    if (panelPlateau.getJoueur().possede(unite)) {
+    if (map.getJoueur().possede(unite)) {
       str += "\nChamps de vision : " + unite.getVision() + ((unite.getVision() > 1)? " cases." : " case.");
     }
     afficher(textInfos, nom, str, couleur);
-    if (panelPlateau.getJoueur().possede(unite) && unite.getCombat() != null)
+    if (map.getJoueur().possede(unite) && unite.getCombat() != null)
       textInfos.insertComponent(boutonAttaque);
   }
 
@@ -266,9 +268,9 @@ public class Vue extends JFrame {
   }
 
   public void newTurn() {
-    panelPlateau.newTurn();
+    map.newTurn();
     miniMap.newTurn();
     this.informations();
-    this.informations(panelPlateau.getJoueur());
+    this.informations(map.getJoueur());
   }
 }

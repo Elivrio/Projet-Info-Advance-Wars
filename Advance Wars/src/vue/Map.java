@@ -18,13 +18,15 @@ import src.modele.terrain.AbstractVille;
 @SuppressWarnings("serial")
 abstract public class Map extends JPanel {
 
+  // ***************************************************
   // *************** Variable d'instance ***************
+  // ***************************************************
 
   // Le Plateau de jeu
-  protected Plateau p;
+  protected Plateau plateau;
 
   // Permet de définir la place occuper par la carte sur la fenêtre.
-  protected int haut, larg;
+  protected int hauteur, largeur;
 
   // Permet de se déplacer dans le tableau de terrain afin d'afficher les bonnes cases.
   protected int tabI, tabJ;
@@ -51,7 +53,9 @@ abstract public class Map extends JPanel {
   // Le jeu auquel on joue.
   protected Jeu jeu;
 
+  // **************************************************
   // *************** Variable de Classe ***************
+  // **************************************************
 
   // Des variables qui permettent d'automatiser la création des formes simples
   // telles que les rectangles et les cercles.
@@ -62,12 +66,18 @@ abstract public class Map extends JPanel {
   protected final static String drect = "drect";
   protected final static String frect = "frect";
 
+  // ********************************************
   // *************** Constructeur ***************
+  // ********************************************
 
-  public Map (Plateau plat, Jeu j) {
-    p = plat;
-    jeu = j;
-    joueurs = plat.getJoueurs();
+  /**
+   * @param plateau Le plateau de jeu
+   * @param jeu     Le jeu dans lequel on joue.
+   */
+  public Map (Plateau plateau, Jeu jeu) {
+    this.plateau = plateau;
+    this.jeu = jeu;
+    joueurs = plateau.getJoueurs();
     indiceJoueur = 0;
     joueur = joueurs[0];
     tabI = 1;
@@ -81,25 +91,35 @@ abstract public class Map extends JPanel {
     setBackground(Color.BLACK);
   }
 
+  // ***************************************
   // *************** Getters ***************
+  // ***************************************
 
-  public Jeu getJeu() { return jeu; }
-  public int getLarg() { return larg; }
-  public int getTabI() { return tabI; }
-  public int getTabJ() { return tabJ; }
   public double getHautMax() { return hautMax; }
   public double getLargMax() { return largMax; }
-  public int getHauteur() { return p.getHauteur(); }
-  public int getLargeur() { return p.getLargeur(); }
+
+  public int getTabI() { return tabI; }
+  public int getTabJ() { return tabJ; }
+  public int getHauteur() { return plateau.getHauteur(); }
+  public int getLargeur() { return plateau.getLargeur(); }
   public int getTaillePixel() { return taillePixel; }
-  public Plateau getPlateau() { return p; }
+
+  public AbstractTerrain[][] getTerrain() { return plateau.getTerrain(); }
+
+  public AbstractUnite[][] getUnites() { return plateau.getUnites(); }
+
+  public Jeu getJeu() { return jeu; }
+
   public Joueur getJoueur() { return joueur; }
   public Joueur[] getJoueurs() { return joueurs; }
-  public LinkedList<AbstractVille> getVilles() { return p.getVilles(); }
-  public AbstractUnite[][] getUnites() { return p.getUnites(); }
-  public AbstractTerrain[][] getTerrain() { return p.getTerrain(); }
 
+  public LinkedList<AbstractVille> getVilles() { return plateau.getVilles(); }
+
+  public Plateau getPlateau() { return plateau; }
+
+  // ***************************************
   // *************** Setters ***************
+  // ***************************************
 
   // Les variables permettant de stocker la position relative et qui permettent d'afficher le déplacement continu
   // ont une forme différente en fonction de la Map considérée. Ainsi, dans miniMap, posI et posJ sont des doubles
@@ -107,55 +127,78 @@ abstract public class Map extends JPanel {
   // préféré utiliser des types différents selon les classes filles. Cela implique des fonctions abstraites pour
   // remettre à zéro les valeurs posI et posJ;
 
-  // Définie la position dans le tableau de terrain sur l'axe des ordonnées
-  // et remet la position relative nécessaire au déplacement continue sur l'axe des ordonnées à zéro.
+  /**
+   * Définie la position dans le tableau de terrain sur l'axe des ordonnées
+   * et remet la position relative nécessaire au déplacement continue sur l'axe des ordonnées à zéro.
+   * @param tI Le déplacement que l'on va faire dans le tableau.
+   */
   public void setTabI (int tI) {
     tabI = tI;
     resetPosI();
   }
 
-  // Définie la position dans le tableau de terrain sur l'axe des abscisses
-  // et remet la position relative nécessaire au déplacement continue sur l'axe des abscisses à zéro.
+  /**
+   * Définie la position dans le tableau de terrain sur l'axe des abscisses
+   * et remet la position relative nécessaire au déplacement continue sur l'axe des abscisses à zéro.
+   * @param tJ Le déplacement que l'on va faire dans le tableau.
+   */
   public void setTabJ (int tJ) {
     tabJ = tJ;
     resetPosJ();
   }
 
-  // Permet de se déplacer dans le tableau de terrain et remet la position relative
-  // nécessaire au déplacement continue sur l'axe des ordonnées à zéro.
+  /**
+   * Permet de se déplacer dans le tableau de terrain et remet la position relative
+   * nécessaire au déplacement continue sur l'axe des ordonnées à zéro.
+   * @param tI Le déplacement que l'on va faire dans le tableau.
+   */
   public void addTabI (int tI) {
     tabI += tI;
     resetPosI();
   }
 
-  // Permet de se déplacer dans le tableau de terrain et remet la position relative
-  // nécessaire au déplacement continue sur l'axe des abscisses à zéro.
+  /**
+   * Permet de se déplacer dans le tableau de terrain et remet la position relative
+   * nécessaire au déplacement continue sur l'axe des abscisses à zéro.
+   * @param tJ Le déplacement que l'on va effectuer.
+   */
   public void addTabJ (int tJ) {
     tabJ += tJ;
     resetPosJ();
   }
 
-  // Permet de remettre la position relative des abscisses à zéro.
+  /**
+   * Permet de remettre la position relative à zéro.
+   */
   abstract void resetPosI();
-  // Permet de remettre la position relative des ordonnées à zéro.
   abstract void resetPosJ();
-  // Permet de remettre la position relative globale à zéro.
   abstract void reset();
 
-  // Permet de changer de joueur à la fin d'un tour. Cette fonction remet toutes les variables de tour à zéro
-  // (déplacement, unité cliquée, etc.) et fait un tour dans la liste de joueurs.
+
+  /**
+   * Permet de changer de joueur à la fin d'un tour. Cette fonction remet toutes les variables de tour à zéro
+   * (déplacement, unité cliquée, etc.) et fait un tour dans la liste de joueurs.
+   * @param i Le nombre d'éléments que l'on saute dans la liste de joueurs.
+   */
   public void setJoueur (int i) {
+    // On redonne la possibilité à toutes les unités de faire des actions.
     joueur.reset();
-    p.reset();
+    // On redonne la possibilité à toutes les villes de produire.
+    plateau.reset();
+    // On change l'indice du joueur en cours en ce moment, puis on change le joueur.
     if (indiceJoueur+i < joueurs.length)
       indiceJoueur += i;
     else indiceJoueur = 0;
     joueur = joueurs[indiceJoueur];
   }
 
-  // Change le joueur et met l'affichage à jour.
+  /**
+   * Change le joueur et met l'affichage à jour.
+   */
   public void newTurn() {
+    // On change le joueur.
     this.setJoueur(1);
+    // On repeint la carte.
     this.repaint();
   }
 

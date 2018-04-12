@@ -10,13 +10,33 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class PanelMenu extends JPanel {
+
+  // ***************************************************
+  // *************** Variable d'instance ***************
+  // ***************************************************
+
   // permet de stocker efficacement l'image du fond de menu.
   private Image fondMenu;
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
+  /**
+   * Constructeur
+   */
   public PanelMenu() {
     fondMenu = Toolkit.getDefaultToolkit().createImage("src/variable/images/fondMenu.png");
   }
 
+  // *****************************************
+  // *************** Fonctions ***************
+  // *****************************************
+
+  /**
+   * Dessine le fond d'écran sur le JPanel.
+   * @param g L'environnement Graphics fourni par java.
+   */
   @Override
   protected void paintComponent(Graphics g) {
 
