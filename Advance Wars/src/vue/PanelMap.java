@@ -437,15 +437,6 @@ public class PanelMap extends Map {
     return ((i == a)? 1 :0);
   }
 
-<<<<<<< HEAD
-
-  // Fonction pour réduire de code.
-  // Permet de récupérer le type d'un terrain adjacent à la case.
-  public int check(boolean a, int x, int y, int modI, int modJ, AbstractTerrain[][] t) {
-    if (a)
-      return t[x + tabI + modI][y + tabJ + modJ].getType();
-    return 1;
-=======
   /**
    * Fonction pour réduire de code.
    * Permet de récupérer le type d'un terrain adjacent à la case.
@@ -468,7 +459,6 @@ public class PanelMap extends Map {
     this.setJoueur(1);
     this.setCliquee(null);
     this.repaint();
->>>>>>> 2c08daea87e14b15ac086c85545f53ea906be22c
   }
 
 }
