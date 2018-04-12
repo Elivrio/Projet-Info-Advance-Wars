@@ -33,13 +33,13 @@ public class MiniMap extends Map {
   // *************** Constructeur ***************
   // ********************************************
 
-  public MiniMap (Plateau plat, Jeu j,  int h, int l) {
-    super(plat, j);
-    haut = h;
-    larg = l;
-    taillePixel = larg/(p.getLargeur()+3);
-    noirHaut = (haut - taillePixel * (plat.getHauteur() + 2)) / 2;
-    noirGauche = (larg - taillePixel * (plat.getLargeur() + 6)) / 2;
+  public MiniMap (Plateau plateau, Jeu jeu,  int h, int l) {
+    super(plateau, jeu);
+    hauteur = h;
+    largeur = l;
+    taillePixel = largeur/(plateau.getLargeur()+3);
+    noirHaut = (hauteur - taillePixel * (plateau.getHauteur() + 2)) / 2;
+    noirGauche = (largeur - taillePixel * (plateau.getLargeur() + 6)) / 2;
   }
 
   // ***************************************
@@ -81,14 +81,14 @@ public class MiniMap extends Map {
     super.paintComponent(g);
 
     // On met à jour la vision du joueur afin de dessiner la minimap de la bonne façon.
-    joueur.vision(p.getTerrain());
+    joueur.vision(plateau.getTerrain());
 
     // On veut que l'affichage se fasse sur l'intégralité du terrain.
-    for (int i = 1; i < p.getHauteur(); i++)
-      for (int j = 1; j < p.getLargeur(); j++) {
+    for (int i = 1; i < plateau.getHauteur(); i++)
+      for (int j = 1; j < plateau.getLargeur(); j++) {
 
         // On dessine le terrain de base que le plateau contient.
-        int t = p.getTerrain()[i][j].getType();
+        int t = plateau.getTerrain()[i][j].getType();
         BufferedImage img = Variable.tImTer[t];
         g.drawImage(img, (j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, this);
 
@@ -106,7 +106,7 @@ public class MiniMap extends Map {
 
           default :
             // Si on a de la vision, on vérifie si la case contient une unitée.
-            AbstractUnite unite = p.getUnites()[i][j];
+            AbstractUnite unite = plateau.getUnites()[i][j];
 
             // Si elle contient une unitée, on la dessine un carré de la couleur du joueur qui la contrôle.
             if (unite != null) {

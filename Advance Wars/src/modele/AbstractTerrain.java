@@ -33,6 +33,10 @@ public abstract class AbstractTerrain {
   // *************** Fonctions ***************
   // *****************************************
 
+  /**
+   * Permet d'afficher l'objet sous forme d'une chaîne de caratère.
+   * @return La chaîne de caractère qui va décrire l'objet.
+   */
   @Override
   public String toString() {
     return ("" + type);

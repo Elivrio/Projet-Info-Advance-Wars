@@ -20,10 +20,10 @@ public class Jeu {
   // ****************************************************
 
   // La JFrame qui va contenir toutes les données du jeu.
-  private Vue v;
+  private Vue vue;
 
   // Le plateau qui contient le terrain et les unités.
-  private Plateau p;
+  private Plateau plateau;
 
   // Le JPanel qui contient le dessin du terrain.
   private PanelMap map;
@@ -40,15 +40,22 @@ public class Jeu {
   // Le contrôleur qui va vérifier les déplacements de la souris sur la Vue.
   private ControleurMouseMotion cMM;
 
-  public Jeu (Plateau plat) {
-    p = plat;
-    map = new PanelMap(p, this);
-    v = new Vue(map);
-    MiniMap miniMap = v.getMiniMap();
-    cK = new ControleurKey(v);
-    mMM = new MiniMapMouse(v);
-    cM = new ControleurMouse(v);
-    cMM = new ControleurMouseMotion(v);
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
+  /**
+   * @param plat Le plateau qui défini le jeu.
+   */
+  public Jeu (Plateau plateau) {
+    this.plateau = plateau;
+    map = new PanelMap(plateau, this);
+    vue = new Vue(map);
+    MiniMap miniMap = vue.getMiniMap();
+    cK = new ControleurKey(vue);
+    mMM = new MiniMapMouse(vue);
+    cM = new ControleurMouse(vue);
+    cMM = new ControleurMouseMotion(vue);
     map.addKeyListener(cK);
     map.addMouseListener(cM);
     miniMap.addMouseListener(mMM);
@@ -60,8 +67,12 @@ public class Jeu {
   // *************** Fonctions ***************
   // *****************************************
 
-  // On vérifie la mort de l'unité cible. Si cette unité est morte,
-  // le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
+  /**
+   * On vérifie la mort de l'unité cible. Si cette unité est morte,
+   * le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
+   * @param attaquant L'unité qui attaque.
+   * @param cible     L'unité attaqué.
+   */
   public void mort (AbstractUnite attaquant, AbstractUnite cible) {
     // Si la cible est morte,
     if (cible.getPV() <= 0) {
@@ -74,25 +85,38 @@ public class Jeu {
       attaquant.getJoueur().setArgent(cible.getGainMort());
 
       // On met à jour les informations du joueur qui vient de tuer une unité.
-      v.informations(map.getJoueur());
+      vue.informations(map.getJoueur());
     }
   }
 
-  // Permet de gérer la fin d'un tour de jeu.
+  /**
+   * Permet de gérer la fin d'un tour de jeu.
+   */
   public void finTour () {
     // On vérifie si les villes sur la carte change de propriétaire.
-    villesPrises(map);
+    villesPrises();
 
     // On change de joueur et on met la vue à jour
-    v.newTurn();
+    vue.newTurn();
   }
 
-  public void villesPrises (PanelMap map) {
+  /**
+   * Vérifie si des villes sont en prises par des joueurs et change la possession des villes si nécessaire.
+   */
+  public void villesPrises () {
+    // L'ensemble des unités en jeu.
     AbstractUnite[][] unites = map.getUnites();
+    // L'ensemble des villes du plateau.
     LinkedList<AbstractVille> villes = map.getVilles();
+
+    // On prend les villes une par une.
     for (int i = 0; i < villes.size(); i++) {
       AbstractVille ville = villes.get(i);
+
+      // On regarde l'unité sur la case de la ville.
       AbstractUnite unite = unites[ville.getY()][ville.getX()];
+
+      // Si l'unité n'est pas nulle, on change le propriétaire de la ville.
       if (unite != null)
         ville.setJoueur(unite.getJoueur());
     }

@@ -35,6 +35,9 @@ public class ComboColorChooser<Color> extends JComboBox<Color> {
   // *************** Constructeur ***************
   // ********************************************
 
+  /**
+   * @param c La liste de couleurs qui s'affichera dans la Combobox choisie.
+   */
   public ComboColorChooser(LinkedList<Color> c) {
     colors= new Vector<Color>();
     for (Color color : c) {
@@ -43,7 +46,9 @@ public class ComboColorChooser<Color> extends JComboBox<Color> {
     initializeCombo();
   }
 
-  // Permet d'initialiser de façon propre le contenu de la JComboBox de couleurs.
+  /**
+   * Permet d'initialiser de façon propre le contenu de la JComboBox de couleurs.
+   */
   private void initializeCombo() {
     // Crée un modèle par défault pour une JComboBox et l'applique à la Combobox que l'on est en train de créer.
     DefaultComboBoxModel<Color> model = new DefaultComboBoxModel<Color>(colors);

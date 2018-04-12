@@ -44,14 +44,14 @@ public class PanelMap extends Map {
   // *************** Constructeur ***************
   // ********************************************
 
-  public PanelMap (Plateau plat, Jeu j) {
-    super(plat, j);
+  public PanelMap (Plateau plateau, Jeu j) {
+    super(plateau, j);
     setFocusable(true);
     requestFocusInWindow(true);
     taillePixel = 100;
-    larg = (int)(85*largeurEcran/100);
-    haut = (int)hauteurEcran;
-    setSize(larg, haut);
+    largeur = (int)(85*largeurEcran/100);
+    hauteur = (int)hauteurEcran;
+    setSize(largeur, hauteur);
     animation = true;
   }
 
@@ -96,7 +96,7 @@ public class PanelMap extends Map {
   public void reset() { posJ = 0; posI = 0; }
 
   // retire une unité du plateau d'unité.
-  public void rmvUnite (AbstractUnite u) { p.rmvUnite(u); }
+  public void rmvUnite (AbstractUnite u) { plateau.rmvUnite(u); }
 
 
   // *****************************************
@@ -107,17 +107,17 @@ public class PanelMap extends Map {
   // Permet de mettre à jour le contenu du terrain.
   public void paint (Graphics g) {
     // On commence par mettre à jour la vision du joueur.
-    joueur.vision(p.getTerrain());
+    joueur.vision(plateau.getTerrain());
     // On dessine sur tout le terrain.
     for (int i = 0; i < hautMax; i++)
       for (int j = 0; j < largMax; j++) {
         // Si on sort des limites du terrain, on saute ce tour de boucle.
-        if (i + tabI - 1 >= p.getHauteur() || j + tabJ - 1 >= p.getLargeur())
+        if (i + tabI - 1 >= plateau.getHauteur() || j + tabJ - 1 >= plateau.getLargeur())
           continue;
         // L'unité qui se trouve sur la case.
-        AbstractUnite unite = p.getUnites()[i + tabI - 1][j + tabJ - 1];
+        AbstractUnite unite = plateau.getUnites()[i + tabI - 1][j + tabJ - 1];
         // Le type du terrain.
-        int t = p.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
+        int t = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
         // La fonction qui permet d'afficher la case et tous ses composents.
         dessineCase(g, t, j, i, unite);
       }
@@ -143,9 +143,9 @@ public class PanelMap extends Map {
 
     if ((cliquee != null) && joueur.possede(cliquee)
         && (y + tabI-2 >= 0)
-        && (y + tabI < p.getTerrain().length)
+        && (y + tabI < plateau.getTerrain().length)
         && (x + tabJ-2 >= 0)
-        && (x + tabJ < p.getTerrain()[0].length)) {
+        && (x + tabJ < plateau.getTerrain()[0].length)) {
           // Affichage des déplacements possibles.
           if ((!(cliquee.getAttaque()) || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
             g.drawImage(Variable.vert, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
@@ -257,7 +257,7 @@ public class PanelMap extends Map {
   public void chemin (int i, int x, int y, Graphics g) {
     // les différentes variables de la fonction.
     // Le terrain est nécessaire afin de calculer les terrains adjacents à la case observée.
-    AbstractTerrain[][] t = p.getTerrain();
+    AbstractTerrain[][] t = plateau.getTerrain();
     // Contiendra l'image renvoyée par la fonction.
     BufferedImage img = Variable.tImTer[i];
     // Le chemin spécifique menant à l'image dans l'arborescence de fichier.
@@ -273,13 +273,13 @@ public class PanelMap extends Map {
     // Pour rester sur le terrain
     if (x + tabI >= 0
         && y + tabJ >= 0
-        && x + tabI <= p.getHauteur() - 1
-        &&  y + tabJ <= p.getLargeur() - 1) {
+        && x + tabI <= plateau.getHauteur() - 1
+        &&  y + tabJ <= plateau.getLargeur() - 1) {
 
       a = check((y + tabJ > 1), x, y, -1, -2, t);
       b = check((x + tabI > 1), x, y, -2, -1, t);
-      c = check((y + tabJ < p.getLargeur() - 1), x, y, -1, 0, t);
-      d = check((x + tabI < p.getHauteur() - 1), x, y, 0, -1, t);
+      c = check((y + tabJ < plateau.getLargeur() - 1), x, y, -1, 0, t);
+      d = check((x + tabI < plateau.getHauteur() - 1), x, y, 0, -1, t);
 
     }
     // En fonction du type de terrain sur lequel on se trouve, on ne charge pas les mêmes éléments.
@@ -321,8 +321,8 @@ public class PanelMap extends Map {
     // Dans le cas d'une ville, il faut vérifier que celle-ci appartient à un joueur et afficher sa couleur si nécessaire.
     if (x + tabI > 1
         && y + tabJ > 1
-        && x + tabI < p.getHauteur() - 1
-        &&  y + tabJ < p.getLargeur() - 1
+        && x + tabI < plateau.getHauteur() - 1
+        &&  y + tabJ < plateau.getLargeur() - 1
         && t[x + tabI - 1][y + tabJ - 1] instanceof AbstractVille) {
       // On est certain que le terrain considéré est de type Ville.
       AbstractVille ville = ((AbstractVille)t[x + tabI - 1][y + tabJ - 1]);
