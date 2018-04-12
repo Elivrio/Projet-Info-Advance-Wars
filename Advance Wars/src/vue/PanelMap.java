@@ -22,7 +22,9 @@ import src.modele.terrain.AbstractVille;
 @SuppressWarnings("serial")
 public class PanelMap extends Map {
 
+  // ***************************************************
   // *************** Variable d'instance ***************
+  // ***************************************************
 
   // Contient l'unité cliquée en ce moment.
   private AbstractUnite cliquee;
@@ -38,7 +40,9 @@ public class PanelMap extends Map {
   // Pour savoir si on est à l'image 1 ou 2 de l'animation
   protected boolean animation;
 
+  // ********************************************
   // *************** Constructeur ***************
+  // ********************************************
 
   public PanelMap (Plateau plat, Jeu j) {
     super(plat, j);
@@ -51,14 +55,18 @@ public class PanelMap extends Map {
     animation = true;
   }
 
+  // ***************************************
   // *************** Getters ***************
+  // ***************************************
+
+  public boolean getAttaque() { return attaque; }
+  public boolean getAnimation() { return animation; }
 
   public int getPosI() { return posI; }
   public int getPosJ() { return posJ; }
   public int getTaillePixel() { return taillePixel; }
-  public boolean getAttaque() { return attaque; }
+
   public AbstractUnite getCliquee() { return cliquee; }
-  public boolean getAnimation() { return animation; }
 
   // *************** Setters ***************
 
@@ -90,14 +98,10 @@ public class PanelMap extends Map {
   // retire une unité du plateau d'unité.
   public void rmvUnite (AbstractUnite u) { p.rmvUnite(u); }
 
-  // Change le joueur, s'assure que la carte ne garde pas une unité cliquée en mémoire et  met l'affichage à jour.
-  public void newTurn() {
-    this.setJoueur(1);
-    this.setCliquee(null);
-    this.repaint();
-  }
 
-  // *************** Fonctions de classe ***************
+  // *****************************************
+  // *************** Fonctions ***************
+  // *****************************************
 
   @Override
   // Permet de mettre à jour le contenu du terrain.
@@ -364,6 +368,13 @@ public class PanelMap extends Map {
     if (a)
       return t[x + tabI + modI][y + tabJ + modJ].getType();
     return 1;
+  }
+
+  // Change le joueur, s'assure que la carte ne garde pas une unité cliquée en mémoire et  met l'affichage à jour.
+  public void newTurn() {
+    this.setJoueur(1);
+    this.setCliquee(null);
+    this.repaint();
   }
 
 }

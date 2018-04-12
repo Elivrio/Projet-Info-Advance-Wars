@@ -18,7 +18,9 @@ import src.modele.terrain.AbstractVille;
 @SuppressWarnings("serial")
 abstract public class Map extends JPanel {
 
+  // ***************************************************
   // *************** Variable d'instance ***************
+  // ***************************************************
 
   // Le Plateau de jeu
   protected Plateau p;
@@ -51,7 +53,9 @@ abstract public class Map extends JPanel {
   // Le jeu auquel on joue.
   protected Jeu jeu;
 
+  // **************************************************
   // *************** Variable de Classe ***************
+  // **************************************************
 
   // Des variables qui permettent d'automatiser la création des formes simples
   // telles que les rectangles et les cercles.
@@ -62,7 +66,9 @@ abstract public class Map extends JPanel {
   protected final static String drect = "drect";
   protected final static String frect = "frect";
 
+  // ********************************************
   // *************** Constructeur ***************
+  // ********************************************
 
   public Map (Plateau plat, Jeu j) {
     p = plat;
@@ -81,7 +87,9 @@ abstract public class Map extends JPanel {
     setBackground(Color.BLACK);
   }
 
+  // ***************************************
   // *************** Getters ***************
+  // ***************************************
 
   public Jeu getJeu() { return jeu; }
   public int getLarg() { return larg; }
@@ -99,7 +107,9 @@ abstract public class Map extends JPanel {
   public AbstractUnite[][] getUnites() { return p.getUnites(); }
   public AbstractTerrain[][] getTerrain() { return p.getTerrain(); }
 
+  // ***************************************
   // *************** Setters ***************
+  // ***************************************
 
   // Les variables permettant de stocker la position relative et qui permettent d'afficher le déplacement continu
   // ont une forme différente en fonction de la Map considérée. Ainsi, dans miniMap, posI et posJ sont des doubles

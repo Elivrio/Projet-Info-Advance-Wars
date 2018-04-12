@@ -17,7 +17,7 @@ public class ControleurActionListener extends Controleur implements ActionListen
     Object source = e.getSource();
     // Si on clique sur le bouton pour changer de joueur
     if (source == vue.getBoutonJoueur())
-      jeu.finTour(map, vue, miniMap);
+      jeu.finTour();
     // Si on clique sur le bouton pour attaquer
     else if (source == vue.getBoutonAttaque()) {
       if (map.getAttaque())

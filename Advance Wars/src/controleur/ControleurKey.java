@@ -39,7 +39,7 @@ public class ControleurKey extends Controleur implements KeyListener {
     }
     // Clic sur la touche Entrée ou J pour changer de joueur
     else if (e.getKeyChar() == Event.ENTER || e.getKeyChar() == 'j') {
-      jeu.finTour(map, vue, miniMap);
+      jeu.finTour();
     }
     // Clic sur la touche A pour attaquer
     else if (e.getKeyChar() == 'a' && map.getCliquee() != null) {

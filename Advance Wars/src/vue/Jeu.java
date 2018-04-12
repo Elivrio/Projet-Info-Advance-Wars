@@ -15,7 +15,9 @@ import src.controleur.ControleurMouseMotion;
 
 public class Jeu {
 
+  // ****************************************************
   // *************** Variables d'instance ***************
+  // ****************************************************
 
   // La JFrame qui va contenir toutes les données du jeu.
   private Vue v;
@@ -54,6 +56,10 @@ public class Jeu {
     map.addMouseMotionListener(cM);
   }
 
+  // *****************************************
+  // *************** Fonctions ***************
+  // *****************************************
+
   // On vérifie la mort de l'unité cible. Si cette unité est morte,
   // le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
   public void mort (AbstractUnite attaquant, AbstractUnite cible) {
@@ -72,11 +78,12 @@ public class Jeu {
     }
   }
 
-  public void finTour (PanelMap map, Vue vue, MiniMap miniMap) {
+  // Permet de gérer la fin d'un tour de jeu.
+  public void finTour () {
     // On vérifie si les villes sur la carte change de propriétaire.
     villesPrises(map);
 
-    // On change de joueur
+    // On change de joueur et on met la vue à jour
     v.newTurn();
   }
 

@@ -17,7 +17,9 @@ import src.modele.AbstractUnite;
 @SuppressWarnings("serial")
 public class MiniMap extends Map {
 
+  // ***************************************************
   // *************** Variable d'instance ***************
+  // ***************************************************
 
   // Ces entiers permettent de placer la miniMap au centre du carré de l'affichage qui lui est réservé.
   private int noirHaut, noirGauche;
@@ -27,7 +29,9 @@ public class MiniMap extends Map {
   // Ce sont des double dans MiniMap afin de gagner en précision lors du déplacement.
   private double posI, posJ;
 
+  // ********************************************
   // *************** Constructeur ***************
+  // ********************************************
 
   public MiniMap (Plateau plat, Jeu j,  int h, int l) {
     super(plat, j);
@@ -38,14 +42,19 @@ public class MiniMap extends Map {
     noirGauche = (larg - taillePixel * (plat.getLargeur() + 6)) / 2;
   }
 
+  // ***************************************
   // *************** Getters ***************
+  // ***************************************
 
   public double getPosI() { return posI; }
   public double getPosJ() { return posJ; }
+
   public int getNoirHaut() { return noirHaut; }
   public int getNoirGauche() { return noirGauche; }
 
+  // ***************************************
   // *************** Setters ***************
+  // ***************************************
 
   // Permet de déplacer la position relative le long de l'axe des ordonnées et repaint la carte.
   public void addPosI (double pI) {
@@ -63,7 +72,9 @@ public class MiniMap extends Map {
   public void resetPosJ() { posJ = 0.0; }
   public void reset() { posI = 0.0; posJ = 0.0; }
 
-  // *************** Fonctions de classe ***************
+  // *****************************************
+  // *************** Fonctions ***************
+  // *****************************************
 
   @Override
   public void paint (Graphics g) {

@@ -23,13 +23,17 @@ import src.variable.MyColor;
 @SuppressWarnings("serial")
 public class ComboColorChooser<Color> extends JComboBox<Color> {
 
+  // ***************************************************
   // *************** Variable d'instance ***************
+  // ***************************************************
 
   // Les couleurs qui vont être affichées dans la JComboBox créée.
   // On utilise un Objet Vector pour empêcher des casts improques et effacer des warnings.
   private Vector<Color> colors;
 
-// *************** Constructeur ***************
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
 
   public ComboColorChooser(LinkedList<Color> c) {
     colors= new Vector<Color>();

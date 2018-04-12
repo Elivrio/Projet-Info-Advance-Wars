@@ -3,28 +3,40 @@ package src.modele;
 import src.modele.Joueur;
 public abstract class AbstractTerrain {
 
+  // ***************************************************
+  // *************** Variable d'instance ***************
+  // ***************************************************
+
   protected final String nom;
   protected final int type;
+
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
 
   public AbstractTerrain (String s, int t) {
     nom = s;
     type = t;
   }
 
-  public String getNom() {
-    return nom;
-  }
+  // ***************************************
+  // *************** Getters ***************
+  // ***************************************
 
-  public int getType() {
-    return type;
-  }
+  public int getType() { return type; }
+
+  public Joueur getJoueur() { return null; }
+
+  public String getNom() { return nom; }
+
+  // *****************************************
+  // *************** Fonctions ***************
+  // *****************************************
 
   @Override
   public String toString() {
     return ("" + type);
   }
 
-  public Joueur getJoueur() {
-    return null;
-  }
+
 }
