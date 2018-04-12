@@ -5,30 +5,37 @@ import java.util.LinkedList;
 import src.vue.Vue;
 import src.vue.MiniMap;
 import src.vue.PanelMap;
-import src.modele.Joueur;
 import src.modele.Plateau;
-import src.modele.CarteScanner;
-import src.modele.general.Ninja;
 import src.modele.AbstractUnite;
-import src.controleur.Controleur;
-import src.modele.general.Nosaure;
-import src.modele.general.General;
 import src.controleur.MiniMapMouse;
-import src.modele.general.MadZombie;
 import src.controleur.ControleurKey;
-import src.modele.general.MagicalGirl;
 import src.controleur.ControleurMouse;
 import src.modele.terrain.AbstractVille;
 import src.controleur.ControleurMouseMotion;
 
 public class Jeu {
 
+  // *************** Variables d'instance ***************
+
+  // La JFrame qui va contenir toutes les données du jeu.
   private Vue v;
+
+  // Le plateau qui contient le terrain et les unités.
   private Plateau p;
+
+  // Le JPanel qui contient le dessin du terrain.
   private PanelMap map;
+
+  // Le contrôleur qui va vérifier les actions sur le clavier sur la Vue.
   private ControleurKey cK;
+
+  // Le contrôleur qui va vérifier les actions à la souris sur la MiniMap.
   private MiniMapMouse mMM;
+
+  // Le contrôleur qui va vérifier les actions à la souris sur la Vue.
   private ControleurMouse cM;
+
+  // Le contrôleur qui va vérifier les déplacements de la souris sur la Vue.
   private ControleurMouseMotion cMM;
 
   public Jeu (Plateau plat) {
@@ -47,23 +54,30 @@ public class Jeu {
     map.addMouseMotionListener(cM);
   }
 
-  public void mort (AbstractUnite unite, AbstractUnite cible) {
+  // On vérifie la mort de l'unité cible. Si cette unité est morte,
+  // le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
+  public void mort (AbstractUnite attaquant, AbstractUnite cible) {
+    // Si la cible est morte,
     if (cible.getPV() <= 0) {
+
+      // On retire l'unité partout.
       cible.getJoueur().remove(cible);
       map.rmvUnite(cible);
-        unite.getJoueur().setArgent(cible.getGainMort());
+
+      // On augmente l'argent du joueur qui contrôle l'unité.
+      attaquant.getJoueur().setArgent(cible.getGainMort());
+
+      // On met à jour les informations du joueur qui vient de tuer une unité.
+      v.informations(map.getJoueur());
     }
   }
 
   public void finTour (PanelMap map, Vue vue, MiniMap miniMap) {
+    // On vérifie si les villes sur la carte change de propriétaire.
     villesPrises(map);
-    map.setJoueur(1);
-    map.setCliquee(null);
-    miniMap.setJoueur(1);
-    map.repaint();
-    miniMap.repaint();
-    vue.informations();
-    vue.informations(map.getJoueur());
+
+    // On change de joueur
+    v.newTurn();
   }
 
   public void villesPrises (PanelMap map) {

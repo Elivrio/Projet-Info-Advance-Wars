@@ -67,9 +67,6 @@ public class Vue extends JFrame {
   private AnimationActionListener aAL;
   private Timer timer;
 
-
-
-
   private final static Color couleurBackground = new Color(0.3f, 0.3f, 0.3f);
 
   public Vue (PanelMap map) {
@@ -128,14 +125,8 @@ public class Vue extends JFrame {
     timer.start();
   }
 
-  public PanelMap getMap() {
-    return panelPlateau;
-  }
-
-  public MiniMap getMiniMap() {
-    return miniMap;
-  }
-
+  public PanelMap getMap() { return panelPlateau; }
+  public MiniMap getMiniMap() { return miniMap; }
   public int getTypeUnites() { return typeUnites; }
   public LinkedList<JLabel> getListeIcones() { return listeIcones; }
   public JButton getBoutonCreationUniteAerienne() { return boutonCreationUniteAerienne; }
@@ -217,13 +208,20 @@ public class Vue extends JFrame {
     afficher(textInfos, (vision == 0)? "Mystère absolu" : ville.getNom(), str, couleur);
 
     ActionVille aL = new ActionVille(this, ville);
+
     if (j == joueur && !ville.getAchete()) {
-      if (ville instanceof Usine)
+      if (ville instanceof Usine) {
+        boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
         button = boutonCreationUniteTerrestre;
-      if (ville instanceof Aeroport)
+      }
+      if (ville instanceof Aeroport) {
+        boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
         button = boutonCreationUniteAerienne;
-      if (ville instanceof Port)
+      }
+      if (ville instanceof Port) {
+        boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
         button = boutonCreationUniteMaritime;
+      }
       button.setFocusable(false);
       button.addActionListener(aL);
       textInfos.insertComponent(button);
@@ -265,5 +263,12 @@ public class Vue extends JFrame {
     else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom() + "\n";
     afficher(textJoueur, joueur.getNom(), str, joueur.getColor());
     textJoueur.insertComponent(boutonJoueur);
+  }
+
+  public void newTurn() {
+    panelPlateau.newTurn();
+    miniMap.newTurn();
+    this.informations();
+    this.informations(panelPlateau.getJoueur());
   }
 }

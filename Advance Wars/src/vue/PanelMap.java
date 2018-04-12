@@ -80,15 +80,22 @@ public class PanelMap extends Map {
     repaint();
   }
 
-  // Permet de remettre la position relative à zéro.
+  // Permet de remettre la position relative en ordonnée à zéro.
   public void resetPosI() { posI = 0; }
-  // Permet de remettre la position relative à zéro.
+  // Permet de remettre la position relative en abscicce à zéro.
   public void resetPosJ() { posJ = 0; }
   // Permet de remettre la position relative à zéro.
   public void reset() { posJ = 0; posI = 0; }
 
   // retire une unité du plateau d'unité.
   public void rmvUnite (AbstractUnite u) { p.rmvUnite(u); }
+
+  // Change le joueur, s'assure que la carte ne garde pas une unité cliquée en mémoire et  met l'affichage à jour.
+  public void newTurn() {
+    this.setJoueur(1);
+    this.setCliquee(null);
+    this.repaint();
+  }
 
   // *************** Fonctions de classe ***************
 
@@ -169,9 +176,7 @@ public class PanelMap extends Map {
       if (joueur.possede(unite)) {
 
         // On affiche un rond pour préciser si l'unité sélectionnée peut attaquer ou non.
-        color = Color.GREEN;
-        if (unite.getAttaque() >= 1)
-          color = Color.RED;
+        color = (unite.getAttaque() >=1)?Color.RED:Color.GREEN;
         makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, color);
 
         // On affiche plusieurs ronds pour montrer la distance que peut encore parcourir l'unité.
@@ -307,7 +312,7 @@ public class PanelMap extends Map {
         }
         img = Variable.tImEauPlage[place];
     }
-    // On dessine l'imagine.
+    // On dessine l'image.
     g.drawImage(img, (y * taillePixel) - posJ - 100, (x * taillePixel) - posI - 100, this);
     // Dans le cas d'une ville, il faut vérifier que celle-ci appartient à un joueur et afficher sa couleur si nécessaire.
     if (x + tabI > 1
@@ -320,6 +325,9 @@ public class PanelMap extends Map {
       // Si cette ville appartient à un joueur, on dessine un carré de la couleur du joueur en bas à droite.
       if (ville.getJoueur() != null) {
         Color color = ville.getJoueur().getColor();
+        // Si la ville a déjà créé une unité ce tour-ci, la couleur du carré est obscurcie.
+        if (ville.getJoueur() == this.joueur && ville.getAchete())
+          color = color.darker();
         makeForm(g, rect, y, x, posJ + 95, posI + 15, 10, 10, color);
       }
     }

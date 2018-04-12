@@ -19,7 +19,6 @@ public class MiniMap extends Map {
 
   // *************** Variable d'instance ***************
 
-
   // Ces entiers permettent de placer la miniMap au centre du carré de l'affichage qui lui est réservé.
   private int noirHaut, noirGauche;
 
@@ -70,37 +69,45 @@ public class MiniMap extends Map {
   public void paint (Graphics g) {
     super.paintComponent(g);
 
+    // On met à jour la vision du joueur afin de dessiner la minimap de la bonne façon.
     joueur.vision(p.getTerrain());
 
+    // On veut que l'affichage se fasse sur l'intégralité du terrain.
     for (int i = 1; i < p.getHauteur(); i++)
       for (int j = 1; j < p.getLargeur(); j++) {
 
-        // On dessine le terrain
+        // On dessine le terrain de base que le plateau contient.
         int t = p.getTerrain()[i][j].getType();
         BufferedImage img = Variable.tImTer[t];
         g.drawImage(img, (j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, this);
 
-        // On met à jour le brouillard de guerre et les unités
+        // On ajoute une image qui va servir de filtre pour créer le brouillard de guerre.
         switch (joueur.getVision()[i][j]) {
           case 0 :
+            // Pas de vision.
             g.drawImage(Variable.noir, (j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, this);
             break;
+
           case 1 :
+            // Zone visitée mais pas directement dans la vision.
             g.drawImage(Variable.gris, (j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, this);
             break;
+
           default :
+            // Si on a de la vision, on vérifie si la case contient une unitée.
             AbstractUnite unite = p.getUnites()[i][j];
+
+            // Si elle contient une unitée, on la dessine un carré de la couleur du joueur qui la contrôle.
             if (unite != null) {
               g.setColor(unite.getJoueur().getColor());
               g.fillRect((j - 1) * taillePixel + noirGauche, (i - 1) * taillePixel + noirHaut, taillePixel, taillePixel);
             }
             break;
         }
-
       }
-    // On met à jour la vue actuelle
+
+    // On met à jour le carré rouge qui correspond à la zone de la carte sur laquelle on se situe.
     g.setColor(Color.RED);
     g.drawRect((tabJ - 1) * taillePixel - (int)(posJ) + noirGauche, (tabI - 1) * taillePixel - (int)(posI) + noirHaut, ((int)largMax - 2) * taillePixel, ((int)hautMax - 2) * taillePixel);
   }
-
 }

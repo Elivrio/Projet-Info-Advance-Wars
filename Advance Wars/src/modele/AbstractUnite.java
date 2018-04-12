@@ -95,7 +95,6 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   public void attaquer (AbstractUnite cible) {
-    System.out.println("attaque");
     cible.setPV(-getDegats());
     cible.setAnimDegats(getDegats(),1);
     attaque++;

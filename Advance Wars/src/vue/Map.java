@@ -153,4 +153,10 @@ abstract public class Map extends JPanel {
     joueur = joueurs[indiceJoueur];
   }
 
+  // Change le joueur et met l'affichage à jour.
+  public void newTurn() {
+    this.setJoueur(1);
+    this.repaint();
+  }
+
 }
