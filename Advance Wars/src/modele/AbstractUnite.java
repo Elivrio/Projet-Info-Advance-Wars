@@ -36,11 +36,6 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
 
   // Le joueur qui possède l'unité.
   protected Joueur joueur;
-<<<<<<< HEAD
-  protected int x, y, indice;
-  protected int attaque, gainMort;
-  protected int animDegats;
-=======
 
   // La position x et y de l'unité dans le plateau.
   protected int x, y;
@@ -55,8 +50,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected int gainMort;
 
   // Le status de l'animation des dégats reçus.
-  protected int[] animDegats;
->>>>>>> 2c08daea87e14b15ac086c85545f53ea906be22c
+  protected int animDegats;
 
   // ********************************************
   // *************** Constructeur ***************
@@ -94,17 +88,10 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.joueur = joueur;
     this.x = x;
     this.y = y;
-<<<<<<< HEAD
-    indice = i;
-    cout = prix;
-    gainMort = cout/2;
-    animDegats = 0; // status de l'animation dégats
-=======
     this.indice = indice;
     this.cout = prix;
     this.gainMort = cout/2;
-    this.animDegats = new int[2];
->>>>>>> 2c08daea87e14b15ac086c85545f53ea906be22c
+    this.animDegats = 0; // status de l'animation dégats
   }
 
   // ***************************************
@@ -126,16 +113,11 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public int getDistance() { return distance; }
   public int getDegats() { return typeCombat.getDegats(); }
 
-  public int[] getAnimDegats() { return animDegats; }
-
   public Combat getCombat() { return typeCombat; }
 
   public Deplacement getDeplacement() { return deplacement; }
-<<<<<<< HEAD
-  public int getCout() { return cout; }
+
   public int getAnimDegats() { return animDegats; }
-=======
->>>>>>> 2c08daea87e14b15ac086c85545f53ea906be22c
 
   public Joueur getJoueur() { return joueur; }
 
@@ -217,15 +199,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
    */
   public void attaquer (AbstractUnite cible) {
     cible.setPV(-getDegats());
-<<<<<<< HEAD
     cible.setAnimDegats(getDegats());
-    attaque++;
-  }
-
-  public void setAnimDegats (int status) {
-    animDegats = status;
-=======
-    cible.setAnimDegats(getDegats(),1);
     attaque = false;
   }
 
@@ -234,10 +208,9 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
    * @param deg    [description]
    * @param status [description]
    */
-  public void setAnimDegats (int deg, int status) {
-    animDegats[0] = deg;
-    animDegats[1] = status;
->>>>>>> 2c08daea87e14b15ac086c85545f53ea906be22c
+
+  public void setAnimDegats (int status) {
+    animDegats = status;
   }
 
   /**
