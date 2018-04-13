@@ -41,7 +41,7 @@ abstract public class Map extends JPanel {
   protected int taillePixel;
 
   // La liste de Joueur.
-  protected Joueur[] joueurs;
+  protected LinkedList<Joueur> joueurs;
 
   // Le joueur jouant en ce moment.
   protected Joueur joueur;
@@ -74,7 +74,7 @@ abstract public class Map extends JPanel {
     this.plateau = plateau;
     joueurs = plateau.getJoueurs();
     indiceJoueur = 0;
-    joueur = joueurs[0];
+    joueur = joueurs.get(0);
     tabI = 1;
     tabJ = 1;
     reset();
@@ -104,7 +104,7 @@ abstract public class Map extends JPanel {
   public AbstractUnite[][] getUnites() { return plateau.getUnites(); }
 
   public Joueur getJoueur() { return joueur; }
-  public Joueur[] getJoueurs() { return joueurs; }
+  public LinkedList<Joueur> getJoueurs() { return joueurs; }
 
   public LinkedList<AbstractVille> getVilles() { return plateau.getVilles(); }
 
@@ -174,21 +174,22 @@ abstract public class Map extends JPanel {
    * @param i Le nombre d'éléments que l'on saute dans la liste de joueurs.
    */
   public void setJoueur (int i) {
+    joueurs = plateau.getJoueurs();
     // On redonne la possibilité à toutes les unités de faire des actions.
     joueur.reset();
     // On redonne la possibilité à toutes les villes de produire.
     plateau.reset();
     // On change l'indice du joueur en cours en ce moment, puis on change le joueur.
-    if (indiceJoueur+i < joueurs.length)
+    if (indiceJoueur+i < joueurs.size())
       indiceJoueur += i;
     else indiceJoueur = 0;
-    joueur = joueurs[indiceJoueur];
+    joueur = joueurs.get(indiceJoueur);
   }
 
   /**
    * Change le joueur et met l'affichage à jour.
    */
-  public void newTurn() {
+  public void nouveauTour() {
     // On change le joueur.
     this.setJoueur(1);
     // On repeint la carte.

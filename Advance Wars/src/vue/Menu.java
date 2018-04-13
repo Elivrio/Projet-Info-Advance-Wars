@@ -300,10 +300,10 @@ public class Menu extends JFrame {
    * @param  couleurs Le tableau de couleurs correspondant aux choix des joueurs.
    * @return          Les Joueurs qui joueront la partie.
    */
-  public Joueur[] creationJoueurs (String[] noms, int x, int y, MyColor[] couleurs) {
-    Joueur[] joueurs = new Joueur[noms.length];
-    for (int i = 0; i < noms.length; i++){
-      joueurs[i] = new Joueur(noms[i], x, y, couleurs[i]);
+  public LinkedList<Joueur> creationJoueurs (String[] noms, int x, int y, MyColor[] couleurs) {
+    LinkedList<Joueur> joueurs = new LinkedList<Joueur>();
+    for (int i = 0; i < noms.length; i++) {
+      joueurs.add(new Joueur(noms[i], x, y, couleurs[i]));
     }
     return joueurs;
   }
@@ -315,16 +315,16 @@ public class Menu extends JFrame {
    * @return              Renvoie un tableau de général correspondant aux généraux choisis.
    * @throws Exception    Should Never Happen.
    */
-  public General[] creationGeneraux (String[] nomsGeneraux, Joueur[] joueurs) throws Exception {
+  public General[] creationGeneraux (String[] nomsGeneraux, LinkedList<Joueur> joueurs) throws Exception {
     // On crée un tableau de la longeur adéquate.
     General[] generaux = new General[nomsGeneraux.length];
     for (int i = 0; i < nomsGeneraux.length; i++)
       // Pour chaque nom de général, on crée un nouveau général et on lui donne son joueur en argument.
       switch (nomsGeneraux[i]) {
-        case "Nosaure" : generaux[i] = new Nosaure(joueurs[i]); break;
-        case "Ninja" : generaux[i] = new Ninja(joueurs[i]); break;
-        case "MadZombie" : generaux[i] = new MadZombie(joueurs[i]); break;
-        case "MagicalGirl" : generaux[i] = new MagicalGirl(joueurs[i]); break;
+        case "Nosaure" : generaux[i] = new Nosaure(joueurs.get(i)); break;
+        case "Ninja" : generaux[i] = new Ninja(joueurs.get(i)); break;
+        case "MadZombie" : generaux[i] = new MadZombie(joueurs.get(i)); break;
+        case "MagicalGirl" : generaux[i] = new MagicalGirl(joueurs.get(i)); break;
         default : throw new SNHException();
       }
     return generaux;
@@ -344,7 +344,7 @@ public class Menu extends JFrame {
     int x = carteScannee.getColonnes();
 
     // On crée les joueurs
-    Joueur[] joueurs = creationJoueurs(recupererNoms(), x + 2, y + 2, recupererCouleur());
+    LinkedList<Joueur> joueurs = creationJoueurs(recupererNoms(), x + 2, y + 2, recupererCouleur());
     try {
       // On crée les généraux.
       General[] generaux = creationGeneraux(recupererGeneraux(), joueurs);
