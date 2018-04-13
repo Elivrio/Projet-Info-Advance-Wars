@@ -167,7 +167,6 @@ public class Vue extends JFrame {
   public void informations() {
     textInfos.setText("");
   }
-  // Tagada Tsoin Tsoin
 
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
