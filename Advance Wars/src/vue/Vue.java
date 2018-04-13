@@ -96,19 +96,24 @@ public class Vue extends JFrame {
   // ********************************************
 
   /**
-   * @param map [description]
+   * @param plateau Le Plateau qui définit le terrain.
    */
   public Vue (Plateau plateau) {
+    // La dimension de l'écran.
     Dimension dimensionEcran = Toolkit.getDefaultToolkit().getScreenSize();
     int largeurEcran = (int)dimensionEcran.getWidth();
     int hauteurEcran = (int)dimensionEcran.getHeight();
+
+    // On définit la taille de la fenêtre, son nom et la méthode de fermuture.
     setSize(largeurEcran, hauteurEcran);
     setTitle("Advance Wars");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    // La carte et la minimap que l'on affiche dans la vue.
     this.map = new PanelMap(plateau);
-    this.miniMap = new MiniMap(plateau, 35*hauteurEcran/100, 25*largeurEcran/100);
+    this.miniMap = new MiniMap(plateau, 35 * hauteurEcran / 100, 25 * largeurEcran / 100);
 
+    //
     GridLayout grid = new GridLayout(3, 4);
     panelChoixUnites = new JPanel(grid);
 
@@ -200,8 +205,8 @@ public class Vue extends JFrame {
 
 		try {
 			StyledDocument doc = textPane.getStyledDocument();
-			doc.insertString(doc.getLength(), titre+"\n\n", style_titre);
-			doc.insertString(doc.getLength(), infos+"\n", style_normal);
+			doc.insertString(doc.getLength(), titre + "\n\n", style_titre);
+			doc.insertString(doc.getLength(), infos + "\n", style_normal);
 		}
 		catch (BadLocationException e) {
 			e.printStackTrace();
@@ -223,9 +228,9 @@ public class Vue extends JFrame {
     if (unite.getDeplacement() != null)
       str += "\n" + unite.deplacement();
     str += "\nPoints de vie : " + unite.getPV() + "/" + unite.getPVMax();
-    str += "\nPortée : " + unite.getPortee() + ((unite.getPortee() > 1)?" cases." : "case.");
+    str += "\nPortée : " + unite.getPortee() + ((unite.getPortee() > 1) ? " cases." : " case.");
     if (map.getJoueur().possede(unite)) {
-      str += "\nChamps de vision : " + unite.getVision() + ((unite.getVision() > 1)? " cases." : " case.");
+      str += "\nChamps de vision : " + unite.getVision() + ((unite.getVision() > 1) ? " cases." : " case.");
     }
     afficher(textInfos, nom, str, couleur);
     if (map.getJoueur().possede(unite) && unite.getCombat() != null)
@@ -250,8 +255,8 @@ public class Vue extends JFrame {
     Joueur j = ville.getJoueur();
     Color couleur = ((j==null)?Color.WHITE:j.getColor());
     JButton button = null;
-    str += "Ville possédée par : " + ((j == null)?"personne." :(j.getNom() + "."));
-    afficher(textInfos, (vision == 0)? "Mystère absolu" : ville.getNom(), str, couleur);
+    str += "Ville possédée par : " + ((j == null) ? "personne." :(j.getNom() + "."));
+    afficher(textInfos, (vision == 0) ? "Mystère absolu" : ville.getNom(), str, couleur);
 
     ActionVille aL = new ActionVille(this, ville);
 
@@ -302,7 +307,7 @@ public class Vue extends JFrame {
 
   public void informations (Joueur joueur) {
     textJoueur.setText("");
-    String str = "" + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1)? " unités" : " unité");
+    String str = "" + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1) ? " unités" : " unité");
     str += "\n" + joueur.getArgent() + " €";
     if (joueur.getNbUnites() == 0)
       str += "\nSon général est mort ! Perdant du jeu.\n";
