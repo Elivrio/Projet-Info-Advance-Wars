@@ -166,7 +166,7 @@ public class Vue extends JFrame {
 
   public void informations() {
     textInfos.setText("");
-  }
+  } 
 
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
