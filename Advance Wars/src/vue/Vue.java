@@ -196,7 +196,7 @@ public class Vue extends JFrame {
   }
 
   public void informations (AbstractTerrain terrain, int vision) {
-    textInfos.setText("");
+    textInfos.setText(""); 
     String str = "";
     afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str, Color.WHITE);
   }
