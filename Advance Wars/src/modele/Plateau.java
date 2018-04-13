@@ -76,17 +76,13 @@ public class Plateau {
 
   public void initUnite (Joueur joueur, General general) {
     Random rand = new Random();
-    int x = 0;
-    while (x < 1) {
-      int i = rand.nextInt(hauteur-2);
-      int j = rand.nextInt(largeur-2);
-      if (unites[i+1][j+1] == null) {
-        general.setCase(j+1, i+1);
-        addUnite(general, joueur, false);
-        System.out.println(i + " " + j);
-        x++;
-      }
-    }
+    int i, j;
+    do {
+      i = rand.nextInt(hauteur-2);
+      j = rand.nextInt(largeur-2);
+    } while (unites[i+1][j+1] != null);
+    general.setCase(j+1, i+1);
+    addUnite(general, joueur, false);
   }
 
   public void addUnite (AbstractUnite unite, Joueur joueur, boolean b) {

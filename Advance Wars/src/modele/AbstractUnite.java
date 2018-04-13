@@ -170,6 +170,20 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   /**
+   * [setAnimDegats description]
+   * @param deg    [description]
+   * @param status [description]
+   */
+  public void setAnimDegats (int deg, int status) {
+    animDegats[0] = deg;
+    animDegats[1] = status;
+  }
+
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
+
+  /**
    * Décrit la méthode de combat de l'unité.
    * @return Renvoie une chaîne de caractère contenant une description de la méthode de combat de l'unité.
    */
@@ -201,16 +215,6 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     cible.setPV(-getDegats());
     cible.setAnimDegats(getDegats(),1);
     attaque = false;
-  }
-
-  /**
-   * [setAnimDegats description]
-   * @param deg    [description]
-   * @param status [description]
-   */
-  public void setAnimDegats (int deg, int status) {
-    animDegats[0] = deg;
-    animDegats[1] = status;
   }
 
   /**

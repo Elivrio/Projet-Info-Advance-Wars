@@ -87,9 +87,9 @@ public class MiniMap extends Map {
   public void resetPosJ() { posJ = 0.0; }
   public void reset() { posI = 0.0; posJ = 0.0; }
 
-  // *****************************************
-  // *************** Fonctions ***************
-  // *****************************************
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
 
   /**
    * La fonction qui va dessiner la minimap dans le JPanel.

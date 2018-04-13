@@ -21,7 +21,7 @@ public class MenuActionListener implements ActionListener {
     Object source = e.getSource();
     if (source == menu.getBoutonGo()) {
       try {
-        menu.lancerJeu(menu.recupererNoms(), menu.recupererGeneraux());
+        menu.lancerJeu();
         menu.dispose();
       } catch (Exception evt){
         evt.printStackTrace();
@@ -31,9 +31,9 @@ public class MenuActionListener implements ActionListener {
     }
     else if (source == menu.getChoixNbJoueurs())
       menu.afficherChoixNoms();
-    for (ComboColorChooser<MyColor> m : menu.getChoixCouleurs())
+    /*for (ComboColorChooser<MyColor> m : menu.getChoixCouleurs())
       if (source == m) {
         menu.estCouleurPossible(m.getSelectedItem());
-      }
+      }*/
   }
 }

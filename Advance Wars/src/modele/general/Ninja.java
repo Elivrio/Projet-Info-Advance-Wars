@@ -12,5 +12,9 @@ public class Ninja extends General {
     super("Ninja", 100, new CombatCouteau(), new DeplaceAPied(), 5, 5, 100, new Terrestre(), j, x, y, 2);
   }
 
+  public Ninja(Joueur j) {
+    this(j, 0, 0);
+  }
+
   public void bonusPersonel() {}
 }
