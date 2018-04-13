@@ -96,6 +96,10 @@ public class Joueur {
           }
   }
 
+  /**
+   * On vérifie si le joueur a perdu son général.
+   * @return On retourne un booléen (true si le général est mort, false sinon).
+   */
   public boolean generalMort() {
     return (unites.size() == 0 || (unites.size() != 0 && !(unites.get(0) instanceof General)));
   }

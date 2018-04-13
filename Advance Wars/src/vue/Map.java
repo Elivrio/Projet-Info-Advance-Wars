@@ -11,7 +11,7 @@ import src.modele.AbstractUnite;
 import src.modele.AbstractTerrain;
 import src.modele.terrain.AbstractVille;
 
-// Les classes PanelMap et Minimap ayant beaucoup de variable en commun, nous avons préféré créer
+// Les classes PanelMap et Minimap ayant beaucoup de variables en commun, nous avons préféré créer
 // cette classe mère qui permet de regrouper les variables et les fonctions communes.
 
 @SuppressWarnings("serial")
@@ -24,7 +24,7 @@ abstract public class Map extends JPanel {
   // Le Plateau de jeu
   protected Plateau plateau;
 
-  // Permet de définir la place occuper par la carte sur la fenêtre.
+  // Permet de définir la place occupée par la carte sur la fenêtre.
   protected int hauteur, largeur;
 
   // Permet de se déplacer dans le tableau de terrain afin d'afficher les bonnes cases.
@@ -37,7 +37,7 @@ abstract public class Map extends JPanel {
   // (et surtout sur les bords invisibles).
   protected double hautMax, largMax;
 
-  // Contient la taille des cases qui s'afficheront sur le plateau sur la map créée.
+  // Contient la taille des cases qui s'afficheront sur la map créée.
   protected int taillePixel;
 
   // La liste de Joueur.
@@ -67,7 +67,7 @@ abstract public class Map extends JPanel {
   // ********************************************
 
   /**
-   * @param plateau Le plateau de jeu
+   * @param plateau Le plateau de jeu.
    * @param jeu     Le jeu dans lequel on joue.
    */
   public Map (Plateau plateau) {
@@ -121,8 +121,8 @@ abstract public class Map extends JPanel {
   // remettre à zéro les valeurs posI et posJ;
 
   /**
-   * Définie la position dans le tableau de terrain sur l'axe des ordonnées
-   * et remet la position relative nécessaire au déplacement continue sur l'axe des ordonnées à zéro.
+   * Définit la position dans le tableau de terrain sur l'axe des ordonnées
+   * et remet la position relative nécessaire au déplacement continu sur l'axe des ordonnées à zéro.
    * @param tI Le déplacement que l'on va faire dans le tableau.
    */
   public void setTabI (int tI) {
@@ -131,8 +131,8 @@ abstract public class Map extends JPanel {
   }
 
   /**
-   * Définie la position dans le tableau de terrain sur l'axe des abscisses
-   * et remet la position relative nécessaire au déplacement continue sur l'axe des abscisses à zéro.
+   * Définit la position dans le tableau de terrain sur l'axe des abscisses
+   * et remet la position relative nécessaire au déplacement continu sur l'axe des abscisses à zéro.
    * @param tJ Le déplacement que l'on va faire dans le tableau.
    */
   public void setTabJ (int tJ) {
@@ -142,7 +142,7 @@ abstract public class Map extends JPanel {
 
   /**
    * Permet de se déplacer dans le tableau de terrain et remet la position relative
-   * nécessaire au déplacement continue sur l'axe des ordonnées à zéro.
+   * nécessaire au déplacement continu sur l'axe des ordonnées à zéro.
    * @param tI Le déplacement que l'on va faire dans le tableau.
    */
   public void addTabI (int tI) {
@@ -152,7 +152,7 @@ abstract public class Map extends JPanel {
 
   /**
    * Permet de se déplacer dans le tableau de terrain et remet la position relative
-   * nécessaire au déplacement continue sur l'axe des abscisses à zéro.
+   * nécessaire au déplacement continu sur l'axe des abscisses à zéro.
    * @param tJ Le déplacement que l'on va effectuer.
    */
   public void addTabJ (int tJ) {
@@ -174,6 +174,7 @@ abstract public class Map extends JPanel {
    * @param i Le nombre d'éléments que l'on saute dans la liste de joueurs.
    */
   public void setJoueur (int i) {
+    // On met à jour la liste des joueurs (en cas de joueur mort entre temps).
     joueurs = plateau.getJoueurs();
     // On redonne la possibilité à toutes les unités de faire des actions.
     joueur.reset();

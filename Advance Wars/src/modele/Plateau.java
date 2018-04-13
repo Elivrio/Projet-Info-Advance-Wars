@@ -115,7 +115,8 @@ public class Plateau {
    * On vérifie la mort de l'unité cible. Si cette unité est morte,
    * le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
    * @param attaquant L'unité qui attaque.
-   * @param cible     L'unité attaqué.
+   * @param cible     L'unité attaquée.
+   * @return          On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
    */
   public int mort (AbstractUnite attaquant, AbstractUnite cible) {
     // Si la cible est morte,
@@ -134,12 +135,20 @@ public class Plateau {
     return 0;
   }
 
+  /**
+   * On gère la mort d'un joueur.
+   * @param  joueurMort Le joueur qui est mort.
+   * @return            On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
+   */
   public int mortJoueur (Joueur joueurMort) {
     int i = 0;
+    // On cherche le joueur mort dans la liste des joueurs,
     while (i < joueurs.size() && joueurs.get(i) != joueurMort)
       i++;
+    // On le supprime de la liste.
     if (joueurs.get(i) == joueurMort) {
       joueurs.remove(i);
+      // S'il ne reste qu'un joueur en jeu, on renvoie la valeur 1.
       if (joueurs.size() == 1)
         return 2;
       else

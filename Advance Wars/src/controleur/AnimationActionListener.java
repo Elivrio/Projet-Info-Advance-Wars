@@ -7,12 +7,28 @@ import src.vue.Vue;
 
 public class AnimationActionListener implements ActionListener {
 
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
+
+  // La vue du jeu.
   private Vue vue;
 
-  public AnimationActionListener (Vue v) {
-    vue = v;
+  /**
+   * @param vue La vue du jeu.
+   */
+  public AnimationActionListener (Vue vue) {
+    this.vue = vue;
   }
 
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
+
+  /**
+   * Est appelée en continu par le timer.
+   * @param e L'action donnée par Java.
+   */
   public void actionPerformed (ActionEvent e) {
     vue.animationStatus(!vue.getAnimationStatus());
     vue.repaint();

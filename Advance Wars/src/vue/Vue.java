@@ -319,11 +319,20 @@ public class Vue extends JFrame {
     this.informations(map.getJoueur());
   }
 
+  /**
+   * Met à jour les informations lors d'un combat.
+   * @param attaquant L'unité qui attaque.
+   * @param cible     L'unité qui est attaquée.
+   * @param degats    Le nombre de points de dégâts infligés.
+   */
   public void informationsCombat (AbstractUnite attaquant, AbstractUnite cible, int degats) {
 
+    // On vérifie si un joueur est mort,
     int n = map.getPlateau().mort(attaquant, cible);
+    // Si un joueur est mort, on affiche un pop-up le signalant.
     if (n == 1 || n == 2)
       popUpMort(cible.getJoueur());
+    // S'il ne reste qu'un joueur en jeu, on gère la fin du jeu.
     if (n == 2)
       popUpFinPartie();
 
@@ -342,15 +351,22 @@ public class Vue extends JFrame {
     // On vérifie si les villes sur la carte change de propriétaire.
     map.getPlateau().villesPrises();
 
-    // On change de joueur et on met la vue à jour
+    // On change de joueur et on met la vue à jour.
     this.nouveauTour();
   }
 
+  /**
+   * Affichage d'un pop-up annonçant la mort d'un joueur.
+   * @param joueurMort Le joueur qui vient de mourir.
+   */
   public void popUpMort (Joueur joueurMort) {
     String str = "Le joueur " + joueurMort.getNom() + " a perdu la partie.";
     JOptionPane.showMessageDialog(null, str, "Joueur mort", JOptionPane.INFORMATION_MESSAGE);
   }
 
+  /**
+   * Affichage d'un pop-up annonçant la fin de la partie.
+   */
   public void popUpFinPartie() {
     String str = "Bravo ! Vous avez gagné la partie.";
     JOptionPane.showMessageDialog(null, str, "Partie terminée", JOptionPane.INFORMATION_MESSAGE);
