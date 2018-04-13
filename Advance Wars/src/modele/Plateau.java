@@ -3,6 +3,7 @@ package src.modele;
 import java.util.Random;
 import java.util.LinkedList;
 
+import src.vue.Vue;
 import src.modele.terrain.Eau;
 import src.modele.terrain.Port;
 import src.modele.terrain.Foret;
@@ -18,14 +19,14 @@ import src.modele.terrain.AbstractVille;
 
 
 public class Plateau {
-  private Joueur[] joueurs;
   private int largeur, hauteur;
   private AbstractUnite[][] unites;
+  private LinkedList<Joueur> joueurs;
   private AbstractTerrain[][] terrain;
   private LinkedList<AbstractVille> villes;
 
 
-  public Plateau(int[][][] carte, int[][][] armees, General[] generaux, Joueur[] jou) throws Exception {
+  public Plateau(int[][][] carte, int[][][] armees, General[] generaux, LinkedList<Joueur> jou) throws Exception {
     hauteur = carte.length;
     largeur = carte[0].length;
     terrain = new AbstractTerrain[hauteur][largeur];
@@ -70,8 +71,8 @@ public class Plateau {
 
   public void initJoueurs (General[] generaux) {
     for (int i = 0; i < generaux.length; i++) {
-      joueurs[i] = generaux[i].getJoueur();
-      initUnite(joueurs[i], generaux[i]);
+      joueurs.set(i, generaux[i].getJoueur());
+      initUnite(joueurs.get(i), generaux[i]);
     }
   }
 
@@ -97,7 +98,7 @@ public class Plateau {
   public int getLargeur() { return largeur; }
   public AbstractUnite[][] getUnites() { return unites; }
   public AbstractTerrain[][] getTerrain() { return terrain; }
-  public Joueur[] getJoueurs() { return joueurs; }
+  public LinkedList<Joueur> getJoueurs() { return joueurs; }
   public LinkedList<AbstractVille> getVilles() { return villes; }
 
   public void rmvUnite (AbstractUnite u) {
@@ -114,18 +115,46 @@ public class Plateau {
    * On vérifie la mort de l'unité cible. Si cette unité est morte,
    * le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
    * @param attaquant L'unité qui attaque.
-   * @param cible     L'unité attaqué.
+   * @param cible     L'unité attaquée.
+   * @return          On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
    */
-  public void mort (AbstractUnite attaquant, AbstractUnite cible) {
+  public int mort (AbstractUnite attaquant, AbstractUnite cible) {
     // Si la cible est morte,
     if (cible.getPV() <= 0) {
+      Joueur joueurCible = cible.getJoueur();
       // On retire du plateau et du Joueur qui le contrôle.
-      cible.getJoueur().remove(cible);
+      joueurCible.remove(cible);
       this.rmvUnite(cible);
 
       // On augmente l'argent du joueur qui contrôle l'unité.
       attaquant.getJoueur().setArgent(cible.getGainMort());
+
+      if (joueurCible.generalMort())
+        return mortJoueur(joueurCible);
     }
+    return 0;
+  }
+
+  /**
+   * On gère la mort d'un joueur.
+   * @param  joueurMort Le joueur qui est mort.
+   * @return            On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
+   */
+  public int mortJoueur (Joueur joueurMort) {
+    int i = 0;
+    // On cherche le joueur mort dans la liste des joueurs,
+    while (i < joueurs.size() && joueurs.get(i) != joueurMort)
+      i++;
+    // On le supprime de la liste.
+    if (joueurs.get(i) == joueurMort) {
+      joueurs.remove(i);
+      // S'il ne reste qu'un joueur en jeu, on renvoie la valeur 1.
+      if (joueurs.size() == 1)
+        return 2;
+      else
+        return 1;
+    }
+    return 0;
   }
 
   /**

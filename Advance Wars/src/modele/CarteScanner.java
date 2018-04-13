@@ -2,6 +2,7 @@ package src.modele;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.LinkedList;
 
 import src.modele.general.General;
 
@@ -67,7 +68,7 @@ public class CarteScanner {
     return tableau;
   }
 
-  public Plateau plateau(Joueur[] joueurs, General[] generaux, int lignes, int colonnes) {
+  public Plateau plateau(LinkedList<Joueur> joueurs, General[] generaux, int lignes, int colonnes) {
     // construit un plateau à partir de la carte texte
     // getLignes et getColonnes sont maintenant utilisées dans Menu.lancerJeu (obligatoire avant d'utiliser plateau)
     int joueur = getJoueurs();

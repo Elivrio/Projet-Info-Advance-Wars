@@ -14,8 +14,17 @@ import src.modele.terrain.AbstractVille;
 
 public class ControleurMouse extends Controleur implements MouseMotionListener, MouseListener {
 
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
+
+  // Booléen permettant de savoir si on se déplace.
   protected boolean deplacement;
-  protected int [][] chemin;
+
+  // Patate.
+  protected int[][] chemin;
+
+  // Patate.
   protected int distance;
 
   public ControleurMouse (Vue v) {
@@ -24,6 +33,10 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     distance = 0;
     chemin = null;
   }
+
+  // ***************************************
+  // *************** Getters ***************
+  // ***************************************
 
   //calcul de la case cliquée
   public int getI (MouseEvent me, int taillePixel) {
@@ -36,6 +49,9 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     return x/taillePixel;
   }
 
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
 
   // Fonction appelée lorsqu'on clique sur une case du plateau
   @Override
@@ -64,12 +80,12 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
         && (j < map.getTerrain()[0].length)) {
           if (!map.getAttaque() && unite == null){
               if (cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
-                for(int k=0; k<chemin.length; k++){
+                for (int k = 0; k < chemin.length; k++){
                     int x = chemin[k][0];
                     int y = chemin[k][1];
-                    if ( k>=1 && map.getPlateau().getUnites()[x][y] != null)
+                    if (k >= 1 && map.getPlateau().getUnites()[x][y] != null)
                       break;
-                    if (x!=0 && y!=0) {
+                    if (x != 0 && y != 0) {
                       map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), y, x);
                       cliquee.setDeplace(Math.abs((y) - cliquee.getX()) + Math.abs((x) - cliquee.getY()));
                       cliquee.setCase(y, x);
@@ -108,12 +124,12 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   }
 
   // creation de la taille possible du chemin
-  public void chemin(AbstractUnite cliquee) {
+  public void chemin (AbstractUnite cliquee) {
     if (cliquee != null) {
       int tailleChemin = cliquee.getDistance();
       chemin = new int[tailleChemin+1][2];
     }
-    else if(chemin == null) {
+    else if (chemin == null) {
       chemin = new int[1][2];
       chemin[0][0] = 0;
       chemin[0][1] = 0;
@@ -156,7 +172,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
       int i = getI(me, taillePixel);
       int j = getJ(me, taillePixel);
 
-      // si on a pas encore commencer le deplacement
+      // si on a pas encore commencé le deplacement
       if (chemin[0][0] == 0 && chemin[0][1] == 0) {
         chemin[0][0] = i;
         chemin[0][1] = j;

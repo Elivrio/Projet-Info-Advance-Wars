@@ -2,6 +2,7 @@ package src.vue;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.Timer;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -13,11 +14,11 @@ import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import javax.swing.JSplitPane;
+import javax.swing.JOptionPane;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.Timer;
 
 import src.vue.MiniMap;
 import src.vue.PanelMap;
@@ -230,7 +231,7 @@ public class Vue extends JFrame {
     str += "\nPoints de vie : " + unite.getPV() + "/" + unite.getPVMax();
     str += "\nPortée : " + unite.getPortee() + ((unite.getPortee() > 1) ? " cases." : " case.");
     if (map.getJoueur().possede(unite)) {
-      str += "\nChamps de vision : " + unite.getVision() + ((unite.getVision() > 1) ? " cases." : " case.");
+      str += "\nChamp de vision : " + unite.getVision() + ((unite.getVision() > 1) ? " cases." : " case.");
     }
     afficher(textInfos, nom, str, couleur);
     if (map.getJoueur().possede(unite) && unite.getCombat() != null)
@@ -316,15 +317,30 @@ public class Vue extends JFrame {
     textJoueur.insertComponent(boutonJoueur);
   }
 
-  public void newTurn() {
-    map.newTurn();
-    miniMap.newTurn();
+  public void nouveauTour() {
+    map.nouveauTour();
+    miniMap.nouveauTour();
     this.informations();
     this.informations(map.getJoueur());
   }
 
+  /**
+   * Met à jour les informations lors d'un combat.
+   * @param attaquant L'unité qui attaque.
+   * @param cible     L'unité qui est attaquée.
+   * @param degats    Le nombre de points de dégâts infligés.
+   */
   public void informationsCombat (AbstractUnite attaquant, AbstractUnite cible, int degats) {
-    map.getPlateau().mort(attaquant, cible);
+
+    // On vérifie si un joueur est mort,
+    int n = map.getPlateau().mort(attaquant, cible);
+    // Si un joueur est mort, on affiche un pop-up le signalant.
+    if (n == 1 || n == 2)
+      popUpMort(cible.getJoueur());
+    // S'il ne reste qu'un joueur en jeu, on gère la fin du jeu.
+    if (n == 2)
+      popUpFinPartie();
+
     if (cible.getPV() <= 0) {
       // On met à jour les informations du joueur qui vient de tuer une unité.
       this.informations(map.getJoueur());
@@ -340,8 +356,27 @@ public class Vue extends JFrame {
     // On vérifie si les villes sur la carte change de propriétaire.
     map.getPlateau().villesPrises();
 
-    // On change de joueur et on met la vue à jour
-    this.newTurn();
+    // On change de joueur et on met la vue à jour.
+    this.nouveauTour();
+  }
+
+  /**
+   * Affichage d'un pop-up annonçant la mort d'un joueur.
+   * @param joueurMort Le joueur qui vient de mourir.
+   */
+  public void popUpMort (Joueur joueurMort) {
+    String str = "Le joueur " + joueurMort.getNom() + " a perdu la partie.";
+    JOptionPane.showMessageDialog(null, str, "Joueur mort", JOptionPane.INFORMATION_MESSAGE);
+  }
+
+  /**
+   * Affichage d'un pop-up annonçant la fin de la partie.
+   */
+  public void popUpFinPartie() {
+    String str = "Bravo ! Vous avez gagné la partie.";
+    JOptionPane.showMessageDialog(null, str, "Partie terminée", JOptionPane.INFORMATION_MESSAGE);
+    //dispose();
+    System.exit(0);
   }
 
 }

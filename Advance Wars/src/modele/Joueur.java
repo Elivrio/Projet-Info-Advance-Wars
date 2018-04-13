@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.util.LinkedList;
 
 import src.variable.MyColor;
-import src.modele.AbstractUnite;
-import src.modele.terrain.AbstractVille;
 import src.modele.terrain.Foret;
+import src.modele.AbstractUnite;
+import src.modele.general.General;
 import src.modele.terrain.Montagne;
+import src.modele.terrain.AbstractVille;
 
 public class Joueur {
   /*
@@ -93,5 +94,13 @@ public class Joueur {
                 || terrain[y][x] instanceof Montagne))
                 vision(indice+1, unite, x+j, y+i, terrain, n);
           }
+  }
+
+  /**
+   * On vérifie si le joueur a perdu son général.
+   * @return On retourne un booléen (true si le général est mort, false sinon).
+   */
+  public boolean generalMort() {
+    return (unites.size() == 0 || (unites.size() != 0 && !(unites.get(0) instanceof General)));
   }
 }

@@ -9,18 +9,28 @@ import src.variable.Variable;
 
 public class ControleurMouseMotion extends Controleur implements MouseMotionListener {
 
-  public ControleurMouseMotion(Vue v) {
-    super(v);
+  /**
+   * @param vue La vue du jeu.
+   */
+  public ControleurMouseMotion (Vue vue) {
+    super(vue);
   }
 
-  // Fonction appelée lorsqu'on déplace le curseur sur la fenêtre
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
+
+  /**
+   * Fonction appelée lorsqu'on déplace le curseur sur la fenêtre
+   * @param me Mouvement de la souris transformé en variable par Java.
+   */
   @Override
-  public void mouseMoved(MouseEvent me) {
-    // On récupère la taille actuelle de la fenêtre pour utiliser la position du curseur en pourcentage
+  public void mouseMoved (MouseEvent me) {
+    // On récupère la taille actuelle de la map pour utiliser la position du curseur en pourcentage
     // La position en pourcentage est utile dans le cas où on a modifié la taille de la fenêtre
     int sizeY = map.getHeight();
     int sizeX = map.getWidth();
-    // Si on place le curseur à 5% du bord de la fenêtre, la caméra se déplace dans ce sens
+    // Si on place le curseur à 5% d'un bord de la map, la caméra se déplace dans ce sens
     if (me.getX() >= (95*sizeX/100) && move('d')) {
       map.addPosJ(dep);
       miniMap.addPosJ(-dep2);
@@ -39,6 +49,7 @@ public class ControleurMouseMotion extends Controleur implements MouseMotionList
     }
   }
 
+  // Fonction de l'interface non utilisée.
   @Override
   public void mouseDragged(MouseEvent me) {}
 
