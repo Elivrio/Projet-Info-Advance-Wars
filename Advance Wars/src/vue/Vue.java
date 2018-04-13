@@ -166,7 +166,8 @@ public class Vue extends JFrame {
 
   public void informations() {
     textInfos.setText("");
-  } 
+  }
+  // Tagada
 
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
