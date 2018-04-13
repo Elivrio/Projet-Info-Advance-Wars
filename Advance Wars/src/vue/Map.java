@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.util.LinkedList;
 
-import src.vue.Jeu;
 import src.modele.Joueur;
 import src.modele.Plateau;
 import src.modele.AbstractUnite;
@@ -50,9 +49,6 @@ abstract public class Map extends JPanel {
   // L'indice du joueur dans le tableau de Joueur.
   protected int indiceJoueur;
 
-  // Le jeu auquel on joue.
-  protected Jeu jeu;
-
   // **************************************************
   // *************** Variable de Classe ***************
   // **************************************************
@@ -74,9 +70,8 @@ abstract public class Map extends JPanel {
    * @param plateau Le plateau de jeu
    * @param jeu     Le jeu dans lequel on joue.
    */
-  public Map (Plateau plateau, Jeu jeu) {
+  public Map (Plateau plateau) {
     this.plateau = plateau;
-    this.jeu = jeu;
     joueurs = plateau.getJoueurs();
     indiceJoueur = 0;
     joueur = joueurs[0];
@@ -107,8 +102,6 @@ abstract public class Map extends JPanel {
   public AbstractTerrain[][] getTerrain() { return plateau.getTerrain(); }
 
   public AbstractUnite[][] getUnites() { return plateau.getUnites(); }
-
-  public Jeu getJeu() { return jeu; }
 
   public Joueur getJoueur() { return joueur; }
   public Joueur[] getJoueurs() { return joueurs; }

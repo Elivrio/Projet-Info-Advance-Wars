@@ -1,6 +1,5 @@
 package src.controleur;
 
-import src.vue.Jeu;
 import src.vue.Vue;
 import src.vue.MiniMap;
 import src.vue.PanelMap;
@@ -9,7 +8,6 @@ import src.variable.Variable;
 public class Controleur {
 
   protected Vue vue;
-  protected Jeu jeu;
   protected double dep2;
   protected PanelMap map;
   protected MiniMap miniMap;
@@ -18,7 +16,6 @@ public class Controleur {
   public Controleur (Vue v) {
     vue = v;
     map = vue.getMap();
-    jeu = map.getJeu();
     miniMap = vue.getMiniMap();
     dep2 = miniMap.getTaillePixel() / 10.0;
   }

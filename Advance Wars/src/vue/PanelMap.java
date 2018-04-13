@@ -48,8 +48,8 @@ public class PanelMap extends Map {
    * @param plateau   Le Plateau de jeu qui va être dessiné durant la partie.
    * @param jeu       Le Jeu.
    */
-  public PanelMap (Plateau plateau, Jeu jeu) {
-    super(plateau, jeu);
+  public PanelMap (Plateau plateau) {
+    super(plateau);
     setFocusable(true);
     requestFocusInWindow(true);
     taillePixel = 100;
@@ -177,11 +177,6 @@ public class PanelMap extends Map {
           if (cliquee.getAttaque() && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
     }
-
-    // On encadre le terrain en noir (purement esthétique).
-    g.setColor(Color.BLACK);
-    g.drawRect((x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, taillePixel, taillePixel);
-
 
     // On dessine l'unité si elle est présente.
     if (unite != null && joueur.getVision()[y + tabI - 1][x + tabJ - 1] == 2) {

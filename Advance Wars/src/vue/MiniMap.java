@@ -39,8 +39,8 @@ public class MiniMap extends Map {
    * @param h       La hauteur que va avoir la minimap dans la vue.
    * @param l       La largeur que va avoir la minimap dans la vue.
    */
-  public MiniMap (Plateau plateau, Jeu jeu,  int h, int l) {
-    super(plateau, jeu);
+  public MiniMap (Plateau plateau,  int h, int l) {
+    super(plateau);
     hauteur = h;
     largeur = l;
     taillePixel = largeur/(plateau.getLargeur()+3);

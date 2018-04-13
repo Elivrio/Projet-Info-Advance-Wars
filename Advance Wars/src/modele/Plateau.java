@@ -7,6 +7,7 @@ import src.modele.terrain.Eau;
 import src.modele.terrain.Port;
 import src.modele.terrain.Foret;
 import src.modele.terrain.Usine;
+import src.modele.AbstractUnite;
 import src.variable.SNHException;
 import src.modele.terrain.Plaine;
 import src.modele.general.General;
@@ -108,6 +109,42 @@ public class Plateau {
     unites[ancienY][ancienX] = null;
     unites[y][x] = u;
   }
+
+  /**
+   * On vérifie la mort de l'unité cible. Si cette unité est morte,
+   * le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
+   * @param attaquant L'unité qui attaque.
+   * @param cible     L'unité attaqué.
+   */
+  public void mort (AbstractUnite attaquant, AbstractUnite cible) {
+    // Si la cible est morte,
+    if (cible.getPV() <= 0) {
+      // On retire du plateau et du Joueur qui le contrôle.
+      cible.getJoueur().remove(cible);
+      this.rmvUnite(cible);
+
+      // On augmente l'argent du joueur qui contrôle l'unité.
+      attaquant.getJoueur().setArgent(cible.getGainMort());
+    }
+  }
+
+  /**
+   * Vérifie si des villes sont en prises par des joueurs et change la possession des villes si nécessaire.
+   */
+  public void villesPrises () {
+    // On prend les villes une par une.
+    for (int i = 0; i < villes.size(); i++) {
+      AbstractVille ville = villes.get(i);
+
+      // On regarde l'unité sur la case de la ville.
+      AbstractUnite unite = unites[ville.getY()][ville.getX()];
+
+      // Si l'unité n'est pas nulle, on change le propriétaire de la ville.
+      if (unite != null)
+        ville.setJoueur(unite.getJoueur());
+    }
+  }
+
 
   public void debug() {
     for (int i = 0; i < terrain.length; i++ ){
