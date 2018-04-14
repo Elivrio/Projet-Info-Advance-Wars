@@ -33,9 +33,9 @@ public abstract class AbstractTerrain {
 
   public String getNom() { return nom; }
 
-  // *****************************************
-  // *************** Fonctions ***************
-  // *****************************************
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
 
   /**
    * Permet d'afficher l'objet sous forme d'une chaîne de caratère.

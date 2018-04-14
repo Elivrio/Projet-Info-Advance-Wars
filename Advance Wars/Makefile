@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := allRun
 NAME = 'Advance.jar'
-PATHMAIN = 'src/vue/Menu.java'
-PATHMANIFEST = 'src.vue.Menu'
+PATHMAIN = 'src/Main.java'
+PATHMANIFEST = 'src.Main'
 MANIFEST = 'MANIFEST.MF'
 BINFOLDER = 'bin/'
 

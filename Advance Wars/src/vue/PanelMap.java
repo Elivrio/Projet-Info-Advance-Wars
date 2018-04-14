@@ -22,9 +22,9 @@ import src.modele.terrain.AbstractVille;
 @SuppressWarnings("serial")
 public class PanelMap extends Map {
 
-  // ***************************************************
-  // *************** Variable d'instance ***************
-  // ***************************************************
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
 
   // Contient l'unité cliquée en ce moment.
   private AbstractUnite cliquee;
@@ -33,7 +33,7 @@ public class PanelMap extends Map {
   // ou la distance d'attaque de l'unité.
   private boolean attaque;
 
-  // Permet de stocker en mémoire la position sur l'écran afin de faire du déplacement en continue.
+  // Permet de stocker en mémoire la position sur l'écran afin de faire du déplacement en continu.
   // Ces valeurs sont comprises entre -taillePixel et taillePixel
   protected int posI, posJ;
 
@@ -48,8 +48,8 @@ public class PanelMap extends Map {
    * @param plateau   Le Plateau de jeu qui va être dessiné durant la partie.
    * @param jeu       Le Jeu.
    */
-  public PanelMap (Plateau plateau, Jeu jeu) {
-    super(plateau, jeu);
+  public PanelMap (Plateau plateau) {
+    super(plateau);
     setFocusable(true);
     requestFocusInWindow(true);
     taillePixel = 100;
@@ -111,9 +111,9 @@ public class PanelMap extends Map {
   public void rmvUnite (AbstractUnite u) { plateau.rmvUnite(u); }
 
 
-  // *****************************************
-  // *************** Fonctions ***************
-  // *****************************************
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
 
   @Override
   /**
@@ -133,7 +133,7 @@ public class PanelMap extends Map {
         AbstractUnite unite = plateau.getUnites()[i + tabI - 1][j + tabJ - 1];
         // Le type du terrain.
         int t = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
-        // La fonction qui permet d'afficher la case et tous ses composents.
+        // La fonction qui permet d'afficher la case et tous ses composants.
         dessineCase(g, t, j, i, unite);
       }
   }
@@ -143,8 +143,8 @@ public class PanelMap extends Map {
    * Elle dessine le terrain, le brouillard de guerre, les unités, l'interface de Gameplay, etc.
    * @param g     Le contenu Graphics donné par Java.
    * @param type  Le type de terrain sur lequel on se trouve (plaine, etc.).
-   * @param x     La position dans le tableau en abscisses.
-   * @param y     La position dans le tableau en ordonnées.
+   * @param x     La position dans le tableau en abscisse.
+   * @param y     La position dans le tableau en ordonnée.
    * @param unite L'unité qui se trouve sur la case (peut valoir 'null').
    */
   //
@@ -158,7 +158,7 @@ public class PanelMap extends Map {
       case 0 :
         g.drawImage(Variable.noir, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
-      // Si la case a été visité mais se trouve dans le brouillard de guerre.
+      // Si la case a été visitée mais se trouve dans le brouillard de guerre.
       case 1 :
         g.drawImage(Variable.gris, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
@@ -177,11 +177,6 @@ public class PanelMap extends Map {
           if (cliquee.getAttaque() && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
     }
-
-    // On encadre le terrain en noir (purement esthétique).
-    g.setColor(Color.BLACK);
-    g.drawRect((x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, taillePixel, taillePixel);
-
 
     // On dessine l'unité si elle est présente.
     if (unite != null && joueur.getVision()[y + tabI - 1][x + tabJ - 1] == 2) {
@@ -233,28 +228,27 @@ public class PanelMap extends Map {
         // Une unité.
         g.drawImage(uni, (x * taillePixel) - posJ - 70, (y * taillePixel) - posI - 70, this);
       }
-        // on dessine les dégats si il y en a eu
-      if (unite.getAnimDegats() != 0) { // on dessine les dégats reçus si il y a eu une attaque
-        BufferedImage deg;
-        deg = Variable.tImDegats[unite.getAnimDegats()];
-        if (unite.getAnimDegats()%5 < 3) // pour faire défiler les 4 images de l'animation dégats
+        // On dessine les dégats si il y en a eu.
+      if (unite.getAnimDegats() != 0) { // On dessine les dégats reçus si il y a eu une attaque.
+        BufferedImage deg = Variable.tImDegats[unite.getAnimDegats()];
+        if (unite.getAnimDegats() % 5 < 3) // Pour faire défiler les 4 images de l'animation dégats.
           unite.setAnimDegats(unite.getAnimDegats() + 1);
         else
-          unite.setAnimDegats(0); // retour à pas d'animation
-        g.drawImage(deg, (x*taillePixel) - posJ - 90, (y*taillePixel) - posI - 80, this);
+          unite.setAnimDegats(0); // Retour à pas d'animation.
+        g.drawImage(deg, (x * taillePixel) - posJ - 90, (y * taillePixel) - posI - 80, this);
       }
     }
   }
 
   /**
-   * Fonction utilitaire pour créer des rectangles ou des ovales de couleur "color" entourés de bordure noirs.
-   * La String form permet de définir si la forme choisie est un rectangle ou un oval.
+   * Fonction utilitaire pour créer des rectangles ou des ovales de couleur "color" entourés de bordure noir.
+   * La String form permet de définir si la forme choisie est un rectangle ou un ovale.
    * @param g      Le contenu Graphics donné par Java.
-   * @param form   Une variable statique qui donne la défini s'il s'agit d'un rond ou d'un rectangle.
-   * @param x      La position dans le tableau en abscisses.
-   * @param y      La position dans le tableau en ordonnées.
-   * @param modX   Les modifications locales que l'on effectue sur la position en abscisses (position relative par exemple).
-   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnées (position relative par exemple).
+   * @param form   Une variable statique qui définit s'il s'agit d'un rond ou d'un rectangle.
+   * @param x      La position dans le tableau en abscisse.
+   * @param y      La position dans le tableau en ordonnée.
+   * @param modX   Les modifications locales que l'on effectue sur la position en abscisse (position relative par exemple).
+   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnée (position relative par exemple).
    * @param width  La largeur de la forme que l'on souhaite créer.
    * @param height La hauteur de la forme que l'on souhaite créer.
    * @param color  La couleur de la forme que l'on souhaite créer.
@@ -275,11 +269,11 @@ public class PanelMap extends Map {
   /**
    * Permet de dessiner une forme de base sur le Graphics donné.
    * @param g      Le contenu Graphics donné par Java.
-   * @param form   Une variable statique qui donne la défini s'il s'agit d'un rond ou d'un rectangle.
-   * @param x      La position dans le tableau en abscisses.
-   * @param y      La position dans le tableau en ordonnées.
-   * @param modX   Les modifications locales que l'on effectue sur la position en abscisses (position relative par exemple).
-   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnées (position relative par exemple).
+   * @param form   Une variable statique qui définit s'il s'agit d'un rond ou d'un rectangle.
+   * @param x      La position dans le tableau en abscisse.
+   * @param y      La position dans le tableau en ordonnée.
+   * @param modX   Les modifications locales que l'on effectue sur la position en abscisse (position relative par exemple).
+   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnée (position relative par exemple).
    * @param width  La largeur de la forme que l'on souhaite créer.
    * @param height La hauteur de la forme que l'on souhaite créer.
    * @param color  La couleur de la forme que l'on souhaite créer.
@@ -298,11 +292,11 @@ public class PanelMap extends Map {
    * Utile pour la barre de points de vie, la première largeur représente les contours noirs.
    * La deuxième représente la forme que l'on souhaite créer de la couleur souhaitée.
    * @param g           Le contenu Graphics donné par Java.
-   * @param form        Une variable statique qui donne la défini s'il s'agit d'un rond ou d'un rectangle.
-   * @param x           La position dans le tableau en abscisses.
-   * @param y           La position dans le tableau en ordonnées.
-   * @param modX        Les modifications locales que l'on effectue sur la position en abscisses (position relative par exemple).
-   * @param modY        Les modifications locales que l'on effectue sur la position en ordonnées (position relative par exemple).
+   * @param form        Une variable statique qui définit s'il s'agit d'un rond ou d'un rectangle.
+   * @param x           La position dans le tableau en abscisse.
+   * @param y           La position dans le tableau en ordonnée.
+   * @param modX        Les modifications locales que l'on effectue sur la position en abscisse (position relative par exemple).
+   * @param modY        Les modifications locales que l'on effectue sur la position en ordonnée (position relative par exemple).
    * @param width       La largeur de la bordure qui entoure la forme que l'on souhaite créer.
    * @param secondWidth La largeur de la forme que l'on souhaite créer.
    * @param height      La hauteur de la forme que l'on souhaite créer.
@@ -325,8 +319,8 @@ public class PanelMap extends Map {
    * Permet d'obtenir l'image adaptée en fonction du terrain et des cases adjcentes.
    * @param g    Le contenu Graphics donné par Java.
    * @param type le type du terrain considéré.
-   * @param x    La position dans le tableau en abscisses.
-   * @param y    La position dans le tableau en ordonnées.
+   * @param x    La position dans le tableau en abscisse.
+   * @param y    La position dans le tableau en ordonnée.
    */
   public void chemin (Graphics g, int type, int x, int y) {
     // les différentes variables de la fonction.
@@ -337,7 +331,7 @@ public class PanelMap extends Map {
     // Le chemin spécifique menant à l'image dans l'arborescence de fichier.
     String chemin;
     // Les 4 entiers suivants représentent une chaîne binaire.
-    // Celle-ci permet de déterminer le nombre de côté en contact avec un terrain d'un autre type.
+    // Celle-ci permet de déterminer le nombre de côtés en contact avec un terrain d'un autre type.
     int a = check((y + tabJ > 1), x, y, -1, -2, t);
     int b = check((x + tabI > 1), x, y, -2, -1, t);
     int c = check((y + tabJ < plateau.getLargeur() - 1), x, y, -1, 0, t);
@@ -441,12 +435,12 @@ public class PanelMap extends Map {
    * Fonction pour réduire de code.
    * Permet de récupérer le type d'un terrain adjacent à la case.
    * @param  a    Un boolean qui permet de définir une valeur de
-   * @param  x    La position dans le tableau en abscisses.
-   * @param  y    La position dans le tableau en ordonnées.
+   * @param  x    La position dans le tableau en abscisse.
+   * @param  y    La position dans le tableau en ordonnée.
    * @param  modI Une modification locale dans le tableau des abscisses.
    * @param  modJ Une modification locale dans le tableau des ordonnées.
    * @param  t    Le tableau de terrain
-   * @return      renvoie un entier qui correspond soit au type de la case adjacente, soit à 1.
+   * @return      Renvoie un entier qui correspond soit au type de la case adjacente, soit à 1.
    */
    public int check(boolean a, int x, int y, int modI, int modJ, AbstractTerrain[][] terrain) {
     return ((a) ? (terrain[x + tabI + modI][y + tabJ + modJ].getType()) : 1);

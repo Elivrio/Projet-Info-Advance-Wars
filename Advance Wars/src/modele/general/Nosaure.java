@@ -12,5 +12,9 @@ public class Nosaure extends General {
     super("Nosaure", 100, new CombatCouteau(), new DeplaceAPied(), 2, 7, 100, new Terrestre(), j, x, y, 3);
   }
 
+  public Nosaure(Joueur j) {
+    this(j, 0, 0);
+  }
+
   public void bonusPersonel() {}
 }

@@ -12,5 +12,9 @@ public class MagicalGirl extends General {
     super("Magical Girl", 100, new CombatCouteau(), new DeplaceAPied(), 3, 5, 100, new Terrestre(), j, x, y, 4);
   }
 
+  public MagicalGirl(Joueur j) {
+    this(j, 0, 0);
+  }
+
   public void bonusPersonel() {}
 }

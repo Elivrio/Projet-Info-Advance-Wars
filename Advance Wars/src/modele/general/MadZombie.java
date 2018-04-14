@@ -12,5 +12,9 @@ public class MadZombie extends General {
     super("MadZombie", 100, new CombatCouteau(), new DeplaceAPied(), 5, 2, 100, new Terrestre(), j, x, y, 1);
   }
 
+  public MadZombie(Joueur j) {
+    this(j, 0, 0);
+  }
+
   public void bonusPersonel() {}
 }
