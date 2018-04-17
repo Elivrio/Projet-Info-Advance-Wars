@@ -8,6 +8,11 @@ import src.modele.interfaces.deplacement.DeplaceAChenilles;
 
 public class Artillerie extends AbstractUnite {
 
+  /**
+   * @param j Le joueur auquel appartient l'unité.
+   * @param x La position de l'unité en abscisse.
+   * @param y La position de l'unité en ordonnée.
+   */
   public Artillerie (Joueur j, int x, int y) {
     super("Artillerie", 99, new CombatCouteau(), new DeplaceAChenilles(), 5, 3, 1, 50, 6000, new Terrestre(), j, x, y, 10);
   }
