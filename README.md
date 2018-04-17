@@ -3,6 +3,7 @@ Jeu Advance Wars codé en java dans le cadre du projet Paris Diderot VII en deux
 
 À faire :
 - Déplacement continu.
+- Bonus personnel par le général.
 - Ajout de commentaires dans le code.
 - Ajout d'animations lors des combats.
 - Ajout d'exceptions pour sécuriser le code.
