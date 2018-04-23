@@ -13,6 +13,6 @@ public class Aeroport extends AbstractVille {
    * @param y Position du terrain en ordonnee.
    */
   public Aeroport (int x, int y) {
-    super("Aeroport", 7, x, y);
+    super("Aeroport", 7, 1, x, y);
   }
 }

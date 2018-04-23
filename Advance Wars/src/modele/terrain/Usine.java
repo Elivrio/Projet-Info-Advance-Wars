@@ -13,6 +13,6 @@ public class Usine extends AbstractVille {
    * @param y Position du terrain en ordonnee.
    */
   public Usine (int x, int y) {
-    super("Usine", 5, x, y);
+    super("Usine", 5, 1, x, y);
   }
 }

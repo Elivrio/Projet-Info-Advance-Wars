@@ -9,7 +9,7 @@ public class TrouNoir extends AbstractTerrain {
   // ********************************************
 
   public TrouNoir() {
-    super("Trou Noir", 4);
+    super("Trou Noir", 4, 4);
   }
 
 }

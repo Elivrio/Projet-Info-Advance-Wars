@@ -9,7 +9,7 @@ public class Montagne extends AbstractTerrain {
   // ********************************************
 
   public Montagne() {
-    super("Montagne", 3);
+    super("Montagne", 3, 3);
   }
 
 }

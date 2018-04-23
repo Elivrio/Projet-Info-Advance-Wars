@@ -47,14 +47,14 @@ public class Variable {
   public final static String pathToUnites = "src/variable/images/unites/";
   public final static String pathToTerrains = "src/variable/images/terrains/";
   public final static String pathToIcones = "src/variable/images/unites/unitesPrix/";
-  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", ""};
+  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", "", "", ""};
   public final static String pathToDegats = "src/variable/images/degats/";
 
-  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png"};
-  public final static String[] tStrBaseUni1 = {"zombie1.png", "ninja1.png", "nosaure1.png", "magicalGirl1.png", "tank.png", "fantassin.png", "recon.png", "bazooka.png", "tankM.png", "artillerie.png", "vtb.png", "antiAerien.png", "dca.png", "lanceMissiles.png"};
-  public final static String[] tStrBaseUni2 = {"zombie2.png", "ninja2.png", "nosaure2.png", "magicalGirl2.png", "tank.png", "fantassin.png", "recon.png", "bazooka.png", "tankM.png", "artillerie.png", "vtb.png", "antiAerien.png", "dca.png", "lanceMissiles.png"};
-  public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png", "antiAerienPrix.png", "dcaPrix.png", "lanceMissilesPrix.png"};
-  public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png", "antiAerienTropCher.png", "dcaTropCher.png", "lanceMissilesTropCher.png"};
+  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png", "port.png", "aeroport.png"};
+  public final static String[] tStrBaseUni1 = {"zombie1.png", "ninja1.png", "nosaure1.png", "magicalGirl1.png", "tank1.png", "fantassin1.png", "recon1.png", "bazooka1.png", "tankM1.png", "artillerie1.png", "vtb1.png", "antiAerien1.png", "dca1.png", "lanceMissiles1.png", "barge1.png", "sousMarin1.png", "destroyeur1.png", "cuirasse1.png", "helicoptere1.png", "helicoptereTransport1.png", "chasseur1.png", "bombardier1.png"};
+  public final static String[] tStrBaseUni2 = {"zombie2.png", "ninja2.png", "nosaure2.png", "magicalGirl2.png", "tank2.png", "fantassin2.png", "recon2.png", "bazooka2.png", "tankM2.png", "artillerie2.png", "vtb2.png", "antiAerien2.png", "dca2.png", "lanceMissiles2.png", "barge2.png", "sousMarin2.png", "destroyeur2.png", "cuirasse2.png", "helicoptere2.png", "helicoptereTransport2.png", "chasseur2.png", "bombardier2.png"};
+  public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png", "antiAerienPrix.png", "dcaPrix.png", "lanceMissilesPrix.png",  "bargePrix.png", "sousMarinPrix.png", "destroyeurPrix.png", "cuirassePrix.png", "helicopterePrix.png", "helicoptereTransportPrix.png", "chasseurPrix.png", "bombardierPrix.png"};
+  public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png", "antiAerienTropCher.png", "dcaTropCher.png", "lanceMissilesTropCher.png",  "bargeTropCher.png", "sousMarinTropCher.png", "destroyeurTropCher.png", "cuirasseTropCher.png", "helicoptereTropCher.png", "helicoptereTransportTropCher.png", "chasseurTropCher.png", "bombardierTropCher.png"};
   public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
   public final static String[] tStrBaseDegats = {"0.png", "0.png", "0.png", "0.png", "0.png", "5-1.png", "5-2.png", "5-3.png", "5-4.png", "0.png", "10-1.png", "10-2.png", "10-3.png", "10-4.png", "O.png"};
 

@@ -9,7 +9,7 @@ public class Eau extends AbstractTerrain {
   // ********************************************
 
   public Eau() {
-    super("Eau", 2);
+    super("Eau", 2, 2);
   }
 
 }

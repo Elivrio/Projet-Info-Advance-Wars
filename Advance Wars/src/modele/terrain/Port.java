@@ -13,6 +13,6 @@ public class Port extends AbstractVille {
    * @param y Position du terrain en ordonnee.
    */
   public Port (int x, int y) {
-    super("Port", 6, x, y);
+    super("Port", 6, 2, x, y);
   }
 }

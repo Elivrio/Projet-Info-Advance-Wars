@@ -9,7 +9,7 @@ public class Foret extends AbstractTerrain {
   // ********************************************
 
   public Foret() {
-    super("Foret", 0);
+    super("Foret", 0, 0);
   }
 
 }

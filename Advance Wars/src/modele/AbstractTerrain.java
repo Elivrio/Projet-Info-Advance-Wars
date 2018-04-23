@@ -9,6 +9,7 @@ public abstract class AbstractTerrain {
 
   protected final String nom;
   protected final int type;
+  protected final int typeLiaison;
 
   // ********************************************
   // *************** Constructeur ***************
@@ -17,10 +18,12 @@ public abstract class AbstractTerrain {
   /**
    * @param s Le nom du terrain.
    * @param t Le type du terrain.
+   * @param l le type du terrain pour les liaisons.
    */
-  public AbstractTerrain (String s, int t) {
+  public AbstractTerrain (String s, int t, int l) {
     nom = s;
     type = t;
+    typeLiaison = l;
   }
 
   // ***************************************
@@ -32,6 +35,8 @@ public abstract class AbstractTerrain {
   public Joueur getJoueur() { return null; }
 
   public String getNom() { return nom; }
+
+  public int getTypeLiaison() { return typeLiaison; }
 
   // ****************************************************
   // *************** Fonctions d'instance ***************

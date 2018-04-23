@@ -25,11 +25,12 @@ public abstract class AbstractVille extends AbstractTerrain {
 /**
  * @param s Nom du terrain.
  * @param n Type de terrain.
+ * @param l Type de terrain pour les liaisons.
  * @param x Position du terrain en abscisse.
  * @param y Position du terrain en ordonnee.
  */
-  public AbstractVille (String s, int n, int x, int y) {
-    super(s, n);
+  public AbstractVille (String s, int n, int l, int x, int y) {
+    super(s, n, l);
     joueur = null;
     this.x = x;
     this.y = y;

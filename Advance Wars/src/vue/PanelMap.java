@@ -443,7 +443,7 @@ public class PanelMap extends Map {
    * @return      Renvoie un entier qui correspond soit au type de la case adjacente, soit a 1.
    */
    public int check(boolean a, int x, int y, int modI, int modJ, AbstractTerrain[][] terrain) {
-    return ((a) ? (terrain[x + tabI + modI][y + tabJ + modJ].getType()) : 1);
+    return ((a) ? (terrain[x + tabI + modI][y + tabJ + modJ].getTypeLiaison()) : 1);
   }
 
   /**
