@@ -17,6 +17,6 @@ public class Bombardier extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public Bombardier (Joueur j, int x, int y) {
-    super("Bombardier", 99, new CombatCouteau(), null, 8, 1, 2, 99, 22000, new Aerienne(), j, x, y, 5);
+    super("Bombardier", 99, new CombatCouteau(), null, 8, 1, 2, 99, 22000, new Aerienne(), j, x, y, 22);
   }
 }

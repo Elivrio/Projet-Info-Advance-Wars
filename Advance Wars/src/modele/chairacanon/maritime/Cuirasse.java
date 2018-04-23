@@ -17,6 +17,6 @@ public class Cuirasse extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public Cuirasse (Joueur j, int x, int y) {
-    super("Cuirasse (Destroyer)", 99, new CombatCouteau(), null, 5, 6, 2, 99, 28000, new Maritime(), j, x, y, 5);
+    super("Cuirasse (Destroyer)", 99, new CombatCouteau(), null, 5, 6, 2, 99, 28000, new Maritime(), j, x, y, 18);
   }
 }
