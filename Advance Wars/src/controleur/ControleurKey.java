@@ -10,6 +10,10 @@ import src.variable.Variable;
 
 public class ControleurKey extends Controleur implements KeyListener {
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
   /**
    * @param vue La vue du jeu.
    */
@@ -22,56 +26,56 @@ public class ControleurKey extends Controleur implements KeyListener {
   // ****************************************************
 
   /**
-   * Fonction appelée lorsqu'une touche est pressée
-   * @param e Touche pressée transformée en variable par Java.
+   * Fonction appelee lorsqu'une touche est pressee
+   * @param e Touche pressee transformee en variable par Java.
    */
   @Override
   public void keyPressed (KeyEvent e) {
-    // Clic sur la flèche droite ou sur la touche D.
+    // Clic sur la fleche droite ou sur la touche D.
     if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyChar() == 'd') && move('d')) {
-      // Déplacement de la zone visible sur la map et accord de la mini map.
+      // Deplacement de la zone visible sur la map et accord de la mini map.
       map.addPosJ(dep);
       miniMap.addPosJ(-dep2);
     }
-    // Clic sur la flèche bas ou sur la touche S.
+    // Clic sur la fleche bas ou sur la touche S.
     else if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyChar() == 's') && move('b')) {
-      // Déplacement de la zone visible sur la map et accord de la mini map.
+      // Deplacement de la zone visible sur la map et accord de la mini map.
       map.addPosI(dep);
       miniMap.addPosI(-dep2);
     }
-    // Clic sur la flèche gauche ou sur la touche Q.
+    // Clic sur la fleche gauche ou sur la touche Q.
     else if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyChar() == 'q') && move('g')) {
-      // Déplacement de la zone visible sur la map et accord de la mini map.
+      // Deplacement de la zone visible sur la map et accord de la mini map.
       map.addPosJ(-dep);
       miniMap.addPosJ(dep2);
     }
-    // Clic sur la flèche haut ou sur la touche Z.
+    // Clic sur la fleche haut ou sur la touche Z.
     else if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyChar() == 'z') && move('h')) {
-      // Déplacement de la zone visible sur la map et accord de la mini map.
+      // Deplacement de la zone visible sur la map et accord de la mini map.
       map.addPosI(-dep);
       miniMap.addPosI(dep2);
     }
-    // Clic sur la touche Entrée ou J pour changer de joueur.
+    // Clic sur la touche Entree ou J pour changer de joueur.
     else if (e.getKeyChar() == Event.ENTER || e.getKeyChar() == 'j') {
       vue.finTour();
     }
     // Clic sur la touche A pour attaquer.
     else if (e.getKeyChar() == 'a' && map.getCliquee() != null) {
-      // Si la portée est déjà affichée, on l'efface.
+      // Si la portee est deja affichee, on l'efface.
       if (map.getAttaque())
         map.setAttaque(false);
       // Sinon, on l'affiche.
       else map.setAttaque(true);
       map.repaint();
     }
-    // Clic sur Echap pour effacer le déplacement et la portée.
+    // Clic sur Echap pour effacer le deplacement et la portee.
     else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
       map.setCliquee(null);
       map.repaint();
     }
   }
 
-  // Fonctions de l'interface non utilisées.
+  // Fonctions de l'interface non utilisees.
   @Override
   public void keyReleased (KeyEvent e) {}
   public void keyTyped (KeyEvent evt) {}

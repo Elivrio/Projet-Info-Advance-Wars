@@ -19,13 +19,37 @@ import src.modele.terrain.AbstractVille;
 
 
 public class Plateau {
+
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
+
+  // Hauteur et largeur du terrain.
   private int largeur, hauteur;
+
+  // Liste des unites en jeu.
   private AbstractUnite[][] unites;
+
+  // Liste des joueurs en jeu.
   private LinkedList<Joueur> joueurs;
+
+  // Terrain du jeu.
   private AbstractTerrain[][] terrain;
+
+  // Liste des villes placees sur le terrain.
   private LinkedList<AbstractVille> villes;
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
 
+  /**
+   * @param  carte     La carte du jeu.
+   * @param  armees    Patate.
+   * @param  generaux  [description]
+   * @param  jou       [description]
+   * @throws Exception [description]
+   */
   public Plateau(int[][][] carte, int[][][] armees, General[] generaux, LinkedList<Joueur> jou) throws Exception {
     hauteur = carte.length;
     largeur = carte[0].length;
@@ -112,11 +136,11 @@ public class Plateau {
   }
 
   /**
-   * On vérifie la mort de l'unité cible. Si cette unité est morte,
-   * le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
-   * @param attaquant L'unité qui attaque.
-   * @param cible     L'unité attaquée.
-   * @return          On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
+   * On verifie la mort de l'unite cible. Si cette unite est morte,
+   * le joueur qui contrôle l'unite attaquant a l'origine de la mort gagne de l'argent
+   * @param attaquant L'unite qui attaque.
+   * @param cible     L'unite attaquee.
+   * @return          On retourne une valeur (1 si un joueur a ete tue, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
    */
   public int mort (AbstractUnite attaquant, AbstractUnite cible) {
     // Si la cible est morte,
@@ -126,7 +150,7 @@ public class Plateau {
       joueurCible.remove(cible);
       this.rmvUnite(cible);
 
-      // On augmente l'argent du joueur qui contrôle l'unité.
+      // On augmente l'argent du joueur qui contrôle l'unite.
       attaquant.getJoueur().setArgent(cible.getGainMort());
 
       if (joueurCible.generalMort())
@@ -136,9 +160,9 @@ public class Plateau {
   }
 
   /**
-   * On gère la mort d'un joueur.
+   * On gere la mort d'un joueur.
    * @param  joueurMort Le joueur qui est mort.
-   * @return            On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
+   * @return            On retourne une valeur (1 si un joueur a ete tue, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
    */
   public int mortJoueur (Joueur joueurMort) {
     int i = 0;
@@ -158,17 +182,17 @@ public class Plateau {
   }
 
   /**
-   * Vérifie si des villes sont en prises par des joueurs et change la possession des villes si nécessaire.
+   * Verifie si des villes sont en prises par des joueurs et change la possession des villes si necessaire.
    */
   public void villesPrises () {
     // On prend les villes une par une.
     for (int i = 0; i < villes.size(); i++) {
       AbstractVille ville = villes.get(i);
 
-      // On regarde l'unité sur la case de la ville.
+      // On regarde l'unite sur la case de la ville.
       AbstractUnite unite = unites[ville.getY()][ville.getX()];
 
-      // Si l'unité n'est pas nulle, on change le propriétaire de la ville.
+      // Si l'unite n'est pas nulle, on change le proprietaire de la ville.
       if (unite != null)
         ville.setJoueur(unite.getJoueur());
     }

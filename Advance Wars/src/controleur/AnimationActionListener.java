@@ -14,6 +14,10 @@ public class AnimationActionListener implements ActionListener {
   // La vue du jeu.
   private Vue vue;
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
   /**
    * @param vue La vue du jeu.
    */
@@ -26,8 +30,8 @@ public class AnimationActionListener implements ActionListener {
   // ****************************************************
 
   /**
-   * Est appelée en continu par le timer.
-   * @param e L'action donnée par Java.
+   * Est appelee en continu par le timer.
+   * @param e L'action donnee par Java.
    */
   public void actionPerformed (ActionEvent e) {
     vue.animationStatus(!vue.getAnimationStatus());

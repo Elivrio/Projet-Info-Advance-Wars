@@ -4,8 +4,16 @@ import src.modele.interfaces.deplacement.Deplacement;
 
 public class DeplaceARoues implements Deplacement {
 
+  // ****************************************************
+  // *************** Fonctions d'instance ***************
+  // ****************************************************
+
+  /**
+   * Description du deplacement.
+   * @return Retourne le type de deplacement.
+   */
   public String deplacement() {
-    return "Se déplace avec des roues";
+    return "Se deplace avec des roues";
   }
 
 }

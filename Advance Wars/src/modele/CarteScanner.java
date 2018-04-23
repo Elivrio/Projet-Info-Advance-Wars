@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import src.modele.general.General;
 
 public class CarteScanner {
+
   private Scanner sc;
   private File carte;
   private boolean li = true;
@@ -20,7 +21,9 @@ public class CarteScanner {
     } catch(Exception e) {
       System.out.println("Erreur ouverture fichier");
     }
-  }
+  }  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
 
 // LES FONCTIONS SUIVANTES NE DOIVENT PAS ETRE UTILISEES PLUS D'UNE FOIS
 
@@ -69,12 +72,12 @@ public class CarteScanner {
   }
 
   public Plateau plateau(LinkedList<Joueur> joueurs, General[] generaux, int lignes, int colonnes) {
-    // construit un plateau à partir de la carte texte
-    // getLignes et getColonnes sont maintenant utilisées dans Menu.lancerJeu (obligatoire avant d'utiliser plateau)
+    // construit un plateau a partir de la carte texte
+    // getLignes et getColonnes sont maintenant utilisees dans Menu.lancerJeu (obligatoire avant d'utiliser plateau)
     int joueur = getJoueurs();
-    // obligatoire pour bien lire la carte, permettra à termes de faire un check sur la bonne taille.
+    // obligatoire pour bien lire la carte, permettra a termes de faire un check sur la bonne taille.
     //if (joueurs.length > joueur)
-    // throw Exception à venir.
+    // throw Exception a venir.
     sc.nextLine();
     int[][][] terrain = Tableau(lignes + 2, colonnes + 2, true);
     sc.nextLine();

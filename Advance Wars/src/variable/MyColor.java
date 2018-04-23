@@ -3,8 +3,8 @@ package src.variable;
 import java.awt.Color;
 
 // Cette classe permet d'avoir une classe couleur manipulable, notamment d'avoir le nom de chaque couleur.
-// Nous avions également besoin de divers constructeur suplémentaire afin de simplifier le travail.
-// La classe Color ne permet en effet pas de créer des couleurs avec des alphas efficacement.
+// Nous avions egalement besoin de divers constructeur suplementaire afin de simplifier le travail.
+// La classe Color ne permet en effet pas de creer des couleurs avec des alphas efficacement.
 
 @SuppressWarnings("serial")
 public class MyColor extends Color {
@@ -84,7 +84,7 @@ public class MyColor extends Color {
     return (rgb) & 0x000000FF;
   }
 
-  // Vérifie que deux couleurs ont la même Couleur (en comparant uniquement les entiers, pas les noms).
+  // Verifie que deux couleurs ont la meme Couleur (en comparant uniquement les entiers, pas les noms).
   public boolean equals(MyColor m) {
     return (this.getRGB() == m.getRGB());
   }

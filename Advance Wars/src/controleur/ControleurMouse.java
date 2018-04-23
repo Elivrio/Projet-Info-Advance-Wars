@@ -18,7 +18,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // Booléen permettant de savoir si on se déplace.
+  // Booleen permettant de savoir si on se deplace.
   protected boolean deplacement;
 
   // Patate.
@@ -26,6 +26,10 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
 
   // Patate.
   protected int distance;
+
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
 
   public ControleurMouse (Vue v) {
     super(v);
@@ -38,7 +42,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // *************** Getters ***************
   // ***************************************
 
-  //calcul de la case cliquée
+  //calcul de la case cliquee
   public int getI (MouseEvent me, int taillePixel) {
     int y = me.getY() + map.getTabI()*100 + map.getPosI();
     return y/taillePixel;
@@ -53,7 +57,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // *************** Fonctions d'instance ***************
   // ****************************************************
 
-  // Fonction appelée lorsqu'on clique sur une case du plateau
+  // Fonction appelee lorsqu'on clique sur une case du plateau
   @Override
   public void mouseClicked (MouseEvent me) {
 
@@ -71,7 +75,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     chemin(unite);
     deplacement = true;
 
-    // Si les déplacements sont affichés et qu'on clique sur une case cible possible, on y va
+    // Si les deplacements sont affiches et qu'on clique sur une case cible possible, on y va
     if (cliquee != null
         && map.getJoueur().possede(cliquee)
         && (i - 1 >= 0)
@@ -110,10 +114,10 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     if (!attaque) {
       map.setAttaque(false);
       map.setCliquee(unite);
-      // Si la case possède une unité, on affiche ses caractéristiques
+      // Si la case possede une unite, on affiche ses caracteristiques
       if (unite != null)
         vue.informations(unite);
-      // Sinon, on affiche les caractéristiques du terrain
+      // Sinon, on affiche les caracteristiques du terrain
       else if (ville != null)
         vue.informations(ville, map.getJoueur(), map.getJoueur().getVision()[i][j]);
       else
@@ -172,7 +176,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
       int i = getI(me, taillePixel);
       int j = getJ(me, taillePixel);
 
-      // si on a pas encore commencé le deplacement
+      // si on a pas encore commence le deplacement
       if (chemin[0][0] == 0 && chemin[0][1] == 0) {
         chemin[0][0] = i;
         chemin[0][1] = j;

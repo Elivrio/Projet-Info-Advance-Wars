@@ -5,10 +5,29 @@ import src.modele.AbstractTerrain;
 
 public abstract class AbstractVille extends AbstractTerrain {
 
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
+
+  // Joueur possedant la ville.
   protected Joueur joueur;
+
+  // Position en abscisse et ordonnee de la ville.
   protected int x, y;
+
+  // Indique si la ville a deja cree une unite ce tour-ci.
   protected boolean achete;
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
+/**
+ * @param s Nom du terrain.
+ * @param n Type de terrain.
+ * @param x Position du terrain en abscisse.
+ * @param y Position du terrain en ordonnee.
+ */
   public AbstractVille (String s, int n, int x, int y) {
     super(s, n);
     joueur = null;
@@ -16,24 +35,24 @@ public abstract class AbstractVille extends AbstractTerrain {
     this.y = y;
   }
 
-  public boolean getAchete() {
-    return achete;
-  }
+  // ***************************************
+  // *************** Getters ***************
+  // ***************************************
+
+  public boolean getAchete() { return achete; }
+
+  public int getX() { return x; }
+
+  public int getY() { return y; }
+
+  public Joueur getJoueur() { return joueur; }
+
+  // ***************************************
+  // *************** Setters ***************
+  // ***************************************
 
   public void setAchete (boolean b) {
     achete = b;
-  }
-
-  public int getX() {
-    return x;
-  }
-
-  public int getY() {
-    return y;
-  }
-
-  public Joueur getJoueur() {
-    return joueur;
   }
 
   public void setJoueur (Joueur j) {

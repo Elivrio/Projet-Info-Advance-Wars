@@ -7,6 +7,10 @@ import src.vue.Vue;
 
 public class MiniMapMouse extends Controleur implements MouseListener {
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
   /**
    * @param vue La vue du jeu.
    */
@@ -19,8 +23,8 @@ public class MiniMapMouse extends Controleur implements MouseListener {
   // ****************************************************
 
   /**
-   * Est appelée lors d'un clic sur la mini map.
-   * @param me Clic souris transformé en variable par Java.
+   * Est appelee lors d'un clic sur la mini map.
+   * @param me Clic souris transforme en variable par Java.
    */
   @Override
   public void mouseClicked (MouseEvent me) {
@@ -48,7 +52,7 @@ public class MiniMapMouse extends Controleur implements MouseListener {
     }
   }
 
-  // Fonctions de l'interface non utilisées.
+  // Fonctions de l'interface non utilisees.
   @Override
   public void mouseExited(MouseEvent me) {}
   public void mouseEntered(MouseEvent me) {}

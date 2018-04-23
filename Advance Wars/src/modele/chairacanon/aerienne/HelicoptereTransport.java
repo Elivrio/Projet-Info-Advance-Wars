@@ -6,12 +6,16 @@ import src.modele.interfaces.typeunite.Aerienne;
 
 public class HelicoptereTransport extends AbstractUnite {
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
   /**
-   * @param j Le joueur auquel appartient l'unité.
-   * @param x La position de l'unité en abscisse.
-   * @param y La position de l'unité en ordonnée.
+   * @param j Le joueur auquel appartient l'unite.
+   * @param x La position de l'unite en abscisse.
+   * @param y La position de l'unite en ordonnee.
    */
   public HelicoptereTransport (Joueur j, int x, int y) {
-    super("Hélicoptère de Transport", 99, null, null, 6, 0, 1, 99, 5000, new Aerienne(), j, x, y, 5);
+    super("Helicoptere de Transport", 99, null, null, 6, 0, 1, 99, 5000, new Aerienne(), j, x, y, 5);
   }
 }

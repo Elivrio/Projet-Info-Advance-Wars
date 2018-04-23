@@ -178,7 +178,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les images des unités v1
+    // Remplissage du tableau avec les images des unites v1
     tStrUni1 = new String[tStrBaseUni1.length];
     tStrUniFile1 = new File[tStrUni1.length];
     tImUni1 = new BufferedImage[tStrUniFile1.length];
@@ -193,7 +193,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les images des unités v2
+    // Remplissage du tableau avec les images des unites v2
     tStrUni2 = new String[tStrBaseUni2.length];
     tStrUniFile2 = new File[tStrUni2.length];
     tImUni2 = new BufferedImage[tStrUniFile2.length];
@@ -208,7 +208,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les icones des unités
+    // Remplissage du tableau avec les icones des unites
     tStrIcone = new String[tStrBaseIcone.length];
     tStrIconeFile = new File[tStrIcone.length];
     tImIcone = new BufferedImage[tStrIconeFile.length];
@@ -220,7 +220,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les icones des unités trop chères
+    // Remplissage du tableau avec les icones des unites trop cheres
     tStrIconeTropCher = new String[tStrBaseIconeTropCher.length];
     tStrIconeTropCherFile = new File[tStrIconeTropCher.length];
     tImIconeTropCher = new BufferedImage[tStrIconeTropCherFile.length];
@@ -232,7 +232,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les fonds colorés (déplacement, portée)
+    // Remplissage du tableau avec les fonds colores (deplacement, portee)
     tStrFond = new String[tStrBaseFond.length];
     tStrFondFile = new File[tStrFond.length];
     tImFond = new BufferedImage[tStrFondFile.length];
@@ -244,7 +244,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les images des dégats reçus
+    // Remplissage du tableau avec les images des degats reçus
     tStrDegats = new String[tStrBaseDegats.length];
     tStrDegatsFile = new File[tStrDegats.length];
     tImDegats = new BufferedImage[tStrDegatsFile.length];

@@ -38,8 +38,8 @@ public abstract class AbstractTerrain {
   // ****************************************************
 
   /**
-   * Permet d'afficher l'objet sous forme d'une chaîne de caratère.
-   * @return La chaîne de caractère qui va décrire l'objet.
+   * Permet d'afficher l'objet sous forme d'une chaîne de caratere.
+   * @return La chaîne de caractere qui va decrire l'objet.
    */
   @Override
   public String toString() {

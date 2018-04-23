@@ -15,6 +15,10 @@ public class MenuMouseListener implements MouseListener {
   // Le menu du jeu.
   private Menu menu;
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
   /**
    * @param menu Le menu du jeu.
    */
@@ -27,8 +31,8 @@ public class MenuMouseListener implements MouseListener {
   // ****************************************************
 
   /**
-   * Est appelée quand on fait un clic sur la map.
-   * @param e Clic de la souris transformé en variable par Java.
+   * Est appelee quand on fait un clic sur la map.
+   * @param e Clic de la souris transforme en variable par Java.
    */
   @Override
   public void mousePressed (MouseEvent e) {
@@ -37,7 +41,7 @@ public class MenuMouseListener implements MouseListener {
     source.setText("");
   }
 
-  // Fonctions de l'interface non utilisées.
+  // Fonctions de l'interface non utilisees.
   @Override
   public void mouseExited (MouseEvent e) {}
   public void mouseEntered (MouseEvent e) {}
