@@ -59,4 +59,10 @@ public class Jeu {
     map.addMouseMotionListener(cMM);
     map.addMouseMotionListener(cM);
   }
+
+  // ***************************************
+  // *************** Getters ***************
+  // ***************************************
+
+  public ControleurMouse getCM () {return cM;}
 }

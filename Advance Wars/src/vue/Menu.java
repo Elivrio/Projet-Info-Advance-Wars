@@ -354,6 +354,7 @@ public class Menu extends JFrame {
 
       // Et finalement, on lance le jeu.
       Jeu jeu = new Jeu(plateau);
+      
     } catch (Exception evt) {
       // Simple sécurité, SNH.
       evt.printStackTrace();

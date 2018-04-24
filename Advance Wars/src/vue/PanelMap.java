@@ -40,6 +40,7 @@ public class PanelMap extends Map {
   // Pour savoir si on est à l'image 1 ou 2 de l'animation
   protected boolean animation;
 
+
   // ********************************************
   // *************** Constructeur ***************
   // ********************************************
@@ -170,12 +171,20 @@ public class PanelMap extends Map {
         && (y + tabI < plateau.getTerrain().length)
         && (x + tabJ-2 >= 0)
         && (x + tabJ < plateau.getTerrain()[0].length)) {
+          int a = (x * taillePixel) - posJ - 100;
+          int b = (y * taillePixel) - posI - 100;
           // Affichage des déplacements possibles.
-          if ((!(cliquee.getAttaque()) || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace()))
-            g.drawImage(Variable.vert, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
+          
+          if ((!(cliquee.getAttaque()) || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace())){
+            g.drawImage(Variable.vert, a, b, this);
+            // Affichage du chemin
+            int[][] circuit = cliquee.getChemin();
+            if (isin(circuit, y+tabI-1, x+tabJ-1))
+              g.drawImage(Variable.bleu, a, b, this);
+          }
           // Affichage de la portée.
           if (cliquee.getAttaque() && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
-            g.drawImage(Variable.rouge, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
+            g.drawImage(Variable.rouge, a, b, this);
     }
 
     // On dessine l'unité si elle est présente.
@@ -447,6 +456,21 @@ public class PanelMap extends Map {
   }
 
   /**
+   * Permet de savoir si un couple d'entier appartient a un tableau
+   * @param intTab le tableau
+   * @param a le premier element du couple
+   * @parma b le second element du couple
+   * @return true si (a,b) appartient au tableau 
+   */
+   public boolean isin (int[][] intTab, int a, int b){
+    for (int i=0; i<intTab.length; i++){
+      if (intTab[i][0] == a && intTab[i][1] == b)
+        return true;
+    }
+    return false;
+  }
+
+  /**
    * Change le joueur, s'assure que la carte ne garde pas une unité cliquée en mémoire et  met l'affichage à jour.
    */
   public void newTurn() {
@@ -454,5 +478,7 @@ public class PanelMap extends Map {
     this.setCliquee(null);
     this.repaint();
   }
+
+  
 
 }

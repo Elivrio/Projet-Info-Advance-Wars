@@ -83,7 +83,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
                 for (int k = 0; k < chemin.length; k++){
                     int x = chemin[k][0];
                     int y = chemin[k][1];
-                    if (k >= 1 && map.getPlateau().getUnites()[x][y] != null)
+                    if ((x==-1 && y==-1) ||(k >= 1 && map.getPlateau().getUnites()[x][y] != null))
                       break;
                     if (x != 0 && y != 0) {
                       map.getPlateau().setUnites(cliquee.getX(), cliquee.getY(), y, x);
@@ -92,7 +92,6 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
                       map.getJoueur().vision(map.getTerrain());
                     }
                 }
-                chemin = null;
               }
               deplacement = false;
               distance = 0;
@@ -106,7 +105,12 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
                 vue.informationsCombat(cliquee, unite, cliquee.getDegats());
                 attaque = true;
           }
+          chemin = null;
+          int[][] cheminVide = new int[0][0];
+          cliquee.setChemin(cheminVide);
     }
+    
+
     if (!attaque) {
       map.setAttaque(false);
       map.setCliquee(unite);
@@ -126,7 +130,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // creation de la taille possible du chemin
   public void chemin (AbstractUnite cliquee) {
     if (cliquee != null) {
-      int tailleChemin = cliquee.getDistance();
+      int tailleChemin = cliquee.getDistance()-cliquee.getDeplace();
       chemin = new int[tailleChemin+1][2];
     }
     else if (chemin == null) {
@@ -134,7 +138,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
       chemin[0][0] = 0;
       chemin[0][1] = 0;
     }
-    //System.out.println("taille chemin possible "+chemin.length);
+    System.out.println(chemin.length);
   }
 
 
@@ -198,8 +202,9 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
           chemin[distance][1] = j;
         }
       }
-      //System.out.println("distance "+ distance );
     }
+    if (chemin != null)
+      cliquee.setChemin(chemin);
   }
 
   @Override
