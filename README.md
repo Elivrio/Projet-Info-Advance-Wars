@@ -1,22 +1,11 @@
 # Projet-Info-Advance-Wars
 Jeu Advance Wars codé en java dans le cadre du projet Paris Diderot VII en deuxième année Maths-Info.
 
-À faire :
-- Déplacement continu.
-- Bonus personnel par le général.
-- Ajout de commentaires dans le code.
-- Ajout d'animations lors des combats.
-- Ajout d'exceptions pour sécuriser le code.
-- Déplacement de la caméra lors d'un clic sur la mini-map. (minibugs à régler)
-- Déplacement de la caméra lors d'un changement de joueur sur son général.
-- Création d'un premier menu avec choix de la carte, options et affichage des règles.
+- Entrer dans le dossier Advance Wars.
+- Lancer le jeu grâce à la commande "make".
 
-Utilisation du jeu :
-- Lancer le menu avec make depuis le répertoire Advance Wars.
-- Affichage de la portée avec la touche 'A' ou le bouton Attaquer.
-- Disparition de la portée et du déplacement avec la touche Echap.
-- Affichage des informations de terrains ou unités en cliquant dessus.
-- Affichage des déplacements possibles d'une unité en cliquant sur celle-ci.
-- Changement de joueur avec les touches Entrée, 'J' ou le bouton Changer de joueur.
-- Possibilité d'attaquer en cliquant sur une unité ennemie proche lorsque la portée est affichée.
-- Déplacement de la caméra avec la souris sur les bords, les flèches ou les touches 'Z', 'Q', 'S' et 'D'.
+Le fichier Main.java va lancer un Menu. Le clic sur "C'est parti" crée le plateau et les joueurs, puis lance Jeu.java.
+
+À faire : /! RETIRER AVANT DE RENDRE.
+- Bonus personnel par le général.
+- Déplacement de la caméra lors d'un changement de joueur sur son général.
