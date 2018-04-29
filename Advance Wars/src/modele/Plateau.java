@@ -91,9 +91,12 @@ public class Plateau {
             villes.add(mine);
             break;
           case 9 :
-            Qg qg = new Qg(j, i);
-            terrain[i][j] = qg;
-            villes.add(qg);
+            if (carte[i][j][1] < joueurs.size()+1){
+              Qg qg = new Qg(j, i);
+              qg.setJoueur(joueurs.get(carte[i][j][1]-1));
+              terrain[i][j] = qg;
+              villes.add(qg);
+            }
             break;
           default : throw new SNHException();
         }
