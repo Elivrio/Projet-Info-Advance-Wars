@@ -94,6 +94,7 @@ public class Plateau {
             Qg qg = new Qg(j, i);
             terrain[i][j] = qg;
             villes.add(qg);
+            break;
           default : throw new SNHException();
         }
         // futur emplacement pour le placement initial des armees
