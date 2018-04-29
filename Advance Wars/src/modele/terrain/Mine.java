@@ -3,7 +3,7 @@ package src.modele.terrain;
 import src.modele.Joueur;
 import src.modele.AbstractTerrain;
 
-public class Qg extends AbstractVille {
+public class Mine extends AbstractVille {
 
   // ********************************************
   // *************** Constructeur ***************
@@ -13,8 +13,7 @@ public class Qg extends AbstractVille {
    * @param x Position du terrain en abscisse.
    * @param y Position du terrain en ordonnee.
    */
-  public Qg (int x, int y) {
-    super("QG", 9, 1, x, y);
+  public Mine (int x, int y) {
+    super("Mine", 8, 1, x, y);
   }
-
 }

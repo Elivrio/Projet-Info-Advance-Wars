@@ -40,12 +40,21 @@ public class ActionVille extends Controleur implements ActionListener {
   @Override
   public void actionPerformed (ActionEvent e) {
     Object source = e.getSource();
-    if (source == vue.getBoutonCreationUniteTerrestre())
+    if (source == vue.getBoutonCreationUniteTerrestre()) {
+      System.out.println("Terre");
       vue.afficherChoixUnites(map.getJoueur(), 0, ville);
-    else if (source == vue.getBoutonCreationUniteMaritime())
+      System.out.println("Terre 2");
+    }
+    else if (source == vue.getBoutonCreationUniteMaritime()) {
+      System.out.println("Mer");
       vue.afficherChoixUnites(map.getJoueur(), 1, ville);
-    else if (source == vue.getBoutonCreationUniteAerienne())
+      System.out.println("Mer 2");
+    }
+    else if (source == vue.getBoutonCreationUniteAerienne()) {
+      System.out.println("Air");
       vue.afficherChoixUnites(map.getJoueur(), 2, ville);
+      System.out.println("Air 2");
+    }
     map.repaint();
   }
 

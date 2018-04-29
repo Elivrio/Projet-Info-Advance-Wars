@@ -48,6 +48,9 @@ public class PanelMap extends Map {
   // Pour savoir si une unite peut se deplacer
   protected boolean bouge;
 
+  // les cases qu'il ne faut pas paint;
+  protected int m, n;
+
 
   // ********************************************
   // *************** Constructeur ***************
@@ -66,6 +69,8 @@ public class PanelMap extends Map {
     hauteur = (int)hauteurEcran;
     setSize(largeur, hauteur);
     animation = true;
+    m =-1;
+    n =-1;
   }
 
   // ***************************************
@@ -148,8 +153,12 @@ public class PanelMap extends Map {
         // Le type du terrain.
         int t = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
         // La fonction qui permet d'afficher la case et tous ses composants.
-        dessineCase(g, t, j, i, unite);
-        dessineChemin(g, t, j, i, unite);
+        if (i=m && j=n)
+          dessineChemin(g, t, j, i, unite);
+        else {
+          dessineCase(g, t, j, i, unite);
+          dessineChemin(g, t, j, i, unite);
+        }
       }
   }
 
@@ -163,6 +172,7 @@ public class PanelMap extends Map {
    * @param unite L'unite qui se trouve sur la case (peut valoir 'null').
    */
   public void dessineCase (Graphics g, int type, int x, int y, AbstractUnite unite) {
+    System.out.println("paint");
     // On dessine le terrain correspondant a la case donnee.
     chemin(g, type, y, x);
 
@@ -187,7 +197,7 @@ public class PanelMap extends Map {
           int a = (x * taillePixel) - posJ - 100;
           int b = (y * taillePixel) - posI - 100;
           // Affichage des déplacements possibles.
-          
+
           if ((!(cliquee.getAttaque()) || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace())){
             // Affichage des deplacements possibles.
             g.drawImage(Variable.vert, a, b, this);
@@ -200,46 +210,45 @@ public class PanelMap extends Map {
           if (cliquee.getAttaque() && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, a, b, this);
     }
-
     // On dessine l'unite si elle est presente.
     if (unite != null && joueur.getVision()[y + tabI - 1][x + tabJ - 1] == 2) {
-      // On commence par recuperer l'unite concernee.
-      BufferedImage uni;
-      // choix de l'image de l'unite suivant le moment de l'animation
-      if (animation) {
-        uni = Variable.tImUni1[unite.getIndice()-1];
-      }
-      else {
-        uni = Variable.tImUni2[unite.getIndice()-1];
-      }
-      // Cette variable sert pour faire varier la couleur dans tout le reste de la fonction.
-      Color color = Color.GREEN.darker();
-
-      // On dessine sa barre de vie.
-      makeForm(g, rect, x, y, posJ + 90, posI + 90, 80, 80 * unite.getPV() / unite.getPVMax(), 5, color);
-
-      // Si le joueur actuel possede l'unite, il faut afficher des informations en plus.
-      if (joueur.possede(unite)) {
-        // On affiche un rond pour preciser si l'unite selectionnee peut attaquer ou non.
-        color = (unite.getAttaque()) ? Color.GREEN : Color.RED;
-        makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, color);
-
-        // On affiche plusieurs ronds pour montrer la distance que peut encore parcourir l'unite.
-        for (int dis = 0; dis < unite.getDistance(); dis++) {
-          color = Color.GREEN;
-          if (dis < unite.getDeplace())
-            color = Color.RED;
-          makeForm(g, oval, x, y, posJ + 10, posI + 10 + (dis*6), 5, 5, color);
-        }
-      }
-
-      // On recupere la couleur du joueur qui possede l'unite.
-      // L'utilisation de MyColor a pour but d'ajouter de la transparence a la couleur.
-      color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
-
-      // Il y a distinction entre un general et une unite normale, les generaux sont plus grands.
-      // Si l'unite ne bouge pas, si elle bouge son affichage est gere par une autre methode.
       if (!unite.getMouvement()){
+        // On commence par recuperer l'unite concernee.
+        BufferedImage uni;
+        // choix de l'image de l'unite suivant le moment de l'animation
+        if (animation) {
+          uni = Variable.tImUni1[unite.getIndice()-1];
+        }
+        else {
+          uni = Variable.tImUni2[unite.getIndice()-1];
+        }
+        // Cette variable sert pour faire varier la couleur dans tout le reste de la fonction.
+        Color color = Color.GREEN.darker();
+
+        // On dessine sa barre de vie.
+        makeForm(g, rect, x, y, posJ + 90, posI + 90, 80, 80 * unite.getPV() / unite.getPVMax(), 5, color);
+
+        // Si le joueur actuel possede l'unite, il faut afficher des informations en plus.
+        if (joueur.possede(unite)) {
+          // On affiche un rond pour preciser si l'unite selectionnee peut attaquer ou non.
+          color = (unite.getAttaque()) ? Color.GREEN : Color.RED;
+          makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, color);
+
+          // On affiche plusieurs ronds pour montrer la distance que peut encore parcourir l'unite.
+          for (int dis = 0; dis < unite.getDistance(); dis++) {
+            color = Color.GREEN;
+            if (dis < unite.getDeplace())
+              color = Color.RED;
+            makeForm(g, oval, x, y, posJ + 10, posI + 10 + (dis*6), 5, 5, color);
+          }
+        }
+
+        // On recupere la couleur du joueur qui possede l'unite.
+        // L'utilisation de MyColor a pour but d'ajouter de la transparence a la couleur.
+        color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
+
+        // Il y a distinction entre un general et une unite normale, les generaux sont plus grands.
+      
         if (unite instanceof General) {
           // Le socle d'un general.
           makeForm(g, oval, x, y, posJ + 80, posI + 35, 60, 20, color);
@@ -278,9 +287,11 @@ public class PanelMap extends Map {
   public void dessineChemin(Graphics g,int type, int x, int y, AbstractUnite unite) {
     if (unite != null){
       pion = unite;
-      System.out.println("fuck you mouv "+unite.getMouvement());
-      if (unite.getMouvement() && unite.getStatusChemin()+1 < unite.getChemin().length){
+      int etape = unite.getStatusChemin();
+      if (etape+1 < unite.getChemin().length){
         System.out.println("bouge "+ bouge);
+        System.out.println("taille chemin "+unite.getChemin().length);
+        System.out.println("etape "+ etape);
         if (bouge){
           // la couleur et l'image necessaire
           Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, ""); 
@@ -292,47 +303,47 @@ public class PanelMap extends Map {
             uni = Variable.tImUni2[unite.getIndice()-1];
           }
 
-          // ou on en est dans le chemin
-          int etape = unite.getStatusChemin();
-          // les coordonnees de l'etape du chemin ou on est 
+          // les coordonnees de l'etape du chemin ou on est
           int a1 = unite.getChemin()[etape][0];
-          int a2 = unite.getChemin()[etape][1];
+          System.out.println("a1 "+ a1);
+          int a2 = unite.getChemin()[etape+1][0];
+          System.out.println("a2 "+ a2);
           // les coordonnees de la prochaine case
-          int b1 = unite.getChemin()[etape +1][0];
+          int b1 = unite.getChemin()[etape][1];
           int b2 = unite.getChemin()[etape +1][1];
 
           int a3 = Math.max(a1, a2);
+          System.out.println("a max "+ a3);
           int b3 = Math.max(b1, b2);
+          System.out.println("b max "+ b3);
 
           int status = unite.getStatusMouv();
           if (status < 3)
             unite.setStatusMouv(status+1);
           else {
             unite.setStatusMouv(0);
+            unite.setStatusChemin(etape+1);
           }
-          System.out.println("status ? "+status);
-          int pas = 100/4 * status;
+          int pas = (taillePixel/4) * status;
           System.out.println("pas "+ pas);
 
           // Egal a 1 ou -1 pour connaitre la direction
           int orientationX = a1 - a2;
           int orientationY = b1 - b2;
-
-          if (unite instanceof General){
-            makeForm(g, oval, a3, b3, posJ+80+(pas*orientationX), posI+35+(pas*orientationY), 60, 20, color);
-            g.drawImage(uni,(a3 * taillePixel)- posJ-80, (y*taillePixel)-posI-80, this); 
+          if (a3 !=0 && b3 != 0){
+            if (unite instanceof General){
+              makeForm(g, oval, b3, a3, posJ+80+(pas*orientationX), posI+35+(pas*orientationY), 60, 20, color);
+              g.drawImage(uni,(b3 * taillePixel)- posJ-80, (a3*taillePixel)-posI-80, this);
+            }
           }
-
-          unite.setStatusChemin(etape+1);
           bouge = false;
-        }
-         
+        }         
       }
-      else { 
+      else {
         pion = null;
-        //unite.setStatusChemin(0);
-        //unite.setMouvement(false);
-        //unite.setChemin(new int[0][0]);
+        unite.setStatusChemin(0);
+        unite.setMouvement(false);
+        unite.setChemin(new int[0][0]);
       }
     }
 
@@ -574,7 +585,7 @@ public class PanelMap extends Map {
    * @param intTab le tableau
    * @param a le premier element du couple
    * @parma b le second element du couple
-   * @return true si (a,b) appartient au tableau 
+   * @return true si (a,b) appartient au tableau
    */
    public boolean isin (int[][] intTab, int a, int b){
     for (int i=1; i<intTab.length; i++){
@@ -587,12 +598,12 @@ public class PanelMap extends Map {
   /**
    * Change le joueur, s'assure que la carte ne garde pas une unité cliquée en mémoire et  met l'affichage à jour.
    */
-  public void newTurn() {
+  public void nouveauTour() {
     this.setJoueur(1);
     this.setCliquee(null);
     this.repaint();
   }
 
-  
+
 
 }

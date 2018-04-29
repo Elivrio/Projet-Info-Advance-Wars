@@ -294,10 +294,14 @@ public class Vue extends JFrame {
     mI = new MouseIcone(this, ville);
     for (int i = 0; i < unites.length; i++) {
       JLabel icone;
-      if (unites[i].getCout() <= prixMax)
+      if (unites[i].getCout() <= prixMax) {
+        System.out.println(unites[i].getIndice()-5);
         icone = new JLabel(new ImageIcon(Variable.tImIcone[unites[i].getIndice()-5]));
-      else
+      }
+      else {
+        System.out.println(unites[i].getIndice()-5);
         icone = new JLabel(new ImageIcon(Variable.tImIconeTropCher[unites[i].getIndice()-5]));
+      }
       icone.addMouseListener(mI);
       listeIcones.add(icone);
       panelChoixUnites.add(icone);
@@ -353,8 +357,8 @@ public class Vue extends JFrame {
    * Permet de gerer la fin d'un tour de jeu.
    */
   public void finTour () {
-    // On verifie si les villes sur la carte change de proprietaire.
-    map.getPlateau().villesPrises();
+    // On verifie si les villes sur la carte changent de proprietaire.
+    map.getPlateau().prises();
 
     // On change de joueur et on met la vue a jour.
     this.nouveauTour();
