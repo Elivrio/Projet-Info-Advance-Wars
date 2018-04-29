@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import src.vue.Vue;
 import src.vue.Jeu;
 import src.modele.terrain.Eau;
+import src.modele.terrain.Mine;
 import src.modele.terrain.Port;
 import src.modele.terrain.Foret;
 import src.modele.terrain.Usine;
@@ -81,6 +82,11 @@ public class Plateau {
             Aeroport aeroport = new Aeroport(j, i);
             terrain[i][j] = aeroport;
             villes.add(aeroport);
+            break;
+          case 8 :
+            Mine mine = new Mine(j, i);
+            terrain[i][j] = mine;
+            villes.add(mine);
             break;
           default : throw new SNHException();
         }
@@ -185,10 +191,13 @@ public class Plateau {
   /**
    * Verifie si des villes sont en prises par des joueurs et change la possession des villes si necessaire.
    */
-  public void villesPrises () {
+  public void prises() {
     // On prend les villes une par une.
     for (int i = 0; i < villes.size(); i++) {
       AbstractVille ville = villes.get(i);
+
+      if ((ville instanceof Mine) && (ville.getJoueur() != null))
+        ville.getJoueur().setArgent(1000);
 
       // On regarde l'unite sur la case de la ville.
       AbstractUnite unite = unites[ville.getY()][ville.getX()];
