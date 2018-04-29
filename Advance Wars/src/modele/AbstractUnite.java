@@ -10,7 +10,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // Le nom de l'unité
+  // Le nom de l'unite.
   protected final String nom;
 
   // Ses points de vie maximum et courant.
@@ -19,40 +19,48 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // Le type de combat qu'elle utilise.
   protected Combat typeCombat;
 
-  // Le type de déplacement qu'elle utilise.
+  // Le type de deplacement qu'elle utilise.
   protected Deplacement deplacement;
 
-  // La distance maximale à laquelle elle peut se déplacer et la distance parcourue ce tour-ci.
+  // La distance maximale a laquelle elle peut se deplacer et la distance parcourue ce tour-ci.
   protected int deplace, distance;
+
 
   // Le chemin qu'elle prend 
   protected int[][] chemin;
+  // Si elle est en mouvement
+  protected boolean enMouvement;
+  // ou elle est en dans le parcours du chemin
+  protected int statusChemin;
+  // Ou elle est en dans le mouvement entre deux cases
+  protected int statusMouv;
+
 
   // La distance sur laquelle elle peut attaquer, la distance sur laquelle elle peut voir sur le terrain.
   protected int portee, vision;
 
-  // La quantité d'essence utilisée par un véhicule, le coût de sa création.
+  // La quantite d'essence utilisee par un vehicule, le coût de sa creation.
   protected int essence, cout;
 
-  // Le type de l'unité (maritime, terrestre ou aérienne).
+  // Le type de l'unite (maritime, terrestre ou aerienne).
   protected TypeUnite type;
 
-  // Le joueur qui possède l'unité.
+  // Le joueur qui possede l'unite.
   protected Joueur joueur;
 
-  // La position x et y de l'unité dans le plateau.
+  // La position x et y de l'unite dans le plateau.
   protected int x, y;
 
-  // L'indice de l'unité dans le tableau global des unités, nécessaire pour aller le chercher dans variable.
+  // L'indice de l'unite dans le tableau global des unites, necessaire pour aller le chercher dans variable.
   protected int indice;
 
-  // Un boolean qui indique si l'unité a attaqué ce tour-ci.
+  // Un boolean qui indique si l'unite a attaque ce tour-ci.
   protected boolean attaque;
 
-  // La quantité d'argent gagné par le joueur qui tue cette unité.
+  // La quantite d'argent gagne par le joueur qui tue cette unite.
   protected int gainMort;
 
-  // Le status de l'animation des dégats reçus.
+  // Le status de l'animation des degats reçus.
   protected int animDegats;
 
   // ********************************************
@@ -60,21 +68,21 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // ********************************************
 
   /**
-   * Crée une unité l'unité
-   * @param nom         Le nom de l'unité
-   * @param pvMax       Le max de points de vie de l'unité
-   * @param typeCombat  Le type de combat de l'unité
-   * @param deplacement Le déplacement de l'unité
-   * @param distance    La distance maximale sur laquelle l'unité peut se déplacer
-   * @param portee      La portée d'attaque de l'unité
-   * @param vision      La vision de l'unité
-   * @param essence     L'essence de l'unité
-   * @param prix        Le prix de construction de l'unité
-   * @param type        Le type de l'unité (maritime, terrestre, aérienne)
-   * @param joueur      Le joueur qui contrôle l'unité
-   * @param x           La position de l'unité sur le plateau [x][]
-   * @param y           La position de l'unité sur le plateau [][y]
-   * @param indice      L'indice de l'unité dans le tableau du type d'unité
+   * Cree une unite l'unite
+   * @param nom         Le nom de l'unite
+   * @param pvMax       Le max de points de vie de l'unite
+   * @param typeCombat  Le type de combat de l'unite
+   * @param deplacement Le deplacement de l'unite
+   * @param distance    La distance maximale sur laquelle l'unite peut se deplacer
+   * @param portee      La portee d'attaque de l'unite
+   * @param vision      La vision de l'unite
+   * @param essence     L'essence de l'unite
+   * @param prix        Le prix de construction de l'unite
+   * @param type        Le type de l'unite (maritime, terrestre, aerienne)
+   * @param joueur      Le joueur qui contrôle l'unite
+   * @param x           La position de l'unite sur le plateau [x][]
+   * @param y           La position de l'unite sur le plateau [][y]
+   * @param indice      L'indice de l'unite dans le tableau du type d'unite
    */
   public AbstractUnite (String nom, int pvMax, Combat typeCombat, Deplacement deplacement, int distance, int portee, int vision, int essence, int prix, TypeUnite type, Joueur joueur, int x, int y, int indice) {
     this.nom = nom;
@@ -96,6 +104,9 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.gainMort = cout/2;
     this.animDegats = 0; // status de l'animation dégats
     chemin = new int[0][0];
+    enMouvement = false;
+    statusChemin = 0;
+    statusMouv = 0;
   }
 
   // ***************************************
@@ -103,6 +114,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // ***************************************
 
   public boolean getAttaque() { return attaque; }
+  public boolean getMouvement() {return enMouvement;}
 
   public int getX() { return x; }
   public int getY() { return y; }
@@ -117,6 +129,9 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public int getDistance() { return distance; }
   public int getAnimDegats() { return animDegats; }
   public int getDegats() { return typeCombat.getDegats(); }
+
+  public int getStatusChemin() {return statusChemin;}
+  public int getStatusMouv() {return statusMouv;}
 
   public int[][] getChemin() {return chemin; }
 
@@ -133,7 +148,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // ***************************************
 
   /**
-   * Permet de désigner la case sur laquelle l'unité est située.
+   * Permet de designer la case sur laquelle l'unite est situee.
    * @param x L'indice du tableau au premier niveau (plateau[x])
    * @param y L'indice dans le deuxieme tableau (plateau[x][y])
    */
@@ -143,10 +158,10 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   /**
-   * Ajoute n points de vie à l'unité.
-   * Si pv + n dépasse pvMax, pv vaut pvMax.
+   * Ajoute n points de vie a l'unite.
+   * Si pv + n depasse pvMax, pv vaut pvMax.
    * Si pv + n est en-dessous de 0, pv vaut 0.
-   * @param n Le nombre ajouté a pv.
+   * @param n Le nombre ajoute a pv.
    */
   public void setPV (int n) {
     if (pv+n <= pvMax && pv+n >= 0)
@@ -157,7 +172,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   /**
-   * Permet à l'unité de se déplacer et d'attaquer pour ce tour-ci.
+   * Permet a l'unite de se deplacer et d'attaquer pour ce tour-ci.
    */
   public void reset() {
     deplace = 0;
@@ -165,16 +180,16 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   /**
-   * Augmente le déplacement de l'unité du paramètre i
-   * @param i Le nombre de déplacement effectué par l'unité.
+   * Augmente le deplacement de l'unite du parametre i
+   * @param i Le nombre de deplacement effectue par l'unite.
    */
   public void setDeplace (int i) {
     deplace += i;
   }
 
   /**
-   * Fixe le status de l'animation de dégats.
-   * @param status Le status de l'animation ciblée.
+   * Fixe le status de l'animation de degats.
+   * @param status Le status de l'animation ciblee.
    */
   public void setAnimDegats (int status) {
     animDegats = status;
@@ -185,37 +200,48 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     chemin = circuit;
   }
 
+  public void setMouvement (boolean b){
+    enMouvement = b;
+  }
+
+  public void setStatusChemin (int status){
+    statusChemin = status;
+  }
+  public void setStatusMouv (int status) {
+    statusMouv = status;
+  }
+
   // ****************************************************
   // *************** Fonctions d'instance ***************
   // ****************************************************
 
   /**
-   * Décrit la méthode de combat de l'unité.
-   * @return Renvoie une chaîne de caractère contenant une description de la méthode de combat de l'unité.
+   * Decrit la methode de combat de l'unite.
+   * @return Renvoie une chaîne de caractere contenant une description de la methode de combat de l'unite.
    */
   public String combat() {
     return typeCombat.combat();
   }
 
   /**
-   * Décrit la méthode de déplacement de l'unité.
-   * @return Renvoie une chaîne de caractère contenant une description de la méthode de déplacement de l'unité.
+   * Decrit la methode de deplacement de l'unite.
+   * @return Renvoie une chaîne de caractere contenant une description de la methode de deplacement de l'unite.
    */
   public String deplacement() {
     return deplacement.deplacement();
   }
 
   /**
-   * Décrit le type de l'unité.
-   * @return Renvoie une chaîne de caractère contenant une description du type de l'unité.
+   * Decrit le type de l'unite.
+   * @return Renvoie une chaîne de caractere contenant une description du type de l'unite.
    */
   public String type() {
     return type.type();
   }
 
   /**
-   * Permet d'attaquer une unité. L'unité ciblée perd des points de vie égaux à l'attaque de l'unité.
-   * @param cible l'unité ciblée par l'attaque.
+   * Permet d'attaquer une unite. L'unite ciblee perd des points de vie egaux a l'attaque de l'unite.
+   * @param cible l'unite ciblee par l'attaque.
    */
   public void attaquer (AbstractUnite cible) {
     cible.setPV(-getDegats());
@@ -224,8 +250,8 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   /**
-   * Permet d'afficher l'objet sous forme d'une chaîne de caratère.
-   * @return La chaîne de caractère qui va décrire l'objet.
+   * Permet d'afficher l'objet sous forme d'une chaîne de caratere.
+   * @return La chaîne de caractere qui va decrire l'objet.
    */
   @Override
   public String toString(){

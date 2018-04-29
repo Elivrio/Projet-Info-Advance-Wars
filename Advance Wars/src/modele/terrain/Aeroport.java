@@ -4,7 +4,15 @@ import src.modele.terrain.AbstractVille;
 
 public class Aeroport extends AbstractVille {
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
+  /**
+   * @param x Position du terrain en abscisse.
+   * @param y Position du terrain en ordonnee.
+   */
   public Aeroport (int x, int y) {
-    super("Aéroport", 7, x, y);
+    super("Aeroport", 7, 1, x, y);
   }
 }

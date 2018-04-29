@@ -44,40 +44,40 @@ public class Vue extends JFrame {
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // Variable permettant de connaître le type d'unité que l'on est en train
-  // de créer avec une listener, à savoir terrestre (0), maritime(1) ou aérienne(2).
+  // Variable permettant de connaître le type d'unite que l'on est en train
+  // de creer avec une listener, a savoir terrestre (0), maritime(1) ou aerienne(2).
   private int typeUnites;
 
-  // Le listener qui gère les animatations dans la vue.
+  // Le listener qui gere les animatations dans la vue.
   private AnimationActionListener aAL;
 
-  // Le listener qui gère les actions dans la vue..
+  // Le listener qui gere les actions dans la vue..
   private ControleurActionListener cAL;
 
   // Les JButtons qui apparaissent dans la vue.
-  // Ils doivent faire parti des variables d'instance afin d'être récupérable dans le contrôleur.
+  // Ils doivent faire parti des variables d'instance afin d'etre recuperable dans le contrôleur.
   private JButton boutonAttaque = new JButton("Attaquer");
   private JButton boutonJoueur = new JButton("Changer de joueur");
-  private JButton boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
-  private JButton boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
-  private JButton boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
+  private JButton boutonCreationUniteMaritime = new JButton("Creer une unite maritime");
+  private JButton boutonCreationUniteAerienne = new JButton("Creer une unite aerienne");
+  private JButton boutonCreationUniteTerrestre = new JButton("Creer une unite terrestre");
 
-  // Le JPanel que l'on ajoute lorsque le joueur souhaite créer une unité.
+  // Le JPanel que l'on ajoute lorsque le joueur souhaite creer une unite.
   private JPanel panelChoixUnites;
 
-  // Les Panel qui permettent de séparer la vue entre plateau de jeu, minimap et panneaux d'informations.
+  // Les Panel qui permettent de separer la vue entre plateau de jeu, minimap et panneaux d'informations.
   private JSplitPane split1, split2, split3;
 
   // Les panneaux d'informations du jeu.
   private JTextPane textJoueur, textInfos;
 
-  // Contient toutes les informations que l'on va ajouter dans panelChoixUnites afin de créer l'affichage.
+  // Contient toutes les informations que l'on va ajouter dans panelChoixUnites afin de creer l'affichage.
   private LinkedList<JLabel> listeIcones = new LinkedList<JLabel>();
 
-  // Le listener que l'on ajoute à panelChoixUnites pour créer les unités sur le plateau.
+  // Le listener que l'on ajoute a panelChoixUnites pour creer les unites sur le plateau.
   private MouseIcone mI;
 
-  // La miniMap affichée dans la vue.
+  // La miniMap affichee dans la vue.
   private MiniMap miniMap;
 
   // La map qui affiche le terrain.
@@ -97,15 +97,15 @@ public class Vue extends JFrame {
   // ********************************************
 
   /**
-   * @param plateau Le Plateau qui définit le terrain.
+   * @param plateau Le Plateau qui definit le terrain.
    */
   public Vue (Plateau plateau) {
-    // La dimension de l'écran.
+    // La dimension de l'ecran.
     Dimension dimensionEcran = Toolkit.getDefaultToolkit().getScreenSize();
     int largeurEcran = (int)dimensionEcran.getWidth();
     int hauteurEcran = (int)dimensionEcran.getHeight();
 
-    // On définit la taille de la fenêtre, son nom et la méthode de fermuture.
+    // On definit la taille de la fenetre, son nom et la methode de fermuture.
     setSize(largeurEcran, hauteurEcran);
     setTitle("Advance Wars");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -229,7 +229,7 @@ public class Vue extends JFrame {
     if (unite.getDeplacement() != null)
       str += "\n" + unite.deplacement();
     str += "\nPoints de vie : " + unite.getPV() + "/" + unite.getPVMax();
-    str += "\nPortée : " + unite.getPortee() + ((unite.getPortee() > 1) ? " cases." : " case.");
+    str += "\nPortee : " + unite.getPortee() + ((unite.getPortee() > 1) ? " cases." : " case.");
     if (map.getJoueur().possede(unite)) {
       str += "\nChamp de vision : " + unite.getVision() + ((unite.getVision() > 1) ? " cases." : " case.");
     }
@@ -247,7 +247,7 @@ public class Vue extends JFrame {
   public void informations (AbstractTerrain terrain, int vision) {
     textInfos.setText("");
     String str = "";
-    afficher(textInfos, (vision == 0)? "Mystère absolu" : terrain.getNom(), str, Color.WHITE);
+    afficher(textInfos, (vision == 0)? "Mystere absolu" : terrain.getNom(), str, Color.WHITE);
   }
 
   public void informations (AbstractVille ville, Joueur joueur, int vision) {
@@ -256,22 +256,22 @@ public class Vue extends JFrame {
     Joueur j = ville.getJoueur();
     Color couleur = ((j==null)?Color.WHITE:j.getColor());
     JButton button = null;
-    str += "Ville possédée par : " + ((j == null) ? "personne." :(j.getNom() + "."));
-    afficher(textInfos, (vision == 0) ? "Mystère absolu" : ville.getNom(), str, couleur);
+    str += "Ville possedee par : " + ((j == null) ? "personne." :(j.getNom() + "."));
+    afficher(textInfos, (vision == 0) ? "Mystere absolu" : ville.getNom(), str, couleur);
 
     ActionVille aL = new ActionVille(this, ville);
 
     if (j == joueur && !ville.getAchete()) {
       if (ville instanceof Usine) {
-        boutonCreationUniteTerrestre = new JButton("Créer une unité terrestre");
+        boutonCreationUniteTerrestre = new JButton("Creer une unite terrestre");
         button = boutonCreationUniteTerrestre;
       }
       if (ville instanceof Aeroport) {
-        boutonCreationUniteAerienne = new JButton("Créer une unité aérienne");
+        boutonCreationUniteAerienne = new JButton("Creer une unite aerienne");
         button = boutonCreationUniteAerienne;
       }
       if (ville instanceof Port) {
-        boutonCreationUniteMaritime = new JButton("Créer une unité maritime");
+        boutonCreationUniteMaritime = new JButton("Creer une unite maritime");
         button = boutonCreationUniteMaritime;
       }
       button.setFocusable(false);
@@ -308,11 +308,11 @@ public class Vue extends JFrame {
 
   public void informations (Joueur joueur) {
     textJoueur.setText("");
-    String str = "" + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1) ? " unités" : " unité");
+    String str = "" + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1) ? " unites" : " unite");
     str += "\n" + joueur.getArgent() + " €";
     if (joueur.getNbUnites() == 0)
-      str += "\nSon général est mort ! Perdant du jeu.\n";
-    else  str += "\nEst dirigé par le Général " + joueur.getUnites().get(0).getNom() + "\n";
+      str += "\nSon general est mort ! Perdant du jeu.\n";
+    else  str += "\nEst dirige par le General " + joueur.getUnites().get(0).getNom() + "\n";
     afficher(textJoueur, joueur.getNom(), str, joueur.getColor());
     textJoueur.insertComponent(boutonJoueur);
   }
@@ -325,38 +325,38 @@ public class Vue extends JFrame {
   }
 
   /**
-   * Met à jour les informations lors d'un combat.
-   * @param attaquant L'unité qui attaque.
-   * @param cible     L'unité qui est attaquée.
-   * @param degats    Le nombre de points de dégâts infligés.
+   * Met a jour les informations lors d'un combat.
+   * @param attaquant L'unite qui attaque.
+   * @param cible     L'unite qui est attaquee.
+   * @param degats    Le nombre de points de degâts infliges.
    */
   public void informationsCombat (AbstractUnite attaquant, AbstractUnite cible, int degats) {
 
-    // On vérifie si un joueur est mort,
+    // On verifie si un joueur est mort,
     int n = map.getPlateau().mort(attaquant, cible);
     // Si un joueur est mort, on affiche un pop-up le signalant.
     if (n == 1 || n == 2)
       popUpMort(cible.getJoueur());
-    // S'il ne reste qu'un joueur en jeu, on gère la fin du jeu.
+    // S'il ne reste qu'un joueur en jeu, on gere la fin du jeu.
     if (n == 2)
       popUpFinPartie();
 
     if (cible.getPV() <= 0) {
-      // On met à jour les informations du joueur qui vient de tuer une unité.
+      // On met a jour les informations du joueur qui vient de tuer une unite.
       this.informations(map.getJoueur());
     }
-    // On met à jour les informations des unités en affichant les dégats infligés.
+    // On met a jour les informations des unites en affichant les degats infliges.
     this.informations(attaquant, cible, degats);
   }
 
   /**
-   * Permet de gérer la fin d'un tour de jeu.
+   * Permet de gerer la fin d'un tour de jeu.
    */
   public void finTour () {
-    // On vérifie si les villes sur la carte change de propriétaire.
+    // On verifie si les villes sur la carte change de proprietaire.
     map.getPlateau().villesPrises();
 
-    // On change de joueur et on met la vue à jour.
+    // On change de joueur et on met la vue a jour.
     this.nouveauTour();
   }
 
@@ -373,8 +373,8 @@ public class Vue extends JFrame {
    * Affichage d'un pop-up annonçant la fin de la partie.
    */
   public void popUpFinPartie() {
-    String str = "Bravo ! Vous avez gagné la partie.";
-    JOptionPane.showMessageDialog(null, str, "Partie terminée", JOptionPane.INFORMATION_MESSAGE);
+    String str = "Bravo ! Vous avez gagne la partie.";
+    JOptionPane.showMessageDialog(null, str, "Partie terminee", JOptionPane.INFORMATION_MESSAGE);
     //dispose();
     System.exit(0);
   }

@@ -8,6 +8,10 @@ import src.controleur.Controleur;
 
 public class ControleurActionListener extends Controleur implements ActionListener {
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
   /**
    * @param vue La vue du jeu.
    */
@@ -20,8 +24,8 @@ public class ControleurActionListener extends Controleur implements ActionListen
   // ****************************************************
 
   /**
-   * Est appelée quand on clique sur un bouton.
-   * @param e Le clic sur le bouton transformé en variable par Java.
+   * Est appelee quand on clique sur un bouton.
+   * @param e Le clic sur le bouton transforme en variable par Java.
    */
   @Override
   public void actionPerformed (ActionEvent e) {
@@ -31,7 +35,7 @@ public class ControleurActionListener extends Controleur implements ActionListen
       vue.finTour();
     // Si on clique sur le bouton pour attaquer,
     else if (source == vue.getBoutonAttaque()) {
-      // Si la portée était déjà affichée, on l'efface.
+      // Si la portee etait deja affichee, on l'efface.
       if (map.getAttaque())
         map.setAttaque(false);
       // Sinon, on l'affiche.

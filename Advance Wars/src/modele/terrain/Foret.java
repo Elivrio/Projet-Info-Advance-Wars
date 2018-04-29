@@ -4,8 +4,12 @@ import src.modele.AbstractTerrain;
 
 public class Foret extends AbstractTerrain {
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
   public Foret() {
-    super("Forêt", 0);
+    super("Foret", 0, 0);
   }
 
 }

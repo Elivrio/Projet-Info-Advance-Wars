@@ -13,8 +13,12 @@ public class MenuActionListener implements ActionListener {
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // Le menu de démarrage du jeu.
+  // Le menu de demarrage du jeu.
   private Menu menu;
+
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
 
   /**
    * @param menu Le menu du jeu.
@@ -24,7 +28,7 @@ public class MenuActionListener implements ActionListener {
   }
 
   /**
-   * Est appelée lors d'un clic sur un bouton du menu.
+   * Est appelee lors d'un clic sur un bouton du menu.
    * @param e [description]
    */
   @Override
@@ -42,7 +46,7 @@ public class MenuActionListener implements ActionListener {
         System.exit(1);
       }
     }
-    // Si on choisit un nombre de joueurs, on affiche les choix en conséquence.
+    // Si on choisit un nombre de joueurs, on affiche les choix en consequence.
     else if (source == menu.getChoixNbJoueurs())
       menu.afficherChoixNoms();
     /*for (ComboColorChooser<MyColor> m : menu.getChoixCouleurs())

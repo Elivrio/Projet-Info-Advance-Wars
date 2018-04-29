@@ -1,5 +1,7 @@
 package src.vue;
 
+import java.lang.Math;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Graphics;
@@ -26,19 +28,25 @@ public class PanelMap extends Map {
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // Contient l'unité cliquée en ce moment.
+  // Contient l'unite cliquee en ce moment.
   private AbstractUnite cliquee;
 
-  // Précise si l'on doit afficher le déplacement de l'unité cliquée
-  // ou la distance d'attaque de l'unité.
+  // Contient une unite presente sur le plateau
+  private AbstractUnite pion;
+
+  // Precise si l'on doit afficher le deplacement de l'unite cliquee
+  // ou la distance d'attaque de l'unite.
   private boolean attaque;
 
-  // Permet de stocker en mémoire la position sur l'écran afin de faire du déplacement en continu.
+  // Permet de stocker en memoire la position sur l'ecran afin de faire du deplacement en continu.
   // Ces valeurs sont comprises entre -taillePixel et taillePixel
   protected int posI, posJ;
 
-  // Pour savoir si on est à l'image 1 ou 2 de l'animation
+  // Pour savoir si on est a l'image 1 ou 2 de l'animation
   protected boolean animation;
+
+  // Pour savoir si une unite peut se deplacer
+  protected boolean bouge;
 
 
   // ********************************************
@@ -46,7 +54,7 @@ public class PanelMap extends Map {
   // ********************************************
 
   /**
-   * @param plateau   Le Plateau de jeu qui va être dessiné durant la partie.
+   * @param plateau   Le Plateau de jeu qui va etre dessine durant la partie.
    * @param jeu       Le Jeu.
    */
   public PanelMap (Plateau plateau) {
@@ -72,17 +80,21 @@ public class PanelMap extends Map {
   public int getTaillePixel() { return taillePixel; }
 
   public AbstractUnite getCliquee() { return cliquee; }
+  public AbstractUnite getPion() {return pion;}
 
+  // ***************************************
   // *************** Setters ***************
-
+  // ***************************************
 
   public void setAttaque (boolean b) { attaque = b; }
   public void setCliquee (AbstractUnite u) { cliquee = u; }
   public void setAnimation (boolean b) { animation = b; }
 
+  public void setBouge(boolean b) { bouge = b; }
+
   /**
-   * Permet de déplacer la position relative le long de l'axe des ordonnées et repaint la carte.
-   * @param pI La valeur que l'on ajoute à la position relative.
+   * Permet de deplacer la position relative le long de l'axe des ordonnees et repaint la carte.
+   * @param pI La valeur que l'on ajoute a la position relative.
    */
   public void addPosI (int pI) {
     posI += pI;
@@ -90,8 +102,8 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Permet de déplacer la position relative le long de l'axe des abscisses et repaint la carte.
-   * @param pJ La valeur que l'on ajoute à la position relative.
+   * Permet de deplacer la position relative le long de l'axe des abscisses et repaint la carte.
+   * @param pJ La valeur que l'on ajoute a la position relative.
    */
   public void addPosJ (int pJ) {
     posJ += pJ;
@@ -99,18 +111,17 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Permet de remettre la position relative à zéro.
+   * Permet de remettre la position relative a zero.
    */
   public void resetPosI() { posI = 0; }
   public void resetPosJ() { posJ = 0; }
   public void reset() { posJ = 0; posI = 0; }
 
   /**
-   * Retire une unité du plateau d'unité.
-   * @param u L'unité que l'on souhaite retirer du plateau.
+   * Retire une unite du plateau d'unite.
+   * @param u L'unite que l'on souhaite retirer du plateau.
    */
   public void rmvUnite (AbstractUnite u) { plateau.rmvUnite(u); }
-
 
   // ****************************************************
   // *************** Fonctions d'instance ***************
@@ -118,11 +129,11 @@ public class PanelMap extends Map {
 
   @Override
   /**
-   * Permet de mettre à jour le contenu du terrain et de le dessiner dans le JPanel.
-   * @param g Le contenu Graphics donné par Java.
+   * Permet de mettre a jour le contenu du terrain et de le dessiner dans le JPanel.
+   * @param g Le contenu Graphics donne par Java.
    */
   public void paint (Graphics g) {
-    // On commence par mettre à jour la vision du joueur.
+    // On commence par mettre a jour la vision du joueur.
     joueur.vision(plateau.getTerrain());
     // On dessine sur tout le terrain.
     for (int i = 0; i < hautMax; i++)
@@ -130,36 +141,36 @@ public class PanelMap extends Map {
         // Si on sort des limites du terrain, on saute ce tour de boucle.
         if (i + tabI - 1 >= plateau.getHauteur() || j + tabJ - 1 >= plateau.getLargeur())
           continue;
-        // L'unité qui se trouve sur la case.
+        // L'unite qui se trouve sur la case.
         AbstractUnite unite = plateau.getUnites()[i + tabI - 1][j + tabJ - 1];
         // Le type du terrain.
         int t = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
         // La fonction qui permet d'afficher la case et tous ses composants.
         dessineCase(g, t, j, i, unite);
+        dessineChemin(g, t, j, i, unite);
       }
   }
 
   /**
    * Fonction dessinant une case du plateau.
-   * Elle dessine le terrain, le brouillard de guerre, les unités, l'interface de Gameplay, etc.
-   * @param g     Le contenu Graphics donné par Java.
+   * Elle dessine le terrain, le brouillard de guerre, les unites, l'interface de Gameplay, etc.
+   * @param g     Le contenu Graphics donne par Java.
    * @param type  Le type de terrain sur lequel on se trouve (plaine, etc.).
    * @param x     La position dans le tableau en abscisse.
-   * @param y     La position dans le tableau en ordonnée.
-   * @param unite L'unité qui se trouve sur la case (peut valoir 'null').
+   * @param y     La position dans le tableau en ordonnee.
+   * @param unite L'unite qui se trouve sur la case (peut valoir 'null').
    */
-  //
   public void dessineCase (Graphics g, int type, int x, int y, AbstractUnite unite) {
-    // On dessine le terrain correspondant à la case donnée.
+    // On dessine le terrain correspondant a la case donnee.
     chemin(g, type, y, x);
 
-    // On met à jour le brouillard de guerre sur cette case.
+    // On met a jour le brouillard de guerre sur cette case.
     switch (joueur.getVision()[y + tabI - 1][x + tabJ - 1]) {
-      // Si la case n'a jamais été visitée.
+      // Si la case n'a jamais ete visitee.
       case 0 :
         g.drawImage(Variable.noir, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
-      // Si la case a été visitée mais se trouve dans le brouillard de guerre.
+      // Si la case a ete visitee mais se trouve dans le brouillard de guerre.
       case 1 :
         g.drawImage(Variable.gris, (x * taillePixel) - posJ - 100, (y * taillePixel) - posI - 100, this);
         break;
@@ -176,22 +187,23 @@ public class PanelMap extends Map {
           // Affichage des déplacements possibles.
           
           if ((!(cliquee.getAttaque()) || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace())){
+            // Affichage des deplacements possibles.
             g.drawImage(Variable.vert, a, b, this);
             // Affichage du chemin
             int[][] circuit = cliquee.getChemin();
             if (isin(circuit, y+tabI-1, x+tabJ-1))
-              g.drawImage(Variable.bleu, a, b, this);
+              g.drawImage(Variable.point, a, b, this);
           }
-          // Affichage de la portée.
+          // Affichage de la portee.
           if (cliquee.getAttaque() && attaque && (Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= cliquee.getPortee()))
             g.drawImage(Variable.rouge, a, b, this);
     }
 
-    // On dessine l'unité si elle est présente.
+    // On dessine l'unite si elle est presente.
     if (unite != null && joueur.getVision()[y + tabI - 1][x + tabJ - 1] == 2) {
-      // On commence par récupérer l'unité concernée.
+      // On commence par recuperer l'unite concernee.
       BufferedImage uni;
-      // choix de l'image de l'unité suivant le moment de l'animation
+      // choix de l'image de l'unite suivant le moment de l'animation
       if (animation) {
         uni = Variable.tImUni1[unite.getIndice()-1];
       }
@@ -204,14 +216,13 @@ public class PanelMap extends Map {
       // On dessine sa barre de vie.
       makeForm(g, rect, x, y, posJ + 90, posI + 90, 80, 80 * unite.getPV() / unite.getPVMax(), 5, color);
 
-      // Si le joueur actuel possède l'unité, il faut afficher des informations en plus.
+      // Si le joueur actuel possede l'unite, il faut afficher des informations en plus.
       if (joueur.possede(unite)) {
-
-        // On affiche un rond pour préciser si l'unité sélectionnée peut attaquer ou non.
+        // On affiche un rond pour preciser si l'unite selectionnee peut attaquer ou non.
         color = (unite.getAttaque()) ? Color.GREEN : Color.RED;
         makeForm(g, oval, x, y, posJ + 90, posI + 83, 5, 5, color);
 
-        // On affiche plusieurs ronds pour montrer la distance que peut encore parcourir l'unité.
+        // On affiche plusieurs ronds pour montrer la distance que peut encore parcourir l'unite.
         for (int dis = 0; dis < unite.getDistance(); dis++) {
           color = Color.GREEN;
           if (dis < unite.getDeplace())
@@ -220,47 +231,117 @@ public class PanelMap extends Map {
         }
       }
 
-      // On récupére la couleur du joueur qui possède l'unité.
-      // L'utilisation de MyColor a pour but d'ajouter de la transparence à la couleur.
+      // On recupere la couleur du joueur qui possede l'unite.
+      // L'utilisation de MyColor a pour but d'ajouter de la transparence a la couleur.
       color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
 
-      // Il y a distinction entre un général et une unité normale, les généraux sont plus grands.
-      if (unite instanceof General) {
-        // Le socle d'un général.
-        makeForm(g, oval, x, y, posJ + 80, posI + 35, 60, 20, color);
-        // Un général.
-        g.drawImage(uni, (x * taillePixel) - posJ - 80, (y * taillePixel) - posI - 80, this);
+      // Il y a distinction entre un general et une unite normale, les generaux sont plus grands.
+      // Si l'unite ne bouge pas, si elle bouge son affichage est gere par une autre methode.
+      if (!unite.getMouvement()){
+        if (unite instanceof General) {
+          // Le socle d'un general.
+          makeForm(g, oval, x, y, posJ + 80, posI + 35, 60, 20, color);
+          // Un general.
+          g.drawImage(uni, (x * taillePixel) - posJ - 80, (y * taillePixel) - posI - 80, this);
+        }
+        else {
+          // Le socle d'une unite.
+          makeForm(g, oval, x, y, posJ + 75, posI + 45, 50, 20, color);
+          // Une unite.
+          g.drawImage(uni, (x * taillePixel) - posJ - 70, (y * taillePixel) - posI - 70, this);
+        }
       }
-      else {
-        // Le socle d'une unité.
-        makeForm(g, oval, x, y, posJ + 75, posI + 45, 50, 20, color);
-        // Une unité.
-        g.drawImage(uni, (x * taillePixel) - posJ - 70, (y * taillePixel) - posI - 70, this);
-      }
-        // On dessine les dégats si il y en a eu.
-      if (unite.getAnimDegats() != 0) { // On dessine les dégats reçus si il y a eu une attaque.
+
+        // On dessine les degats si il y en a eu.
+      if (unite.getAnimDegats() != 0) { // On dessine les degats reçus si il y a eu une attaque.
         BufferedImage deg = Variable.tImDegats[unite.getAnimDegats()];
-        if (unite.getAnimDegats() % 5 < 3) // Pour faire défiler les 4 images de l'animation dégats.
+        if (unite.getAnimDegats() % 5 < 3) // Pour faire defiler les 4 images de l'animation degats.
           unite.setAnimDegats(unite.getAnimDegats() + 1);
         else
-          unite.setAnimDegats(0); // Retour à pas d'animation.
+          unite.setAnimDegats(0); // Retour a pas d'animation.
         g.drawImage(deg, (x * taillePixel) - posJ - 90, (y * taillePixel) - posI - 80, this);
       }
     }
   }
+  /**
+   * Fonction dessinant l'aniamtion du deplacement en theorie ...
+   *
+   * @param g     Le contenu Graphics donne par Java.
+   * @param type  Le type de terrain sur lequel on se trouve (plaine, etc.).
+   * @param x     La position dans le tableau en abscisse.
+   * @param y     La position dans le tableau en ordonnee.
+   * @param unite L'unite qui se trouve sur la case (peut valoir 'null').
+   */
+  public void dessineChemin(Graphics g,int type, int x, int y, AbstractUnite unite) {
+    if (unite != null){
+      pion = unite;
+      if (unite.getMouvement() && unite.getStatusChemin()+1 < unite.getChemin().length){
+        if (bouge){
+          Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, ""); 
+          BufferedImage uni;
+          if (animation) {
+            uni = Variable.tImUni1[unite.getIndice()-1];
+          }
+          else {
+            uni = Variable.tImUni2[unite.getIndice()-1];
+          }
+
+          // ou on en est dans le chemin
+          int etape = unite.getStatusChemin();
+          // les coordonnees de l'etape du chemin ou on est 
+          int a1 = unite.getChemin()[etape][0];
+          int a2 = unite.getChemin()[etape][1];
+          // les coordonnees de la prochaine case
+          int b1 = unite.getChemin()[etape +1][0];
+          int b2 = unite.getChemin()[etape +1][1];
+
+          int a3 = Math.max(a1, a2);
+          int b3 = Math.max(b1, b2);
+
+          int status = unite.getStatusMouv();
+          if (status < 3)
+            unite.setStatusMouv(status+1);
+          else {
+            unite.setStatusMouv(0);
+          }
+          System.out.println("status ? "+status);
+          int pas = 100/4 * status;
+          System.out.println("pas "+ pas);
+
+          // Egal a 1 ou -1 pour connaitre la direction
+          int orientationX = a1 - a2;
+          int orientationY = b1 - b2;
+
+          if (unite instanceof General){
+            makeForm(g, oval, a3, b3, posJ+80+(pas*orientationX), posI+35+(pas*orientationY), 60, 20, color);
+            g.drawImage(uni,(a3 * taillePixel)- posJ-80, (y*taillePixel)-posI-80, this); 
+          }
+
+          unite.setStatusChemin(etape+1);
+          bouge = false;
+        }
+      } 
+      else { 
+        pion = null;
+        unite.setMouvement(false);
+        unite.setChemin(new int[0][0]);
+      }
+    }
+
+  }
 
   /**
-   * Fonction utilitaire pour créer des rectangles ou des ovales de couleur "color" entourés de bordure noir.
-   * La String form permet de définir si la forme choisie est un rectangle ou un ovale.
-   * @param g      Le contenu Graphics donné par Java.
-   * @param form   Une variable statique qui définit s'il s'agit d'un rond ou d'un rectangle.
+   * Fonction utilitaire pour creer des rectangles ou des ovales de couleur "color" entoures de bordure noir.
+   * La String form permet de definir si la forme choisie est un rectangle ou un ovale.
+   * @param g      Le contenu Graphics donne par Java.
+   * @param form   Une variable statique qui definit s'il s'agit d'un rond ou d'un rectangle.
    * @param x      La position dans le tableau en abscisse.
-   * @param y      La position dans le tableau en ordonnée.
+   * @param y      La position dans le tableau en ordonnee.
    * @param modX   Les modifications locales que l'on effectue sur la position en abscisse (position relative par exemple).
-   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnée (position relative par exemple).
-   * @param width  La largeur de la forme que l'on souhaite créer.
-   * @param height La hauteur de la forme que l'on souhaite créer.
-   * @param color  La couleur de la forme que l'on souhaite créer.
+   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnee (position relative par exemple).
+   * @param width  La largeur de la forme que l'on souhaite creer.
+   * @param height La hauteur de la forme que l'on souhaite creer.
+   * @param color  La couleur de la forme que l'on souhaite creer.
    */
   public void makeForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
     switch (form) {
@@ -276,16 +357,16 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Permet de dessiner une forme de base sur le Graphics donné.
-   * @param g      Le contenu Graphics donné par Java.
-   * @param form   Une variable statique qui définit s'il s'agit d'un rond ou d'un rectangle.
+   * Permet de dessiner une forme de base sur le Graphics donne.
+   * @param g      Le contenu Graphics donne par Java.
+   * @param form   Une variable statique qui definit s'il s'agit d'un rond ou d'un rectangle.
    * @param x      La position dans le tableau en abscisse.
-   * @param y      La position dans le tableau en ordonnée.
+   * @param y      La position dans le tableau en ordonnee.
    * @param modX   Les modifications locales que l'on effectue sur la position en abscisse (position relative par exemple).
-   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnée (position relative par exemple).
-   * @param width  La largeur de la forme que l'on souhaite créer.
-   * @param height La hauteur de la forme que l'on souhaite créer.
-   * @param color  La couleur de la forme que l'on souhaite créer.
+   * @param modY   Les modifications locales que l'on effectue sur la position en ordonnee (position relative par exemple).
+   * @param width  La largeur de la forme que l'on souhaite creer.
+   * @param height La hauteur de la forme que l'on souhaite creer.
+   * @param color  La couleur de la forme que l'on souhaite creer.
    */
   public void drawForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int height, Color color) {
     g.setColor(color);
@@ -298,18 +379,18 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Utile pour la barre de points de vie, la première largeur représente les contours noirs.
-   * La deuxième représente la forme que l'on souhaite créer de la couleur souhaitée.
-   * @param g           Le contenu Graphics donné par Java.
-   * @param form        Une variable statique qui définit s'il s'agit d'un rond ou d'un rectangle.
+   * Utile pour la barre de points de vie, la premiere largeur represente les contours noirs.
+   * La deuxieme represente la forme que l'on souhaite creer de la couleur souhaitee.
+   * @param g           Le contenu Graphics donne par Java.
+   * @param form        Une variable statique qui definit s'il s'agit d'un rond ou d'un rectangle.
    * @param x           La position dans le tableau en abscisse.
-   * @param y           La position dans le tableau en ordonnée.
+   * @param y           La position dans le tableau en ordonnee.
    * @param modX        Les modifications locales que l'on effectue sur la position en abscisse (position relative par exemple).
-   * @param modY        Les modifications locales que l'on effectue sur la position en ordonnée (position relative par exemple).
-   * @param width       La largeur de la bordure qui entoure la forme que l'on souhaite créer.
-   * @param secondWidth La largeur de la forme que l'on souhaite créer.
-   * @param height      La hauteur de la forme que l'on souhaite créer.
-   * @param color       La couleur de la forme que l'on souhaite créer.
+   * @param modY        Les modifications locales que l'on effectue sur la position en ordonnee (position relative par exemple).
+   * @param width       La largeur de la bordure qui entoure la forme que l'on souhaite creer.
+   * @param secondWidth La largeur de la forme que l'on souhaite creer.
+   * @param height      La hauteur de la forme que l'on souhaite creer.
+   * @param color       La couleur de la forme que l'on souhaite creer.
    */
   public void makeForm(Graphics g, String form, int x, int y, int modX, int modY, int width, int secondWidth, int height, Color color) {
     switch (form) {
@@ -324,47 +405,51 @@ public class PanelMap extends Map {
     }
   }
 
+  /*public void animDeplacement(Graphics g,String form ,int x, int y, int modX, int ModY, int width,int secondWidth, int height, Color color){
+
+  }*/
+
   /**
-   * Permet d'obtenir l'image adaptée en fonction du terrain et des cases adjcentes.
-   * @param g    Le contenu Graphics donné par Java.
-   * @param type le type du terrain considéré.
+   * Permet d'obtenir l'image adaptee en fonction du terrain et des cases adjcentes.
+   * @param g    Le contenu Graphics donne par Java.
+   * @param type le type du terrain considere.
    * @param x    La position dans le tableau en abscisse.
-   * @param y    La position dans le tableau en ordonnée.
+   * @param y    La position dans le tableau en ordonnee.
    */
   public void chemin (Graphics g, int type, int x, int y) {
-    // les différentes variables de la fonction.
-    // Le terrain est nécessaire afin de calculer les terrains adjacents à la case observée.
+    // les differentes variables de la fonction.
+    // Le terrain est necessaire afin de calculer les terrains adjacents a la case observee.
     AbstractTerrain[][] t = plateau.getTerrain();
-    // Contiendra l'image renvoyée par la fonction.
+    // Contiendra l'image renvoyee par la fonction.
     BufferedImage img = Variable.tImTer[type];
-    // Le chemin spécifique menant à l'image dans l'arborescence de fichier.
+    // Le chemin specifique menant a l'image dans l'arborescence de fichier.
     String chemin;
-    // Les 4 entiers suivants représentent une chaîne binaire.
-    // Celle-ci permet de déterminer le nombre de côtés en contact avec un terrain d'un autre type.
+    // Les 4 entiers suivants representent une chaîne binaire.
+    // Celle-ci permet de determiner le nombre de côtes en contact avec un terrain d'un autre type.
     int a = check((y + tabJ > 1), x, y, -1, -2, t);
     int b = check((x + tabI > 1), x, y, -2, -1, t);
     int c = check((y + tabJ < plateau.getLargeur() - 1), x, y, -1, 0, t);
     int d = check((x + tabI < plateau.getHauteur() - 1), x, y, 0, -1, t);
     int place;
     int j;
-    // En fonction du type de terrain sur lequel on se trouve, on ne charge pas les mêmes éléments.
+    // En fonction du type de terrain sur lequel on se trouve, on ne charge pas les memes elements.
     switch (type) {
       // Liaisons plaines-terrainDeTypeJ.
       case 1 :
         int[] tab = {a, b, c, d};
         // On calcule le type du terrain adjacent.
         j = chercherTerrain(tab);
-        // On calcule la chaîne binaire qui sera en préfixe de l'image.
+        // On calcule la chaîne binaire qui sera en prefixe de l'image.
         chemin = indice(j, a) + "" + indice(j, b) + "" + indice(j, c) + "" + indice(j, d);
         // A partir de la chaîne binaire, on calcule la position cible dans le tableau d'image.
         place = stringBinaryToInt(chemin);
-        // En fonction du terrain, on a chercher l'image adéquate.
+        // En fonction du terrain, on a chercher l'image adequate.
         switch (j) {
           case 0 : img = Variable.tImPlaineForet[place]; break;
           case 2 : img = Variable.tImPlaineEau[place]; break;
         }
         break;
-      // Liaisons eau-plage, la plage étant également de l'eau mais qui doit être gérée séparément.
+      // Liaisons eau-plage, la plage etant egalement de l'eau mais qui doit etre geree separement.
       case 2 :
         chemin = (a - 1) + "" + (b - 1) + "" + (c - 1) + "" + ( d - 1);
         place = stringBinaryToInt(chemin);
@@ -383,18 +468,18 @@ public class PanelMap extends Map {
     }
     // On dessine l'image.
     g.drawImage(img, (y * taillePixel) - posJ - 100, (x * taillePixel) - posI - 100, this);
-    // Dans le cas d'une ville, il faut vérifier que celle-ci appartient à un joueur et afficher sa couleur si nécessaire.
+    // Dans le cas d'une ville, il faut verifier que celle-ci appartient a un joueur et afficher sa couleur si necessaire.
     if (x + tabI > 1
         && y + tabJ > 1
         && x + tabI < plateau.getHauteur() - 1
         &&  y + tabJ < plateau.getLargeur() - 1
         && t[x + tabI - 1][y + tabJ - 1] instanceof AbstractVille) {
-      // On est certain que le terrain considéré est de type Ville.
+      // On est certain que le terrain considere est de type Ville.
       AbstractVille ville = ((AbstractVille)t[x + tabI - 1][y + tabJ - 1]);
-      // Si cette ville appartient à un joueur, on dessine un carré de la couleur du joueur en bas à droite.
+      // Si cette ville appartient a un joueur, on dessine un carre de la couleur du joueur en bas a droite.
       if (ville.getJoueur() != null) {
         Color color = ville.getJoueur().getColor();
-        // Si la ville a déjà créé une unité ce tour-ci, la couleur du carré est obscurcie.
+        // Si la ville a deja cree une unite ce tour-ci, la couleur du carre est obscurcie.
         if (ville.getJoueur() == this.joueur && ville.getAchete())
           color = color.darker();
         makeForm(g, rect, y, x, posJ + 95, posI + 15, 10, 10, color);
@@ -402,10 +487,27 @@ public class PanelMap extends Map {
     }
   }
 
+  public void mouvement(AbstractUnite unite, int[][] chemin){
+    for (int k = 0; k < chemin.length; k++){
+      int x = chemin[k][0];
+      int y = chemin[k][1];
+      if ((x==-1 && y==-1) ||(k >= 1 && plateau.getUnites()[x][y] != null))
+        break;
+      if (x != 0 && y != 0) {
+        plateau.setUnites(cliquee.getX(), cliquee.getY(), y, x);
+        cliquee.setDeplace(Math.abs((y) - cliquee.getX()) + Math.abs((x) - cliquee.getY()));
+        cliquee.setCase(y, x);
+        joueur.vision(plateau.getTerrain());
+      }
+    }
+    cliquee.setStatusChemin(0);
+  }
+
+
   /**
-   * Transforme une chaîne binaire en sa valeur entière.
+   * Transforme une chaîne binaire en sa valeur entiere.
    * @param  s La chaîne binaire que l'on souhaite transformer.
-   * @return   Renvoie la valeur entière correspondant à la chaîne binaire.
+   * @return   Renvoie la valeur entiere correspondant a la chaîne binaire.
    */
   public int stringBinaryToInt(String s) {
     int res = 0;
@@ -419,9 +521,9 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Permet de vérifier le type du terrain adjacent à la plaine choisie.
-   * @param  tab Les types des quatre cases adjacentes à la case choisie.
-   * @return     Renvoie le type du terrain adjacent à la plaine choisie.
+   * Permet de verifier le type du terrain adjacent a la plaine choisie.
+   * @param  tab Les types des quatre cases adjacentes a la case choisie.
+   * @return     Renvoie le type du terrain adjacent a la plaine choisie.
    */
   public int chercherTerrain(int[] tab) {
     for (int n : tab)
@@ -433,7 +535,7 @@ public class PanelMap extends Map {
   /**
    * Si i == a, renvoie 1. sinon, renvoie 0.
    * @param  i Un premier type de terrain.
-   * @param  a Un deuxième type de terrain.
+   * @param  a Un deuxieme type de terrain.
    * @return   0 ou 1
    */
   public int indice(int i, int a) {
@@ -441,18 +543,18 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Fonction pour réduire de code.
-   * Permet de récupérer le type d'un terrain adjacent à la case.
-   * @param  a    Un boolean qui permet de définir une valeur de
+   * Fonction pour reduire de code.
+   * Permet de recuperer le type d'un terrain adjacent a la case.
+   * @param  a    Un boolean qui permet de definir une valeur de
    * @param  x    La position dans le tableau en abscisse.
-   * @param  y    La position dans le tableau en ordonnée.
+   * @param  y    La position dans le tableau en ordonnee.
    * @param  modI Une modification locale dans le tableau des abscisses.
-   * @param  modJ Une modification locale dans le tableau des ordonnées.
+   * @param  modJ Une modification locale dans le tableau des ordonnees.
    * @param  t    Le tableau de terrain
-   * @return      Renvoie un entier qui correspond soit au type de la case adjacente, soit à 1.
+   * @return      Renvoie un entier qui correspond soit au type de la case adjacente, soit a 1.
    */
    public int check(boolean a, int x, int y, int modI, int modJ, AbstractTerrain[][] terrain) {
-    return ((a) ? (terrain[x + tabI + modI][y + tabJ + modJ].getType()) : 1);
+    return ((a) ? (terrain[x + tabI + modI][y + tabJ + modJ].getTypeLiaison()) : 1);
   }
 
   /**
@@ -463,7 +565,7 @@ public class PanelMap extends Map {
    * @return true si (a,b) appartient au tableau 
    */
    public boolean isin (int[][] intTab, int a, int b){
-    for (int i=0; i<intTab.length; i++){
+    for (int i=1; i<intTab.length; i++){
       if (intTab[i][0] == a && intTab[i][1] == b)
         return true;
     }

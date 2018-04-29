@@ -34,18 +34,18 @@ public class PanelMenu extends JPanel {
   // ****************************************************
 
   /**
-   * Dessine le fond d'écran sur le JPanel.
+   * Dessine le fond d'ecran sur le JPanel.
    * @param g L'environnement Graphics fourni par java.
    */
   @Override
   protected void paintComponent(Graphics g) {
 
-    // Test de sécurité.
+    // Test de securite.
     if (fondMenu != null) {
       // Objet permettant de manipuler les coins d'un objet de type Container.
       Insets insets = getInsets();
 
-      // Crée des variable afin de dimensionner l'image dans le JPanel ciblé.
+      // Cree des variable afin de dimensionner l'image dans le JPanel cible.
       int width = getWidth() - 1 - (insets.left + insets.right);
       int height = getHeight() - 1 - (insets.top + insets.bottom);
       int x = (width - fondMenu.getWidth(this)) / 2;
