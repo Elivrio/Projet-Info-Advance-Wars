@@ -47,7 +47,7 @@ public class Variable {
   public final static String pathToUnites = "src/variable/images/unites/";
   public final static String pathToTerrains = "src/variable/images/terrains/";
   public final static String pathToIcones = "src/variable/images/unites/unitesPrix/";
-  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", "", "", ""};
+  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", "", "", "", ""};
   public final static String pathToDegats = "src/variable/images/degats/";
 
   public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png", "port.png", "aeroport.png"};
@@ -111,10 +111,9 @@ public class Variable {
     tStrTer2 = new String[tStrBaseTer.length];
     tStrTerFile = new File[tStrTer2.length];
     tImTer = new BufferedImage[tStrTerFile.length];
-    System.out.println(tImTer.length);
-    for (int i = 0; i < tStrTer2.length ; i++) {
+    for (int i = 0; i < tStrTer2.length; i++) {
       tStrDossierTer[i] = pathToTerrains + pathToImages2[i];
-      tStrTer2[i] = tStrDossierTer[i]+ tStrBaseTer[i];
+      tStrTer2[i] = tStrDossierTer[i] + tStrBaseTer[i];
       tStrTerFile[i] = new File(tStrTer2[i]);
       try {
         tImTer[i] = ImageIO.read(tStrTerFile[i]);

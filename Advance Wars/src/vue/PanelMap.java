@@ -185,7 +185,7 @@ public class PanelMap extends Map {
           int a = (x * taillePixel) - posJ - 100;
           int b = (y * taillePixel) - posI - 100;
           // Affichage des déplacements possibles.
-          
+
           if ((!(cliquee.getAttaque()) || !attaque) && Math.abs((x + tabJ - 1) - cliquee.getX()) + Math.abs((y + tabI - 1) - cliquee.getY()) <= (cliquee.getDistance() - cliquee.getDeplace())){
             // Affichage des deplacements possibles.
             g.drawImage(Variable.vert, a, b, this);
@@ -277,7 +277,7 @@ public class PanelMap extends Map {
       pion = unite;
       if (unite.getMouvement() && unite.getStatusChemin()+1 < unite.getChemin().length){
         if (bouge){
-          Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, ""); 
+          Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
           BufferedImage uni;
           if (animation) {
             uni = Variable.tImUni1[unite.getIndice()-1];
@@ -288,7 +288,7 @@ public class PanelMap extends Map {
 
           // ou on en est dans le chemin
           int etape = unite.getStatusChemin();
-          // les coordonnees de l'etape du chemin ou on est 
+          // les coordonnees de l'etape du chemin ou on est
           int a1 = unite.getChemin()[etape][0];
           int a2 = unite.getChemin()[etape][1];
           // les coordonnees de la prochaine case
@@ -314,14 +314,14 @@ public class PanelMap extends Map {
 
           if (unite instanceof General){
             makeForm(g, oval, a3, b3, posJ+80+(pas*orientationX), posI+35+(pas*orientationY), 60, 20, color);
-            g.drawImage(uni,(a3 * taillePixel)- posJ-80, (y*taillePixel)-posI-80, this); 
+            g.drawImage(uni,(a3 * taillePixel)- posJ-80, (y*taillePixel)-posI-80, this);
           }
 
           unite.setStatusChemin(etape+1);
           bouge = false;
         }
-      } 
-      else { 
+      }
+      else {
         pion = null;
         unite.setMouvement(false);
         unite.setChemin(new int[0][0]);
@@ -562,7 +562,7 @@ public class PanelMap extends Map {
    * @param intTab le tableau
    * @param a le premier element du couple
    * @parma b le second element du couple
-   * @return true si (a,b) appartient au tableau 
+   * @return true si (a,b) appartient au tableau
    */
    public boolean isin (int[][] intTab, int a, int b){
     for (int i=1; i<intTab.length; i++){
@@ -575,12 +575,12 @@ public class PanelMap extends Map {
   /**
    * Change le joueur, s'assure que la carte ne garde pas une unité cliquée en mémoire et  met l'affichage à jour.
    */
-  public void newTurn() {
+  public void nouveauTour() {
     this.setJoueur(1);
     this.setCliquee(null);
     this.repaint();
   }
 
-  
+
 
 }
