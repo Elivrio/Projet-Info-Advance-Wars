@@ -55,8 +55,7 @@ public class Variable {
   public final static String[] tStrBaseUni2 = {"zombie2.png", "ninja2.png", "nosaure2.png", "magicalGirl2.png", "tank2.png", "fantassin2.png", "recon2.png", "bazooka2.png", "tankM2.png", "artillerie2.png", "vtb2.png", "antiAerien2.png", "dca2.png", "lanceMissiles2.png", "barge2.png", "sousMarin2.png", "destroyeur2.png", "cuirasse2.png", "helicoptere2.png", "helicoptereTransport2.png", "chasseur2.png", "bombardier2.png"};
   public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png", "antiAerienPrix.png", "dcaPrix.png", "lanceMissilesPrix.png",  "bargePrix.png", "sousMarinPrix.png", "destroyeurPrix.png", "cuirassePrix.png", "helicoPrix.png", "helicoTransportPrix.png", "chasseurPrix.png", "bombardierPrix.png"};
   public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png", "antiAerienTropCher.png", "dcaTropCher.png", "lanceMissilesTropCher.png",  "bargeTropCher.png", "sousMarinTropCher.png", "destroyeurTropCher.png", "cuirasseTropCher.png", "helicoTropCher.png", "helicoTransportTropCher.png", "chasseurTropCher.png", "bombardierTropCher.png"};
-  public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
-  //public final static String strChemin = "point.png";
+  public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg", "point.png"};
   public final static String[] tStrBaseDegats = {"0.png", "0.png", "0.png", "0.png", "0.png", "5-1.png", "5-2.png", "5-3.png", "5-4.png", "0.png", "10-1.png", "10-2.png", "10-3.png", "10-4.png", "O.png"};
 
   public final static String[] tStrUni1;
@@ -73,7 +72,6 @@ public class Variable {
   public final static File[] tStrUniFile1;
   public final static File[] tStrUniFile2;
   public final static File[] tStrFondFile;
-  //public final static File strCheminFile = new File(strChemin);
   public final static File[] tStrIconeFile;
   public final static File[] tStrIconeTropCherFile;
   public final static File[] tStrDegatsFile;
@@ -82,7 +80,6 @@ public class Variable {
   public final static BufferedImage[] tImUni1;
   public final static BufferedImage[] tImUni2;
   public final static BufferedImage[] tImFond;
-  //public final static BufferedImage imChemin;
   public final static BufferedImage[] tImIcone;
   public final static BufferedImage[] tImIconeTropCher;
   public final static BufferedImage[] tImDegats;

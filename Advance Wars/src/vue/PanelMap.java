@@ -82,6 +82,8 @@ public class PanelMap extends Map {
   public AbstractUnite getCliquee() { return cliquee; }
   public AbstractUnite getPion() {return pion;}
 
+  public boolean getBouge() { return bouge; }
+
   // ***************************************
   // *************** Setters ***************
   // ***************************************
@@ -263,6 +265,7 @@ public class PanelMap extends Map {
       }
     }
   }
+
   /**
    * Fonction dessinant l'aniamtion du deplacement en theorie ...
    *
@@ -275,8 +278,11 @@ public class PanelMap extends Map {
   public void dessineChemin(Graphics g,int type, int x, int y, AbstractUnite unite) {
     if (unite != null){
       pion = unite;
+      System.out.println("fuck you mouv "+unite.getMouvement());
       if (unite.getMouvement() && unite.getStatusChemin()+1 < unite.getChemin().length){
+        System.out.println("bouge "+ bouge);
         if (bouge){
+          // la couleur et l'image necessaire
           Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, ""); 
           BufferedImage uni;
           if (animation) {
@@ -320,11 +326,13 @@ public class PanelMap extends Map {
           unite.setStatusChemin(etape+1);
           bouge = false;
         }
-      } 
+         
+      }
       else { 
         pion = null;
-        unite.setMouvement(false);
-        unite.setChemin(new int[0][0]);
+        //unite.setStatusChemin(0);
+        //unite.setMouvement(false);
+        //unite.setChemin(new int[0][0]);
       }
     }
 
@@ -486,7 +494,12 @@ public class PanelMap extends Map {
       }
     }
   }
-
+  
+  /** 
+   * Fonction qui change l'unite de place 
+   * @param unite   l'unite qui bouge
+   * @param chemin  le chemin qu'elle prend
+   */
   public void mouvement(AbstractUnite unite, int[][] chemin){
     for (int k = 0; k < chemin.length; k++){
       int x = chemin[k][0];
@@ -494,13 +507,12 @@ public class PanelMap extends Map {
       if ((x==-1 && y==-1) ||(k >= 1 && plateau.getUnites()[x][y] != null))
         break;
       if (x != 0 && y != 0) {
-        plateau.setUnites(cliquee.getX(), cliquee.getY(), y, x);
-        cliquee.setDeplace(Math.abs((y) - cliquee.getX()) + Math.abs((x) - cliquee.getY()));
-        cliquee.setCase(y, x);
+        plateau.setUnites(unite.getX(), unite.getY(), y, x);
+        unite.setDeplace(Math.abs((y) - unite.getX()) + Math.abs((x) - unite.getY()));
+        unite.setCase(y, x);
         joueur.vision(plateau.getTerrain());
       }
     }
-    cliquee.setStatusChemin(0);
   }
 
 
