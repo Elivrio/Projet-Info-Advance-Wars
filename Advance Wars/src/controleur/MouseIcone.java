@@ -84,9 +84,9 @@ public class MouseIcone extends Controleur implements MouseListener {
             case 1 :
               switch (i) {
                 case 0 : plateau.addUnite(new Barge (joueur, x, y), joueur, true); break;
-                case 1 : plateau.addUnite(new Cuirasse (joueur, x, y), joueur, true); break;
+                case 1 : plateau.addUnite(new SousMarin (joueur, x, y), joueur, true); break;
                 case 2 : plateau.addUnite(new Destroyeur (joueur, x, y), joueur, true); break;
-                case 3 : plateau.addUnite(new SousMarin (joueur, x, y), joueur, true); break;
+                case 3 : plateau.addUnite(new Cuirasse (joueur, x, y), joueur, true); break;
                 default :
                   evt.printStackTrace();
                   System.out.println(evt);
@@ -96,10 +96,10 @@ public class MouseIcone extends Controleur implements MouseListener {
               break;
             case 2 :
               switch (i) {
-                case 0 : plateau.addUnite(new Bombardier (joueur, x, y), joueur, true); break;
-                case 1 : plateau.addUnite(new Chasseur (joueur, x, y), joueur, true); break;
-                case 2 : plateau.addUnite(new Helico (joueur, x, y), joueur, true); break;
-                case 3 : plateau.addUnite(new HelicoptereTransport (joueur, x, y), joueur, true); break;
+                case 0 : plateau.addUnite(new Helico (joueur, x, y), joueur, true); break;
+                case 1 : plateau.addUnite(new HelicoptereTransport (joueur, x, y), joueur, true); break;
+                case 2 : plateau.addUnite(new Bombardier (joueur, x, y), joueur, true); break;
+                case 3 : plateau.addUnite(new Chasseur (joueur, x, y), joueur, true); break;
                 default :
                   evt.printStackTrace();
                   System.out.println(evt);

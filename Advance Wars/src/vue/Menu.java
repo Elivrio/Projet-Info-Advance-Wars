@@ -337,7 +337,7 @@ public class Menu extends JFrame {
   public void lancerJeu () throws Exception {
     // Les specificitees de la carte choisie, cette classe va construire le plateau a partir d'un fichier texte
     // et plusieurs arguments.
-    CarteScanner carteScannee = new CarteScanner("src/variable/cartes/carteTest3.txt");
+    CarteScanner carteScannee = new CarteScanner("src/variable/cartes/carte.txt");
 
     // La hauteur (y) et la largeur (x) du plateau cree.
     int y = carteScannee.getLignes();
