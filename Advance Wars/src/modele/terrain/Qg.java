@@ -14,7 +14,7 @@ public class Qg extends AbstractVille {
    * @param y Position du terrain en ordonnee.
    */
   public Qg (int x, int y) {
-    super("QG", 8, 1, x, y);
+    super("QG", 9, 1, x, y);
   }
 
 }

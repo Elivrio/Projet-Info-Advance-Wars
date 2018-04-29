@@ -16,6 +16,7 @@ import src.modele.general.General;
 import src.modele.terrain.Aeroport;
 import src.modele.terrain.Montagne;
 import src.modele.terrain.TrouNoir;
+import src.modele.terrain.Qg;
 import src.modele.terrain.AbstractVille;
 
 
@@ -82,6 +83,10 @@ public class Plateau {
             terrain[i][j] = aeroport;
             villes.add(aeroport);
             break;
+          case 9 :
+            Qg qg = new Qg(j, i);
+            terrain[i][j] = qg;
+            villes.add(qg);
           default : throw new SNHException();
         }
         // futur emplacement pour le placement initial des armees

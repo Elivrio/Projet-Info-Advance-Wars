@@ -13,7 +13,7 @@ public class DeplaceAPied implements Deplacement {
    * @return Retourne le type de deplacement.
    */
   public String deplacement() {
-    return "Se deplace à pieds";
+    return "Se deplace à pied";
   }
 
 }
