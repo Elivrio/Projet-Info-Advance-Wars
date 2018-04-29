@@ -215,7 +215,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   }
 
   /**
-   * Permet d'afficher l'objet sous forme d'une chaîne de caratere.
+   * Permet d'afficher l'objet sous forme d'une chaîne de caractere.
    * @return La chaîne de caractere qui va decrire l'objet.
    */
   @Override
