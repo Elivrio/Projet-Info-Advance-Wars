@@ -25,6 +25,17 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // La distance maximale a laquelle elle peut se deplacer et la distance parcourue ce tour-ci.
   protected int deplace, distance;
 
+
+  // Le chemin qu'elle prend 
+  protected int[][] chemin;
+  // Si elle est en mouvement
+  protected boolean enMouvement;
+  // ou elle est en dans le parcours du chemin
+  protected int statusChemin;
+  // Ou elle est en dans le mouvement entre deux cases
+  protected int statusMouv;
+
+
   // La distance sur laquelle elle peut attaquer, la distance sur laquelle elle peut voir sur le terrain.
   protected int portee, vision;
 
@@ -91,7 +102,11 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.indice = indice;
     this.cout = prix;
     this.gainMort = cout/2;
-    this.animDegats = 0; // status de l'animation degats
+    this.animDegats = 0; // status de l'animation dégats
+    chemin = new int[0][0];
+    enMouvement = false;
+    statusChemin = 0;
+    statusMouv = 0;
   }
 
   // ***************************************
@@ -99,6 +114,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // ***************************************
 
   public boolean getAttaque() { return attaque; }
+  public boolean getMouvement() {return enMouvement;}
 
   public int getX() { return x; }
   public int getY() { return y; }
@@ -114,12 +130,15 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public int getAnimDegats() { return animDegats; }
   public int getDegats() { return typeCombat.getDegats(); }
 
-  public Combat getCombat() { return typeCombat; }
+  public int getStatusChemin() {return statusChemin;}
+  public int getStatusMouv() {return statusMouv;}
 
+  public int[][] getChemin() {return chemin; }
+
+  public Combat getCombat() { return typeCombat; }
   public Deplacement getDeplacement() { return deplacement; }
 
   public Joueur getJoueur() { return joueur; }
-
   public String getNom() { return nom; }
 
   public TypeUnite getType() { return type; }
@@ -174,6 +193,22 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
    */
   public void setAnimDegats (int status) {
     animDegats = status;
+  }
+
+
+  public void setChemin (int[][] circuit){
+    chemin = circuit;
+  }
+
+  public void setMouvement (boolean b){
+    enMouvement = b;
+  }
+
+  public void setStatusChemin (int status){
+    statusChemin = status;
+  }
+  public void setStatusMouv (int status) {
+    statusMouv = status;
   }
 
   // ****************************************************

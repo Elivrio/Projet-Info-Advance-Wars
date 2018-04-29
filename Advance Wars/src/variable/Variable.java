@@ -56,6 +56,7 @@ public class Variable {
   public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png", "antiAerienPrix.png", "dcaPrix.png", "lanceMissilesPrix.png",  "bargePrix.png", "sousMarinPrix.png", "destroyeurPrix.png", "cuirassePrix.png", "helicoPrix.png", "helicoTransportPrix.png", "chasseurPrix.png", "bombardierPrix.png"};
   public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png", "antiAerienTropCher.png", "dcaTropCher.png", "lanceMissilesTropCher.png",  "bargeTropCher.png", "sousMarinTropCher.png", "destroyeurTropCher.png", "cuirasseTropCher.png", "helicoTropCher.png", "helicoTransportTropCher.png", "chasseurTropCher.png", "bombardierTropCher.png"};
   public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
+  //public final static String strChemin = "point.png";
   public final static String[] tStrBaseDegats = {"0.png", "0.png", "0.png", "0.png", "0.png", "5-1.png", "5-2.png", "5-3.png", "5-4.png", "0.png", "10-1.png", "10-2.png", "10-3.png", "10-4.png", "O.png"};
 
   public final static String[] tStrUni1;
@@ -72,6 +73,7 @@ public class Variable {
   public final static File[] tStrUniFile1;
   public final static File[] tStrUniFile2;
   public final static File[] tStrFondFile;
+  //public final static File strCheminFile = new File(strChemin);
   public final static File[] tStrIconeFile;
   public final static File[] tStrIconeTropCherFile;
   public final static File[] tStrDegatsFile;
@@ -80,6 +82,7 @@ public class Variable {
   public final static BufferedImage[] tImUni1;
   public final static BufferedImage[] tImUni2;
   public final static BufferedImage[] tImFond;
+  //public final static BufferedImage imChemin;
   public final static BufferedImage[] tImIcone;
   public final static BufferedImage[] tImIconeTropCher;
   public final static BufferedImage[] tImDegats;
@@ -243,7 +246,6 @@ public class Variable {
         tImFond[i] = ImageIO.read(tStrFondFile[i]);
       } catch (IOException e) {}
     }
-
     // Remplissage du tableau avec les images des degats reçus
     tStrDegats = new String[tStrBaseDegats.length];
     tStrDegatsFile = new File[tStrDegats.length];
@@ -263,6 +265,8 @@ public class Variable {
   public final static BufferedImage vert = opacifier(tImFond[0], 0.60f);
   public final static BufferedImage rouge = opacifier(tImFond[1], 0.60f);
   public final static BufferedImage bleu = opacifier(tImFond[2], 0.60f);
+  public final static BufferedImage point = opacifier(tImFond[3], 0.70f);
+
 
   public static BufferedImage opacifier(BufferedImage img, float opacite) {
     BufferedImage newImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);

@@ -59,4 +59,5 @@ public class Jeu {
     map.addMouseMotionListener(cMM);
     map.addMouseMotionListener(cM);
   }
+
 }

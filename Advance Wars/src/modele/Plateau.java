@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.LinkedList;
 
 import src.vue.Vue;
+import src.vue.Jeu;
 import src.modele.terrain.Eau;
 import src.modele.terrain.Port;
 import src.modele.terrain.Foret;
