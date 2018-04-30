@@ -17,6 +17,6 @@ public class VTB extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public VTB (Joueur j, int x, int y) {
-    super("VTB", 99, null, new DeplaceAChenilles(), 6, 0, 1, 70, 5000, new Terrestre(), j, x, y, 11);
+    super("VTB", 99, null, new DeplaceAChenilles(), 6, 0, 1, 5000, new Terrestre(), j, x, y, 11);
   }
 }

@@ -18,7 +18,7 @@ public class Nosaure extends General {
    * @param y Position de l'unite en ordonnee.
    */
   public Nosaure (Joueur j, int x, int y) {
-    super("Nosaure", 100, new CombatRawr(), new DeplaceAPied(), 2, 3, 7, 100, new Terrestre(), j, x, y, 3);
+    super("Nosaure", 100, new CombatRawr(), new DeplaceAPied(), 2, 3, 7, new Terrestre(), j, x, y, 3);
   }
 
   /**

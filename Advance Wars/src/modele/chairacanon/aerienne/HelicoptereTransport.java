@@ -16,6 +16,6 @@ public class HelicoptereTransport extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public HelicoptereTransport (Joueur j, int x, int y) {
-    super("Helicoptere de Transport", 99, null, null, 6, 0, 1, 99, 5000, new Aerienne(), j, x, y, 20);
+    super("Helicoptere de Transport", 99, null, null, 6, 0, 1, 5000, new Aerienne(), j, x, y, 20);
   }
 }

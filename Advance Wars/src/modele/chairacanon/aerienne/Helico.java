@@ -17,6 +17,6 @@ public class Helico extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public Helico (Joueur j, int x, int y) {
-    super("Helico", 99, new CombatMitrailleuse(), null, 6, 1, 3, 99, 9000, new Aerienne(), j, x, y, 19);
+    super("Helico", 99, new CombatMitrailleuse(), null, 6, 1, 3, 9000, new Aerienne(), j, x, y, 19);
   }
 }

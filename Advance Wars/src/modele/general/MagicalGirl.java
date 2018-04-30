@@ -18,7 +18,7 @@ public class MagicalGirl extends General {
    * @param y Position de l'unite en ordonnee.
    */
   public MagicalGirl (Joueur j, int x, int y) {
-    super("Magical Girl", 100, new CombatPaillettes(), new DeplaceAPied(), 3, 3, 5, 100, new Terrestre(), j, x, y, 4);
+    super("Magical Girl", 100, new CombatPaillettes(), new DeplaceAPied(), 3, 3, 5, new Terrestre(), j, x, y, 4);
   }
 
   /**

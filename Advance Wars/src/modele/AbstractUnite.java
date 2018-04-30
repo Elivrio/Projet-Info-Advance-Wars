@@ -53,8 +53,8 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // La distance sur laquelle elle peut attaquer, la distance sur laquelle elle peut voir sur le terrain.
   protected int portee, vision;
 
-  // La quantite d'essence utilisee par un vehicule, le coût de sa creation.
-  protected int essence, cout;
+  // Le cout de la creation d'une unite.
+  protected int cout;
 
   // Le type de l'unite (maritime, terrestre ou aerienne).
   protected TypeUnite type;
@@ -90,7 +90,6 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
    * @param distance    La distance maximale sur laquelle l'unite peut se deplacer
    * @param portee      La portee d'attaque de l'unite
    * @param vision      La vision de l'unite
-   * @param essence     L'essence de l'unite
    * @param prix        Le prix de construction de l'unite
    * @param type        Le type de l'unite (maritime, terrestre, aerienne)
    * @param joueur      Le joueur qui contrôle l'unite
@@ -98,7 +97,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
    * @param y           La position de l'unite sur le plateau [][y]
    * @param indice      L'indice de l'unite dans le tableau du type d'unite
    */
-  public AbstractUnite (String nom, int pvMax, Combat typeCombat, Deplacement deplacement, int distance, int portee, int vision, int essence, int prix, TypeUnite type, Joueur joueur, int x, int y, int indice) {
+  public AbstractUnite (String nom, int pvMax, Combat typeCombat, Deplacement deplacement, int distance, int portee, int vision, int prix, TypeUnite type, Joueur joueur, int x, int y, int indice) {
     this.nom = nom;
     this.pvMax = pvMax;
     this.pv = pvMax;
@@ -108,7 +107,6 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.deplace = 0;
     this.portee = portee;
     this.vision = vision;
-    this.essence = essence;
     this.type = type;
     this.joueur = joueur;
     this.x = x;

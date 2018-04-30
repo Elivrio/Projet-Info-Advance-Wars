@@ -18,6 +18,6 @@ public class Bazooka extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public Bazooka (Joueur j, int x, int y) {
-    super("Bazooka", 99, new CombatMitrailleuse(), new DeplaceAPied(), 2, 1, 2, 99, 3000, new Terrestre(), j, x, y, 8);
+    super("Bazooka", 99, new CombatMitrailleuse(), new DeplaceAPied(), 2, 1, 2, 3000, new Terrestre(), j, x, y, 8);
   }
 }
