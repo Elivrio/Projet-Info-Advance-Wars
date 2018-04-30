@@ -17,7 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import src.variable.MyColor;
 
 // Une classe qui permet de creer les listes de selection dans le menu afin de choisir la Couleur.
-// La tâche est majoritairement effectuee par setRenderer() qui permet de definir le contenu de la JComboBox
+// La tache est majoritairement effectuee par setRenderer() qui permet de definir le contenu de la JComboBox
 // et qui dessine un carre de couleur dans chaque case, accompagne du nom de la couleur.
 
 @SuppressWarnings("serial")

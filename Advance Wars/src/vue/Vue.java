@@ -114,7 +114,7 @@ public class Vue extends JFrame {
     this.map = new PanelMap(plateau);
     this.miniMap = new MiniMap(plateau, 35 * hauteurEcran / 100, 25 * largeurEcran / 100);
 
-    //
+    // On utilise une Layout de 12 cases pour acheter les unitees.
     GridLayout grid = new GridLayout(3, 4);
     panelChoixUnites = new JPanel(grid);
 
@@ -191,6 +191,13 @@ public class Vue extends JFrame {
   // *************** Fonctions d'instance ***************
   // ****************************************************
 
+  /**
+   * Permet de remplir un Panneau de texte avec un titre et un corps.
+   * @param textPane     Le panneau de texte a remplir.
+   * @param titre        Le titre du panneau.
+   * @param infos        Le corps du panneau.
+   * @param couleurTitre La couleur que l'on donne au titre du Textpane.
+   */
   public static void afficher(JTextPane textPane, String titre, String infos, Color couleurTitre) {
 
 		SimpleAttributeSet style_normal = new SimpleAttributeSet();
@@ -214,10 +221,17 @@ public class Vue extends JFrame {
 		}
 	}
 
+  /**
+   * Efface les informations disponibles dans le panneau des infos.
+   */
   public void informations() {
     textInfos.setText("");
   }
 
+  /**
+   * Affiche les informations d'une unite dans le panneau des informations.
+   * @param unite L'unite consideree.
+   */
   public void informations (AbstractUnite unite) {
     textInfos.setText("");
     String nom = unite.getNom();
@@ -238,18 +252,37 @@ public class Vue extends JFrame {
       textInfos.insertComponent(boutonAttaque);
   }
 
+  /**
+   * Affiche les informations d'une unite dans le panneau des informations.
+   * Ajoute a ces dernieres les degats qu'elle vient d'infliger a une unite adverse.
+   * @param unite  L'unite consideree.
+   * @param cible  Sa cible.
+   * @param degats Les degats infliges.
+   */
   public void informations (AbstractUnite unite, AbstractUnite cible, int degats) {
     informations(unite);
     String str = cible.getNom() + " a perdu " + degats + " points de vie !";
     afficher(textInfos, "", str, Color.WHITE);
   }
 
+  /**
+   * Affiche les informations disponibles sur un terrain en fonction de l'etat du brouillard de guerre.
+   * @param terrain Le terrain considere.
+   * @param vision  L'etat de la vision pour le joueur actuel.
+   */
   public void informations (AbstractTerrain terrain, int vision) {
     textInfos.setText("");
     String str = "";
     afficher(textInfos, (vision == 0)? "Mystere absolu" : terrain.getNom(), str, Color.WHITE);
   }
 
+  /**
+   * Affiche les informations disponibles sur une ville en fonction de l'etat du brouillard de guerre et
+   * du joueur qui la controle.
+   * @param ville  La ville consideree
+   * @param joueur Le joueur qui la controle.
+   * @param vision La vision du joueur actuel.
+   */
   public void informations (AbstractVille ville, Joueur joueur, int vision) {
     textInfos.setText("");
     String str = "";
@@ -284,6 +317,12 @@ public class Vue extends JFrame {
     afficher(textInfos, "", "", Color.WHITE);
   }
 
+  /**
+   * Permet d'ajouter une panneau possedant les unites que l'on peut creer dans une ville ciblee.
+   * @param joueur Le joueur dont c'est le tour.
+   * @param n      [description]
+   * @param ville  La ville que l'on souhaite utiliser pour produire.
+   */
   public void afficherChoixUnites (Joueur joueur, int n, AbstractVille ville) {
     int prixMax = joueur.getArgent();
     panelChoixUnites.removeAll();
@@ -313,6 +352,10 @@ public class Vue extends JFrame {
     textInfos.insertComponent(panelChoixUnites);
   }
 
+  /**
+   * Affiche les informations du joueur dont c'est le tour.
+   * @param joueur Le joueur dont c'est le tour.
+   */
   public void informations (Joueur joueur) {
     textJoueur.setText("");
     String str = "" + (joueur.getNbUnites()-1) + ((joueur.getNbUnites()-1 > 1) ? " unites" : " unite");
@@ -324,6 +367,9 @@ public class Vue extends JFrame {
     textJoueur.insertComponent(boutonJoueur);
   }
 
+  /**
+   * Permet de lancer un nouveau tour, de changer de joueur et de remettre tous les compteurs a 0 pour les unites.
+   */
   public void nouveauTour() {
     map.nouveauTour();
     miniMap.nouveauTour();
