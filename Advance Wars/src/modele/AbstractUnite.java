@@ -3,6 +3,16 @@ package src.modele;
 import src.modele.interfaces.combat.Combat;
 import src.modele.interfaces.typeunite.TypeUnite;
 import src.modele.interfaces.deplacement.Deplacement;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.net.URL;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+import java.io.File;
+import javax.swing.JFileChooser;
+import java.net.MalformedURLException;
 
 public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
 
@@ -26,7 +36,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected int deplace, distance;
 
 
-  // Le chemin qu'elle prend 
+  // Le chemin qu'elle prend
   protected int[][] chemin;
   // Si elle est en mouvement
   protected boolean enMouvement;
@@ -246,6 +256,16 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public void attaquer (AbstractUnite cible) {
     cible.setPV(-getDegats());
     cible.setAnimDegats(getDegats());
+    Clip son;
+    File song = new File("src/variable/son/Explode.wav");
+    try{
+      URL url = song.toURI().toURL();
+      System.out.println(url);
+      son = AudioSystem.getClip();
+      System.out.println(son.getMicrosecondLength());
+      son.open(AudioSystem.getAudioInputStream(url));
+      son.start();
+    } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e){}
     attaque = false;
   }
 
