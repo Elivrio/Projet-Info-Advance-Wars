@@ -13,8 +13,8 @@ public interface Combat {
   public String combat();
 
   /**
-   * Points de degâts infliges.
-   * @return Retourne le nombre de points de degâts infliges par coup.
+   * Points de degats infliges.
+   * @return Retourne le nombre de points de degats infliges par coup.
    */
   public int getDegats();
 

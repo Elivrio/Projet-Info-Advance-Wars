@@ -8,7 +8,7 @@ public class CombatCerveau implements Combat {
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // Le nombre de degâts infliges par coup.
+  // Le nombre de degats infliges par coup.
   protected int degats = 100;
 
   // ****************************************************
@@ -24,8 +24,8 @@ public class CombatCerveau implements Combat {
   }
 
   /**
-   * Points de degâts infliges.
-   * @return Retourne le nombre de points de degâts infliges par coup.
+   * Points de degats infliges.
+   * @return Retourne le nombre de points de degats infliges par coup.
    */
   public int getDegats() {
     return degats;

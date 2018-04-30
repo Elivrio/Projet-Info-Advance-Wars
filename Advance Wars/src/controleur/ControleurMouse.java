@@ -21,10 +21,8 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // Booleen permettant de savoir si on se deplace.
   protected boolean deplacement;
 
-  // Patate.
   protected int[][] chemin;
 
-  // Patate.
   protected int distance;
 
   // ********************************************
