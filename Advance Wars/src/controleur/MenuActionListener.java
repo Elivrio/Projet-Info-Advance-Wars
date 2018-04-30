@@ -29,7 +29,7 @@ public class MenuActionListener implements ActionListener {
 
   /**
    * Est appelee lors d'un clic sur un bouton du menu.
-   * @param e [description]
+   * @param e Clic sur le bouton transforme en variable par Java.
    */
   @Override
   public void actionPerformed (ActionEvent e) {
@@ -49,9 +49,5 @@ public class MenuActionListener implements ActionListener {
     // Si on choisit un nombre de joueurs, on affiche les choix en consequence.
     else if (source == menu.getChoixNbJoueurs())
       menu.afficherChoixNoms();
-    /*for (ComboColorChooser<MyColor> m : menu.getChoixCouleurs())
-      if (source == m) {
-        menu.estCouleurPossible(m.getSelectedItem());
-      }*/
   }
 }

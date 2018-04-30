@@ -303,7 +303,7 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Fonction dessinant l'aniamtion du deplacement en theorie ...
+   * Fonction dessinant l'animation du deplacement
    *
    * @param g     Le contenu Graphics donne par Java.
    * @param type  Le type de terrain sur lequel on se trouve (plaine, etc.).

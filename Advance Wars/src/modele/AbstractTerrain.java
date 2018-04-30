@@ -38,13 +38,13 @@ public abstract class AbstractTerrain {
 
   public int getTypeLiaison() { return typeLiaison; }
 
-  // ****************************************************
-  // *************** Fonctions d'instance ***************
-  // ****************************************************
+  // ***************************************************
+  // *************** Fonction d'instance ***************
+  // ***************************************************
 
   /**
-   * Permet d'afficher l'objet sous forme d'une chaîne de caratere.
-   * @return La chaîne de caractere qui va decrire l'objet.
+   * Permet d'afficher l'objet sous forme d'une chaine de carateres.
+   * @return La chaine de caracteres qui va decrire l'objet.
    */
   @Override
   public String toString() {

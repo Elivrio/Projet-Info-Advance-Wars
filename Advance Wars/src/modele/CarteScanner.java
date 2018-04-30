@@ -8,11 +8,27 @@ import src.modele.general.General;
 
 public class CarteScanner {
 
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
+
+  // Le scanner utilise pour lire la carte.
   private Scanner sc;
+
+  // Le fichier contenant la carte.
   private File carte;
+
+  //
   private boolean li = true;
   private boolean co = true;
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
+  /**
+   * @param fic Lien vers le fichier.
+   */
   public CarteScanner (String fic) {
     sc = null;
     try {
@@ -21,11 +37,14 @@ public class CarteScanner {
     } catch(Exception e) {
       System.out.println("Erreur ouverture fichier");
     }
-  }  // ****************************************************
-  // *************** Variables d'instance ***************
-  // ****************************************************
+  }
+
 
 // LES FONCTIONS SUIVANTES NE DOIVENT PAS ETRE UTILISEES PLUS D'UNE FOIS
+
+  // ***************************************
+  // *************** Getters ***************
+  // ***************************************
 
   public int getLignes() {
     if (li) {
@@ -45,7 +64,14 @@ public class CarteScanner {
 
   public int getJoueurs() { return sc.nextInt(); }
 
-  private int[][] ligne(int l, int[][][] t, boolean b) { // lit une ligne de la carte terrain ou armee
+  /**
+   * Lit une ligne de la carte terrain ou armee.
+   * @param  l [description]
+   * @param  t [description]
+   * @param  b [description]
+   * @return   [description]
+   */
+  private int[][] ligne (int l, int[][][] t, boolean b) {
     int[][] ligne = new int[t[0].length][2];
     for (int i = 0; i < ligne.length; i++)
       if (l == 0 || l == t.length - 1 || i == 0 || i == ligne.length-1) {
@@ -61,7 +87,14 @@ public class CarteScanner {
     return ligne;
   }
 
-  private int[][][] Tableau(int x, int y, boolean b) { // construit un tableau soit du terrain soit de l'armee
+  /**
+   * Construit le tableau soit du terrain soit de l'armee.
+   * @param  x [description]
+   * @param  y [description]
+   * @param  b [description]
+   * @return   [description]
+   */
+  private int[][][] Tableau(int x, int y, boolean b) {
     int[][][] tableau = new int[x][y][2];
     for (int i = 0; i < tableau.length; i++) {
       tableau[i] = ligne(i, tableau, b);
@@ -71,11 +104,18 @@ public class CarteScanner {
     return tableau;
   }
 
-  public Plateau plateau(LinkedList<Joueur> joueurs, General[] generaux, int lignes, int colonnes) {
-    // construit un plateau a partir de la carte texte
+  /**
+   * Construit un plateau a partir de la carte txt.
+   * @param  joueurs  [description]
+   * @param  generaux [description]
+   * @param  lignes   [description]
+   * @param  colonnes [description]
+   * @return          [description]
+   */
+  public Plateau plateau (LinkedList<Joueur> joueurs, General[] generaux, int lignes, int colonnes) {
     // getLignes et getColonnes sont maintenant utilisees dans Menu.lancerJeu (obligatoire avant d'utiliser plateau)
     int joueur = getJoueurs();
-    // obligatoire pour bien lire la carte, permettra a termes de faire un check sur la bonne taille.
+    // Obligatoire pour bien lire la carte, permettra a terme de faire un check sur la bonne taille.
     //if (joueurs.length > joueur)
     // throw Exception a venir.
     sc.nextLine();

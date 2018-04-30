@@ -31,7 +31,7 @@ public class ControleurMouseMotion extends Controleur implements MouseMotionList
   @Override
   public void mouseMoved (MouseEvent me) {
     // On recupere la taille actuelle de la map pour utiliser la position du curseur en pourcentage
-    // La position en pourcentage est utile dans le cas où on a modifie la taille de la fenetre
+    // La position en pourcentage est utile dans le cas ou on a modifie la taille de la fenetre
     int sizeY = map.getHeight();
     int sizeX = map.getWidth();
     // Si on place le curseur a 5% d'un bord de la map, la camera se deplace dans ce sens

@@ -53,7 +53,7 @@ public class MouseIcone extends Controleur implements MouseListener {
     SNHException evt = new SNHException();
     Plateau plateau = map.getPlateau();
 
-    // On cherche l'icône sur laquelle on a clique.
+    // On cherche l'icone sur laquelle on a clique.
     for (int i = 0; i < icones.size(); i++)
       if (source == icones.get(i)) {
         Joueur joueur = map.getJoueur();

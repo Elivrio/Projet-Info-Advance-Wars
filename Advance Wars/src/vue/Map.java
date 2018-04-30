@@ -185,6 +185,7 @@ abstract public class Map extends JPanel {
       indiceJoueur += i;
     else indiceJoueur = 0;
     joueur = joueurs.get(indiceJoueur);
+    // On rapporte de l'argent au joueur s'il possede des mines.
     joueur.setArgent(joueur.getMines()*500);
   }
 

@@ -374,7 +374,7 @@ public class Vue extends JFrame {
   }
 
   /**
-   * Affichage d'un pop-up annonçant la mort d'un joueur.
+   * Affichage d'un pop-up annoncant la mort d'un joueur.
    * @param joueurMort Le joueur qui vient de mourir.
    */
   public void popUpMort (Joueur joueurMort) {

@@ -8,9 +8,9 @@ import src.modele.AbstractUnite;
 
 public class AnimationActionListener implements ActionListener {
 
-  // ****************************************************
-  // *************** Variables d'instance ***************
-  // ****************************************************
+  // ***************************************************
+  // *************** Variable d'instance ***************
+  // ***************************************************
 
   // La vue du jeu.
   private Vue vue;
@@ -27,9 +27,9 @@ public class AnimationActionListener implements ActionListener {
     this.vue = vue;
   }
 
-  // ****************************************************
-  // *************** Fonctions d'instance ***************
-  // ****************************************************
+  // ***************************************************
+  // *************** Fonction d'instance ***************
+  // ***************************************************
 
   /**
    * Est appelee en continu par le timer.
@@ -43,7 +43,7 @@ public class AnimationActionListener implements ActionListener {
       if (unite.getMouvement())
         vue.getMap().setBouge(true);
       else
-        vue.getMap().setBouge(false);   
+        vue.getMap().setBouge(false);
     }
   }
 }
