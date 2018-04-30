@@ -34,8 +34,8 @@ import src.modele.AbstractTerrain;
 import src.controleur.ActionVille;
 import src.modele.terrain.Aeroport;
 import src.modele.terrain.AbstractVille;
-import src.controleur.ControleurActionListener;
 import src.controleur.AnimationActionListener;
+import src.controleur.ControleurActionListener;
 
 @SuppressWarnings("serial")
 public class Vue extends JFrame {
