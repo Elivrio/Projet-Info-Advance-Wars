@@ -8,9 +8,16 @@ import src.modele.general.General;
 
 public class CarteScanner {
 
+  // le scanner qui lira le fichier carte.txt
   private Scanner sc;
+
+  // le fichier carte a lire
   private File carte;
+
+  // le nombre de lignes dans la carte
   private boolean li = true;
+
+  // le nombre de colonnes dans la carte
   private boolean co = true;
 
   public CarteScanner (String fic) {
@@ -21,12 +28,15 @@ public class CarteScanner {
     } catch(Exception e) {
       System.out.println("Erreur ouverture fichier");
     }
-  }  // ****************************************************
+  }
+
+  // ****************************************************
   // *************** Variables d'instance ***************
   // ****************************************************
 
 // LES FONCTIONS SUIVANTES NE DOIVENT PAS ETRE UTILISEES PLUS D'UNE FOIS
 
+// recupere le nombre de lignes indique au debut du fichier
   public int getLignes() {
     if (li) {
       li = false;
@@ -35,6 +45,7 @@ public class CarteScanner {
     return 0;
   }
 
+// recupere le nombre de colonnes indique au bout du fichier
   public int getColonnes() {
     if (co) {
       co = false;
@@ -43,6 +54,7 @@ public class CarteScanner {
     return 0;
   }
 
+// recupere le nombre de joueurs differents sur la carte indique au debut du fichier
   public int getJoueurs() { return sc.nextInt(); }
 
   private int[][] ligne(int l, int[][][] t, boolean b) { // lit une ligne de la carte terrain ou armee
@@ -71,6 +83,7 @@ public class CarteScanner {
     return tableau;
   }
 
+// construit un plateau a partir de la carte
   public Plateau plateau(LinkedList<Joueur> joueurs, General[] generaux, int lignes, int colonnes) {
     // construit un plateau a partir de la carte texte
     // getLignes et getColonnes sont maintenant utilisees dans Menu.lancerJeu (obligatoire avant d'utiliser plateau)
