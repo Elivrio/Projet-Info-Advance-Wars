@@ -84,6 +84,10 @@ public class Joueur {
     argent += n;
   }
 
+  /**
+   * Ajoute ou retire des mines au joueur.
+   * @param n Quantite de mines a ajouter ou retirer.
+   */
   public void addMine (int n) {
     mines += n;
   }
@@ -143,7 +147,7 @@ public class Joueur {
             && terrain[i][j].getJoueur() == this)
           vision[i][j] = 2;
       }
-    // On met à jour la visibilite pour chaque unite.
+    // On met a jour la visibilite pour chaque unite.
     for (int i = 0; i < unites.size(); i++) {
       AbstractUnite unite = unites.get(i);
       vision(0, unite, unite.getX(), unite.getY(), terrain, unite.getVision());
@@ -151,7 +155,7 @@ public class Joueur {
   }
 
   /**
-   * Est appelée par la précédente fonction vision.
+   * Est appelee par la precedente fonction vision.
    * @param indice  Nombre de fois que la fonction a deja ete appelee.
    * @param unite   Unite dont on s'occupe.
    * @param x       Position de l'unite en abscisse.
