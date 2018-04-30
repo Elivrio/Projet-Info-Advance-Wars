@@ -197,8 +197,6 @@ public class PanelMap extends Map {
    * @param y     La position dans le tableau en ordonnee.
    * @param unite L'unite qui se trouve sur la case (peut valoir 'null').
    */
-
-
   public void dessineCase (Graphics g, AbstractTerrain terrain, int x, int y, AbstractUnite unite) {
     // On dessine le terrain correspondant a la case donnee.
     chemin(g, terrain, y, x);
@@ -303,7 +301,7 @@ public class PanelMap extends Map {
   }
 
   /**
-   * Fonction dessinant l'aniamtion du deplacement en theorie ...
+   * Fonction dessinant l'animation du deplacement
    *
    * @param g     Le contenu Graphics donne par Java.
    * @param type  Le type de terrain sur lequel on se trouve (plaine, etc.).
@@ -330,10 +328,10 @@ public class PanelMap extends Map {
 
           // abscisse de la case actuelle et de la suivante
           int a1 = unite.getChemin()[etape][0];
-          int a2 = unite.getChemin()[etape+1][0];
+          int a2 = unite.getChemin()[etape + 1][0];
           // ordonnees de la case actuelle et de la suivante
           int b1 = unite.getChemin()[etape][1];
-          int b2 = unite.getChemin()[etape +1][1];
+          int b2 = unite.getChemin()[etape + 1][1];
 
           int a3 = Math.max(a1, a2);
           int b3 = Math.max(b1, b2);
@@ -348,25 +346,25 @@ public class PanelMap extends Map {
           int pas = (taillePixel/4) * status;
 
           // Egal a 1, 0 ou -1 pour connaitre la direction
-          int orientationX = ((a1 - a2)<=1) ? (a1 - a2): 0;
-          int orientationY = ((b1 - b2)<=1) ? (b1 - b2): 0;
+          int orientationX = ((a1 - a2) <= 1) ? (a1 - a2): 0;
+          int orientationY = ((b1 - b2) <= 1) ? (b1 - b2): 0;
 
           if (a3 !=0 && b3 != 0){
-            n = b3 - tabJ+1;
-            m = a3 - tabI+1;
+            n = b3 - tabJ + 1;
+            m = a3 - tabI + 1;
 
             chemin(g, terrain, m, n);
 
-            if (unite instanceof General){
-              makeForm(g, oval, n, m, posJ+80+(pas*orientationY), posI+35+(pas*orientationX), 60, 20, color);
-              g.drawImage(uni,(n * taillePixel)- posJ - 80 -(pas*orientationY), (m*taillePixel)-posI-80-(pas*orientationX), this);
+            if (unite instanceof General) {
+              makeForm(g, oval, n, m, posJ + 80 + (pas * orientationY), posI + 35 + (pas * orientationX), 60, 20, color);
+              g.drawImage(uni,(n * taillePixel) - posJ - 80 - (pas * orientationY), (m * taillePixel) - posI - 80 - (pas * orientationX), this);
             }
             else {
-              makeForm(g, oval, n, m, posJ+75+(pas*orientationY), posI+45+(pas*orientationX),50,20, color);
-              g.drawImage(uni,(n*taillePixel)-posJ-70-(pas*orientationY), (m*taillePixel)-posI-70-(pas*orientationX), this);
+              makeForm(g, oval, n, m, posJ + 75 + (pas * orientationY), posI + 45 + (pas * orientationX), 50, 20, color);
+              g.drawImage(uni,(n * taillePixel) - posJ - 70 - (pas * orientationY), (m * taillePixel) - posI - 70 - (pas * orientationX), this);
             }
           }
-          if (a3 == 0 && b3 ==0){
+          if (a3 == 0 && b3 == 0) {
             m = -1;
             n = -1;
           }
@@ -382,7 +380,6 @@ public class PanelMap extends Map {
         n = -1;
       }
     }
-
   }
 
   /**
@@ -460,10 +457,6 @@ public class PanelMap extends Map {
     }
   }
 
-  /*public void animDeplacement(Graphics g,String form ,int x, int y, int modX, int ModY, int width,int secondWidth, int height, Color color){
-
-  }*/
-
   /**
    * Permet d'obtenir l'image adaptee en fonction du terrain et des cases adjcentes.
    * @param g    Le contenu Graphics donne par Java.
@@ -518,7 +511,7 @@ public class PanelMap extends Map {
             img = Variable.tImEauPlageCoin[3];
           else if (t[x + tabI][y + tabJ].getType() == 1)
             img = Variable.tImEauPlageCoin[4];
-        }else{
+        } else {
           img = Variable.tImEauPlage[place];
         }
         break;

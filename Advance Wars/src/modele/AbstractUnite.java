@@ -40,13 +40,13 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   protected int deplace, distance;
 
 
-  // Le chemin qu'elle prend
+  // Le chemin qu'elle prend.
   protected int[][] chemin;
-  // Si elle est en mouvement
+  // Si elle est en mouvement.
   protected boolean enMouvement;
-  // ou elle est en dans le parcours du chemin
+  // Ou elle est en dans le parcours du chemin.
   protected int statusChemin;
-  // Ou elle est en dans le mouvement entre deux cases
+  // Ou elle est en dans le mouvement entre deux cases.
   protected int statusMouv;
 
 
@@ -74,7 +74,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   // La quantite d'argent gagne par le joueur qui tue cette unite.
   protected int gainMort;
 
-  // Le status de l'animation des degats reçus.
+  // Le statut de l'animation des degats reçus.
   protected int animDegats;
 
   // ********************************************
@@ -92,7 +92,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
    * @param vision      La vision de l'unite
    * @param prix        Le prix de construction de l'unite
    * @param type        Le type de l'unite (maritime, terrestre, aerienne)
-   * @param joueur      Le joueur qui contrôle l'unite
+   * @param joueur      Le joueur qui controle l'unite
    * @param x           La position de l'unite sur le plateau [x][]
    * @param y           La position de l'unite sur le plateau [][y]
    * @param indice      L'indice de l'unite dans le tableau du type d'unite
@@ -114,7 +114,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
     this.indice = indice;
     this.cout = prix;
     this.gainMort = cout/2;
-    this.animDegats = 0; // status de l'animation dégats
+    this.animDegats = 0; // statut de l'animation degats
     chemin = new int[0][0];
     enMouvement = false;
     statusChemin = 0;
@@ -278,7 +278,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
       son.open(AudioSystem.getAudioInputStream(url));
       son.start();
     } catch (IllegalArgumentException | LineUnavailableException | UnsupportedAudioFileException | IOException e) {}
-      attaque = false;
+    attaque = false;
   }
 
   /**

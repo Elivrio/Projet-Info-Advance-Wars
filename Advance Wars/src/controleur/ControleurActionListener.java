@@ -19,9 +19,9 @@ public class ControleurActionListener extends Controleur implements ActionListen
     super(vue);
   }
 
-  // ****************************************************
-  // *************** Fonctions d'instance ***************
-  // ****************************************************
+  // ***************************************************
+  // *************** Fonction d'instance ***************
+  // ***************************************************
 
   /**
    * Est appelee quand on clique sur un bouton.

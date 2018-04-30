@@ -13,7 +13,7 @@ public class DeplaceAChenilles implements Deplacement {
    * @return Retourne le type de deplacement.
    */
   public String deplacement() {
-    return "Se deplace à chenilles";
+    return "Se deplace a chenilles";
   }
 
 }

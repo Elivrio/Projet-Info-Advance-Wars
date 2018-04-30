@@ -34,8 +34,8 @@ import src.modele.AbstractTerrain;
 import src.controleur.ActionVille;
 import src.modele.terrain.Aeroport;
 import src.modele.terrain.AbstractVille;
-import src.controleur.ControleurActionListener;
 import src.controleur.AnimationActionListener;
+import src.controleur.ControleurActionListener;
 
 @SuppressWarnings("serial")
 public class Vue extends JFrame {
@@ -374,7 +374,7 @@ public class Vue extends JFrame {
   }
 
   /**
-   * Affichage d'un pop-up annonçant la mort d'un joueur.
+   * Affichage d'un pop-up annoncant la mort d'un joueur.
    * @param joueurMort Le joueur qui vient de mourir.
    */
   public void popUpMort (Joueur joueurMort) {

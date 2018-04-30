@@ -55,7 +55,10 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // *************** Fonctions d'instance ***************
   // ****************************************************
 
-  // Fonction appelee lorsqu'on clique sur une case du plateau
+  /**
+   * Fonction appelee lorsqu'on clique sur une case du plateau
+   * @param me L'evenement passe par Java pour signaler qu'on a utilise la souris.
+   */
   @Override
   public void mouseClicked (MouseEvent me) {
 
@@ -78,12 +81,12 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
         && (i - 1 >= 0)
         && (i < map.getTerrain().length)
         && (j - 1 >= 0)
-        && (j < map.getTerrain()[0].length)) {  
+        && (j < map.getTerrain()[0].length)) {
           if (!map.getAttaque() && unite == null){
               if (cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
                 cliquee.setMouvement(true);
                 vue.getMap().mouvement(cliquee, chemin);
-              } 
+              }
               deplacement = false;
               distance = 0;
           }
@@ -98,7 +101,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
           }
           chemin = null;
     }
-    
+
 
     if (!attaque) {
       map.setAttaque(false);
@@ -129,7 +132,13 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     }
   }
 
-
+  /**
+   * Verifie si le terrain sur le plateau[i][j] est une ville.
+   * @param  terrain Le terrain considere.
+   * @param  i       L'indice du premier tableau.
+   * @param  j       L'indice du deuxième tableau.
+   * @return         La ville que l'on a trouve, null sinon.
+   */
   public AbstractVille isVille (AbstractTerrain terrain, int i, int j) {
     if (terrain instanceof AbstractVille) {
       LinkedList<AbstractVille> villes = map.getVilles();
@@ -191,7 +200,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
         }
       }
       if (chemin != null && chemin.length>0)
-        cliquee.setChemin(chemin); 
+        cliquee.setChemin(chemin);
     }
   }
 
