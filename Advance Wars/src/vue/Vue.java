@@ -292,16 +292,17 @@ public class Vue extends JFrame {
     panelChoixUnites.setBackground(couleurFond);
     typeUnites = n;
     AbstractUnite[] unites = Variable.listeUnites[n];
+    for (int i = 0; i < unites.length; i++)
+      System.out.print(unites[i].getNom() + " ");
+    System.out.println();
     listeIcones.clear();
     mI = new MouseIcone(this, ville);
     for (int i = 0; i < unites.length; i++) {
       JLabel icone;
       if (unites[i].getCout() <= prixMax) {
-        System.out.println(unites[i].getIndice()-5);
         icone = new JLabel(new ImageIcon(Variable.tImIcone[unites[i].getIndice()-5]));
       }
       else {
-        System.out.println(unites[i].getIndice()-5);
         icone = new JLabel(new ImageIcon(Variable.tImIconeTropCher[unites[i].getIndice()-5]));
       }
       icone.addMouseListener(mI);
@@ -358,9 +359,15 @@ public class Vue extends JFrame {
   /**
    * Permet de gerer la fin d'un tour de jeu.
    */
-  public void finTour () {
+  public void finTour() {
     // On verifie si les villes sur la carte changent de proprietaire.
-    map.getPlateau().prises();
+    int n = map.getPlateau().prises();
+    // Si un joueur est mort, on affiche un pop-up le signalant.
+    if (n == 1 || n == 2)
+      popUpMort(map.getPlateau().getJoueurMortActuel());
+    // S'il ne reste qu'un joueur en jeu, on gere la fin du jeu.
+    if (n == 2)
+      popUpFinPartie();
 
     // On change de joueur et on met la vue a jour.
     this.nouveauTour();

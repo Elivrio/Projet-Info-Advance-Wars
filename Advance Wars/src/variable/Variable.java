@@ -106,6 +106,7 @@ public class Variable {
   public final static BufferedImage[] tImEauPlageCoin;
 
   static {
+
     // Remplissage du tableau avec les images des terrains
     tStrDossierTer = new String[tStrBaseTer.length];
     tStrTer2 = new String[tStrBaseTer.length];

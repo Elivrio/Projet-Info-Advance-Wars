@@ -34,6 +34,9 @@ public class Joueur {
   // La couleur du joueur.
   private MyColor couleur;
 
+  // Le nombre de mines possedees par le joueur.
+  private int mines;
+
   // *********************************************
   // **************** Constructeur ***************
   // *********************************************
@@ -50,12 +53,14 @@ public class Joueur {
     vision = new int[y][x];
     couleur = c;
     argent = 10000;
+    mines = 0;
   }
 
   // ***************************************
   // *************** Getters ***************
   // ***************************************
 
+  public int getMines() { return mines; }
   public int getArgent() { return argent; }
   public int getNbUnites() { return unites.size(); }
 
@@ -77,6 +82,10 @@ public class Joueur {
    */
   public void setArgent (int n) {
     argent += n;
+  }
+
+  public void addMine (int n) {
+    mines += n;
   }
 
   /**

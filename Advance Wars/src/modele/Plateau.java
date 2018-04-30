@@ -28,6 +28,9 @@ public class Plateau {
   // *************** Variables d'instance ***************
   // ****************************************************
 
+  // Entier permettant de savoir si une unite prend le QG d'un autre joueur.
+  private int nbToursSurQG;
+
   // Hauteur et largeur du terrain.
   private int largeur, hauteur;
 
@@ -42,6 +45,9 @@ public class Plateau {
 
   // Liste des villes placees sur le terrain.
   private LinkedList<AbstractVille> villes;
+
+  // Variable permettant d'afficher un popup.
+  private Joueur joueurMortActuel;
 
   // ********************************************
   // *************** Constructeur ***************
@@ -60,6 +66,8 @@ public class Plateau {
     terrain = new AbstractTerrain[hauteur][largeur];
     villes = new LinkedList<AbstractVille>();
     unites = new AbstractUnite[hauteur][largeur];
+    joueurMortActuel = null;
+    nbToursSurQG = 0;
     joueurs = jou;
     initJoueurs(generaux);
     for (int i = 0; i < hauteur; i++) {
@@ -103,6 +111,10 @@ public class Plateau {
         // futur emplacement pour le placement initial des armees
       }
     }
+  }
+
+  public Joueur getJoueurMortActuel() {
+    return joueurMortActuel;
   }
 
   public void reset() {
@@ -188,6 +200,7 @@ public class Plateau {
       i++;
     // On le supprime de la liste.
     if (joueurs.get(i) == joueurMort) {
+      joueurMortActuel = joueurMort;
       joueurs.remove(i);
       // S'il ne reste qu'un joueur en jeu, on renvoie la valeur 1.
       if (joueurs.size() == 1)
@@ -201,21 +214,44 @@ public class Plateau {
   /**
    * Verifie si des villes sont en prises par des joueurs et change la possession des villes si necessaire.
    */
-  public void prises() {
+  public int prises() {
     // On prend les villes une par une.
     for (int i = 0; i < villes.size(); i++) {
       AbstractVille ville = villes.get(i);
-
-      if ((ville instanceof Mine) && (ville.getJoueur() != null))
-        ville.getJoueur().setArgent(1000);
 
       // On regarde l'unite sur la case de la ville.
       AbstractUnite unite = unites[ville.getY()][ville.getX()];
 
       // Si l'unite n'est pas nulle, on change le proprietaire de la ville.
-      if (unite != null)
-        ville.setJoueur(unite.getJoueur());
+      if (unite != null) {
+
+        // Si la ville est une mine,
+        if (ville instanceof Mine &&
+            ((ville.getJoueur() == null) ||
+            (ville.getJoueur() != null && ville.getJoueur() != unite.getJoueur()))) {
+
+          if (ville.getJoueur() != null)
+            // On decremente le compteur de mines du joueur precedent
+            ville.getJoueur().addMine(-1);
+          // Et on incremente le compteur de villes du joueur qui l'a recuperee
+          unite.getJoueur().addMine(1);
+        }
+
+        // Si la ville n'est pas le QG de l'unite dessus
+        if (ville instanceof Qg && (unite.getJoueur() != ville.getJoueur())) {
+          if (nbToursSurQG < 4*joueurs.size())
+            nbToursSurQG++;
+          else {
+            nbToursSurQG = 0;
+            terrain[ville.getY()][ville.getX()] = new Plaine();
+            return mortJoueur(ville.getJoueur());
+          }
+        }
+        if (!(ville instanceof Qg))
+          ville.setJoueur(unite.getJoueur());
+      }
     }
+    return 0;
   }
 
 
