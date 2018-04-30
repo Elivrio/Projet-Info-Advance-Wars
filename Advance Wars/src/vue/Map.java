@@ -185,6 +185,7 @@ abstract public class Map extends JPanel {
       indiceJoueur += i;
     else indiceJoueur = 0;
     joueur = joueurs.get(indiceJoueur);
+    joueur.setArgent(joueur.getMines()*500);
   }
 
   /**

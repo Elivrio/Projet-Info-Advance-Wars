@@ -16,5 +16,4 @@ public class Qg extends AbstractVille {
   public Qg (int x, int y) {
     super("QG", 9, 1, x, y);
   }
-
 }

@@ -156,8 +156,10 @@ public class PanelMap extends Map {
         // Le type du terrain.
         int t = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
         // La fonction qui permet d'afficher la case et tous ses composants.
-        if (i==m && j==n)
+        if (i==m && j==n){
+          System.out.println("test");
           dessineChemin(g, ter, j, i, unite);
+        }
         else {
           dessineCase(g, ter, j, i, unite);
           dessineChemin(g, ter, j, i, unite);
@@ -327,17 +329,23 @@ public class PanelMap extends Map {
           }
           int pas = (taillePixel/4) * status;
 
-          // Egal a 1 ou -1 pour connaitre la direction
-          int orientationX = a1 - a2;
-          int orientationY = b1 - b2;
+          // Egal a 1, 0 ou -1 pour connaitre la direction
+          int orientationX = ((a1 - a2)<=1) ? (a1 - a2): 0;
+          int orientationY = ((b1 - b2)<=1) ? (b1 - b2): 0;
+
           if (a3 !=0 && b3 != 0){
-            m= b3;
-            n= a3;
-            g.clearRect(a3*taillePixel, b3*taillePixel, taillePixel, taillePixel);
-            //chemin(g, terrain, y, x);
+            m = a3;
+            n = b3;
+            g.clearRect((a3*taillePixel)-posJ-100, (b3*taillePixel)-posI-100, taillePixel, taillePixel);
+            //chemin(g, terrain, a3, b3);
+            g.drawImage(Variable.bleu, a3*taillePixel - posJ - 100, b3*taillePixel- posI - 100, this);
             if (unite instanceof General){
               makeForm(g, oval, a3, b3, posJ+80+(pas*orientationY), posI+35+(pas*orientationX), 60, 20, color);
               g.drawImage(uni,(a3 * taillePixel)- posJ - 80 -(pas*orientationY), (b3*taillePixel)-posI-80-(pas*orientationX), this);
+            }
+            else {
+              makeForm(g, oval, a3, b3, posJ+75+(pas*orientationY), posI+45+(pas*orientationX),50,20, color);
+              g.drawImage(uni,(a3*taillePixel)-posJ-70-(pas*orientationY), (b3*taillePixel)-posI-70-(pas*orientationX), this);
             }
           }
           if (a3 == 0 && b3 ==0){
@@ -345,7 +353,9 @@ public class PanelMap extends Map {
             n=-1;
           }
           bouge = false;
-        }         
+        }
+        System.out.println("m "+ m);
+        System.out.println("n "+ n);         
       }
       else {
         pion = null;

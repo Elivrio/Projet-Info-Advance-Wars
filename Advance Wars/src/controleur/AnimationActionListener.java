@@ -40,12 +40,10 @@ public class AnimationActionListener implements ActionListener {
     vue.repaint();
     AbstractUnite unite = vue.getMap().getPion();
     if (unite != null){
-      //System.out.println("mouv ? " + unite.getMouvement());
-      if (unite.getMouvement()){
-        //System.out.println("avant "+ vue.getMap().getBouge());
+      if (unite.getMouvement())
         vue.getMap().setBouge(true);
-        //System.out.println("apres "+ vue.getMap().getBouge());
-      }
+      else
+        vue.getMap().setBouge(false);   
     }
   }
 }
