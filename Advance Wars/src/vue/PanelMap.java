@@ -86,8 +86,8 @@ public class PanelMap extends Map {
     n = -1;
     Clip son; // clip du son
     File song; // fichier son
-    song = new File("src/variable/son/ohoho.wav");
-    try {
+    song = new File("src/variable/son/bg.wav");
+    try{
       URL url = song.toURI().toURL();
       // System.out.println(url); // test pour verifier si l'url est correct
       son = AudioSystem.getClip();

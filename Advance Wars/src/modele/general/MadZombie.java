@@ -18,7 +18,7 @@ public class MadZombie extends General {
    * @param y Position de l'unite en ordonnee.
    */
   public MadZombie (Joueur j, int x, int y) {
-    super("MadZombie", 100, new CombatCerveau(), new DeplaceAPied(), 5, 1, 2, 100, new Terrestre(), j, x, y, 1);
+    super("MadZombie", 100, new CombatCerveau(), new DeplaceAPied(), 5, 1, 2, new Terrestre(), j, x, y, 1);
   }
 
   /**

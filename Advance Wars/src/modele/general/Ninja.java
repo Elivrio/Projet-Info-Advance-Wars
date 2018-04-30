@@ -18,7 +18,7 @@ public class Ninja extends General {
    * @param y Position de l'unite en ordonnee.
    */
   public Ninja (Joueur j, int x, int y) {
-    super("Ninja", 100, new CombatSabre(), new DeplaceAPied(), 5, 3, 5, 100, new Terrestre(), j, x, y, 2);
+    super("Ninja", 100, new CombatSabre(), new DeplaceAPied(), 5, 3, 5, new Terrestre(), j, x, y, 2);
   }
 
   /**
