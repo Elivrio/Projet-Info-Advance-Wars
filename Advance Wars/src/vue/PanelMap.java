@@ -470,6 +470,7 @@ public class PanelMap extends Map {
           img = Variable.tImEauPlage[place];
         }
         break;
+      // QG personnalise avec le general
       case 9 :
         if (terrain instanceof Qg) {
           Qg qg = (Qg) terrain;

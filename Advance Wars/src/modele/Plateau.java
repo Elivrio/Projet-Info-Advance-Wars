@@ -55,9 +55,9 @@ public class Plateau {
 
   /**
    * @param  carte     La carte du jeu.
-   * @param  armees    Patate.
-   * @param  generaux  [description]
-   * @param  jou       [description]
+   * @param  armees    La repartition des unites sur le terrain.
+   * @param  generaux  Le tableau des generaux choisis par les joueurs.
+   * @param  jou       Les joueurs.
    * @throws Exception [description]
    */
   public Plateau(int[][][] carte, int[][][] armees, General[] generaux, LinkedList<Joueur> jou) throws Exception {
@@ -108,7 +108,7 @@ public class Plateau {
             break;
           default : throw new SNHException();
         }
-        // futur emplacement pour le placement initial des armees
+        // emplacement pour le placement initial des armees si on veut
       }
     }
   }
