@@ -18,6 +18,6 @@ public class TankM extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public TankM (Joueur j, int x, int y) {
-    super("Tank M", 99, new CombatMitrailleuse(), new DeplaceAChenilles(), 5, 1, 1, 50, 16000, new Terrestre(), j, x, y, 9);
+    super("Tank M", 99, new CombatMitrailleuse(), new DeplaceAChenilles(), 5, 1, 1, 16000, new Terrestre(), j, x, y, 9);
   }
 }

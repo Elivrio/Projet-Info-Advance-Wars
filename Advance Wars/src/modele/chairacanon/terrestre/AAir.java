@@ -17,6 +17,6 @@ public class AAir extends AbstractUnite {
    * @param y La position de l'unite en ordonnee.
    */
   public AAir (Joueur j, int x, int y) {
-    super("A-Air", 99, new CombatCouteau(), null, 4, 5, 0, 0, 12000, new Terrestre(), j, x, y, 12);
+    super("A-Air", 99, new CombatCouteau(), null, 4, 5, 0, 12000, new Terrestre(), j, x, y, 12);
   }
 }
