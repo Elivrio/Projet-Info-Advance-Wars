@@ -58,9 +58,9 @@ public class Plateau {
    * @param  armees    La repartition des unites sur le terrain.
    * @param  generaux  Le tableau des generaux choisis par les joueurs.
    * @param  jou       Les joueurs.
-   * @throws Exception [description]
+   * @throws Exception Exception.
    */
-  public Plateau(int[][][] carte, int[][][] armees, General[] generaux, LinkedList<Joueur> jou) throws Exception {
+  public Plateau (int[][][] carte, int[][][] armees, General[] generaux, LinkedList<Joueur> jou) throws Exception {
     hauteur = carte.length;
     largeur = carte[0].length;
     terrain = new AbstractTerrain[hauteur][largeur];
@@ -108,43 +108,17 @@ public class Plateau {
             break;
           default : throw new SNHException();
         }
-        // emplacement pour le placement initial des armees si on veut
       }
     }
   }
 
+
+  // ***************************************
+  // *************** Getters ***************
+  // ***************************************
+
   public Joueur getJoueurMortActuel() {
     return joueurMortActuel;
-  }
-
-  public void reset() {
-    for (AbstractVille v : villes)
-      v.setAchete(false);
-  }
-
-  public void initJoueurs (General[] generaux) {
-    for (int i = 0; i < generaux.length; i++) {
-      joueurs.set(i, generaux[i].getJoueur());
-      initUnite(joueurs.get(i), generaux[i]);
-    }
-  }
-
-  public void initUnite (Joueur joueur, General general) {
-    Random rand = new Random();
-    int i, j;
-    do {
-      i = rand.nextInt(hauteur-2);
-      j = rand.nextInt(largeur-2);
-    } while (unites[i+1][j+1] != null);
-    general.setCase(j+1, i+1);
-    addUnite(general, joueur, false);
-  }
-
-  public void addUnite (AbstractUnite unite, Joueur joueur, boolean b) {
-    joueur.add(unite, b);
-    int i = unite.getY();
-    int j = unite.getX();
-    unites[i][j] = unite;
   }
 
   public int getHauteur() { return hauteur; }
@@ -153,6 +127,25 @@ public class Plateau {
   public AbstractTerrain[][] getTerrain() { return terrain; }
   public LinkedList<Joueur> getJoueurs() { return joueurs; }
   public LinkedList<AbstractVille> getVilles() { return villes; }
+
+  // ***************************************
+  // *************** Setters ***************
+  // ***************************************
+
+  /**
+   * Reinitialise l'achat de chaque ville a false.
+   */
+  public void reset() {
+    for (AbstractVille v : villes)
+      v.setAchete(false);
+  }
+
+  public void addUnite (AbstractUnite unite, Joueur joueur, boolean b) {
+    joueur.add(unite, b);
+    int i = unite.getY();
+    int j = unite.getX();
+    unites[i][j] = unite;
+  }
 
   public void rmvUnite (AbstractUnite u) {
     unites[u.getY()][u.getX()] = null;
@@ -164,9 +157,40 @@ public class Plateau {
     unites[y][x] = u;
   }
 
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
+
+  /**
+   * Cree les generaux de chaque joueur.
+   * @param generaux Le tableau de generaux choisis.
+   */
+  public void initJoueurs (General[] generaux) {
+    for (int i = 0; i < generaux.length; i++) {
+      joueurs.set(i, generaux[i].getJoueur());
+      initUnite(joueurs.get(i), generaux[i]);
+    }
+  }
+
+  /**
+   * Initialise les unites et les place sur le terrain.
+   * @param joueur  Le joueur auquel appartiennent les unites.
+   * @param general Le general du joueur.
+   */
+  public void initUnite (Joueur joueur, General general) {
+    Random rand = new Random();
+    int i, j;
+    do {
+      i = rand.nextInt(hauteur-2);
+      j = rand.nextInt(largeur-2);
+    } while (unites[i+1][j+1] != null);
+    general.setCase(j+1, i+1);
+    addUnite(general, joueur, false);
+  }
+
   /**
    * On verifie la mort de l'unite cible. Si cette unite est morte,
-   * le joueur qui contrôle l'unite attaquant a l'origine de la mort gagne de l'argent
+   * le joueur qui controle l'unite attaquant a l'origine de la mort gagne de l'argent
    * @param attaquant L'unite qui attaque.
    * @param cible     L'unite attaquee.
    * @return          On retourne une valeur (1 si un joueur a ete tue, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
@@ -175,11 +199,11 @@ public class Plateau {
     // Si la cible est morte,
     if (cible.getPV() <= 0) {
       Joueur joueurCible = cible.getJoueur();
-      // On retire du plateau et du Joueur qui le contrôle.
+      // On retire du plateau et du Joueur qui le controle.
       joueurCible.remove(cible);
       this.rmvUnite(cible);
 
-      // On augmente l'argent du joueur qui contrôle l'unite.
+      // On augmente l'argent du joueur qui controle l'unite.
       attaquant.getJoueur().setArgent(cible.getGainMort());
 
       if (joueurCible.generalMort())
@@ -254,7 +278,9 @@ public class Plateau {
     return 0;
   }
 
-
+  /**
+   * Fonction de debugage.
+   */
   public void debug() {
     for (int i = 0; i < terrain.length; i++ ){
       for (int j = 0; j < terrain[0].length; j++)
