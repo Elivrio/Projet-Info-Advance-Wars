@@ -18,8 +18,10 @@ public class CarteScanner {
   // Le fichier contenant la carte.
   private File carte;
 
-  //
+  // le nombre de lignes dans la carte.
   private boolean li = true;
+
+  // le nombre de colonnes dans la carte.
   private boolean co = true;
 
   // ********************************************
@@ -39,13 +41,13 @@ public class CarteScanner {
     }
   }
 
-
 // LES FONCTIONS SUIVANTES NE DOIVENT PAS ETRE UTILISEES PLUS D'UNE FOIS
 
   // ***************************************
   // *************** Getters ***************
   // ***************************************
 
+// recupere le nombre de lignes indique au bout du fichier
   public int getLignes() {
     if (li) {
       li = false;
@@ -54,6 +56,7 @@ public class CarteScanner {
     return 0;
   }
 
+// recupere le nombre de colonnes indique au bout du fichier
   public int getColonnes() {
     if (co) {
       co = false;
@@ -62,14 +65,15 @@ public class CarteScanner {
     return 0;
   }
 
+// recupere le nombre de joueurs differents sur la carte indique au debut du fichier
   public int getJoueurs() { return sc.nextInt(); }
 
   /**
    * Lit une ligne de la carte terrain ou armee.
-   * @param  l [description]
-   * @param  t [description]
-   * @param  b [description]
-   * @return   [description]
+   * @param  l nombre de lignes
+   * @param  t tableau terrain
+   * @param  b boolean indiquant si il s'agit du bord de la carte (qui est vide)
+   * @return   une ligne lue de la carte
    */
   private int[][] ligne (int l, int[][][] t, boolean b) {
     int[][] ligne = new int[t[0].length][2];
@@ -89,10 +93,10 @@ public class CarteScanner {
 
   /**
    * Construit le tableau soit du terrain soit de l'armee.
-   * @param  x [description]
-   * @param  y [description]
-   * @param  b [description]
-   * @return   [description]
+   * @param  x longueur
+   * @param  y largeur
+   * @param  b boolean indiquant si il s'agit du bord de la carte (qui est vide)
+   * @return   tableau representant le terrain
    */
   private int[][][] Tableau(int x, int y, boolean b) {
     int[][][] tableau = new int[x][y][2];
@@ -106,11 +110,11 @@ public class CarteScanner {
 
   /**
    * Construit un plateau a partir de la carte txt.
-   * @param  joueurs  [description]
-   * @param  generaux [description]
-   * @param  lignes   [description]
-   * @param  colonnes [description]
-   * @return          [description]
+   * @param  joueurs  tableau de joueurs
+   * @param  generaux tableau des generaux
+   * @param  lignes   nombre de lignes dans la carte
+   * @param  colonnes nombre de colonnes dans la carte
+   * @return          le plateau correspondant a la carte lue
    */
   public Plateau plateau (LinkedList<Joueur> joueurs, General[] generaux, int lignes, int colonnes) {
     // getLignes et getColonnes sont maintenant utilisees dans Menu.lancerJeu (obligatoire avant d'utiliser plateau)
