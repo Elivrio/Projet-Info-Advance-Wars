@@ -4,7 +4,9 @@ import java.util.Random;
 import java.util.LinkedList;
 
 import src.vue.Vue;
+import src.vue.Jeu;
 import src.modele.terrain.Eau;
+import src.modele.terrain.Mine;
 import src.modele.terrain.Port;
 import src.modele.terrain.Foret;
 import src.modele.terrain.Usine;
@@ -15,23 +17,57 @@ import src.modele.general.General;
 import src.modele.terrain.Aeroport;
 import src.modele.terrain.Montagne;
 import src.modele.terrain.TrouNoir;
+import src.modele.terrain.Mine;
+import src.modele.terrain.Qg;
 import src.modele.terrain.AbstractVille;
 
 
 public class Plateau {
+
+  // ****************************************************
+  // *************** Variables d'instance ***************
+  // ****************************************************
+
+  // Entier permettant de savoir si une unite prend le QG d'un autre joueur.
+  private int nbToursSurQG;
+
+  // Hauteur et largeur du terrain.
   private int largeur, hauteur;
+
+  // Liste des unites en jeu.
   private AbstractUnite[][] unites;
+
+  // Liste des joueurs en jeu.
   private LinkedList<Joueur> joueurs;
+
+  // Terrain du jeu.
   private AbstractTerrain[][] terrain;
+
+  // Liste des villes placees sur le terrain.
   private LinkedList<AbstractVille> villes;
 
+  // Variable permettant d'afficher un popup.
+  private Joueur joueurMortActuel;
 
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
+
+  /**
+   * @param  carte     La carte du jeu.
+   * @param  armees    La repartition des unites sur le terrain.
+   * @param  generaux  Le tableau des generaux choisis par les joueurs.
+   * @param  jou       Les joueurs.
+   * @throws Exception [description]
+   */
   public Plateau(int[][][] carte, int[][][] armees, General[] generaux, LinkedList<Joueur> jou) throws Exception {
     hauteur = carte.length;
     largeur = carte[0].length;
     terrain = new AbstractTerrain[hauteur][largeur];
     villes = new LinkedList<AbstractVille>();
     unites = new AbstractUnite[hauteur][largeur];
+    joueurMortActuel = null;
+    nbToursSurQG = 0;
     joueurs = jou;
     initJoueurs(generaux);
     for (int i = 0; i < hauteur; i++) {
@@ -57,11 +93,28 @@ public class Plateau {
             terrain[i][j] = aeroport;
             villes.add(aeroport);
             break;
+          case 8 :
+            Mine mine = new Mine(j, i);
+            terrain[i][j] = mine;
+            villes.add(mine);
+            break;
+          case 9 :
+            if (carte[i][j][1] < joueurs.size()+1){
+              Qg qg = new Qg(j, i);
+              qg.setJoueur(joueurs.get(carte[i][j][1]-1));
+              terrain[i][j] = qg;
+              villes.add(qg);
+            }
+            break;
           default : throw new SNHException();
         }
-        // futur emplacement pour le placement initial des armees
+        // emplacement pour le placement initial des armees si on veut
       }
     }
+  }
+
+  public Joueur getJoueurMortActuel() {
+    return joueurMortActuel;
   }
 
   public void reset() {
@@ -112,11 +165,11 @@ public class Plateau {
   }
 
   /**
-   * On vérifie la mort de l'unité cible. Si cette unité est morte,
-   * le joueur qui contrôle l'unité attaquant à l'origine de la mort gagne de l'argent
-   * @param attaquant L'unité qui attaque.
-   * @param cible     L'unité attaquée.
-   * @return          On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
+   * On verifie la mort de l'unite cible. Si cette unite est morte,
+   * le joueur qui contrôle l'unite attaquant a l'origine de la mort gagne de l'argent
+   * @param attaquant L'unite qui attaque.
+   * @param cible     L'unite attaquee.
+   * @return          On retourne une valeur (1 si un joueur a ete tue, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
    */
   public int mort (AbstractUnite attaquant, AbstractUnite cible) {
     // Si la cible est morte,
@@ -126,7 +179,7 @@ public class Plateau {
       joueurCible.remove(cible);
       this.rmvUnite(cible);
 
-      // On augmente l'argent du joueur qui contrôle l'unité.
+      // On augmente l'argent du joueur qui contrôle l'unite.
       attaquant.getJoueur().setArgent(cible.getGainMort());
 
       if (joueurCible.generalMort())
@@ -136,9 +189,9 @@ public class Plateau {
   }
 
   /**
-   * On gère la mort d'un joueur.
+   * On gere la mort d'un joueur.
    * @param  joueurMort Le joueur qui est mort.
-   * @return            On retourne une valeur (1 si un joueur a été tué, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
+   * @return            On retourne une valeur (1 si un joueur a ete tue, 2 s'il ne reste qu'un joueur en vie, 0 sinon).
    */
   public int mortJoueur (Joueur joueurMort) {
     int i = 0;
@@ -147,6 +200,7 @@ public class Plateau {
       i++;
     // On le supprime de la liste.
     if (joueurs.get(i) == joueurMort) {
+      joueurMortActuel = joueurMort;
       joueurs.remove(i);
       // S'il ne reste qu'un joueur en jeu, on renvoie la valeur 1.
       if (joueurs.size() == 1)
@@ -158,20 +212,46 @@ public class Plateau {
   }
 
   /**
-   * Vérifie si des villes sont en prises par des joueurs et change la possession des villes si nécessaire.
+   * Verifie si des villes sont en prises par des joueurs et change la possession des villes si necessaire.
    */
-  public void villesPrises () {
+  public int prises() {
     // On prend les villes une par une.
     for (int i = 0; i < villes.size(); i++) {
       AbstractVille ville = villes.get(i);
 
-      // On regarde l'unité sur la case de la ville.
+      // On regarde l'unite sur la case de la ville.
       AbstractUnite unite = unites[ville.getY()][ville.getX()];
 
-      // Si l'unité n'est pas nulle, on change le propriétaire de la ville.
-      if (unite != null)
-        ville.setJoueur(unite.getJoueur());
+      // Si l'unite n'est pas nulle, on change le proprietaire de la ville.
+      if (unite != null) {
+
+        // Si la ville est une mine,
+        if (ville instanceof Mine &&
+            ((ville.getJoueur() == null) ||
+            (ville.getJoueur() != null && ville.getJoueur() != unite.getJoueur()))) {
+
+          if (ville.getJoueur() != null)
+            // On decremente le compteur de mines du joueur precedent
+            ville.getJoueur().addMine(-1);
+          // Et on incremente le compteur de villes du joueur qui l'a recuperee
+          unite.getJoueur().addMine(1);
+        }
+
+        // Si la ville n'est pas le QG de l'unite dessus
+        if (ville instanceof Qg && (unite.getJoueur() != ville.getJoueur())) {
+          if (nbToursSurQG < 4*joueurs.size())
+            nbToursSurQG++;
+          else {
+            nbToursSurQG = 0;
+            terrain[ville.getY()][ville.getX()] = new Plaine();
+            return mortJoueur(ville.getJoueur());
+          }
+        }
+        if (!(ville instanceof Qg))
+          ville.setJoueur(unite.getJoueur());
+      }
     }
+    return 0;
   }
 
 

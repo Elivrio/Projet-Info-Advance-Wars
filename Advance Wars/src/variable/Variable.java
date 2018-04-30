@@ -27,14 +27,14 @@ public class Variable {
                                                    new VTB(null, 0, 0) },
 
                                                  { new Barge(null, 0, 0),
-                                                   new Cuirasse(null, 0, 0),
+                                                   new SousMarin(null, 0, 0),
                                                    new Destroyeur(null, 0, 0),
-                                                   new SousMarin(null, 0, 0) },
+                                                   new Cuirasse(null, 0, 0) },
 
-                                                 { new Bombardier(null, 0, 0),
+                                                 { new Helico(null, 0, 0),
+                                                   new HelicoptereTransport(null, 0, 0),
                                                    new Chasseur(null, 0, 0),
-                                                   new Helico(null, 0, 0),
-                                                   new HelicoptereTransport(null, 0, 0) }};
+                                                   new Bombardier(null, 0, 0), }};
 
 
   public final static Color foret = new Color(0f,0.50f,0.25f);
@@ -47,15 +47,15 @@ public class Variable {
   public final static String pathToUnites = "src/variable/images/unites/";
   public final static String pathToTerrains = "src/variable/images/terrains/";
   public final static String pathToIcones = "src/variable/images/unites/unitesPrix/";
-  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", ""};
+  public final static String[] pathToImages2 = {"foret/", "plaine/", "eau/", "montagne/", "fonds/", "", "", "", "", "", "", "", ""};
   public final static String pathToDegats = "src/variable/images/degats/";
 
-  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png"};
-  public final static String[] tStrBaseUni1 = {"zombie1.png", "ninja1.png", "nosaure1.png", "magicalGirl1.png", "tank.png", "fantassin.png", "recon.png", "bazooka.png", "tankM.png", "artillerie.png", "vtb.png", "antiAerien.png", "dca.png", "lanceMissiles.png"};
-  public final static String[] tStrBaseUni2 = {"zombie2.png", "ninja2.png", "nosaure2.png", "magicalGirl2.png", "tank.png", "fantassin.png", "recon.png", "bazooka.png", "tankM.png", "artillerie.png", "vtb.png", "antiAerien.png", "dca.png", "lanceMissiles.png"};
-  public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png", "antiAerienPrix.png", "dcaPrix.png", "lanceMissilesPrix.png"};
-  public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png", "antiAerienTropCher.png", "dcaTropCher.png", "lanceMissilesTropCher.png"};
-  public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg"};
+  public final static String[] tStrBaseTer = {"foret.png", "plaine.png", "eau.png", "montagne.png", "noir.jpg", "ville.png", "port.png", "aeroport.png", "mine.png", "qgZombie.png", "qgNinja.png", "qgNosaure.png", "qgMagical.png"};
+  public final static String[] tStrBaseUni1 = {"zombie1.png", "ninja1.png", "nosaure1.png", "magicalGirl1.png", "tank1.png", "fantassin1.png", "recon1.png", "bazooka1.png", "tankM1.png", "artillerie1.png", "vtb1.png", "antiAerien1.png", "dca1.png", "lanceMissiles1.png", "barge1.png", "sousMarin1.png", "destroyeur1.png", "cuirasse1.png", "helicoptere1.png", "helicoptereTransport1.png", "chasseur1.png", "bombardier1.png"};
+  public final static String[] tStrBaseUni2 = {"zombie2.png", "ninja2.png", "nosaure2.png", "magicalGirl2.png", "tank2.png", "fantassin2.png", "recon2.png", "bazooka2.png", "tankM2.png", "artillerie2.png", "vtb2.png", "antiAerien2.png", "dca2.png", "lanceMissiles2.png", "barge2.png", "sousMarin2.png", "destroyeur2.png", "cuirasse2.png", "helicoptere2.png", "helicoptereTransport2.png", "chasseur2.png", "bombardier2.png"};
+  public final static String[] tStrBaseIcone = {"tankPrix.png", "fantassinPrix.png", "reconPrix.png", "bazookaPrix.png", "tankMPrix.png", "artilleriePrix.png", "vtbPrix.png", "antiAerienPrix.png", "dcaPrix.png", "lanceMissilesPrix.png",  "bargePrix.png", "sousMarinPrix.png", "destroyeurPrix.png", "cuirassePrix.png", "helicoPrix.png", "helicoTransportPrix.png", "chasseurPrix.png", "bombardierPrix.png"};
+  public final static String[] tStrBaseIconeTropCher = {"tankTropCher.png", "fantassinTropCher.png", "reconTropCher.png", "bazookaTropCher.png", "tankMTropCher.png", "artillerieTropCher.png", "vtbTropCher.png", "antiAerienTropCher.png", "dcaTropCher.png", "lanceMissilesTropCher.png",  "bargeTropCher.png", "sousMarinTropCher.png", "destroyeurTropCher.png", "cuirasseTropCher.png", "helicoTropCher.png", "helicoTransportTropCher.png", "chasseurTropCher.png", "bombardierTropCher.png"};
+  public final static String[] tStrBaseFond = {"vert.jpg", "rouge.jpg", "bleu.jpg", "point.png"};
   public final static String[] tStrBaseDegats = {"0.png", "0.png", "0.png", "0.png", "0.png", "5-1.png", "5-2.png", "5-3.png", "5-4.png", "0.png", "10-1.png", "10-2.png", "10-3.png", "10-4.png", "O.png"};
 
   public final static String[] tStrUni1;
@@ -106,14 +106,15 @@ public class Variable {
   public final static BufferedImage[] tImEauPlageCoin;
 
   static {
+
     // Remplissage du tableau avec les images des terrains
     tStrDossierTer = new String[tStrBaseTer.length];
     tStrTer2 = new String[tStrBaseTer.length];
     tStrTerFile = new File[tStrTer2.length];
     tImTer = new BufferedImage[tStrTerFile.length];
-    for (int i = 0; i < tStrTer2.length ; i++) {
+    for (int i = 0; i < tStrTer2.length; i++) {
       tStrDossierTer[i] = pathToTerrains + pathToImages2[i];
-      tStrTer2[i] = tStrDossierTer[i]+ tStrBaseTer[i];
+      tStrTer2[i] = tStrDossierTer[i] + tStrBaseTer[i];
       tStrTerFile[i] = new File(tStrTer2[i]);
       try {
         tImTer[i] = ImageIO.read(tStrTerFile[i]);
@@ -178,7 +179,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les images des unités v1
+    // Remplissage du tableau avec les images des unites v1
     tStrUni1 = new String[tStrBaseUni1.length];
     tStrUniFile1 = new File[tStrUni1.length];
     tImUni1 = new BufferedImage[tStrUniFile1.length];
@@ -193,7 +194,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les images des unités v2
+    // Remplissage du tableau avec les images des unites v2
     tStrUni2 = new String[tStrBaseUni2.length];
     tStrUniFile2 = new File[tStrUni2.length];
     tImUni2 = new BufferedImage[tStrUniFile2.length];
@@ -208,7 +209,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les icones des unités
+    // Remplissage du tableau avec les icones des unites
     tStrIcone = new String[tStrBaseIcone.length];
     tStrIconeFile = new File[tStrIcone.length];
     tImIcone = new BufferedImage[tStrIconeFile.length];
@@ -220,7 +221,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les icones des unités trop chères
+    // Remplissage du tableau avec les icones des unites trop cheres
     tStrIconeTropCher = new String[tStrBaseIconeTropCher.length];
     tStrIconeTropCherFile = new File[tStrIconeTropCher.length];
     tImIconeTropCher = new BufferedImage[tStrIconeTropCherFile.length];
@@ -232,7 +233,7 @@ public class Variable {
       } catch (IOException e) {}
     }
 
-    // Remplissage du tableau avec les fonds colorés (déplacement, portée)
+    // Remplissage du tableau avec les fonds colores (deplacement, portee)
     tStrFond = new String[tStrBaseFond.length];
     tStrFondFile = new File[tStrFond.length];
     tImFond = new BufferedImage[tStrFondFile.length];
@@ -243,8 +244,7 @@ public class Variable {
         tImFond[i] = ImageIO.read(tStrFondFile[i]);
       } catch (IOException e) {}
     }
-
-    // Remplissage du tableau avec les images des dégats reçus
+    // Remplissage du tableau avec les images des degats reçus
     tStrDegats = new String[tStrBaseDegats.length];
     tStrDegatsFile = new File[tStrDegats.length];
     tImDegats = new BufferedImage[tStrDegatsFile.length];
@@ -263,6 +263,8 @@ public class Variable {
   public final static BufferedImage vert = opacifier(tImFond[0], 0.60f);
   public final static BufferedImage rouge = opacifier(tImFond[1], 0.60f);
   public final static BufferedImage bleu = opacifier(tImFond[2], 0.60f);
+  public final static BufferedImage point = opacifier(tImFond[3], 0.70f);
+
 
   public static BufferedImage opacifier(BufferedImage img, float opacite) {
     BufferedImage newImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);

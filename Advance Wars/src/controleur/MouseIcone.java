@@ -22,12 +22,16 @@ public class MouseIcone extends Controleur implements MouseListener {
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // Ville cliquée en ce moment.
+  // Ville cliquee en ce moment.
   private AbstractVille ville;
+
+  // ********************************************
+  // *************** Constructeur ***************
+  // ********************************************
 
   /**
    * @param vue   La vue du jeu.
-   * @param ville La ville sélectionnée.
+   * @param ville La ville selectionnee.
    */
   public MouseIcone (Vue vue, AbstractVille ville) {
     super(vue);
@@ -35,28 +39,28 @@ public class MouseIcone extends Controleur implements MouseListener {
   }
 
   /**
-   * Est appelée lors d'un clic sur une icône d'unité lors de l'achat.
-   * @param me Clic souris transformé en variable par Java.
+   * Est appelee lors d'un clic sur une icône d'unite lors de l'achat.
+   * @param me Clic souris transforme en variable par Java.
    */
   @Override
   public void mouseClicked (MouseEvent me) {
     Object source = me.getSource();
     LinkedList<JLabel> icones = vue.getListeIcones();
-    // On récupère une liste de toutes les unités possibles.
+    // On recupere une liste de toutes les unites possibles.
     AbstractUnite[] unites = Variable.listeUnites[vue.getTypeUnites()];
     int x = ville.getX();
     int y = ville.getY();
     SNHException evt = new SNHException();
     Plateau plateau = map.getPlateau();
 
-    // On cherche l'icône sur laquelle on a cliqué.
+    // On cherche l'icône sur laquelle on a clique.
     for (int i = 0; i < icones.size(); i++)
       if (source == icones.get(i)) {
         Joueur joueur = map.getJoueur();
-        // Si aucune unité n'est positionnée sur la ville
-        // Et que l'unité choisie est dans les moyens du joueur,
+        // Si aucune unite n'est positionnee sur la ville
+        // Et que l'unite choisie est dans les moyens du joueur,
         if (unites[i].getCout() <= joueur.getArgent() && plateau.getUnites()[y][x] == null) {
-          // On crée la nouvelle unité du joueur sur la ville.
+          // On cree la nouvelle unite du joueur sur la ville.
           switch (vue.getTypeUnites()) {
             case 0 :
               switch (i) {
@@ -80,9 +84,9 @@ public class MouseIcone extends Controleur implements MouseListener {
             case 1 :
               switch (i) {
                 case 0 : plateau.addUnite(new Barge (joueur, x, y), joueur, true); break;
-                case 1 : plateau.addUnite(new Cuirasse (joueur, x, y), joueur, true); break;
+                case 1 : plateau.addUnite(new SousMarin (joueur, x, y), joueur, true); break;
                 case 2 : plateau.addUnite(new Destroyeur (joueur, x, y), joueur, true); break;
-                case 3 : plateau.addUnite(new SousMarin (joueur, x, y), joueur, true); break;
+                case 3 : plateau.addUnite(new Cuirasse (joueur, x, y), joueur, true); break;
                 default :
                   evt.printStackTrace();
                   System.out.println(evt);
@@ -92,10 +96,10 @@ public class MouseIcone extends Controleur implements MouseListener {
               break;
             case 2 :
               switch (i) {
-                case 0 : plateau.addUnite(new Bombardier (joueur, x, y), joueur, true); break;
-                case 1 : plateau.addUnite(new Chasseur (joueur, x, y), joueur, true); break;
-                case 2 : plateau.addUnite(new Helico (joueur, x, y), joueur, true); break;
-                case 3 : plateau.addUnite(new HelicoptereTransport (joueur, x, y), joueur, true); break;
+                case 0 : plateau.addUnite(new Helico (joueur, x, y), joueur, true); break;
+                case 1 : plateau.addUnite(new HelicoptereTransport (joueur, x, y), joueur, true); break;
+                case 2 : plateau.addUnite(new Bombardier (joueur, x, y), joueur, true); break;
+                case 3 : plateau.addUnite(new Chasseur (joueur, x, y), joueur, true); break;
                 default :
                   evt.printStackTrace();
                   System.out.println(evt);
@@ -109,9 +113,9 @@ public class MouseIcone extends Controleur implements MouseListener {
               System.exit(1);
               break;
           }
-          // On déclare que la ville a déjà créé une unité ce tour-ci.
+          // On declare que la ville a deja cree une unite ce tour-ci.
           ville.setAchete(true);
-          // On met à jour les informations.
+          // On met a jour les informations.
           vue.informations(joueur);
           vue.informations(ville, joueur, joueur.getVision()[y][x]);
           map.repaint();
@@ -120,7 +124,7 @@ public class MouseIcone extends Controleur implements MouseListener {
       }
   }
 
-  // Fonctions de l'interface non utilisées.
+  // Fonctions de l'interface non utilisees.
   @Override
   public void mouseExited (MouseEvent me) {}
   public void mouseEntered (MouseEvent me) {}

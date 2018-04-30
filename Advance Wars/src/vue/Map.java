@@ -11,8 +11,8 @@ import src.modele.AbstractUnite;
 import src.modele.AbstractTerrain;
 import src.modele.terrain.AbstractVille;
 
-// Les classes PanelMap et Minimap ayant beaucoup de variables en commun, nous avons préféré créer
-// cette classe mère qui permet de regrouper les variables et les fonctions communes.
+// Les classes PanelMap et Minimap ayant beaucoup de variables en commun, nous avons prefere creer
+// cette classe mere qui permet de regrouper les variables et les fonctions communes.
 
 @SuppressWarnings("serial")
 abstract public class Map extends JPanel {
@@ -24,20 +24,20 @@ abstract public class Map extends JPanel {
   // Le Plateau de jeu
   protected Plateau plateau;
 
-  // Permet de définir la place occupée par la carte sur la fenêtre.
+  // Permet de definir la place occupee par la carte sur la fenetre.
   protected int hauteur, largeur;
 
-  // Permet de se déplacer dans le tableau de terrain afin d'afficher les bonnes cases.
+  // Permet de se deplacer dans le tableau de terrain afin d'afficher les bonnes cases.
   protected int tabI, tabJ;
 
-  // Permet de stocker la hauteur et la largeur de l'écran sur lequel on travaille.
+  // Permet de stocker la hauteur et la largeur de l'ecran sur lequel on travaille.
   protected final double largeurEcran, hauteurEcran;
 
-  // Ces entiers sont des bornes permettant de savoir combien de cases doivent être affichées à l'écran
+  // Ces entiers sont des bornes permettant de savoir combien de cases doivent etre affichees a l'ecran
   // (et surtout sur les bords invisibles).
   protected double hautMax, largMax;
 
-  // Contient la taille des cases qui s'afficheront sur la map créée.
+  // Contient la taille des cases qui s'afficheront sur la map creee.
   protected int taillePixel;
 
   // La liste de Joueur.
@@ -53,7 +53,7 @@ abstract public class Map extends JPanel {
   // *************** Variable de Classe ***************
   // **************************************************
 
-  // Des variables qui permettent d'automatiser la création des formes simples
+  // Des variables qui permettent d'automatiser la creation des formes simples
   // telles que les rectangles et les cercles.
   protected final static String oval = "oval";
   protected final static String rect = "rect";
@@ -114,16 +114,16 @@ abstract public class Map extends JPanel {
   // *************** Setters ***************
   // ***************************************
 
-  // Les variables permettant de stocker la position relative et qui permettent d'afficher le déplacement continu
-  // ont une forme différente en fonction de la Map considérée. Ainsi, dans miniMap, posI et posJ sont des doubles
-  // tandis que dans PanelMap, ce sont des entiers. Pour éviter un nombre infini de cast de double into int, j'ai
-  // préféré utiliser des types différents selon les classes filles. Cela implique des fonctions abstraites pour
-  // remettre à zéro les valeurs posI et posJ;
+  // Les variables permettant de stocker la position relative et qui permettent d'afficher le deplacement continu
+  // ont une forme differente en fonction de la Map consideree. Ainsi, dans miniMap, posI et posJ sont des doubles
+  // tandis que dans PanelMap, ce sont des entiers. Pour eviter un nombre infini de cast de double into int, j'ai
+  // prefere utiliser des types differents selon les classes filles. Cela implique des fonctions abstraites pour
+  // remettre a zero les valeurs posI et posJ;
 
   /**
-   * Définit la position dans le tableau de terrain sur l'axe des ordonnées
-   * et remet la position relative nécessaire au déplacement continu sur l'axe des ordonnées à zéro.
-   * @param tI Le déplacement que l'on va faire dans le tableau.
+   * Definit la position dans le tableau de terrain sur l'axe des ordonnees
+   * et remet la position relative necessaire au deplacement continu sur l'axe des ordonnees a zero.
+   * @param tI Le deplacement que l'on va faire dans le tableau.
    */
   public void setTabI (int tI) {
     tabI = tI;
@@ -131,9 +131,9 @@ abstract public class Map extends JPanel {
   }
 
   /**
-   * Définit la position dans le tableau de terrain sur l'axe des abscisses
-   * et remet la position relative nécessaire au déplacement continu sur l'axe des abscisses à zéro.
-   * @param tJ Le déplacement que l'on va faire dans le tableau.
+   * Definit la position dans le tableau de terrain sur l'axe des abscisses
+   * et remet la position relative necessaire au deplacement continu sur l'axe des abscisses a zero.
+   * @param tJ Le deplacement que l'on va faire dans le tableau.
    */
   public void setTabJ (int tJ) {
     tabJ = tJ;
@@ -141,9 +141,9 @@ abstract public class Map extends JPanel {
   }
 
   /**
-   * Permet de se déplacer dans le tableau de terrain et remet la position relative
-   * nécessaire au déplacement continu sur l'axe des ordonnées à zéro.
-   * @param tI Le déplacement que l'on va faire dans le tableau.
+   * Permet de se deplacer dans le tableau de terrain et remet la position relative
+   * necessaire au deplacement continu sur l'axe des ordonnees a zero.
+   * @param tI Le deplacement que l'on va faire dans le tableau.
    */
   public void addTabI (int tI) {
     tabI += tI;
@@ -151,9 +151,9 @@ abstract public class Map extends JPanel {
   }
 
   /**
-   * Permet de se déplacer dans le tableau de terrain et remet la position relative
-   * nécessaire au déplacement continu sur l'axe des abscisses à zéro.
-   * @param tJ Le déplacement que l'on va effectuer.
+   * Permet de se deplacer dans le tableau de terrain et remet la position relative
+   * necessaire au deplacement continu sur l'axe des abscisses a zero.
+   * @param tJ Le deplacement que l'on va effectuer.
    */
   public void addTabJ (int tJ) {
     tabJ += tJ;
@@ -161,7 +161,7 @@ abstract public class Map extends JPanel {
   }
 
   /**
-   * Permet de remettre la position relative à zéro.
+   * Permet de remettre la position relative a zero.
    */
   abstract void resetPosI();
   abstract void resetPosJ();
@@ -169,26 +169,27 @@ abstract public class Map extends JPanel {
 
 
   /**
-   * Permet de changer de joueur à la fin d'un tour. Cette fonction remet toutes les variables de tour à zéro
-   * (déplacement, unité cliquée, etc.) et fait un tour dans la liste de joueurs.
-   * @param i Le nombre d'éléments que l'on saute dans la liste de joueurs.
+   * Permet de changer de joueur a la fin d'un tour. Cette fonction remet toutes les variables de tour a zero
+   * (deplacement, unite cliquee, etc.) et fait un tour dans la liste de joueurs.
+   * @param i Le nombre d'elements que l'on saute dans la liste de joueurs.
    */
   public void setJoueur (int i) {
-    // On met à jour la liste des joueurs (en cas de joueur mort entre temps).
+    // On met a jour la liste des joueurs (en cas de joueur mort entre temps).
     joueurs = plateau.getJoueurs();
-    // On redonne la possibilité à toutes les unités de faire des actions.
+    // On redonne la possibilite a toutes les unites de faire des actions.
     joueur.reset();
-    // On redonne la possibilité à toutes les villes de produire.
+    // On redonne la possibilite a toutes les villes de produire.
     plateau.reset();
     // On change l'indice du joueur en cours en ce moment, puis on change le joueur.
     if (indiceJoueur+i < joueurs.size())
       indiceJoueur += i;
     else indiceJoueur = 0;
     joueur = joueurs.get(indiceJoueur);
+    joueur.setArgent(joueur.getMines()*500);
   }
 
   /**
-   * Change le joueur et met l'affichage à jour.
+   * Change le joueur et met l'affichage a jour.
    */
   public void nouveauTour() {
     // On change le joueur.

@@ -19,22 +19,22 @@ public class Jeu {
   // *************** Variables d'instance ***************
   // ****************************************************
 
-  // La JFrame qui va contenir toutes les données du jeu.
+  // La JFrame qui va contenir toutes les donnees du jeu.
   private Vue vue;
 
-  // Le plateau qui contient le terrain et les unités.
+  // Le plateau qui contient le terrain et les unites.
   private Plateau plateau;
 
-  // Le contrôleur qui va vérifier les actions sur le clavier sur la Vue.
+  // Le contrôleur qui va verifier les actions sur le clavier sur la Vue.
   private ControleurKey cK;
 
-  // Le contrôleur qui va vérifier les actions à la souris sur la MiniMap.
+  // Le contrôleur qui va verifier les actions a la souris sur la MiniMap.
   private MiniMapMouse mMM;
 
-  // Le contrôleur qui va vérifier les actions à la souris sur la Vue.
+  // Le contrôleur qui va verifier les actions a la souris sur la Vue.
   private ControleurMouse cM;
 
-  // Le contrôleur qui va vérifier les déplacements de la souris sur la Vue.
+  // Le contrôleur qui va verifier les deplacements de la souris sur la Vue.
   private ControleurMouseMotion cMM;
 
   // ********************************************
@@ -42,7 +42,7 @@ public class Jeu {
   // ********************************************
 
   /**
-   * @param plat Le plateau qui défini le jeu.
+   * @param plat Le plateau qui defini le jeu.
    */
   public Jeu (Plateau plateau) {
     this.plateau = plateau;
@@ -59,4 +59,5 @@ public class Jeu {
     map.addMouseMotionListener(cMM);
     map.addMouseMotionListener(cM);
   }
+
 }

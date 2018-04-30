@@ -9,6 +9,7 @@ public abstract class AbstractTerrain {
 
   protected final String nom;
   protected final int type;
+  protected final int typeLiaison;
 
   // ********************************************
   // *************** Constructeur ***************
@@ -17,10 +18,12 @@ public abstract class AbstractTerrain {
   /**
    * @param s Le nom du terrain.
    * @param t Le type du terrain.
+   * @param l le type du terrain pour les liaisons.
    */
-  public AbstractTerrain (String s, int t) {
+  public AbstractTerrain (String s, int t, int l) {
     nom = s;
     type = t;
+    typeLiaison = l;
   }
 
   // ***************************************
@@ -33,13 +36,15 @@ public abstract class AbstractTerrain {
 
   public String getNom() { return nom; }
 
+  public int getTypeLiaison() { return typeLiaison; }
+
   // ****************************************************
   // *************** Fonctions d'instance ***************
   // ****************************************************
 
   /**
-   * Permet d'afficher l'objet sous forme d'une chaîne de caratère.
-   * @return La chaîne de caractère qui va décrire l'objet.
+   * Permet d'afficher l'objet sous forme d'une chaîne de caratere.
+   * @return La chaîne de caractere qui va decrire l'objet.
    */
   @Override
   public String toString() {
