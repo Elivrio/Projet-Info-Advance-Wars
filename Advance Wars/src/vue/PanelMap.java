@@ -53,6 +53,7 @@ public class PanelMap extends Map {
   protected int m, n;
 
 
+
   // ********************************************
   // *************** Constructeur ***************
   // ********************************************
@@ -70,8 +71,8 @@ public class PanelMap extends Map {
     hauteur = (int)hauteurEcran;
     setSize(largeur, hauteur);
     animation = true;
-    m =-1;
-    n =-1;
+    m = -1;
+    n = -1;
   }
 
   // ***************************************
@@ -157,7 +158,6 @@ public class PanelMap extends Map {
         int t = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
         // La fonction qui permet d'afficher la case et tous ses composants.
         if (i==m && j==n){
-          System.out.println("test");
           dessineChemin(g, ter, j, i, unite);
         }
         else {
@@ -316,9 +316,6 @@ public class PanelMap extends Map {
 
           int a3 = Math.max(a1, a2);
           int b3 = Math.max(b1, b2);
-          //System.out.println("a "+ a3);
-          //System.out.println("b "+ b3);
-
 
           int status = unite.getStatusMouv();
           if (status < 3)
@@ -334,36 +331,34 @@ public class PanelMap extends Map {
           int orientationY = ((b1 - b2)<=1) ? (b1 - b2): 0;
 
           if (a3 !=0 && b3 != 0){
-            m = a3;
-            n = b3;
-            g.clearRect((a3*taillePixel)-posJ-100, (b3*taillePixel)-posI-100, taillePixel, taillePixel);
-            //chemin(g, terrain, a3, b3);
-            g.drawImage(Variable.bleu, a3*taillePixel - posJ - 100, b3*taillePixel- posI - 100, this);
+            n = b3 - tabJ+1;
+            m = a3 - tabI+1;
+
+            chemin(g, terrain, m, n);
+
             if (unite instanceof General){
-              makeForm(g, oval, a3, b3, posJ+80+(pas*orientationY), posI+35+(pas*orientationX), 60, 20, color);
-              g.drawImage(uni,(a3 * taillePixel)- posJ - 80 -(pas*orientationY), (b3*taillePixel)-posI-80-(pas*orientationX), this);
+              makeForm(g, oval, n, m, posJ+80+(pas*orientationY), posI+35+(pas*orientationX), 60, 20, color);
+              g.drawImage(uni,(n * taillePixel)- posJ - 80 -(pas*orientationY), (m*taillePixel)-posI-80-(pas*orientationX), this);
             }
             else {
-              makeForm(g, oval, a3, b3, posJ+75+(pas*orientationY), posI+45+(pas*orientationX),50,20, color);
-              g.drawImage(uni,(a3*taillePixel)-posJ-70-(pas*orientationY), (b3*taillePixel)-posI-70-(pas*orientationX), this);
+              makeForm(g, oval, n, m, posJ+75+(pas*orientationY), posI+45+(pas*orientationX),50,20, color);
+              g.drawImage(uni,(n*taillePixel)-posJ-70-(pas*orientationY), (m*taillePixel)-posI-70-(pas*orientationX), this);
             }
           }
           if (a3 == 0 && b3 ==0){
-            m=-1;
-            n=-1;
+            m = -1;
+            n = -1;
           }
           bouge = false;
-        }
-        System.out.println("m "+ m);
-        System.out.println("n "+ n);         
+        }        
       }
       else {
         pion = null;
         unite.setStatusChemin(0);
         unite.setMouvement(false);
         unite.setChemin(new int[0][0]);
-        m=-1;
-        n=-1;
+        m = -1;
+        n = -1;
       }
     }
 
