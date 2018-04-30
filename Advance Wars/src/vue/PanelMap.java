@@ -328,10 +328,10 @@ public class PanelMap extends Map {
 
           // abscisse de la case actuelle et de la suivante
           int a1 = unite.getChemin()[etape][0];
-          int a2 = unite.getChemin()[etape+1][0];
+          int a2 = unite.getChemin()[etape + 1][0];
           // ordonnees de la case actuelle et de la suivante
           int b1 = unite.getChemin()[etape][1];
-          int b2 = unite.getChemin()[etape +1][1];
+          int b2 = unite.getChemin()[etape + 1][1];
 
           int a3 = Math.max(a1, a2);
           int b3 = Math.max(b1, b2);
@@ -346,25 +346,25 @@ public class PanelMap extends Map {
           int pas = (taillePixel/4) * status;
 
           // Egal a 1, 0 ou -1 pour connaitre la direction
-          int orientationX = ((a1 - a2)<=1) ? (a1 - a2): 0;
-          int orientationY = ((b1 - b2)<=1) ? (b1 - b2): 0;
+          int orientationX = ((a1 - a2) <= 1) ? (a1 - a2): 0;
+          int orientationY = ((b1 - b2) <= 1) ? (b1 - b2): 0;
 
           if (a3 !=0 && b3 != 0){
-            n = b3 - tabJ+1;
-            m = a3 - tabI+1;
+            n = b3 - tabJ + 1;
+            m = a3 - tabI + 1;
 
             chemin(g, terrain, m, n);
 
-            if (unite instanceof General){
-              makeForm(g, oval, n, m, posJ+80+(pas*orientationY), posI+35+(pas*orientationX), 60, 20, color);
-              g.drawImage(uni,(n * taillePixel)- posJ - 80 -(pas*orientationY), (m*taillePixel)-posI-80-(pas*orientationX), this);
+            if (unite instanceof General) {
+              makeForm(g, oval, n, m, posJ + 80 + (pas * orientationY), posI + 35 + (pas * orientationX), 60, 20, color);
+              g.drawImage(uni,(n * taillePixel) - posJ - 80 - (pas * orientationY), (m * taillePixel) - posI - 80 - (pas * orientationX), this);
             }
             else {
-              makeForm(g, oval, n, m, posJ+75+(pas*orientationY), posI+45+(pas*orientationX),50,20, color);
-              g.drawImage(uni,(n*taillePixel)-posJ-70-(pas*orientationY), (m*taillePixel)-posI-70-(pas*orientationX), this);
+              makeForm(g, oval, n, m, posJ + 75 + (pas * orientationY), posI + 45 + (pas * orientationX), 50, 20, color);
+              g.drawImage(uni,(n * taillePixel) - posJ - 70 - (pas * orientationY), (m * taillePixel) - posI - 70 - (pas * orientationX), this);
             }
           }
-          if (a3 == 0 && b3 ==0){
+          if (a3 == 0 && b3 == 0) {
             m = -1;
             n = -1;
           }
@@ -380,7 +380,6 @@ public class PanelMap extends Map {
         n = -1;
       }
     }
-
   }
 
   /**
