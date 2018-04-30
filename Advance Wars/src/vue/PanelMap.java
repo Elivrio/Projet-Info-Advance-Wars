@@ -86,7 +86,7 @@ public class PanelMap extends Map {
       // System.out.println(url); // test pour verifier si l'url est correct
       son = AudioSystem.getClip();
       son.open(AudioSystem.getAudioInputStream(url));
-      son.loop(Clip.LOOP_CONTINUOUSLY);
+      //son.loop(Clip.LOOP_CONTINUOUSLY);
     } catch (LineUnavailableException|UnsupportedAudioFileException|IllegalArgumentException|IOException e) {}
   }
 
