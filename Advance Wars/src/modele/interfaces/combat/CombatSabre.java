@@ -2,14 +2,14 @@ package src.modele.interfaces.combat;
 
 import src.modele.interfaces.combat.Combat;
 
-public class CombatCouteau implements Combat {
+public class CombatSabre implements Combat {
 
   // ****************************************************
   // *************** Variables d'instance ***************
   // ****************************************************
 
   // Le nombre de degats infliges par coup.
-  protected int degats = 5;
+  protected int degats = 20;
 
   // ****************************************************
   // *************** Fonctions d'instance ***************
@@ -20,7 +20,7 @@ public class CombatCouteau implements Combat {
    * @return Retourne l'arme utilisee.
    */
   public String combat() {
-    return "Se bat au couteau";
+    return "Se bat au sabre";
   }
 
   /**

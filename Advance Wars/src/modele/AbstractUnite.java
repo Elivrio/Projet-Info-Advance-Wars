@@ -1,18 +1,22 @@
 package src.modele;
 
+import src.modele.general.MadZombie;
+import src.modele.general.Nosaure;
+import src.modele.general.Ninja;
+import src.modele.general.MagicalGirl;
 import src.modele.interfaces.combat.Combat;
 import src.modele.interfaces.typeunite.TypeUnite;
 import src.modele.interfaces.deplacement.Deplacement;
+
+import java.net.URL;
+import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.net.URL;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
-import java.io.File;
-import javax.swing.JFileChooser;
 import java.net.MalformedURLException;
+import java.io.IOException;
 
 public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
 
@@ -256,17 +260,27 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public void attaquer (AbstractUnite cible) {
     cible.setPV(-getDegats());
     cible.setAnimDegats(getDegats());
-    Clip son;
-    File song = new File("src/variable/son/Explode.wav");
+    // implementation du son
+    Clip son; // clip du son
+    File song; // fichier son
+    if (this instanceof MadZombie)
+      song = new File("src/variable/son/bite.wav");
+    else if (this instanceof Nosaure)
+      song = new File("src/variable/son/roar.wav");
+    else if (this instanceof Ninja)
+      song = new File("src/variable/son/sword.wav");
+    else if (this instanceof MagicalGirl)
+      song = new File("src/variable/son/ohoho.wav");
+    else
+      song = new File("src/variable/son/explode.wav");
     try{
       URL url = song.toURI().toURL();
-      System.out.println(url);
+      // System.out.println(url); // test pour verifier si l'url est correct
       son = AudioSystem.getClip();
-      System.out.println(son.getMicrosecondLength());
       son.open(AudioSystem.getAudioInputStream(url));
       son.start();
-    } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e){}
-    attaque = false;
+    } catch (IllegalArgumentException | LineUnavailableException | UnsupportedAudioFileException | IOException e) {}
+      attaque = false;
   }
 
   /**

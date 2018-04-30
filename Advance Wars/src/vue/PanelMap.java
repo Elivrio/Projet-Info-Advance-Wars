@@ -22,6 +22,17 @@ import src.modele.AbstractTerrain;
 import src.modele.terrain.AbstractVille;
 import src.modele.terrain.Qg;
 
+import java.net.URL;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.net.MalformedURLException;
+import java.io.IOException;
+import java.lang.IllegalArgumentException;
+
 @SuppressWarnings("serial")
 public class PanelMap extends Map {
 
@@ -73,6 +84,16 @@ public class PanelMap extends Map {
     animation = true;
     m = -1;
     n = -1;
+    Clip son; // clip du son
+    File song; // fichier son
+    song = new File("src/variable/son/ohoho.wav");
+    try{
+      URL url = song.toURI().toURL();
+      // System.out.println(url); // test pour verifier si l'url est correct
+      son = AudioSystem.getClip();
+      son.open(AudioSystem.getAudioInputStream(url));
+      son.loop(Clip.LOOP_CONTINUOUSLY);
+    } catch (LineUnavailableException|UnsupportedAudioFileException|IllegalArgumentException|IOException e) {}
   }
 
   // ***************************************
