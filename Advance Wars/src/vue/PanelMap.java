@@ -20,6 +20,7 @@ import src.modele.AbstractUnite;
 import src.modele.general.General;
 import src.modele.AbstractTerrain;
 import src.modele.terrain.AbstractVille;
+import src.modele.terrain.Qg;
 
 @SuppressWarnings("serial")
 public class PanelMap extends Map {
@@ -150,14 +151,16 @@ public class PanelMap extends Map {
           continue;
         // L'unite qui se trouve sur la case.
         AbstractUnite unite = plateau.getUnites()[i + tabI - 1][j + tabJ - 1];
+        // Le terrain de la case
+        AbstractTerrain ter = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1];
         // Le type du terrain.
         int t = plateau.getTerrain()[i + tabI - 1][j + tabJ - 1].getType();
         // La fonction qui permet d'afficher la case et tous ses composants.
-        if (i=m && j=n)
-          dessineChemin(g, t, j, i, unite);
+        if (i==m && j==n)
+          dessineChemin(g, ter, j, i, unite);
         else {
-          dessineCase(g, t, j, i, unite);
-          dessineChemin(g, t, j, i, unite);
+          dessineCase(g, ter, j, i, unite);
+          dessineChemin(g, ter, j, i, unite);
         }
       }
   }
@@ -166,15 +169,16 @@ public class PanelMap extends Map {
    * Fonction dessinant une case du plateau.
    * Elle dessine le terrain, le brouillard de guerre, les unites, l'interface de Gameplay, etc.
    * @param g     Le contenu Graphics donne par Java.
-   * @param type  Le type de terrain sur lequel on se trouve (plaine, etc.).
+   * @param terrain  Le terrain sur lequel on se trouve (plaine, etc.).
    * @param x     La position dans le tableau en abscisse.
    * @param y     La position dans le tableau en ordonnee.
    * @param unite L'unite qui se trouve sur la case (peut valoir 'null').
    */
-  public void dessineCase (Graphics g, int type, int x, int y, AbstractUnite unite) {
-    System.out.println("paint");
+
+
+  public void dessineCase (Graphics g, AbstractTerrain terrain, int x, int y, AbstractUnite unite) {
     // On dessine le terrain correspondant a la case donnee.
-    chemin(g, type, y, x);
+    chemin(g, terrain, y, x);
 
     // On met a jour le brouillard de guerre sur cette case.
     switch (joueur.getVision()[y + tabI - 1][x + tabJ - 1]) {
@@ -284,15 +288,13 @@ public class PanelMap extends Map {
    * @param y     La position dans le tableau en ordonnee.
    * @param unite L'unite qui se trouve sur la case (peut valoir 'null').
    */
-  public void dessineChemin(Graphics g,int type, int x, int y, AbstractUnite unite) {
+  public void dessineChemin(Graphics g, AbstractTerrain terrain, int x, int y, AbstractUnite unite) {
     if (unite != null){
       pion = unite;
       int etape = unite.getStatusChemin();
       if (etape+1 < unite.getChemin().length){
-        System.out.println("bouge "+ bouge);
-        System.out.println("taille chemin "+unite.getChemin().length);
-        System.out.println("etape "+ etape);
         if (bouge){
+
           // la couleur et l'image necessaire
           Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, ""); 
           BufferedImage uni;
@@ -303,19 +305,18 @@ public class PanelMap extends Map {
             uni = Variable.tImUni2[unite.getIndice()-1];
           }
 
-          // les coordonnees de l'etape du chemin ou on est
+          // abscisse de la case actuelle et de la suivante
           int a1 = unite.getChemin()[etape][0];
-          System.out.println("a1 "+ a1);
           int a2 = unite.getChemin()[etape+1][0];
-          System.out.println("a2 "+ a2);
-          // les coordonnees de la prochaine case
+          // ordonnees de la case actuelle et de la suivante
           int b1 = unite.getChemin()[etape][1];
           int b2 = unite.getChemin()[etape +1][1];
 
           int a3 = Math.max(a1, a2);
-          System.out.println("a max "+ a3);
           int b3 = Math.max(b1, b2);
-          System.out.println("b max "+ b3);
+          //System.out.println("a "+ a3);
+          //System.out.println("b "+ b3);
+
 
           int status = unite.getStatusMouv();
           if (status < 3)
@@ -325,16 +326,23 @@ public class PanelMap extends Map {
             unite.setStatusChemin(etape+1);
           }
           int pas = (taillePixel/4) * status;
-          System.out.println("pas "+ pas);
 
           // Egal a 1 ou -1 pour connaitre la direction
           int orientationX = a1 - a2;
           int orientationY = b1 - b2;
           if (a3 !=0 && b3 != 0){
+            m= b3;
+            n= a3;
+            g.clearRect(a3*taillePixel, b3*taillePixel, taillePixel, taillePixel);
+            //chemin(g, terrain, y, x);
             if (unite instanceof General){
-              makeForm(g, oval, b3, a3, posJ+80+(pas*orientationX), posI+35+(pas*orientationY), 60, 20, color);
-              g.drawImage(uni,(b3 * taillePixel)- posJ-80, (a3*taillePixel)-posI-80, this);
+              makeForm(g, oval, a3, b3, posJ+80+(pas*orientationY), posI+35+(pas*orientationX), 60, 20, color);
+              g.drawImage(uni,(a3 * taillePixel)- posJ - 80 -(pas*orientationY), (b3*taillePixel)-posI-80-(pas*orientationX), this);
             }
+          }
+          if (a3 == 0 && b3 ==0){
+            m=-1;
+            n=-1;
           }
           bouge = false;
         }         
@@ -344,6 +352,8 @@ public class PanelMap extends Map {
         unite.setStatusChemin(0);
         unite.setMouvement(false);
         unite.setChemin(new int[0][0]);
+        m=-1;
+        n=-1;
       }
     }
 
@@ -431,13 +441,14 @@ public class PanelMap extends Map {
   /**
    * Permet d'obtenir l'image adaptee en fonction du terrain et des cases adjcentes.
    * @param g    Le contenu Graphics donne par Java.
-   * @param type le type du terrain considere.
+   * @param terrain le terrain considere.
    * @param x    La position dans le tableau en abscisse.
    * @param y    La position dans le tableau en ordonnee.
    */
-  public void chemin (Graphics g, int type, int x, int y) {
+  public void chemin (Graphics g, AbstractTerrain terrain, int x, int y) {
     // les differentes variables de la fonction.
     // Le terrain est necessaire afin de calculer les terrains adjacents a la case observee.
+    int type = terrain.getType();
     AbstractTerrain[][] t = plateau.getTerrain();
     // Contiendra l'image renvoyee par la fonction.
     BufferedImage img = Variable.tImTer[type];
@@ -458,11 +469,11 @@ public class PanelMap extends Map {
         int[] tab = {a, b, c, d};
         // On calcule le type du terrain adjacent.
         j = chercherTerrain(tab);
-        // On calcule la chaîne binaire qui sera en prefixe de l'image.
+        // On calcule la chaine binaire qui sera en prefixe de l'image.
         chemin = indice(j, a) + "" + indice(j, b) + "" + indice(j, c) + "" + indice(j, d);
-        // A partir de la chaîne binaire, on calcule la position cible dans le tableau d'image.
+        // A partir de la chaine binaire, on calcule la position cible dans le tableau d'image.
         place = stringBinaryToInt(chemin);
-        // En fonction du terrain, on a chercher l'image adequate.
+        // En fonction du terrain, on a cherche l'image adequate.
         switch (j) {
           case 0 : img = Variable.tImPlaineForet[place]; break;
           case 2 : img = Variable.tImPlaineEau[place]; break;
@@ -481,9 +492,15 @@ public class PanelMap extends Map {
             img = Variable.tImEauPlageCoin[3];
           else if (t[x + tabI][y + tabJ].getType() == 1)
             img = Variable.tImEauPlageCoin[4];
-          break;
+        }else{
+          img = Variable.tImEauPlage[place];
         }
-        img = Variable.tImEauPlage[place];
+        break;
+      case 9 :
+        if (terrain instanceof Qg) {
+          Qg qg = (Qg) terrain;
+          img = Variable.tImTer[type + qg.getJoueur().getUnites().get(0).getIndice() - 1];
+        }
     }
     // On dessine l'image.
     g.drawImage(img, (y * taillePixel) - posJ - 100, (x * taillePixel) - posI - 100, this);

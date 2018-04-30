@@ -274,9 +274,11 @@ public class Vue extends JFrame {
         boutonCreationUniteMaritime = new JButton("Creer une unite maritime");
         button = boutonCreationUniteMaritime;
       }
-      button.setFocusable(false);
-      button.addActionListener(aL);
-      textInfos.insertComponent(button);
+      if (button != null) { // cas des villes permettant de produire des unites
+        button.setFocusable(false);
+        button.addActionListener(aL);
+        textInfos.insertComponent(button);
+      }
     }
 
     afficher(textInfos, "", "", Color.WHITE);

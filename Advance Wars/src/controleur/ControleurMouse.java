@@ -21,10 +21,8 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // Booleen permettant de savoir si on se deplace.
   protected boolean deplacement;
 
-  // Patate.
   protected int[][] chemin;
 
-  // Patate.
   protected int distance;
 
   // ********************************************
@@ -84,7 +82,6 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
           if (!map.getAttaque() && unite == null){
               if (cliquee.getDeplace() + Math.abs((j) - cliquee.getX()) + Math.abs((i) - cliquee.getY()) <= cliquee.getDistance()) {
                 cliquee.setMouvement(true);
-                System.out.println("Mouv true ? "+ cliquee.getMouvement());
                 vue.getMap().mouvement(cliquee, chemin);
               } 
               deplacement = false;
