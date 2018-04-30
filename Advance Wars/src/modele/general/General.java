@@ -18,21 +18,6 @@ public abstract class General extends AbstractUnite {
    * @param c   Type de combat.
    * @param d   Type de deplacement.
    * @param dis Distance possible de deplacements par tour.
-   *
-   * @param vis Nombre de cases de visibilite du general.
-   * @param ess [description]
-   * @param t   Type de l'unite.
-   * @param j   Joueur possedant l'unite.
-   * @param x   Position de l'unite en abscisse.
-   * @param y   Position de l'unite en ordonnee.
-   * @param i   L'indice de l'unite dans le tableau du type d'unite.
-   */
-  /**
-   * @param n   Nom du general.
-   * @param pM  Points de vie maximum.
-   * @param c   Type de combat.
-   * @param d   Type de deplacement.
-   * @param dis Distance possible de deplacements par tour.
    * @param por Portee du joueur.
    * @param vis Nombre de cases de visibilite du general.
    * @param t   Type de l'unite.
