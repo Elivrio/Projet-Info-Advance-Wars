@@ -260,6 +260,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
   public void attaquer (AbstractUnite cible) {
     cible.setPV(-getDegats());
     cible.setAnimDegats(getDegats());
+    attaque = false;
     // implementation du son
     Clip son; // clip du son
     File song; // fichier son
@@ -279,8 +280,7 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
       son = AudioSystem.getClip();
       son.open(AudioSystem.getAudioInputStream(url));
       son.start();
-    } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e){}
-    attaque = false;
+    } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e) {}
   }
 
   /**
