@@ -40,15 +40,15 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
   // *************** Getters ***************
   // ***************************************
 
-  //calcul de la case cliquee
+  // calcul de la case cliquee
   public int getI (MouseEvent me, int taillePixel) {
-    int y = me.getY() + map.getTabI()*100 + map.getPosI();
-    return y/taillePixel;
+    int y = me.getY() + map.getTabI() * 100 + map.getPosI();
+    return y / taillePixel;
   }
 
   public int getJ (MouseEvent me, int taillePixel) {
-    int x = me.getX() + map.getTabJ()*100 + map.getPosJ();
-    return x/taillePixel;
+    int x = me.getX() + map.getTabJ() * 100 + map.getPosJ();
+    return x / taillePixel;
   }
 
   // ****************************************************
@@ -75,7 +75,7 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     deplacement = true;
     chemin(unite);
 
-    // Si les deplacements sont affiches et qu'on clique sur une case cible possible, on y va
+    // Si les deplacements sont affiches et qu'on clique sur une case cible possible, on se deplace.
     if (cliquee != null
         && map.getJoueur().possede(cliquee)
         && (i - 1 >= 0)
@@ -119,7 +119,10 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     miniMap.repaint();
   }
 
-  // creation de la taille possible du chemin
+  /**
+   * Creation de la taille possible du chemin en fonction de la valeur de deplacement dans unite
+   * @param cliquee L'unite consideree.
+   */
   public void chemin (AbstractUnite cliquee) {
     if (cliquee != null) {
       int tailleChemin = cliquee.getDistance()-cliquee.getDeplace();
@@ -149,20 +152,38 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
     return null;
   }
 
+  /**
+   * Renvoie l'unite presente sur le terrain a la case [i][j]
+   * @param  i L'indice du premier tableau
+   * @param  j L'indice du deuxieme tableau
+   * @return   Renvoie l'unite trouvee.
+   */
   public AbstractUnite isUnite (int i, int j) {
     return map.getUnites()[i][j];
   }
 
+  /**
+   * Renvoie le terrain present a la case [i][j]
+   * @param  i L'indice du premier tableau
+   * @param  j L'indice du deuxieme tableau
+   * @return   Renvoie le terrain trouve.
+   */
   public AbstractTerrain isTerrain (int i, int j) {
     return map.getTerrain()[i][j];
   }
 
+  // Fonctions d'interfaces non utilisees.
   @Override
   public void mouseExited(MouseEvent me) {}
   public void mouseEntered(MouseEvent me) {}
   public void mouseReleased(MouseEvent me) {}
   public void mousePressed(MouseEvent me) {}
 
+  /**
+   * Permet de stocker en memoire le chemin parcouru par la souris depuis une unite.
+   * Le but est de refaire le meme parcours avec l'unite plus tard.
+   * @param me Un evenement donne par java pour signaler que la souris se deplace.
+   */
   @Override
   public void mouseMoved(MouseEvent me) {
     AbstractUnite cliquee = map.getCliquee();
@@ -199,11 +220,12 @@ public class ControleurMouse extends Controleur implements MouseMotionListener, 
           chemin[distance][1] = j;
         }
       }
-      if (chemin != null && chemin.length>0)
+      if (chemin != null && chemin.length > 0)
         cliquee.setChemin(chemin);
     }
   }
 
+  // Fonction d'interface non utilisee.
   @Override
   public void mouseDragged(MouseEvent me) {}
 }
