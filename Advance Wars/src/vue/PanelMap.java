@@ -86,13 +86,13 @@ public class PanelMap extends Map {
     n = -1;
     Clip son; // clip du son
     File song; // fichier son
-    song = new File("src/variable/son/ohoho.wav");
+    song = new File("src/variable/son/bg.wav");
     try{
       URL url = song.toURI().toURL();
       // System.out.println(url); // test pour verifier si l'url est correct
       son = AudioSystem.getClip();
       son.open(AudioSystem.getAudioInputStream(url));
-      //son.loop(Clip.LOOP_CONTINUOUSLY);
+      son.loop(Clip.LOOP_CONTINUOUSLY);
     } catch (LineUnavailableException|UnsupportedAudioFileException|IllegalArgumentException|IOException e) {}
   }
 
@@ -275,7 +275,7 @@ public class PanelMap extends Map {
         color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
 
         // Il y a distinction entre un general et une unite normale, les generaux sont plus grands.
-      
+
         if (unite instanceof General) {
           // Le socle d'un general.
           makeForm(g, oval, x, y, posJ + 80, posI + 35, 60, 20, color);
@@ -319,7 +319,7 @@ public class PanelMap extends Map {
         if (bouge){
 
           // la couleur et l'image necessaire
-          Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, ""); 
+          Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
           BufferedImage uni;
           if (animation) {
             uni = Variable.tImUni1[unite.getIndice()-1];
@@ -371,7 +371,7 @@ public class PanelMap extends Map {
             n = -1;
           }
           bouge = false;
-        }        
+        }
       }
       else {
         pion = null;
@@ -549,9 +549,9 @@ public class PanelMap extends Map {
       }
     }
   }
-  
-  /** 
-   * Fonction qui change l'unite de place 
+
+  /**
+   * Fonction qui change l'unite de place
    * @param unite   l'unite qui bouge
    * @param chemin  le chemin qu'elle prend
    */
