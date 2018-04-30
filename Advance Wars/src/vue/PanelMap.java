@@ -87,7 +87,7 @@ public class PanelMap extends Map {
     Clip son; // clip du son
     File song; // fichier son
     song = new File("src/variable/son/ohoho.wav");
-    try{
+    try {
       URL url = song.toURI().toURL();
       // System.out.println(url); // test pour verifier si l'url est correct
       son = AudioSystem.getClip();
@@ -197,8 +197,6 @@ public class PanelMap extends Map {
    * @param y     La position dans le tableau en ordonnee.
    * @param unite L'unite qui se trouve sur la case (peut valoir 'null').
    */
-
-
   public void dessineCase (Graphics g, AbstractTerrain terrain, int x, int y, AbstractUnite unite) {
     // On dessine le terrain correspondant a la case donnee.
     chemin(g, terrain, y, x);
@@ -275,7 +273,7 @@ public class PanelMap extends Map {
         color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
 
         // Il y a distinction entre un general et une unite normale, les generaux sont plus grands.
-      
+
         if (unite instanceof General) {
           // Le socle d'un general.
           makeForm(g, oval, x, y, posJ + 80, posI + 35, 60, 20, color);
@@ -319,7 +317,7 @@ public class PanelMap extends Map {
         if (bouge){
 
           // la couleur et l'image necessaire
-          Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, ""); 
+          Color color = new MyColor(unite.getJoueur().getColor().getRGB(), 150, "");
           BufferedImage uni;
           if (animation) {
             uni = Variable.tImUni1[unite.getIndice()-1];
@@ -371,7 +369,7 @@ public class PanelMap extends Map {
             n = -1;
           }
           bouge = false;
-        }        
+        }
       }
       else {
         pion = null;
@@ -460,10 +458,6 @@ public class PanelMap extends Map {
     }
   }
 
-  /*public void animDeplacement(Graphics g,String form ,int x, int y, int modX, int ModY, int width,int secondWidth, int height, Color color){
-
-  }*/
-
   /**
    * Permet d'obtenir l'image adaptee en fonction du terrain et des cases adjcentes.
    * @param g    Le contenu Graphics donne par Java.
@@ -518,7 +512,7 @@ public class PanelMap extends Map {
             img = Variable.tImEauPlageCoin[3];
           else if (t[x + tabI][y + tabJ].getType() == 1)
             img = Variable.tImEauPlageCoin[4];
-        }else{
+        } else {
           img = Variable.tImEauPlage[place];
         }
         break;
@@ -549,9 +543,9 @@ public class PanelMap extends Map {
       }
     }
   }
-  
-  /** 
-   * Fonction qui change l'unite de place 
+
+  /**
+   * Fonction qui change l'unite de place
    * @param unite   l'unite qui bouge
    * @param chemin  le chemin qu'elle prend
    */
