@@ -279,8 +279,8 @@ public abstract class AbstractUnite implements Combat, TypeUnite, Deplacement {
       son = AudioSystem.getClip();
       son.open(AudioSystem.getAudioInputStream(url));
       son.start();
-    } catch (LineUnavailableException|UnsupportedAudioFileException|IOException e){}
-    attaque = false;
+    } catch (IllegalArgumentException | LineUnavailableException | UnsupportedAudioFileException | IOException e) {}
+      attaque = false;
   }
 
   /**
